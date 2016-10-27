@@ -1,0 +1,10 @@
+[package]
+name = "registers"
+version = "0.1.0"
+authors = ["Jorge Aparicio <japaricious@gmail.com>"]
+
+[dependencies]
+pg = { path = "pg" }
+
+[profile.release]
+lto = true

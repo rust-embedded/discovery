@@ -1,0 +1,7 @@
+[target.thumbv7em-none-eabihf]
+rustflags = [
+  "-C",
+  "link-arg=-Tstm32f3discovery.ld",
+  "-C",
+  "link-arg=-nostartfiles",
+]

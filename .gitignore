@@ -1,0 +1,5 @@
+*.org
+/template
+Cargo.lock
+book/
+target/

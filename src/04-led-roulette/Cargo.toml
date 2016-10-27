@@ -1,0 +1,10 @@
+[package]
+authors = ["Jorge Aparicio <japaricious@gmail.com>"]
+name = "led-roulette"
+version = "0.1.0"
+
+[dependencies]
+pg = { path = "pg" }
+
+[profile.release]
+lto = true

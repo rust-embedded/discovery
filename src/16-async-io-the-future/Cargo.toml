@@ -1,0 +1,11 @@
+[package]
+authors = ["Jorge Aparicio <japaricious@gmail.com>"]
+name = "async"
+version = "0.1.0"
+
+[dependencies]
+fixedvec = "0.2.3"
+pg = { path = "pg" }
+
+[profile.release]
+lto = true

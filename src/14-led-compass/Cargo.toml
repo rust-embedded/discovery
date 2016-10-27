@@ -1,0 +1,11 @@
+[package]
+name = "led-compass"
+version = "0.1.0"
+authors = ["Jorge Aparicio <japaricious@gmail.com>"]
+
+[dependencies]
+m = "0.1.1"
+pg = { path = "pg" }
+
+[profile.release]
+lto = true

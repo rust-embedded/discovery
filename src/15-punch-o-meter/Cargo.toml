@@ -1,0 +1,11 @@
+[package]
+authors = ["Jorge Aparicio <japaricious@gmail.com>"]
+name = "punch-o-meter"
+version = "0.1.0"
+
+[dependencies]
+m = "0.1.1"
+pg = { path = "pg" }
+
+[profile.release]
+lto = true
