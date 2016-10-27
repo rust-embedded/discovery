@@ -4,6 +4,7 @@ sudo: required
 rust: stable
 
 install:
+  - export PATH="$PATH:$HOME/.cargo/bin"
   - command -v mdbook || cargo install mdbook
   - command -v ghp || cargo install ghp
 
