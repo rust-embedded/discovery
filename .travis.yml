@@ -12,11 +12,12 @@ script:
   - mdbook build
 
 after_success:
-  # - if [ $TRAVIS_PULL_REQUEST = false ]; then
-  - ghp -m "$(git rev-parse HEAD)" book &&
-    git config user.name 'Jorge Aparicio' &&
-    git config user.email 'japaricious@gmail.com' &&
-    git push -fq https://$GH_TOKEN@github.com/$TRAVIS_REPO_SLUG.git gh-pages;
+  - if [ $TRAVIS_PULL_REQUEST = false ]; then
+      ghp -m "$(git rev-parse HEAD)" book &&
+      git config user.name 'Jorge Aparicio' &&
+      git config user.email 'japaricious@gmail.com' &&
+      git push -fq https://$GH_TOKEN@github.com/$TRAVIS_REPO_SLUG.git gh-pages
+    fi
 
 env:
   global:
