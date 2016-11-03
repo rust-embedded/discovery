@@ -16,7 +16,7 @@ after_success:
       ghp -m "$(git rev-parse HEAD)" book &&
       git config user.name 'Jorge Aparicio' &&
       git config user.email 'japaricious@gmail.com' &&
-      git push -fq https://$GH_TOKEN@github.com/$TRAVIS_REPO_SLUG.git gh-pages
+      git push -fq https://$GH_TOKEN@github.com/$TRAVIS_REPO_SLUG.git gh-pages;
     fi
 
 env:
