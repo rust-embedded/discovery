@@ -39,7 +39,7 @@ pub extern "C" fn main() -> ! {
         iprintln!("ODR = 0x{:04x}",
                   ptr::read_volatile(GPIOE_ODR as *const u16));
 
-        // Turn on the EAST LED
+        // Turn off the EAST LED
         ptr::write_volatile(GPIOE_BSRR as *mut u32, 1 << (11 + 16));
     }
 
