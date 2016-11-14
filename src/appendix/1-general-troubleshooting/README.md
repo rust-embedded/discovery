@@ -27,8 +27,8 @@ in procedure 'ocd_bouncer'
 - Windows: You are probably missing the ST-LINK USB driver. Installation
   instructions [here].
 
-[these instructions]: 01-installation-instructions/linux.html#udev%20rules
-[here]: 01-installation-instructions/windows.html#ST-LINK%20USB%20driver
+[these instructions]: 02-setup/linux.html#udev%20rules
+[here]: 02-setup/windows.html#ST-LINK%20USB%20driver
 
 ### can't connect to OpenOCD - "Polling again in X00ms"
 

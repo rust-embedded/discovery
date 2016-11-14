@@ -3,6 +3,11 @@
 We have barely scratched the surface! There's lots of stuff left for you to
 explore:
 
+(Though I may be covering some of these topics in the future. Check the [issue
+tracker]).
+
+[issue tracker]: https://github.com/japaric/rust-discovery/issues?q=is:issue+is:open+label:new-topic
+
 ## Direct Memory Access (DMA).
 
 This peripheral is a kind of *asynchronous* `memcpy`. So far our programs have
