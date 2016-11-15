@@ -1,6 +1,10 @@
-# Hardware requirements
+# Hardware/knowledge requirements
 
-To follow this material you'll need the following hardware:
+The only "knowledge requirement" to read this book is to know "some" Rust. It's
+hard for me to quantify "some" but at least I can tell you that you don't need
+to grok generics but you do need to know how to use closures.
+
+Also, to follow this material you'll need the following hardware:
 
 (Some components are optional but recommended)
 
@@ -46,11 +50,18 @@ To follow this material you'll need the following hardware:
 <img title="Jumper wires" src="assets/jumper-wires.jpg">
 </p>
 
+> **FAQ**: Wait, why do I need this specific hardware?
+
+It makes my life and yours much easier.
+
+The material is much, much more approachable if we don't have to worry about
+hardware differences. Trust me on this one.
+
 > **FAQ**: Can I follow this material with a different development board?
 
 Maybe? It depends mainly on two things: your previous experience with
-microcontrollers and/or whether there already exists a crate for your
-development board somewhere.
+microcontrollers and/or whether there already exists a high level crate, like
+the [f3], for your development board somewhere.
 
 Regardless, with a different development board, this text would lost most if not
 all its beginner friendliness and "easy to follow"-ness, IMO.

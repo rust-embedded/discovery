@@ -4,8 +4,24 @@
 
 [Rust]: https://www.rust-lang.org/en-US/
 
-This book is an introductory course in microcontroller-based "embedded systems"
-using Rust as the teaching language rather than the usual C/C++.
+This book is an "introductory course" on microcontroller-based "embedded
+systems" that uses Rust as the teaching language rather than the usual C/C++.
+
+## Scope
+
+The following topics will be covered (eventually, I hope):
+
+- How to write, build, flash and debug an "embedded" (Rust) program.
+
+- Functionality ("peripherals") commonly found in microcontrollers: Digital
+  input and output, Pulse Width Modulation (PWM), Analog to Digital Converters
+  (ADC), common communication protocols like Serial, I2C and SPI, etc.
+
+- Multitasking concepts: cooperative vs preemptive multitasking, interrupts,
+  schedulers, etc.
+
+- Control systems concepts: sensors, calibration, digital filters, actuators,
+  open loop control, closed loop control, etc.
 
 ## Approach
 
@@ -15,25 +31,13 @@ using Rust as the teaching language rather than the usual C/C++.
 - Hands on. Plenty of exercises to put the theory into practice. *You* will be
   doing most of the work here.
 
-- Tool centered. We'll make plenty use of tooling to ease development. Debugging
-  and logging will be introduced early on. Using LEDs as a debugging mechanism
-  has no place here.
-
-## Scope
-
-The following topics will be covered (eventually, I hope):
-
-- Functionality ("peripherals") commonly found in microcontrollers: Digital
-  input and output, Pulse Width Modulation (PWM), Analog to Digital Converters
-  (ADC), and common communication protocols: Serial, I2C, SPI, etc.
-
-- Multitasking concepts: cooperative vs preemptive multitasking, interrupts,
-  schedulers, etc.
-
-- Control systems concepts: sensors, calibration, digital filters, actuators,
-  open loop control, closed loop control, etc.
+- Tool centered. We'll make plenty use of tooling to ease development. "Real"
+  debugging, GDB, and logging will be introduced early on. Using LEDs as a
+  debugging mechanism has no place here.
 
 ## Non-goals
+
+What's out of scope for this book:
 
 - Teaching Rust. There's plenty of material on that topic already. We'll focus
   on microcontrollers and embedded systems.
@@ -41,11 +45,11 @@ The following topics will be covered (eventually, I hope):
 - Being a comprehensive text about electric circuit theory or electronics.
   We'll just cover the minimum required to understand how some devices work.
 
-- Port this material to any other development board. I only have so much time.
-  This book will make exclusive use of the STM32F3DISCOVERY board.
-
-- Cover Rustic, low level details. We won't be talking about linker scripts,
+- Covering Rustic, low level details. We won't be talking about linker scripts,
   the boot process or how to glue those two into a minimally working Rust
   program. The [Copper] book has information on those topics though.
+
+Also I don't intent to port this material to other development boards; this book
+will make exclusive use of the STM32F3DISCOVERY development board.
 
 [Copper]: https://japaric.github.io/copper/
