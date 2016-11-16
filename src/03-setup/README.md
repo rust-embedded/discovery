@@ -115,6 +115,6 @@ $ cargo install itm
 
 ### OS specific instructions
 
-- [Linux](02-setup/linux.html)
-- [Windows](02-setup/windows.html)
-- [macOS](02-setup/macos.html)
+- [Linux](03-setup/linux.html)
+- [Windows](03-setup/windows.html)
+- [macOS](03-setup/macos.html)
