@@ -47,7 +47,7 @@ We'll use the `itmdump` program to perform the parsing "on the fly".
 You should have already installed the `itmdump` program during the [installation
 chapter].
 
-[installation chapter]: 02-setup/README.html#itmdump
+[installation chapter]: 03-setup/README.html#itmdump
 
 In a new terminal, run this command inside the `/tmp` directory, if you are
 using a *nix OS, or from within the `%TEMP%` directory, if you are running

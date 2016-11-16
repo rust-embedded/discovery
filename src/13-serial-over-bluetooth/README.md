@@ -23,7 +23,7 @@ Recommended steps to wire this up:
 - Re-launch OpenOCD and `itmdump`.
 
 And that's it! You should be able to run all the programs you wrote in [section
-10] without modification! Just make sure you open the right serial device / COM
+11] without modification! Just make sure you open the right serial device / COM
 port.
 
-[section 10]: 10-usart/README.html
+[section 10]: 11-usart/README.html

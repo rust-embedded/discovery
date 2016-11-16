@@ -30,7 +30,7 @@ crw-rw-r-- 1 root uucp 189, 262 Oct 27 00:00 /dev/bus/usb/003/004
 The group should be `uucp`. If it's not ... then check your [udev rules] and try
 re-loading them with:
 
-[udev rules]: 01-installation-instructions/linux.html#udev%20rules
+[udev rules]: 03-setup/linux.html#udev%20rules
 
 ```
 $ sudo udevadm control --reload-rules

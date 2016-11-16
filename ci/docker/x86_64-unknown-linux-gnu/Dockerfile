@@ -5,7 +5,8 @@ RUN apt-get update && \
     curl \
     gcc \
     gcc-arm-none-eabi \
-    libc6-dev
+    libc6-dev \
+    linkchecker
 RUN curl -LSfs https://japaric.github.io/trust/install.sh | \
     sh -s -- --git azerupi/mdbook --tag v0.0.14 --target x86_64-unknown-linux-gnu --to /usr/bin
 RUN curl -LSfs https://japaric.github.io/trust/install.sh | \
