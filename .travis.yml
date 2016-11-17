@@ -21,6 +21,7 @@ install:
     fi
 
 script:
+  - echo $TRAVIS_PULL_REQUEST
   - if [ $TRAVIS_PULL_REQUEST != false ] ; then
       if [[ $TRAVIS_OS_NAME = linux ]]; then
         sh ci/run-docker.sh $TARGET || exit 1;
