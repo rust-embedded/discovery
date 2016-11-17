@@ -11,7 +11,7 @@ env:
     - TARGET=x86_64-unknown-linux-gnu
 
 install:
-  - if [ $TRAVIS_PULL_REQUEST != false ] ; then
+  - if [ $TRAVIS_BRANCH != master ] ; then
       curl https://sh.rustup.rs -sSf |
         sh -s -- -y --default-toolchain $TRAVIS_RUST_VERSION;
 
@@ -21,7 +21,7 @@ install:
     fi
 
 script:
-  - if [ $TRAVIS_PULL_REQUEST != false ] ; then
+  - if [ $TRAVIS_BRANCH != master ] ; then
       if [[ $TRAVIS_OS_NAME = linux ]]; then
         sh ci/run-docker.sh $TARGET || exit 1;
       else
