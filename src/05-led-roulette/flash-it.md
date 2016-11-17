@@ -29,6 +29,11 @@ $ openocd \
   -f target/stm32f3x.cfg
 ```
 
+> **NOTE** Older revisions need to pass slightly different arguments to
+> `openocd`. Review [this section] for the details.
+
+[this section]: 03-setup/verify.html#First%20OpenOCD%20connection
+
 The program will block; leave that terminal open.
 
 Now it's a good time to explain what this command is actually doing.
