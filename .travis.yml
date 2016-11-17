@@ -32,7 +32,7 @@ script:
     fi
 
 after_success:
-  - if [ $TARGET = x86_64-unknown-linux-gnu ] && [ $TRAVIS_BRANCH = master ] && [ $TRAVIS_PULL_REQUEST = false ]; then
+  - if [ $TARGET = x86_64-unknown-linux-gnu ] && [ $TRAVIS_BRANCH = master ]; then
       curl -LSfs https://japaric.github.io/trust/install.sh |
         sh -s -- --git azerupi/mdbook --tag v0.0.14 --to .;
 
