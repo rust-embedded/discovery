@@ -22,8 +22,8 @@ Let's get familiar with the readings of the magnetometer by running the
 following starter code:
 
 ``` rust
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     loop {
         iprintln!("{:?}", lsm303dlhc::magnetic_field());

@@ -11,8 +11,8 @@ lets you retrieve the current output status of Port E.
 Let's try this program:
 
 ``` rust
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     unsafe {
         const GPIOE_BSRR: u32 = 0x4800_1018;

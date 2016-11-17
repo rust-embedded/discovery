@@ -3,8 +3,8 @@
 If you wrote your program like this:
 
 ``` rust
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     let usart1 = unsafe { peripheral::usart1_mut() };
 
@@ -55,8 +55,8 @@ We can actually time how long it takes to execute the `for` loop. There's a
 the one in `std::time`.
 
 ``` rust
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     use pg::time::{FREQUENCY, Instant};
 
@@ -100,8 +100,8 @@ data loss.
 Let's use that to slowdown the processor.
 
 ``` rust
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     let usart1 = unsafe { peripheral::usart1_mut() };
 

@@ -43,8 +43,8 @@ use m::Float;
 use pg::I16x3;
 use pg::lsm303dlhc;
 
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     const XY_GAIN: f32 = 1100.; // LSB / G
     const Z_GAIN: f32 = 980.; // LSB / G

@@ -4,8 +4,8 @@
 
 extern crate pg;
 
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     let y;
     let x = 42;

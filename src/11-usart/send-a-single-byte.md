@@ -11,8 +11,8 @@ Go into the `10-usart` directory and let's run the starter code therein. Make
 sure that you have minicom/PuTTY open.
 
 ``` rust
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     let usart1 = unsafe { peripheral::usart1_mut() };
 

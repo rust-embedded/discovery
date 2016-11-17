@@ -29,7 +29,7 @@ file:
 
 extern crate pg;
 
-#[export_name = "main"]
+#[no_mangle]
 pub fn main() -> ! {
     let y;
     let x = 42;
@@ -39,7 +39,7 @@ pub fn main() -> ! {
 }
 ```
 
-There's some unusual stuff in it: `#![no_main]`, `#[export_name]` and `main` is
+There's some unusual stuff in it: `#![no_main]`, `#[no_mangle]` and `main` is
 both `pub` and has signature `fn() -> !`. For now, why those are the way they
 are doesn't matter. The only practical implication of all this is that you can't
 return from the `main` function.

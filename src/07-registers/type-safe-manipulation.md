@@ -39,8 +39,8 @@ The best way to get familiar with this API is to port our running example to it.
 
 extern crate pg;
 
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     use pg::peripheral;
 

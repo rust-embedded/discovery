@@ -17,8 +17,8 @@ use core::iter;
 use pg::led::LEDS;
 use pg::{Async, Future, Timer};
 
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     let mut timer = Timer::new().unwrap();
 

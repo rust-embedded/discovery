@@ -10,8 +10,8 @@ data? The status register (`ISR`) has a bit for that purpose: `RXNE`. We can
 just busy wait on that flag.
 
 ``` rust
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     let usart1 = unsafe { peripheral::usart1_mut() };
 

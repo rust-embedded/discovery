@@ -34,8 +34,8 @@ fn delay(ms: u16) {
     // TODO implement this
 }
 
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     unsafe {
         let rcc = peripheral::rcc_mut();

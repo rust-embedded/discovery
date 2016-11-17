@@ -16,7 +16,7 @@ use core::iter;
 use pg::delay;
 use pg::led::LEDS;
 
-#[export_name = "main"]
+#[no_mangle]
 pub fn main() -> ! {
     loop {
         for (current, next) in LEDS.iter()

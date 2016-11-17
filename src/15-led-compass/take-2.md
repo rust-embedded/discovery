@@ -32,8 +32,8 @@ use pg::I16x3;
 use pg::led::Direction;
 use pg::{delay, led, lsm303dlhc};
 
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     loop {
         let I16x3 { x, y, .. } = lsm303dlhc::magnetic_field();

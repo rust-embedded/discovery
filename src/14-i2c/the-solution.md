@@ -1,8 +1,8 @@
 # The solution
 
 ``` rust
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     let i2c1 = unsafe { peripheral::i2c1_mut() };
 

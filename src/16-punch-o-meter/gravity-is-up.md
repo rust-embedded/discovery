@@ -20,8 +20,8 @@ extern crate pg;
 use pg::I16x3;
 use pg::{delay, lsm303dlhc};
 
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     loop {
         const SENSITIVITY: f32 = 8. / ((1 << 15) as f32); // mg / LSB

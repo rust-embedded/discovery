@@ -11,8 +11,8 @@ In this section, you'll have more "fun" with registers: You'll have to configure
 This is the starter code.
 
 ``` rust
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     let (gpioe, rcc) =
         unsafe { (peripheral::gpioe_mut(), peripheral::rcc_mut()) };

@@ -3,8 +3,8 @@
 
 extern crate pg;
 
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     unsafe {
         // A magic address!

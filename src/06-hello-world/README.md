@@ -17,8 +17,8 @@ Go to the `05-hello-world` directory. There's some starter code in it:
 #[macro_use]
 extern crate pg;
 
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     iprintln!("Hello, world!");
 

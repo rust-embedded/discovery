@@ -17,8 +17,8 @@ use fixedvec::FixedVec;
 use pg::{Async, Future, Serial, Timer};
 use pg::led::LEDS;
 
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     let mut timer = Timer::new().unwrap();
     let Serial { mut rx, .. } = Serial::new().unwrap();

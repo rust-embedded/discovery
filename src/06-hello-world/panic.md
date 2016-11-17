@@ -5,8 +5,8 @@ The `panic!` macro also sends its output to the ITM!
 Change the `main` function to look like this:
 
 ``` rust
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     panic!("Hello, world!")
 }

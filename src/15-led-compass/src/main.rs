@@ -7,8 +7,8 @@ extern crate pg;
 
 use pg::{delay, lsm303dlhc};
 
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     loop {
         iprintln!("{:?}", lsm303dlhc::magnetic_field());

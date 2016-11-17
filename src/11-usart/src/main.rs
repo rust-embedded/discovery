@@ -6,8 +6,8 @@ extern crate pg;
 
 use pg::peripheral;
 
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     let usart1 = unsafe { peripheral::usart1_mut() };
 

@@ -11,8 +11,8 @@ This time you'll need a buffer; you can use `FixedVec`. Here's the starter code:
 #[macro_use]
 extern crate fixedvec;
 
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     use fixedvec::{FixedVec, Result};
 

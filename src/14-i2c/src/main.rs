@@ -13,8 +13,8 @@ const MAGNETOMETER: u8 = 0b001_1110;
 const OUT_X_H_M: u8 = 0x03;
 const IRA_REG_M: u8 = 0x0A;
 
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     let i2c1 = unsafe { peripheral::i2c1_mut() };
 

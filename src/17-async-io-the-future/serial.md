@@ -15,8 +15,8 @@ extern crate pg;
 
 use pg::{Async, Future, Serial};
 
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     let Serial { mut rx, mut tx } = Serial::new().unwrap();
 

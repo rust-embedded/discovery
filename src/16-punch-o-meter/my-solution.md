@@ -14,8 +14,8 @@ use m::Float;
 use pg::time::Instant;
 use pg::{delay, lsm303dlhc};
 
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     use pg::time::FREQUENCY as SECONDS;
 

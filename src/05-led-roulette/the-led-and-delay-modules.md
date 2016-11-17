@@ -25,8 +25,8 @@ extern crate pg;
 use pg::delay;
 use pg::led::LEDS;
 
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     let half_period = 500; // ms
 

@@ -13,8 +13,8 @@ In a nutshell, it just writes to some special memory regions. Go into the
 
 extern crate pg;
 
-#[export_name = "main"]
 #[inline(never)]
+#[no_mangle]
 pub fn main() -> ! {
     unsafe {
         // A magic address!
