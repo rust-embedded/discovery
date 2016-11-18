@@ -1,7 +1,5 @@
 # Registers
 
-> **TODO** IMPORTANT! Peripheral memory always starts with 0x4.
-
 It's time to explore what the `Led` API does under the hood.
 
 In a nutshell, it just writes to some special memory regions. Go into the
