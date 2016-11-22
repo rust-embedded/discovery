@@ -38,6 +38,8 @@ after_success:
 
       ./mdbook build;
 
+      sh ga.sh;
+
       mkdir ghp-import;
 
       curl -Ls https://github.com/davisp/ghp-import/archive/master.tar.gz |
