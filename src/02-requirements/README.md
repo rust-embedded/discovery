@@ -12,6 +12,14 @@ Also, to follow this material you'll need the following hardware:
 
 [STM32F3DISCOVERY]: http://www.st.com/en/evaluation-tools/stm32f3discovery.html
 
+(You can purchase this board from "big" [electronics][0] [suppliers][1] or from
+[e-commerce][2] [sites][3])
+
+[0]: http://www.mouser.com/ProductDetail/STMicroelectronics/STM32F3DISCOVERY
+[1]: http://www.digikey.com/product-detail/en/stmicroelectronics/STM32F3DISCOVERY/497-13192-ND
+[2]: https://www.aliexpress.com/wholesale?SearchText=stm32f3discovery
+[3]: http://www.ebay.com/sch/i.html?_nkw=stm32f3discovery
+
 <p align="center">
 <img title="STM32F3DISCOVERY" src="assets/f3.jpg">
 </p>
@@ -22,11 +30,23 @@ Also, to follow this material you'll need the following hardware:
 
 [sparkfun]: https://www.sparkfun.com/products/9873
 
+(Although I haven't tried it myself, the (Chinese) CH340G module, which you can
+buy [e-commerce][4] sites, should work too)
+
+[4]: https://www.aliexpress.com/wholesale?SearchText=CH340G
+
 <p align="center">
 <img title="A 3.3v USB <-> Serial module" src="assets/serial.jpg">
 </p>
 
 - OPTIONAL. A HC-05 Bluetooth module (with headers!). A HC-06 would work too.
+
+(As with other Chinese parts, you pretty much can only find these on
+[e-commerce][5] [sites][6]. (US) Electronics suppliers don't usually stock these
+for some reason)
+
+[5]: http://www.ebay.com/sch/i.html?_nkw=hc-05
+[6]: https://www.aliexpress.com/wholesale?SearchText=hc-05
 
 <p align="center">
 <img title="The HC-05 Bluetooth module" src="assets/bluetooth.jpg">
@@ -43,8 +63,16 @@ Also, to follow this material you'll need the following hardware:
 > Android phone; those are *micro* USB cables. Make sure you have the right
 > thing!
 
-- OPTIONAL. 4 Female/Female, 4 Male/Female and 1 Male/Male jumper wires. Only if
-  you'll be using the USB <-> Serial and Bluetooth modules.
+- OPTIONAL. 4 Female to Female, 4 Male to Female and 1 Male to Male jumper (or
+  "Dupont") wires. Only if you'll be using the USB <-> Serial and Bluetooth
+  modules.
+
+(You can get these from electronics [suppliers][7] or
+from [e-commerce][8] [sites][9])
+
+[7]: https://www.adafruit.com/categories/306
+[8]: http://www.ebay.com/sch/i.html?_nkw=dupont+wire
+[9]: https://www.aliexpress.com/wholesale?SearchText=dupont+wire
 
 <p align="center">
 <img title="Jumper wires" src="assets/jumper-wires.jpg">
