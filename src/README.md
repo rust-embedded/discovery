@@ -1,6 +1,6 @@
 # Discovery
 
-> Discover the world of microcontrollers through [Rust]
+> Discover the world of microcontrollers through [Rust]!
 
 [Rust]: https://www.rust-lang.org/en-US/
 
@@ -53,3 +53,15 @@ Also I don't intent to port this material to other development boards; this book
 will make exclusive use of the STM32F3DISCOVERY development board.
 
 [Copper]: https://japaric.github.io/copper/
+
+## Sponsored by
+
+<p align="center">
+<a href="http://integer32.com/">
+<img style="width: 50%" title="integer 32" src="assets/integer32.svg">
+</a>
+</p>
+
+Many thanks to [integer 32](http://integer32.com/) for sponsoring me to continue
+working on this book! Please give them lots of work (they do Rust consulting!)
+so they'll have no choice but to hire more Rustaceans <3.
