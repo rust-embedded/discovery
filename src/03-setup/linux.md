@@ -76,7 +76,10 @@ ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", GROUP="uucp"
 
 ```
 $ cat /etc/udev/rules.d/99-openocd.rules
-# STM32F3DISCOVERY - ST-LINK/V2.1
+# STM32F3DISCOVERY rev A/B - ST-LINK/V2
+ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", GROUP="uucp"
+
+# STM32F3DISCOVERY rev C+ - ST-LINK/V2-1
 ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", GROUP="uucp"
 ```
 
