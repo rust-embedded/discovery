@@ -27,7 +27,7 @@ Each peripheral has a register "block" associated to it. A register block is a
 collection of registers allocated in contiguous memory. The address at which
 the register block starts is known as its base address. We need to figure out
 what's the base address of the `GPIOE` peripheral. That information is in the
-following section of the microcontroller Reference Manual:
+following section of the microcontroller [Reference Manual]:
 
 [Reference Manual]: http://www.st.com/resource/en/reference_manual/dm00043574.pdf
 
