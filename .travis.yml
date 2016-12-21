@@ -11,7 +11,8 @@ env:
     - TARGET=x86_64-unknown-linux-gnu
 
 install:
-  - if [ $TRAVIS_BRANCH != master ] ; then
+  # NOTE(TRAVIS_BRANCH) Travis is configured to only build *pushes* (not PRs).
+  - if [ $TRAVIS_BRANCH != master ] || [ $TRAVIS_EVENT_TYPE = cron ]; then
       curl https://sh.rustup.rs -sSf |
         sh -s -- -y --default-toolchain $TRAVIS_RUST_VERSION;
 
@@ -21,7 +22,9 @@ install:
     fi
 
 script:
-  - if [ $TRAVIS_BRANCH != master ] ; then
+  # NOTE(TRAVIS_BRANCH) See the NOTE in the `install` section
+  # chmod: Travis can't cache files that are not readable by "others"
+  - if [ $TRAVIS_BRANCH != master ] || [ $TRAVIS_EVENT_TYPE = cron ]; then
       if [[ $TRAVIS_OS_NAME = linux ]]; then
         sh ci/run-docker.sh $TARGET || exit 1;
       else
@@ -32,7 +35,7 @@ script:
     fi
 
 after_success:
-  - if [ $TARGET = x86_64-unknown-linux-gnu ] && [ $TRAVIS_BRANCH = master ]; then
+  - if [ $TARGET = x86_64-unknown-linux-gnu ] && [ $TRAVIS_BRANCH = master ] && [ $TRAVIS_EVENT_TYPE != cron ]; then
       curl -LSfs https://japaric.github.io/trust/install.sh |
         sh -s -- --git azerupi/mdbook --tag v0.0.14 --to .;
 
