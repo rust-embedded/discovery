@@ -17,7 +17,7 @@ Blinking an LED is like the "Hello, world" of the embedded world.
 But in this section, we'll run a proper "Hello, world" program that prints stuff
 to the console.
 
-Go to the `05-hello-world` directory. There's some starter code in it:
+Go to the `06-hello-world` directory. There's some starter code in it:
 
 ``` rust
 #![deny(unsafe_code)]
