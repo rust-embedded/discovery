@@ -63,7 +63,7 @@ by you is provide the implementation of the `write_str` method.
 ``` rust
 macro_rules! uprint {
     ($($arg:tt)*) => {
-        SerialPort{}.write_fmt(format_args!($($arg)*)).ok()
+        SerialPort{}.write_str(format_args!($($arg)*)).ok()
     };
 }
 
