@@ -1,14 +1,19 @@
 # Hello, world!
 
-> **DISCLAIMER** Several readers have reported that the "solder bridge" SB10 on
-> the STM32F3DISCOVERY, which is required to use the ITM and the `iprint!`
-> macros shown below, is **not** soldered even though the [User Manual][]
-> (page 21) says that it **should be**. TL;DR You'll have to **solder** the
-> solder bridge SB10, if it's not, to be able to use these macros. Note that you
-> can follow the rest of the material if SB10 is not soldered but the `iprint!`
-> macros will have no effect.
+> **HEADS UP** Several readers have reported that the "solder bridge" SB10 (see
+> back of the board) on the STM32F3DISCOVERY, which is required to use the ITM
+> and the `iprint!` macros shown below, is **not** soldered even though
+> the [User Manual][] (page 21) says that it **should be**. TL;DR You have two
+> options to fix this: Either **solder** the solder bridge SB10 or connect a
+> wire between SWO and PB3 as shown in the picture below.
 
 [User Manual]: http://www.st.com/resource/en/user_manual/dm00063382.pdf
+
+<p align="center">
+<img height=640 title="Manual SWD connection" src="assets/f3-swd.png">
+</p>
+
+---
 
 (Just a little more of helpful "magic" before we start doing low level stuff.)
 
