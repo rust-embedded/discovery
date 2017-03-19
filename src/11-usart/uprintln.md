@@ -60,6 +60,9 @@ Let's do that.
 This is what the macro side of the equation looks like. What's left to be done
 by you is provide the implementation of the `write_str` method.
 
+Above we saw that `Write` is in `std::fmt`. We don't have access to `std` but
+`Write` is also available in `core::fmt`.
+
 ``` rust
 macro_rules! uprint {
     ($($arg:tt)*) => {
@@ -78,7 +81,9 @@ macro_rules! uprintln {
 
 struct SerialPort {}
 
-impl Write for SerialPort {
+use core::fmt;
+
+impl fmt::Write for SerialPort {
     fn write_str(&mut self, s: &str) -> fmt::Result {
         // TODO implement this
     }
