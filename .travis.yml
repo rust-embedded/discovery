@@ -13,11 +13,6 @@ env:
 install:
   # NOTE(TRAVIS_BRANCH) Travis is configured to only build *pushes* (not PRs).
   - if [ $TRAVIS_BRANCH != master ] || [ $TRAVIS_EVENT_TYPE = cron ]; then
-      curl https://sh.rustup.rs -sSf |
-        sh -s -- -y --default-toolchain $TRAVIS_RUST_VERSION;
-
-      source ~/.cargo/env;
-
       rustup component add rust-src;
     fi
 
