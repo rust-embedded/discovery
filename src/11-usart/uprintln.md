@@ -66,7 +66,7 @@ Above we saw that `Write` is in `std::fmt`. We don't have access to `std` but
 ``` rust
 macro_rules! uprint {
     ($($arg:tt)*) => {
-        SerialPort{}.write_fmt(format_args!($($arg)*)).ok()
+        SerialPort{}.write_str(format_args!($($arg)*)).ok()
     };
 }
 
