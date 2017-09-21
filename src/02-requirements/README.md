@@ -91,7 +91,7 @@ Maybe? It depends mainly on two things: your previous experience with
 microcontrollers and/or whether there already exists a high level crate, like
 the [f3], for your development board somewhere.
 
-Regardless, with a different development board, this text would lost most if not
+Regardless, with a different development board, this text would lose most if not
 all its beginner friendliness and "easy to follow"-ness, IMO.
 
 If you have a different development board and you don't consider yourself a
