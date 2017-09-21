@@ -15,7 +15,7 @@ repository. Make sure you always have the latest version of the master branch
 because this website tracks that branch.
 
 The starter code is in the `src` directory of that repository. Inside that
-directory there more directories named after each chapter of this book. Most of
+directory there are more directories named after each chapter of this book. Most of
 those directories are starter Cargo projects.
 
 [discovery]: https://github.com/japaric/discovery
