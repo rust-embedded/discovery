@@ -48,18 +48,20 @@ Binary size is something we should always keep an eye on! How big is your
 solution? You can check that using the `size` command on the "release" binary:
 
 ```
-$ arm-none-eabi-size target/thumbv7em-none-eabihf/release/led-roulette
+$ arm-none-eabi-size target/thumbv7em-none-eabihf/*/led-roulette
    text    data     bss     dec     hex filename
-   1006       0       0    1006     3ee target/thumbv7em-none-eabihf/release/led-roulette
+   11484    108       0   11592    2d48 target/thumbv7em-none-eabihf/debug/led-roulette
+   560        0       0     560     230 target/thumbv7em-none-eabihf/release/led-roulette
 ```
 
 > **NOTE** The Cargo project is already configured to build the release binary
 > using LTO.
 
 Know how to read this output? The `text` section contains the program
-instructions. It's around one thousand bytes in my case. OTOH, the `data` and
-`bss` sections contain variables statically allocated in RAM (`static`
-variables). I'm not using any so the sizes of these sections are zero.
+instructions. It's around five hundred bytes in my case. On the other hand, the
+`data` and `bss` sections contain variables statically allocated in RAM
+(`static` variables). I'm not using any so the sizes of these sections are
+zero.
 
 One final thing! We have been running our programs from within GDB but our
 programs don't depend on GDB at all. You can confirm this be closing both GDB

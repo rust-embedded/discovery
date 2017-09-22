@@ -2,7 +2,7 @@
 
 Flashing is the process of moving our program into the microcontroller's
 (persistent) memory. Once flashed, the microcontroller will executed the flashed
-program everytime is powered on.
+program everytime it is powered on.
 
 In this case, our `led-roulette` program will be the *only* program in the
 microcontroller memory. By this I mean that there's nothing else running on the
@@ -127,7 +127,7 @@ Start address 0x8000194, load size 26544
 Transfer rate: 21 KB/sec, 6636 bytes/write.
 ```
 
-And that's it. You'll also new output under the OpenOCD command.
+And that's it. You'll also see new output in the OpenOCD terminal.
 
 ``` diff
  Info : flash size = 256kbytes
