@@ -8,9 +8,9 @@ The Playground crate, `pg`, exposes the `delay` and `led` modules.
 The `delay` module exposes a `ms` function that can block your program for `n`
 milliseconds.
 
-The `led` modules exposes a `LEDS` static variable that holds 8 `Led` `struct`s
-in an array. Each `Led` struct represents an LED on the F3 board and exposes two
-methods: `on` and `off` which can be used to turn the LED on or off,
+The `led` modules exposes a `LEDS` static variable that holds 8 `Led` structs
+in an array. Each `Led` struct represents an LED on the F3 board and exposes
+two methods: `on` and `off` which can be used to turn the LED on or off,
 respectively.
 
 Let's try out this API by modifying the starter code to look like this:
@@ -48,7 +48,8 @@ $ xargo build --target thumbv7em-none-eabihf
 
 > **NOTE** It's quite common to forget to rebuild the program *before* starting
 > a GDB session. This omission can lead to very confusing debug sessions. Always
-> make sure to call `xargo build` **before** calling `gdb`.
+> make sure to call `xargo build` **before** calling `gdb`, or reload the
+> binary using `file /path/to/elf`
 
 Now, we'll have to repeat the flashing procedure that we did in the previous
 section:
@@ -152,7 +153,7 @@ src = 0x40001410
 ```
 
 Regardless of where your program may have stopped you can always look at output
-of the `backtrace` command to learn how you got there:
+of the `backtrace` command (`bt` for short) to learn how you got there:
 
 ```
 (gdb) backtrace
@@ -166,8 +167,8 @@ of the `backtrace` command to learn how you got there:
 #4  0x08000210 in led_roulette::main () at $PWD/src/main.rs:15
 ```
 
-`backtrace` will print back a trace of function calls that lead to the current
-program state.
+`backtrace` will print a trace of function calls from the current function down
+to main.
 
 Back to our topic. To do what we are after, first, we have to return to the
 `main` function. We can do that using the `finish` command. This command resumes

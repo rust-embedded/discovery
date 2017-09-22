@@ -23,7 +23,7 @@ East, etc. As part of the challenge you'll have to figure out how each element
 in the `LEDS` array maps to these cardinal points (hint: `cargo doc --open`
 `;-)`).
 
-Before you attempt this challenge. Let me give you one last tip. Our GDB
+Before you attempt this challenge, let me give you one last tip. Our GDB
 sessions always involve entering the same commands at the beginning. We can use
 a `.gdbinit` file to execute some commands right after GDB is started. This way
 you can save yourself the effort of having to enter them manually on each GDB

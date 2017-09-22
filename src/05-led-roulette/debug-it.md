@@ -50,13 +50,13 @@ At any point you can leave the TUI mode using the following command:
 
 OK. We are now at the beginning of `main`. We can advance the program statement
 by statement using the `step` command. So let's use that twice to reach the `y =
-x` statement.
+x` statement. Once you've typed `step` once you can just hit enter to run it
+again.
 
 ```
 (gdb) step
 11          let x = 42;
-
-(gdb) step
+(gdb)
 12          y = x;
 ```
 
@@ -82,7 +82,7 @@ $4 = (i32 *) 0x20009ff4
 ```
 
 As expected, `x` contains the value `42`. `y`, however, contains the value
-`134218195` (?). Because `y` is uninitialized, it contains some random value.
+`134218195` (?). Because `y` is uninitialized, it contains some garbage value.
 
 The command `print &x` prints the address of the variable `x`. The interesting
 bit here is that GDB output shows the type of the reference: `i32*`, a pointer
@@ -118,7 +118,7 @@ disassemble view with the `layout asm` command and advance one instruction at a
 time using `stepi`.
 
 > **NOTE** If you used the `step` command by mistake and GDB got stuck, you can
-> unstuck it by hitting `Ctrl+C`.
+> get unstuck by hitting `Ctrl+C`.
 
 ```
 (gdb) layout asm
