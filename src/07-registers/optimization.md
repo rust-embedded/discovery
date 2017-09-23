@@ -6,8 +6,9 @@ values to the same register. If you didn't know that address was a register, you
 may have simplified the logic to just write the final value `1 << (11 + 16)`
 into the register.
 
-Actually, LLVM does not know this is a register and will merge the writes thus
-changing the behavior of our program. Let's check that really quick.
+Actually, LLVM, the compiler, does not know this is a register and will merge
+the writes thus changing the behavior of our program. Let's check that really
+quick.
 
 ```
 $ xargo build --target thumbv7em-none-eabihf --release
@@ -87,7 +88,7 @@ pub fn main() -> ! {
         // Turn off the "North" LED
         ptr::write_volatile(GPIOE_BSRR as *mut u32, 1 << (9 + 16));
 
-        // Turn on the "East" LED
+        // Turn off the "East" LED
         ptr::write_volatile(GPIOE_BSRR as *mut u32, 1 << (11 + 16));
     }
 

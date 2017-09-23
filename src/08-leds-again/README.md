@@ -2,7 +2,7 @@
 
 In the last section, I gave you "initialized" peripherals (I initialized them
 before `main`). That's why just writing to `BSRR` was enough to control the
-LEDs. But, peripheral are not "initialized" right after the microcontroller
+LEDs. But, peripherals are not "initialized" right after the microcontroller
 boots.
 
 In this section, you'll have more "fun" with registers: You'll have to configure

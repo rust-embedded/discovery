@@ -75,11 +75,11 @@ Dump of assembler code for function core::ptr::read_volatile<u32>:
 
 The exception was caused by a `ldr` instruction, a read instruction. The
 instruction tried to read the memory at the address indicated by the `r0`
-register. BTW, `r0` is a CPU (processor) register not a microcontroller
+register. By the way, `r0` is a CPU (processor) register not a microcontroller
 register.
 
-Wouldn't it be nice if we could check what was the value of the `r0` register
-right at the instant at which the exception was raised? Well, we can!
+Wouldn't it be nice if we could check what the value of the `r0` register was
+right at the instant when the exception was raised? Well, we can!
 
 If you looked carefully at the GDB output right when the exception was hit, you
 probably saw this:

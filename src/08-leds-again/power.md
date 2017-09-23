@@ -19,7 +19,7 @@ The registers that control the power status of other peripherals are:
 Each bit in these registers controls the power status of a single peripheral,
 including `GPIOE`.
 
-Your task is this section is to power on the `GPIOE` peripheral. You'll have to:
+Your task in this section is to power on the `GPIOE` peripheral. You'll have to:
 
 - Figure out which of the three registers I mentioned before has the bit that
   controls the power status.
