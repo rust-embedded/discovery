@@ -105,7 +105,7 @@ Remember that our microcontroller only supports 6 breakpoints? Well, `bkpt!()`
 *doesn't* count towards that limit of 6. Only breakpoints set in GDB using the
 `break` command count towards that limit. So, feel free to use the `bkpt!`
 instruction in your programs from now on. You'll have to wrap it in `unsafe` and
-add `#![feature(asm)]` to your crate tough because the `asm!` syntax extension
+add `#![feature(asm)]` to your crate though because the `asm!` syntax extension
 is unstable.
 
 As a final note: Although very useful, ITM is not meant to be used in
