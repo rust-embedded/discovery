@@ -19,7 +19,7 @@ pub fn main() -> ! {
         // Turn off the "North" LED
         *(GPIOE_BSRR as *mut u32) = 1 << (9 + 16);
 
-        // Turn on the "East" LED
+        // Turn off the "East" LED
         *(GPIOE_BSRR as *mut u32) = 1 << (11 + 16);
     }
 

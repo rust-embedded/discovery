@@ -69,11 +69,11 @@ more human friendly: `gpioe.bsrr` to refer to the `BSRR` register in the `GPIOE`
 register block.
 
 Then we have this `write` method that takes a closure. If the "identity" closure
-is used: `|w| w`, this method will set the register to its "reset value", the
+is used (`|w| w`), this method will set the register to its "reset value", the
 value it had right after the microcontroller was powered on / reset. That value
 is `0x0` for the `BSRR` register. Since we want to write a non-zero value to the
-register, we use builder methods like `bs9` to set (`true`) or reset (`false`)
-some of the bits of the register value.
+register, we use builder methods like `bs9` to set (`true`) or `br9` reset
+(`false`) some of the bits of the register value.
 
 Let's run this program! There's some interesting stuff we can do *while*
 debugging the program.
@@ -87,8 +87,8 @@ $1 = (f3::peripheral::gpio::Gpio *) 0x48001000
 ```
 
 But if we instead `print *gpioe`, we'll get a "full view" of the register block.
-The value of each of its registers will be printed. I recommend setting `set
-print pretty on` first, though, to make the output more readable.
+The value of each of its registers will be printed. I recommend enabling pretty
+print (`set print pretty on`) first, though, to make the output more readable.
 
 ```
 (gdb) set print pretty on

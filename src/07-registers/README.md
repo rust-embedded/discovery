@@ -16,18 +16,18 @@ extern crate pg;
 pub fn main() -> ! {
     unsafe {
         // A magic address!
-        const GPIOE_BSRR: u32 = 0x4800_1018;
+        const GPIOE_BSRR: u32 = 0x48001018;
 
-        // Turn on the North LED (red)
+        // Turn on the "North" LED (red)
         *(GPIOE_BSRR as *mut u32) = 1 << 9;
 
-        // Turn on the East LED (green)
+        // Turn on the "East" LED (green)
         *(GPIOE_BSRR as *mut u32) = 1 << 11;
 
-        // Turn off the North LED
+        // Turn off the "North" LED
         *(GPIOE_BSRR as *mut u32) = 1 << (9 + 16);
 
-        // Turn on the East LED
+        // Turn off the "East" LED
         *(GPIOE_BSRR as *mut u32) = 1 << (11 + 16);
     }
 
@@ -37,7 +37,7 @@ pub fn main() -> ! {
 
 What's this magic?
 
-The address `0x4800_1018` points to a *register*. A register is special region
+The address `0x48001018` points to a *register*. A register is special region
 of memory that controls a *peripheral*. A peripheral is a piece of electronics
 that sits right next to the processor within the microcontroller package and
 provides the processor extra functionality. After all, the processor, on its
