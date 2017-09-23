@@ -197,7 +197,7 @@ your program back to its very beginning.
 
 > **The fine print**: This `reset` command doesn't clear or touch RAM. That
 > memory will retain its values from the previous run. That shouldn't be a
-> problem tough, unless your program behavior depends of the value of
+> problem though, unless your program behavior depends of the value of
 > *uninitialized* variables but that's the definition of Undefined Behavior
 > (UB).
 
