@@ -8,7 +8,7 @@ Now, we'll implement delays using a "timer". The basic function of a timer is
 available to the microcontroller thus it can be controlled using registers.
 
 The microcontroller we are using has several (in fact, more than 10) timers of
-different kinds (basic, general purpose and advanced timers) available to it.
+different kinds (basic, general purpose, and advanced timers) available to it.
 Some timers have more "precision" than others and some can be used for more than
 just keeping track of time.
 
@@ -24,11 +24,11 @@ Its registers are documented in:
 
 The registers we'll be using in this section are:
 
-- `SR`. The status register
-- `EGR`. The event generation register
-- `CNT`. The counter register
-- `PSC`. The prescaler register
-- `ARR`. The autoreload register
+- `SR`, the status register.
+- `EGR`, the event generation register.
+- `CNT`, the counter register.
+- `PSC`, the prescaler register.
+- `ARR`, the autoreload register.
 
 We'll be using the timer as a "one-shot" timer. It will sort of work like an
 alarm clock. We'll set the timer to "go off" after some amount of time and then
@@ -38,7 +38,7 @@ operation as "one pulse mode".
 Here's a description of how a basic timer works when configured in one pulse
 mode:
 
-- The counter is enabled by the user (`CR1.CEN = 1`)
+- The counter is enabled by the user (`CR1.CEN = 1`).
 - The `CNT` register resets its value to zero and, on each "tick", its value
   gets incremented by one.
 - Once the `CNT` register has reached the value of the `ARR` register, the
@@ -46,9 +46,9 @@ mode:
   will be raised (`SR.UIF = 1`).
 
 `TIM7` is driven by the APB1 clock, whose frequency doesn't have to necessarily
-match the processor frequency. That is the APB1 clock could be running faster or
-slower. However, the default is that both APB1 and the processor are clocked at
-8 MHz.
+match the processor frequency. That is, the APB1 clock could be running faster
+or slower. The default, however, is that both APB1 and the processor are clocked
+at 8 MHz.
 
 The "tick" mentioned in the functional description of the one pulse mode is
 *not* the same as one tick of the APB1 clock. The `CNT` register usually works

@@ -38,7 +38,7 @@ pub fn main() -> ! {
     // Power on the TIM7 timer
     rcc.apb1enr.modify(|_, w| w.tim7en(true));
 
-    // OPM Select the one pulse mode
+    // OPM Select one pulse mode
     // CEN Keep the counter disabled for now
     tim7.cr1.write(|w| w.opm(false).cen(false));
 

@@ -12,12 +12,12 @@ is in the `APB1ENR` register of the `RCC` register block.
 rcc.apb1enr.modify(|_, w| w.tim7en(true));
 ```
 
-The configuration part is slightly more elaborated.
+The configuration part is slightly more elaborate.
 
 First, we'll have to configure the timer to operate in one pulse mode.
 
 ``` rust
-// OPM Select the one pulse mode
+// OPM Select one pulse mode
 // CEN Keep the counter disabled for now
 tim7.cr1.write(|w| w.opm(false).cen(false));
 ```

@@ -70,25 +70,19 @@ The timer can operate in two modes:
 - Continuous mode: After an update event, the timer will start counting again.
 - One pulse mode: After an update event, the timer will stop.
 
-How long lasts this "tick"? It's determined by the APB1 clock and th
+How long does this "tick" last? That's determined by the APB1 clock and the counter and prescaler settings.
 
-TIM registers - Section 22.4 - Page 681 - Reference Manual
+TIM6/TIM7 registers - Section 22.4 - Page 681 - Reference Manual.
 
 Initialization is as usual: power up the peripheral then configure it.
 
 - Use `TIM7EN` in `RCC::APB1ENR` to power up the peripheral.
-
-- `TIM7::CR1` the configuration register.
-
-- `TIM7::PSC` the prescaler register.
-
-- `TIM7::ARR` the auto-reload register
-
-- `TIM7::CNT` the counter register
-
-- `TIM7::SR` the status register, indicates if an update event has occurred
-
-- `TIM7::EGR` the event generation register. Can be used to generate an update
+- `TIM7::CR1`, the configuration register.
+- `TIM7::PSC`, the prescaler register.
+- `TIM7::ARR`, the auto-reload register.
+- `TIM7::CNT`, the counter register.
+- `TIM7::SR`, the status register, indicates if an update event has occurred.
+- `TIM7::EGR`, the event generation register. Can be used to generate an update.
   event.
 
 The catch: the auto-reload register is buffered. When you write to it, it won't
