@@ -11,6 +11,13 @@ lets you retrieve the current output status of Port E.
 Let's try this program:
 
 ``` rust
+#![no_std]
+#![no_main]
+
+#[macro_use]
+extern crate pg;
+use core::ptr;
+
 #[inline(never)]
 #[no_mangle]
 pub fn main() -> ! {
@@ -45,7 +52,6 @@ pub fn main() -> ! {
 
     loop {}
 }
-
 ```
 
 If you run this program, you'll see:
