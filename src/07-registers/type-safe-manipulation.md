@@ -158,7 +158,8 @@ $2 = f3::peripheral::gpio::Gpio {
 ```
 
 All these newtypes and closures sound like they'd generate large, bloated
-programs but, if you actually compile the program in release mode with LTO
+programs but, if you actually compile the program in release mode with
+[LTO](https://en.wikipedia.org/wiki/Interprocedural_optimization)
 enabled, you'll see that it produces exactly the same instructions that the
 "unsafe" version that used `write_volatile` and hexadecimal addresses did!
 
