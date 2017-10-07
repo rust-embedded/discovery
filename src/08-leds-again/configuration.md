@@ -16,7 +16,7 @@ the *right* `GPIOE` pins as digital outputs. You'll have to:
 
 - Figure out *which* pins you need to configure as digital outupts. (hint: check
   Section 6.4 LEDs of the *User Manual* (page 18)).
-- Read the documentation to understand what the bits in the `MODER` registry do.
-- Modify the `MODER` registry to configure the pins as digital outputs.
+- Read the documentation to understand what the bits in the `MODER` register do.
+- Modify the `MODER` register to configure the pins as digital outputs.
 
 If successful, you'll see the 8 LEDs turn on when you run the program.
