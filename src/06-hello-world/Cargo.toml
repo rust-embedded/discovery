@@ -8,3 +8,6 @@ pg = { path = "pg" }
 
 [profile.release]
 lto = true
+
+[profile.dev]
+codegen-units = 1
