@@ -7,7 +7,7 @@ This time, I'm going to provide you with an already initialized USART
 peripheral. You'll only have to work with the registers that are in charge of
 sending data back and forth.
 
-Go into the `10-usart` directory and let's run the starter code therein. Make
+Go into the `11-usart` directory and let's run the starter code therein. Make
 sure that you have minicom/PuTTY open.
 
 ``` rust
