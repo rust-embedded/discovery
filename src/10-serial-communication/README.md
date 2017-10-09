@@ -28,7 +28,7 @@ your laptop. In contrast with the ITM protocol we have used before, with the
 serial communication protocol we can send data from your laptop to the
 microcontroller.
 
-The next practical question you probably want to ask is: How fast can send data
+The next practical question you probably want to ask is: How fast can we send data
 through this protocol?
 
 This protocol works with frames. Each frame has one "start" bit, 5 to 9 bits of
