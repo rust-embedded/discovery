@@ -24,6 +24,6 @@ read through it to see how one can read the sensors' registers. That part is in:
 > Section 5.1.1 I2C Operation - Page 20 - LSM303DLHC Data Sheet
 
 The other part of the documentation relevant to this book is the description
-of the registers. That part is in
+of the registers. That part is in:
 
 > Section 7 Register description - Page 25 - LSM303DLHC Data Sheet
