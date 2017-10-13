@@ -43,7 +43,7 @@ at a frequency of 100 KHz (standard mode) or 400 KHz (fast mode).
 
 ## Reading registers
 
-> I2C registers - Section 28.7 - Page 873 - Reference Manual
+> I2C registers - Section 28.7 - Page 868 - Reference Manual
 
 Read a single register. Each register is one byte.
 
