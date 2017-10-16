@@ -3,7 +3,7 @@
 ``` rust
 pub fn main() -> ! {
     let mut timer = Timer::new().unwrap();
-    let Serial { tx, rx } = Serial::new().unwrap();
+    let Serial { mut tx, mut rx } = Serial::new().unwrap();
 
     let mut periodic = timer.periodic(100);
     let mut bytes = rx.bytes();
