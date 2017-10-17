@@ -65,6 +65,6 @@ the Earth with an acceleration of `1 g` but from its point of view the board is
 actually moving upwards (away from the center of the Earth) with an acceleration
 of `1 g`. And that's why the proper acceleration is pointing up. This also means
 that if the board was in free fall, the accelerometer would report a "proper"
-acceleration of zero. Please, don't try that home.
+acceleration of zero. Please, don't try that at home.
 
 Yes, physics is hard. Let's move on.
