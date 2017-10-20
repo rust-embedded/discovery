@@ -10,8 +10,10 @@ information between the microcontroller and your laptop. But before we do that
 we have to wire up everything.
 
 I mentioned before that this protocol involves two data lines: TX and RX. TX
-stands for transmitter and RX stands for receiver. Which is which depends from
-which device we are looking the lines at.
+stands for transmitter and RX stands for receiver. Transmitter and receiver are
+relative terms though; which line is the transmitter and which line is the
+receiver depends from which side of the communication you are looking at the
+lines.
 
 We'll be using the pin `PA9` as the TX line and `PA10` as the RX line. IOW, the
 pin `PA9` outputs data onto its wire wheres the pin `PA10` listens for data on
