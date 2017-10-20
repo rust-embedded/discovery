@@ -71,6 +71,8 @@ Next, call this command:
 $ openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
 
 # Windows
+# NOTE cygwin users have reported problems with the -s flag. If you run into
+# that you can call openocd from the `C:\OpenOCD\share\scripts` directory
 $ openocd -s C:\OpenOCD\share\scripts -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
 ```
 
