@@ -23,7 +23,7 @@ Recommended steps to enter AT mode:
 
 The AT mode always operates at a baud rate of 38400, so configure minicom/putty for that baud rate and connect to the FTDI device.
 
-When your serial connection to the FTDI is established, you may get a bunch of `ERROR: (0)` repeatedly being displayed. If this happens, just hit ENTER to stop the errors.
+When your serial connection is established, you may get a bunch of `ERROR: (0)` repeatedly being displayed. If this happens, just hit ENTER to stop the errors.
 
 ### Sanity check
 
