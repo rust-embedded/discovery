@@ -1,4 +1,6 @@
 *.org
+.#*
+.gdb_history
 /template
 Cargo.lock
 book/

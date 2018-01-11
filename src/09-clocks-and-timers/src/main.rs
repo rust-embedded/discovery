@@ -1,33 +1,28 @@
 #![no_std]
-#![no_main]
 
-extern crate pg;
+extern crate aux;
 
-use core::iter;
-
-use pg::led::LEDS;
-use pg::peripheral;
+use aux::tim6;
 
 #[inline(never)]
-fn delay(ms: u16) {
+fn delay(_tim6: &tim6::RegisterBlock, _ms: u16) {
     // TODO implement this
 }
 
-#[inline(never)]
-#[no_mangle]
-pub fn main() -> ! {
-    let (rcc, tim7) =
-        unsafe { (peripheral::rcc_mut(), peripheral::tim7_mut()) };
+fn main() {
+    let (mut leds, _rcc, tim6) = aux::init();
 
-    // TODO initialize TIM7
+    // TODO initialize TIM6
 
+    let ms = 50;
     loop {
-        for (current, next) in LEDS.iter()
-            .zip(LEDS.iter().skip(1).chain(iter::once(&LEDS[0]))) {
-            next.on();
-            delay(50);
-            current.off();
-            delay(50);
+        for curr in 0..8 {
+            let next = (curr + 1) % 8;
+
+            leds[next].on();
+            delay(tim6, ms);
+            leds[curr].off();
+            delay(tim6, ms);
         }
     }
 }

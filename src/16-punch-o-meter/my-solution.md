@@ -2,61 +2,59 @@
 
 ``` rust
 #![deny(unsafe_code)]
-#![no_main]
 #![no_std]
 
 #[macro_use]
-extern crate pg;
-
+extern crate aux;
 extern crate m;
 
+use aux::Sensitivity;
+use aux::prelude::*;
 use m::Float;
-use pg::time::Instant;
-use pg::{delay, lsm303dlhc};
 
-#[inline(never)]
-#[no_mangle]
-pub fn main() -> ! {
-    use pg::time::FREQUENCY as SECONDS;
-
-    const SENSITIVITY: f32 = 8. / ((1 << 15) as f32);
+fn main() {
+    const SENSITIVITY: f32 = 12. / (1 << 14) as f32;
     const THRESHOLD: f32 = 0.5;
-    const MEASUREMENT_TIME: u32 = 1 * SECONDS;
 
+    let (mut lsm303dlhc, mut delay, mono_timer, mut itm) = aux::init();
+
+    lsm303dlhc.set_accel_sensitivity(Sensitivity::G12).unwrap();
+
+    let measurement_time = mono_timer.frequency().0; // 1 second in ticks
     let mut instant = None;
-    let mut max_g = 0f32;
+    let mut max_g = 0.;
     loop {
-        let g_x = (f32::from(lsm303dlhc::acceleration().x) * SENSITIVITY).abs();
+        let g_x = f32::from(lsm303dlhc.accel().unwrap().x).abs() * SENSITIVITY;
 
         match instant {
             None => {
                 // If acceleration goes above a threshold, we start measuring
                 if g_x > THRESHOLD {
-                    iprintln!("START!");
+                    iprintln!(&mut itm.stim[0], "START!");
 
                     max_g = g_x;
-                    instant = Some(Instant::now());
+                    instant = Some(mono_timer.now());
                 }
             }
             // Still measuring
-            Some(ref instant) if instant.elapsed() < MEASUREMENT_TIME => {
+            Some(ref instant) if instant.elapsed() < measurement_time => {
                 if g_x > max_g {
                     max_g = g_x;
                 }
             }
             _ => {
                 // Report max value
-                iprintln!("Max acceleration: {}g", max_g);
+                iprintln!(&mut itm.stim[0], "Max acceleration: {}g", max_g);
 
                 // Measurement done
                 instant = None;
 
                 // Reset
-                max_g = 0f32;
+                max_g = 0.;
             }
         }
 
-        delay::ms(50);
+        delay.delay_ms(50_u8);
     }
 }
 ```

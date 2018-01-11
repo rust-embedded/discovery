@@ -1,14 +1,11 @@
 #![deny(unsafe_code)]
-#![no_main]
 #![no_std]
 
 #[macro_use]
-extern crate pg;
+extern crate aux;
 
-#[inline(never)]
-#[no_mangle]
-pub fn main() -> ! {
-    iprintln!("Hello, world!");
+fn main() {
+    let mut itm = aux::init();
 
-    loop {}
+    iprintln!(&mut itm.stim[0], "Hello, world!");
 }

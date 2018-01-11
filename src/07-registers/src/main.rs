@@ -1,11 +1,10 @@
 #![no_std]
-#![no_main]
 
-extern crate pg;
+extern crate aux;
 
-#[inline(never)]
-#[no_mangle]
-pub fn main() -> ! {
+fn main() {
+    aux::init();
+
     unsafe {
         // A magic address!
         const GPIOE_BSRR: u32 = 0x48001018;
@@ -22,6 +21,4 @@ pub fn main() -> ! {
         // Turn off the "East" LED
         *(GPIOE_BSRR as *mut u32) = 1 << (11 + 16);
     }
-
-    loop {}
 }

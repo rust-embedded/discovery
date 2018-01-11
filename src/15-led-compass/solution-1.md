@@ -2,33 +2,34 @@
 
 ``` rust
 #![deny(unsafe_code)]
-#![no_main]
 #![no_std]
 
-#[macro_use]
-extern crate pg;
+extern crate aux;
 
-use pg::I16x3;
-use pg::led::Direction;
-use pg::{delay, led, lsm303dlhc};
+use aux::prelude::*;
+use aux::{Direction, I16x3};
 
-#[inline(never)]
-#[no_mangle]
-pub fn main() -> ! {
+fn main() {
+    let (mut leds, mut lsm303dlhc, mut delay, _itm) = aux::init();
+
     loop {
-        let I16x3 { x, y, .. } = lsm303dlhc::magnetic_field();
+        let I16x3 { x, y, .. } = lsm303dlhc.mag().unwrap();
 
         let dir = match (x > 0, y > 0) {
-            (false, false) => Direction::NorthWest,
-            (false, true) => Direction::NorthEast,
-            (true, false) => Direction::SouthWest,
-            (true, true) => Direction::SouthEast,
+            // Quadrant I
+            (true, true) => Direction::Southeast,
+            // Quadrant II
+            (false, true) => Direction::Northeast,
+            // Quadrant III
+            (false, false) => Direction::Northwest,
+            // Quadrant IV
+            (true, false) => Direction::Southwest,
         };
 
-        led::all_off();
-        dir.on();
+        leds.iter_mut().for_each(|led| led.off());
+        leds[dir].on();
 
-        delay::ms(100);
+        delay.delay_ms(100_u8);
     }
 }
 ```

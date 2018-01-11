@@ -1,13 +1,14 @@
 [package]
+authors = ["Jorge Aparicio <jorge@japaric.io>"]
 name = "clocks-and-timers"
 version = "0.1.0"
-authors = ["Jorge Aparicio <japaricious@gmail.com>"]
 
 [dependencies]
-pg = { path = "pg" }
-
-[profile.release]
-lto = true
+aux = { path = "aux" }
 
 [profile.dev]
 codegen-units = 1
+
+[profile.release]
+debug = true
+lto = true

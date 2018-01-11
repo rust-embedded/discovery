@@ -1,25 +1,26 @@
 # Reverse a string
 
-Alright, next let's make the server more interesting by having it respond to the
-client with the reverse of the text that they sent. The server will respond to
-the client every time they press the ENTER key. Each server response will be
-in a new line.
+Alright, next let's make the server more interesting by having it respond to the client with the
+reverse of the text that they sent. The server will respond to the client every time they press the
+ENTER key. Each server response will be in a new line.
 
-This time you'll need a buffer; you can use `FixedVec`. Here's the starter code:
+This time you'll need a buffer; you can use [`heapless::Vec`]. Here's the starter code:
+
+[`heapless::Vec`]: https://docs.rs/heapless/0.2.1/heapless/struct.Vec.html
 
 ``` rust
-#[macro_use]
-extern crate fixedvec;
+#![no_std]
 
-#[inline(never)]
-#[no_mangle]
-pub fn main() -> ! {
-    use fixedvec::{FixedVec, Result};
+extern crate aux;
+extern crate heapless;
 
-    let usart1 = unsafe { peripheral::usart1_mut() };
+use heapless::Vec;
 
-    let mut memory = alloc_stack!([u8; 32]);
-    let mut buffer = FixedVec::new(&mut memory);
+fn main() {
+    let (_usart1, _mono_timer, _itm) = aux::init();
+
+    let mut buffer: Vec<u8, [u8; 32]> = Vec::new();
+
     loop {
         buffer.clear();
 

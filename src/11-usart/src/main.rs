@@ -1,18 +1,11 @@
-#![no_main]
+#![deny(unsafe_code)]
 #![no_std]
 
-#[macro_use]
-extern crate pg;
+extern crate aux;
 
-use pg::peripheral;
-
-#[inline(never)]
-#[no_mangle]
-pub fn main() -> ! {
-    let usart1 = unsafe { peripheral::usart1_mut() };
+fn main() {
+    let (usart1, _mono_timer, _itm) = aux::init();
 
     // Send a single character
-    usart1.tdr.write(|w| w.tdr(u16::from('X' as u8)));
-
-    loop {}
+    usart1.tdr.write(|w| w.tdr().bits(u16::from(b'X')));
 }

@@ -11,7 +11,7 @@
     - [Build it](05-led-roulette/build-it.md)
     - [Flash it](05-led-roulette/flash-it.md)
     - [Debug it](05-led-roulette/debug-it.md)
-    - [The `led` and `delay` modules](05-led-roulette/the-led-and-delay-modules.md)
+    - [The `led` and `delay` abstractions](05-led-roulette/the-led-and-delay-abstractions.md)
     - [The challenge](05-led-roulette/the-challenge.md)
     - [My solution](05-led-roulette/my-solution.md)
 - [Hello, world!](06-hello-world/README.md)
@@ -25,6 +25,7 @@
 - [LEDs, again](08-leds-again/README.md)
     - [Power](08-leds-again/power.md)
     - [Configuration](08-leds-again/configuration.md)
+    - [The solution](08-leds-again/the-solution.md)
 - [Clocks and timers](09-clocks-and-timers/README.md)
     - [`for` loop delays](09-clocks-and-timers/for-loop-delays.md)
     - [NOP](09-clocks-and-timers/nop.md)
@@ -32,7 +33,7 @@
     - [Initialization](09-clocks-and-timers/initialization.md)
     - [Busy waiting](09-clocks-and-timers/busy-waiting.md)
     - [Putting it all together](09-clocks-and-timers/putting-it-all-together.md)
-- ["Serial" communication](10-serial-communication/README.md)
+- [Serial communication](10-serial-communication/README.md)
     - [*nix tooling](10-serial-communication/nix-tooling.md)
     - [Windows tooling](10-serial-communication/windows-tooling.md)
     - [Loopbacks](10-serial-communication/loopbacks.md)
@@ -48,7 +49,7 @@
 - [Bluetooth setup](12-bluetooth-setup/README.md)
     - [Linux](12-bluetooth-setup/linux.md)
     - [Loopback](12-bluetooth-setup/loopback.md)
-    - [AT commands]()
+    <!-- - [AT commands]() -->
 - [Serial over Bluetooth](13-serial-over-bluetooth/README.md)
 - [I2C](14-i2c/README.md)
     - [The general protocol](14-i2c/the-general-protocol.md)
@@ -67,15 +68,18 @@
     - [Gravity is up?](16-punch-o-meter/gravity-is-up.md)
     - [The challenge](16-punch-o-meter/the-challenge.md)
     - [My solution](16-punch-o-meter/my-solution.md)
-- [Async IO: The future](17-async-io-the-future/README.md)
-    - [Timer](17-async-io-the-future/timer.md)
-    - [Serial](17-async-io-the-future/serial.md)
-    - [The challenge](17-async-io-the-future/the-challenge.md)
-    - [My solution](17-async-io-the-future/my-solution.md)
-    - [Another challenge](17-async-io-the-future/another-challenge.md)
-    - [My other solution](17-async-io-the-future/my-other-solution.md)
-    - [More challenges](17-async-io-the-future/more-challenges.md)
-[What's left for you to explore](explore.md)
+- [What's left for you to explore](explore.md)
+
 ---
-[Appendix]()
+
 [General troubleshooting](appendix/1-general-troubleshooting/README.md)
+
+<!-- - [Async IO: The future](17-async-io-the-future/README.md) -->
+<!--     - [Timer](17-async-io-the-future/timer.md) -->
+<!--     - [Serial](17-async-io-the-future/serial.md) -->
+<!--     - [The challenge](17-async-io-the-future/the-challenge.md) -->
+<!--     - [My solution](17-async-io-the-future/my-solution.md) -->
+<!--     - [Another challenge](17-async-io-the-future/another-challenge.md) -->
+<!--     - [My other solution](17-async-io-the-future/my-other-solution.md) -->
+<!--     - [More challenges](17-async-io-the-future/more-challenges.md) -->
+---

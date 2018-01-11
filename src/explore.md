@@ -1,12 +1,24 @@
 # What's left for you to explore
 
-We have barely scratched the surface! There's lots of stuff left for you to
-explore:
+We have barely scratched the surface! There's lots of stuff left for you to explore:
 
-(Though I may be covering some of these topics in the future. Check the [issue
-tracker]).
+## Multitasking
 
-[issue tracker]: https://github.com/japaric/rust-discovery/issues?q=is:issue+is:open+label:new-topic
+All our programs executed a single task. How could we achieve multitasking in a system with no OS,
+and thus no threads. There are two main approaches to multitasking: preemptive multitasking and
+cooperative multitasking.
+
+In preemptive multitasking a task that's currently being executed can, at any point in time, be
+*preempted* (interrupted) by another task. On preemption, the first task will be suspended and the
+processor will instead execute the second task. At some point the first task will be resumed.
+Microcontrollers provide hardware support for preemption in the form of *interrupts*.
+
+In cooperative multitasking a task that's being executed will run until it reaches a *suspension
+point*. When the processor reaches that suspension point it will stop executing the current task and
+instead go and execute a different task. At some point the first task will be resumed. The main
+difference between these two approaches to multitasking is that in cooperative multitasking *yields*
+execution control at *known* suspension points instead of being forcefully preempted at any point of
+its execution.
 
 ## Direct Memory Access (DMA).
 
@@ -103,4 +115,42 @@ Different applications use different communication protocols. User facing
 applications usually have an USB connector because USB is an ubiquitous
 protocol in PCs and smartphones. Whereas inside cars you'll find plenty of CAN
 "buses". Some digital sensors use SPI, others use I2C and others, SMBUS.
-Etcetera.
+
+---
+
+So where to next? There are several options:
+
+- You could check out the examples in the [`f3`] board support crate. All those examples work for
+  the STM32F3DISCOVERY board you have.
+
+[`f3`]: https://docs.rs/f3
+
+- You could check out [Real Time for The Masses]. A very efficient preemptive multitasking framework
+  that supports task prioritization and dead lock free execution.
+
+[Real Time for The Masses]: https://docs.rs/cortex-m-rtfm
+
+- You could try running Rust on a different development board. The easiest way to get started is to
+  use the [`cortex-m-quickstart`] Cargo project template.
+
+[`cortex-m-quickstart`]: https://docs.rs/cortex-m-quickstart/0.2.4/cortex_m_quickstart
+
+- You could check out this [blog post] which describes how Rust type system can prevent bugs in I/O
+  configuration.
+
+[blog post]: http://blog.japaric.io/brave-new-io/
+
+- You could check out my [blog] for miscellaneous topics about embedded development with Rust.
+
+[blog]: http://blog.japaric.io
+
+- You could check out the [`embedded-hal`] project which aims to build abstractions (traits) for all
+  the embedded I/O functionality commonly found on microcontrollers.
+
+[`embedded-hal`]: https://github.com/japaric/embedded-hal
+
+- You could join the [Weekly driver initiative] and help us write generic drivers on top of the
+  `embedded-hal` traits and that work for all sorts of platforms (ARM Cortex-M, AVR, MSP430, RISCV,
+  etc.)
+
+[Weekly driver initiative]: https://github.com/rust-lang-nursery/embedded-wg/issues/39
