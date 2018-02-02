@@ -37,6 +37,7 @@ contents:
 
 ``` console
 $ cat ~/.minirc.dfl
+pu baudrate 115200
 pu bits 8
 pu parity N
 pu stopbits 1
