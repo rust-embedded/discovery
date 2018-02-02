@@ -39,6 +39,7 @@ that but we'll use a `.minirc.dfl` file in the home directory. Create a file
 in `~/.minirc.dfl` with the following contents:
 
 ```
+pu baudrate 115200
 pu bits 8
 pu parity N
 pu stopbits 1
