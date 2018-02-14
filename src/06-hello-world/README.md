@@ -60,7 +60,7 @@ To retrieve the original string, OpenOCD's output file will have to be parsed.
 We'll use the `itmdump` program to perform the parsing "on the fly".
 
 You should have already installed the `itmdump` program during the [installation
-chapter].
+chapter] (`cargo install itm`).
 
 [installation chapter]: 03-setup/README.html#itmdump
 

@@ -33,7 +33,7 @@ any recent version should work but we have listed the version we have tested.
 
 - [Xargo] >= 0.1.13. But 0.2.x is highly recommended.
 
-- [`itmdump`] >= 0.1.1
+- [itmdump] >= 0.1.1
 
 - OpenOCD >=0.8. Tested version: 0.9.0
 
@@ -48,7 +48,7 @@ any recent version should work but we have listed the version we have tested.
 - `PuTTY` on Windows.
 
 [Xargo]: https://crates.io/crates/xargo
-[`itmdump`]: https://crates.io/crates/itm
+[itmdump]: https://crates.io/crates/itm
 
 If your laptop has Bluetooth functionality and you have the Bluetooth module,
 you can additionally install these tools to play with the Bluetooth module we'll
