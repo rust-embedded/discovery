@@ -2,9 +2,9 @@
 
 ## `arm-none-eabi-*`
 
-ARM provides `.exe` installers for Windows. Grab one from [here], and follow the instructions. Just
-before the installation process finishes tick/select the "Add path to environment variable" option.
-Then verify that the tools are in your `%PATH%`:
+ARM provides `.exe` installers for Windows. Grab one from [here][gcc], and follow the instructions.
+Just before the installation process finishes tick/select the "Add path to environment variable"
+option. Then verify that the tools are in your `%PATH%`:
 
 ``` console
 $ arm-none-eabi-gcc -v
@@ -12,17 +12,17 @@ $ arm-none-eabi-gcc -v
 gcc version 5.4.1 20160919 (release) (..)
 ```
 
-[here]: https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads
+[gcc]: https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads
 
 ## OpenOCD
 
 There's no official binary release of OpenOCD for Windows but there are unofficial releases
-available [here]. Grab the 0.10.0 zipfile and extract it somewhere in your drive (I recommend
-`C:\OpenOCD` but with the drive letter that makes sense to you) then update your `%PATH%`
+available [here][openocd]. Grab the 0.10.x zipfile and extract it somewhere in your drive (I
+recommend `C:\OpenOCD` but with the drive letter that makes sense to you) then update your `%PATH%`
 environment variable to include the following path: `C:\OpenOCD\bin` (or the path that you used
 before).
 
-[here]: http://gnutoolchains.com/arm-eabi/openocd/
+[openocd]: https://github.com/gnu-mcu-eclipse/openocd/releases
 
 Verify that OpenOCD is in yout `%PATH%` with:
 
