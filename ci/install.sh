@@ -30,6 +30,8 @@ main() {
            --target x86_64-unknown-linux-musl
 
     rustup component add rust-src
+
+    pip install linkchecker --user
 }
 
 main
