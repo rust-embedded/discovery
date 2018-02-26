@@ -1,13 +1,7 @@
 [package]
+authors = ["Jorge Aparicio <jorge@japaric.io>"]
 name = "registers"
 version = "0.1.0"
-authors = ["Jorge Aparicio <japaricious@gmail.com>"]
 
 [dependencies]
-pg = { path = "pg" }
-
-[profile.release]
-lto = true
-
-[profile.dev]
-codegen-units = 1
+aux7 = { path = "aux" }

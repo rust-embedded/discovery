@@ -1,14 +1,8 @@
 [package]
-authors = ["Jorge Aparicio <japaricious@gmail.com>"]
+authors = ["Jorge Aparicio <jorge@japaric.io>"]
 name = "usart"
 version = "0.1.0"
 
 [dependencies]
-fixedvec = "0.2.3"
-pg = { path = "pg" }
-
-[profile.release]
-lto = true
-
-[profile.dev]
-codegen-units = 1
+heapless = "0.2.1"
+aux11 = { path = "aux" }

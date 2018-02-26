@@ -1,6 +1,6 @@
-set print pretty on
 target remote :3333
+set print asm-demangle on
 load
 monitor tpiu config internal itm.txt uart off 8000000
-break main
+break clocks_and_timers::main
 continue

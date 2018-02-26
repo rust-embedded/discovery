@@ -2,53 +2,52 @@
 
 ``` rust
 #![deny(unsafe_code)]
-#![no_main]
 #![no_std]
 
+extern crate aux15;
 extern crate m;
 
-#[macro_use]
-extern crate pg;
-
+// you'll find this useful ;-)
 use core::f32::consts::PI;
 
+// this trait provides the `atan2` method
 use m::Float;
-use pg::I16x3;
-use pg::led::Direction;
-use pg::{delay, led, lsm303dlhc};
 
-#[inline(never)]
-#[no_mangle]
-pub fn main() -> ! {
+use aux15::prelude::*;
+use aux15::{Direction, I16x3};
+
+fn main() {
+    let (mut leds, mut lsm303dlhc, mut delay, _itm) = aux15::init();
+
     loop {
-        let I16x3 { x, y, .. } = lsm303dlhc::magnetic_field();
+        let I16x3 { x, y, .. } = lsm303dlhc.mag().unwrap();
 
-        let theta = (y as f32).atan2(x as f32);
+        let theta = (y as f32).atan2(x as f32); // radians
 
         let dir = if theta < -7. * PI / 8. {
             Direction::North
         } else if theta < -5. * PI / 8. {
-            Direction::NorthWest
+            Direction::Northwest
         } else if theta < -3. * PI / 8. {
             Direction::West
         } else if theta < -PI / 8. {
-            Direction::SouthWest
+            Direction::Southwest
         } else if theta < PI / 8. {
             Direction::South
         } else if theta < 3. * PI / 8. {
-            Direction::SouthEast
+            Direction::Southeast
         } else if theta < 5. * PI / 8. {
             Direction::East
         } else if theta < 7. * PI / 8. {
-            Direction::NorthEast
+            Direction::Northeast
         } else {
             Direction::North
         };
 
-        led::all_off();
-        dir.on();
+        leds.iter_mut().for_each(|led| led.off());
+        leds[dir].on();
 
-        delay::ms(100);
+        delay.delay_ms(100_u8);
     }
 }
 ```

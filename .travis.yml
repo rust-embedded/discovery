@@ -1,59 +1,32 @@
-cache: cargo
-dist: trusty
 language: rust
 rust: nightly
-services: docker
-sudo: required
+
+addons:
+  apt:
+    sources:
+      - debian-sid
+    packages:
+      - binutils-arm-none-eabi
 
 env:
   global:
     - secure: Ugv5ArwniODKreVleFFhSfjfWQmKUd+MbvpPseiTBqgIaMSrz4G92FL7plo/Qdn8lecQRDJTb1Li76DxnNlwTiwrvpc85iGyNS2AJUv/xWqvzXq424mLpvoqSKNjRcDotIHIHJ7VHjTRP79ScSPMQwdEXHfv7YgGHIQ+1nQUVJ7mxQQVeUtV/Qsm1CwNQy8oQiDVKa57/mEisNlWILeAgSloQIVLmin2nH6kTO/sW5DanagLhgqZ3YjQw7WNZvkPYuQmH9x/Sa8h8zs3OjGZ+3qRNxKMk0gn/TuyDwdznrJA3RBns39lmV2IMv963QJNcWPacNeSgEBlEU+vh4rKxA39dm2b4NZfiUBJApRLDFGu7aT6nkc77Km7z77XQ4cf8T51Fnr0rr3BvIKobZsIo8I4jm12cMbGmAqHs5Sk/cySguPEjUqH/KC5MNH2uxEa+HaGw7wUWUVO0wXbXq+0aYFz+o/rE0e3hQnQPJiefe5Wzjc/7kjls9aQgbFU7KO0u/0FtEraqlimrCvBFWx/6rDJs2Sx7KNqG9/gbMANaZGE36gFMnf/bdeX+tIl9g5XgLJFcD9AJ0XX5/DibY0xsgHmeEdxN+BOfm8m41WJ6ycFdsPWbMi7UrDU/+QxYRD9e7l0ihOoOqvQeU5GYfMfmuQ+B3bl+v6BFwyYaHZLQww=
-    - TARGET=x86_64-unknown-linux-gnu
 
 install:
-  # NOTE(TRAVIS_BRANCH) Travis is configured to only build *pushes* (not PRs).
-  - if [ $TRAVIS_BRANCH != master ] || [ $TRAVIS_EVENT_TYPE = cron ]; then
-      rustup component add rust-src;
-    fi
+  - bash ci/install.sh
 
 script:
-  # NOTE(TRAVIS_BRANCH) See the NOTE in the `install` section
-  # chmod: Travis can't cache files that are not readable by "others"
-  - if [ $TRAVIS_BRANCH != master ] || [ $TRAVIS_EVENT_TYPE = cron ]; then
-      if [[ $TRAVIS_OS_NAME = linux ]]; then
-        sh ci/run-docker.sh $TARGET || exit 1;
-      else
-        sh ci/run.sh || exit 1;
-      fi;
-
-      chmod -R a+r $HOME/.cargo;
-    fi
+  - bash ci/script.sh
 
 after_success:
-  - if [ $TARGET = x86_64-unknown-linux-gnu ] && [ $TRAVIS_BRANCH = master ] && [ $TRAVIS_EVENT_TYPE != cron ]; then
-      curl -LSfs https://japaric.github.io/trust/install.sh |
-        sh -s -- --git azerupi/mdbook --tag v0.0.14 --to .;
-
-      ./mdbook build;
-
-      sh ga.sh;
-
-      mkdir ghp-import;
-
-      curl -Ls https://github.com/davisp/ghp-import/archive/master.tar.gz |
-        tar --strip-components 1 -C ghp-import -xz;
-
-      ./ghp-import/ghp_import.py book;
-
-      git push -fq https://$GH_TOKEN@github.com/$TRAVIS_REPO_SLUG.git gh-pages && echo OK;
-    fi
+  - bash ci/after-success.sh
 
 
 branches:
   only:
-    - auto
     - master
-    - try
+    - staging
+    - trying
 
 notifications:
   email:

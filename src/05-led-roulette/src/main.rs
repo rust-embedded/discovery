@@ -1,15 +1,13 @@
 #![deny(unsafe_code)]
-#![no_main]
 #![no_std]
 
-extern crate pg;
+extern crate aux5;
 
-#[inline(never)]
-#[no_mangle]
-pub fn main() -> ! {
-    let y;
+fn main() {
+    let _y;
     let x = 42;
-    y = x;
+    _y = x;
 
+    // infinite loop; just so we don't leave this stack frame
     loop {}
 }

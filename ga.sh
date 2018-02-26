@@ -1,4 +1,4 @@
-set -e
+set -euxo pipefail
 
 GA_CODE=$(cat <<EOF
 <!-- Start Google Analytics -->

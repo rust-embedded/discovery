@@ -1,13 +1,7 @@
 [package]
-authors = ["Jorge Aparicio <japaricious@gmail.com>"]
+authors = ["Jorge Aparicio <jorge@japaric.io>"]
 name = "leds-again"
 version = "0.1.0"
 
 [dependencies]
-pg = { path = "pg" }
-
-[profile.release]
-lto = true
-
-[profile.dev]
-codegen-units = 1
+aux8 = { path = "aux" }

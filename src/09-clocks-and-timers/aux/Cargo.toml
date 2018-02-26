@@ -1,0 +1,11 @@
+[package]
+authors = ["Jorge Aparicio <jorge@japaric.io>"]
+name = "aux9"
+version = "0.1.0"
+
+[dependencies]
+cortex-m = "0.4.3"
+
+[dependencies.f3]
+features = ["rt"]
+version = "0.5.3"

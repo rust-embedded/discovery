@@ -1,14 +1,8 @@
 [package]
-authors = ["Jorge Aparicio <japaricious@gmail.com>"]
+authors = ["Jorge Aparicio <jorge@japaric.io>"]
 name = "punch-o-meter"
 version = "0.1.0"
 
 [dependencies]
 m = "0.1.1"
-pg = { path = "pg" }
-
-[profile.release]
-lto = true
-
-[profile.dev]
-codegen-units = 1
+aux16 = { path = "aux" }

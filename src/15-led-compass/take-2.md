@@ -1,53 +1,49 @@
 # Take 2
 
-This time, we'll use math to get the precise angle that the magnetic field forms
-with the X and Y axes of the magnetometer.
+This time, we'll use math to get the precise angle that the magnetic field forms with the X and Y
+axes of the magnetometer.
 
-We'll use the `atan2` function. This function returns an angle in the `-PI` to
-`PI` range. The graphic below shows how this angle is measured:
+We'll use the `atan2` function. This function returns an angle in the `-PI` to `PI` range. The
+graphic below shows how this angle is measured:
 
 <p align="center">
 <img title="atan2" src="https://upload.wikimedia.org/wikipedia/commons/0/03/Atan2_60.svg">
 </p>
 
-Here's the starter code. `theta` has already been computed. You need to pick
-which LED to turn on based on the value of `theta`.
+Although not explicitly shown in this graph the X axis points to the right and the Y axis points up.
+
+Here's the starter code. `theta`, in radians, has already been computed. You need to pick which LED
+to turn on based on the value of `theta`.
 
 ``` rust
 #![deny(unsafe_code)]
-#![no_main]
 #![no_std]
 
+extern crate aux15;
 extern crate m;
 
-#[macro_use]
-extern crate pg;
-
-// you'll find this useful ;-)
-use core::f32::consts::PI;
-
-// this trait provides the `atan2` method
+use aux15::prelude::*;
+use aux15::{Direction, I16x3};
 use m::Float;
-use pg::I16x3;
-use pg::led::Direction;
-use pg::{delay, led, lsm303dlhc};
 
-#[inline(never)]
-#[no_mangle]
-pub fn main() -> ! {
+fn main() {
+    let (mut leds, mut lsm303dlhc, mut delay, _itm) = aux15::init();
+
     loop {
-        let I16x3 { x, y, .. } = lsm303dlhc::magnetic_field();
+        let I16x3 { x, y, .. } = lsm303dlhc.mag().unwrap();
 
-        let theta = (y as f32).atan2(x as f32);  // radians
+        let _theta = (y as f32).atan2(x as f32);
 
-        // TODO pick a direction to point to based on `theta`
+        // FIXME pick a direction to point to based on `theta`
+        let dir = Direction::Southeast;
 
-        led::all_off();
-        dir.on();
+        leds.iter_mut().for_each(|led| led.off());
+        leds[dir].on();
 
-        delay::ms(100);
+        delay.delay_ms(100_u8);
     }
 }
+
 ```
 
 Suggestions/tips:

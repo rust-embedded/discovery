@@ -1,10 +1,10 @@
-#![no_main]
+#![deny(unsafe_code)]
 #![no_std]
 
 #[macro_use]
-extern crate pg;
+extern crate aux14;
 
-use pg::peripheral;
+use aux14::prelude::*;
 
 // Slave address
 const MAGNETOMETER: u8 = 0b001_1110;
@@ -13,10 +13,8 @@ const MAGNETOMETER: u8 = 0b001_1110;
 const OUT_X_H_M: u8 = 0x03;
 const IRA_REG_M: u8 = 0x0A;
 
-#[inline(never)]
-#[no_mangle]
-pub fn main() -> ! {
-    let i2c1 = unsafe { peripheral::i2c1_mut() };
+fn main() {
+    let (i2c1, _delay, mut itm) = aux14::init();
 
     // Stage 1: Send the address of the register we want to read to the
     // magnetometer
@@ -41,7 +39,5 @@ pub fn main() -> ! {
     };
 
     // Expected output: 0x0A - 0b01001000
-    iprintln!("0x{:02X} - 0b{:08b}", IRA_REG_M, byte);
-
-    loop {}
+    iprintln!(&mut itm.stim[0], "0x{:02X} - 0b{:08b}", IRA_REG_M, byte);
 }
