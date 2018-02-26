@@ -32,6 +32,9 @@ main() {
     rustup component add rust-src
 
     pip install linkchecker --user
+
+    # sanity check that a linker is present
+    which arm-none-eabi-ld
 }
 
 main

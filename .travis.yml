@@ -2,11 +2,11 @@ language: rust
 rust: nightly
 
 addons:
-apt:
-  sources:
-    - debian-sid
-  packages:
-    - binutils-arm-none-eabi
+  apt:
+    sources:
+      - debian-sid
+    packages:
+      - binutils-arm-none-eabi
 
 env:
   global:
