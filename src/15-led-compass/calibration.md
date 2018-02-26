@@ -21,13 +21,13 @@ Separated Values (TSV).
 #![no_std]
 
 #[macro_use]
-extern crate aux;
+extern crate aux15;
 
-use aux::prelude::*;
-use aux::I16x3;
+use aux15::prelude::*;
+use aux15::I16x3;
 
 fn main() {
-    let (_leds, mut lsm303dlhc, mut delay, mut itm) = aux::init();
+    let (_leds, mut lsm303dlhc, mut delay, mut itm) = aux15::init();
 
     loop {
         let I16x3 { x, y, z } = lsm303dlhc.mag().unwrap();

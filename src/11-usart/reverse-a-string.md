@@ -11,13 +11,13 @@ This time you'll need a buffer; you can use [`heapless::Vec`]. Here's the starte
 ``` rust
 #![no_std]
 
-extern crate aux;
+extern crate aux11;
 extern crate heapless;
 
 use heapless::Vec;
 
 fn main() {
-    let (_usart1, _mono_timer, _itm) = aux::init();
+    let (_usart1, _mono_timer, _itm) = aux11::init();
 
     let mut buffer: Vec<u8, [u8; 32]> = Vec::new();
 

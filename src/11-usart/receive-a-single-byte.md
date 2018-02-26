@@ -11,10 +11,10 @@ do we know that we have received (new) data? The status register, `ISR`, has a b
 ``` rust
 #![no_std]
 
-extern crate aux;
+extern crate aux11;
 
 fn main() {
-    let (usart1, _mono_timer, _itm) = aux::init();
+    let (usart1, _mono_timer, _itm) = aux11::init();
 
     loop {
         // Wait until there's data available
@@ -23,7 +23,7 @@ fn main() {
         // Retrieve the data
         let _byte = usart1.rdr.read().rdr().bits() as u8;
 
-        aux::bkpt();
+        aux11::bkpt();
     }
 }
 ```

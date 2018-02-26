@@ -20,7 +20,7 @@ Dump of assembler code for function cortex_m_rt::reset_handler::main:
    0x08000676 <+4>:     movw    r0, #392        ; 0x188
    0x0800067a <+8>:     movt    r0, #2048       ; 0x800
    0x0800067e <+12>:    ldrb    r0, [r0, #0]
-   0x08000680 <+14>     bl      8000548 <aux::init>
+   0x08000680 <+14>     bl      8000548 <aux7::init>
    0x08000684 <+18>     movw    r0, #4120       ; 0x1018
    0x08000688 <+22>     mov.w   r1, #134217728  ; 0x8000000
    0x0800068c <+26>     movt    r0, #18432      ; 0x4800
@@ -42,7 +42,7 @@ $ arm-none-eabi-objdump -Cd target/thumbv7em-none-eabihf/debug/registers
  80001ec:       b580            push    {r7, lr}
  80001ee:       466f            mov     r7, sp
  80001f0:       b082            sub     sp, #8
- 80001f2:       f000 f85a       bl      80002aa <aux::init>
+ 80001f2:       f000 f85a       bl      80002aa <aux7::init>
  80001f6:       9001            str     r0, [sp, #4]
  80001f8:       e7ff            b.n     80001fa <registers::main+0xe>
  80001fa:       e7ff            b.n     80001fc <registers::main+0x10>
@@ -78,7 +78,7 @@ reads/writes:
 fn main() {
     use core::ptr;
 
-    aux::init();
+    aux7::init();
 
     unsafe {
         // A magic address!
@@ -109,7 +109,7 @@ $ arm-none-eabi-objdump -Cd target/thumbv7em-none-eabihf/release/registers
  8000676:       f240 1088       movw    r0, #392        ; 0x188
  800067a:       f6c0 0000       movt    r0, #2048       ; 0x800
  800067e:       7800            ldrb    r0, [r0, #0]
- 8000680:       f7ff ff62       bl      8000548 <aux::init>
+ 8000680:       f7ff ff62       bl      8000548 <aux7::init>
  8000684:       f241 0018       movw    r0, #4120       ; 0x1018
  8000688:       f44f 7100       mov.w   r1, #512        ; 0x200
  800068c:       f6c4 0000       movt    r0, #18432      ; 0x4800

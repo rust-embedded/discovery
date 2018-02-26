@@ -11,7 +11,7 @@ minicom/PuTTY open.
 
 ``` rust
 fn main() {
-    let usart1 = aux::init().0;
+    let usart1 = aux11::init().0;
 
     // Send a single character
     usart1.tdr.write(|w| w.tdr().bits(u16::from(b'X')));

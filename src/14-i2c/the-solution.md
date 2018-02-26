@@ -5,7 +5,7 @@
 #![no_std]
 
 #[macro_use]
-extern crate aux;
+extern crate aux14;
 
 // Slave address
 const MAGNETOMETER: u8 = 0b001_1110;
@@ -15,7 +15,7 @@ const OUT_X_H_M: u8 = 0x03;
 const IRA_REG_M: u8 = 0x0A;
 
 fn main() {
-    let (i2c1, _delay, mut itm) = aux::init();
+    let (i2c1, _delay, mut itm) = aux14::init();
 
     // Stage 1: Send the address of the register we want to read to the
     // magnetometer

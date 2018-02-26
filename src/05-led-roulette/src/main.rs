@@ -1,7 +1,7 @@
 #![deny(unsafe_code)]
 #![no_std]
 
-extern crate aux;
+extern crate aux5;
 
 fn main() {
     let _y;

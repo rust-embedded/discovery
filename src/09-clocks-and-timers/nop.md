@@ -17,7 +17,7 @@ Your `for` loop delay would become:
 fn delay(_tim6: &tim6::RegisterBlock, ms: u16) {
     const K: u16 = 3; // this value needs to be tweaked
     for _ in 0..(K * ms) {
-        aux::nop()
+        aux9::nop()
     }
 }
 ```

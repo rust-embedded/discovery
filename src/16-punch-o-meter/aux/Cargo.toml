@@ -1,6 +1,6 @@
 [package]
 authors = ["Jorge Aparicio <jorge@japaric.io>"]
-name = "aux"
+name = "aux16"
 version = "0.1.0"
 
 [dependencies]

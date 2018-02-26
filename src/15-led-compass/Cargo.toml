@@ -5,11 +5,4 @@ authors = ["Jorge Aparicio <jorge@japaric.io>"]
 
 [dependencies]
 m = "0.1.1"
-aux = { path = "aux" }
-
-[profile.dev]
-codegen-units = 1
-
-[profile.release]
-debug = true
-lto = true
+aux15 = { path = "aux" }

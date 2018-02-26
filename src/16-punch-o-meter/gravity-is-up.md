@@ -13,14 +13,14 @@ acceleration of the gravity, about `9.8` meters per second squared.
 #![no_std]
 
 #[macro_use]
-extern crate aux;
+extern crate aux16;
 extern crate m;
 
-use aux::{I16x3, Sensitivity};
-use aux::prelude::*;
+use aux16::{I16x3, Sensitivity};
+use aux16::prelude::*;
 
 fn main() {
-    let (mut lsm303dlhc, mut delay, _mono_timer, mut itm) = aux::init();
+    let (mut lsm303dlhc, mut delay, _mono_timer, mut itm) = aux16::init();
 
     // extend sensing range to `[-12g, +12g]`
     lsm303dlhc.set_accel_sensitivity(Sensitivity::G12).unwrap();

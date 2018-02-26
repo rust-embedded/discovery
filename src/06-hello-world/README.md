@@ -29,10 +29,10 @@ Go to the `06-hello-world` directory. There's some starter code in it:
 #![no_std]
 
 #[macro_use]
-extern crate aux;
+extern crate aux6;
 
 fn main() {
-    let mut itm = aux::init();
+    let mut itm = aux6::init();
 
     iprintln!(&mut itm.stim[0], "Hello, world!");
 }
@@ -113,7 +113,7 @@ Breakpoint 1 at 0x800021c: file src/main.rs, line 8.
 Note: automatically using hardware breakpoints for read-only addresses.
 
 Breakpoint 1, hello_world::main () at src/main.rs:8
-8           let mut itm = aux::init();
+8           let mut itm = aux6::init();
 ```
 
 Note that there's a `.gdbinit` at the root of the Cargo project. It's pretty similar to the one we

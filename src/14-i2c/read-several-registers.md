@@ -49,9 +49,9 @@ Putting it all together inside a loop alongside a delay to reduce the data throu
 #![no_std]
 
 #[macro_use]
-extern crate aux;
+extern crate aux14;
 
-use aux::prelude::*;
+use aux14::prelude::*;
 
 // Slave address
 const MAGNETOMETER: u8 = 0b001_1110;
@@ -61,7 +61,7 @@ const OUT_X_H_M: u8 = 0x03;
 const IRA_REG_M: u8 = 0x0A;
 
 fn main() {
-    let (i2c1, mut delay, mut itm) = aux::init();
+    let (i2c1, mut delay, mut itm) = aux14::init();
 
     // Stage 1: Send the address of the register we want to read to the
     // magnetometer

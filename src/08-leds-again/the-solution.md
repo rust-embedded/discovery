@@ -4,10 +4,10 @@
 #![deny(unsafe_code)]
 #![no_std]
 
-extern crate aux;
+extern crate aux8;
 
 fn main() {
-    let (gpioe, rcc) = aux::init();
+    let (gpioe, rcc) = aux8::init();
 
     // enable the GPIOE peripheral
     rcc.ahbenr.modify(|_, w| w.iopeen().set_bit());
@@ -36,6 +36,6 @@ fn main() {
         w.odr15().set_bit()
     });
 
-    aux::bkpt();
+    aux8::bkpt();
 }
 ```

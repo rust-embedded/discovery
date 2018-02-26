@@ -34,7 +34,7 @@ $ xargo build --target thumbv7em-none-eabihf
    (..)
    Compiling stm32f30x v0.6.0
    Compiling stm32f30x-hal v0.1.2
-   Compiling aux v0.1.0 (file://$PWD/aux)
+   Compiling aux5 v0.1.0 (file://$PWD/aux)
    Compiling led-roulette v0.1.0 (file://$PWD)
     Finished dev [unoptimized + debuginfo] target(s) in 35.84 secs
 ```

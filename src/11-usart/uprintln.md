@@ -63,11 +63,11 @@ available in `core::fmt`.
 ``` rust
 #![no_std]
 
-extern crate aux;
+extern crate aux11;
 
 use core::fmt::{self, Write};
 
-use aux::usart1;
+use aux11::usart1;
 
 macro_rules! uprint {
     ($serial:expr, $($arg:tt)*) => {
@@ -96,7 +96,7 @@ impl Write for SerialPort {
 }
 
 fn main() {
-    let (usart1, _mono_timer, _itm) = aux::init();
+    let (usart1, _mono_timer, _itm) = aux11::init();
 
     let mut serial = SerialPort { usart1 };
 

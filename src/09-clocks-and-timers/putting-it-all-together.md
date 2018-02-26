@@ -3,9 +3,9 @@
 ``` rust
 #![no_std]
 
-extern crate aux;
+extern crate aux9;
 
-use aux::tim6;
+use aux9::tim6;
 
 #[inline(never)]
 fn delay(tim6: &tim6::RegisterBlock, ms: u16) {
@@ -24,7 +24,7 @@ fn delay(tim6: &tim6::RegisterBlock, ms: u16) {
 }
 
 fn main() {
-    let (mut leds, rcc, tim6) = aux::init();
+    let (mut leds, rcc, tim6) = aux9::init();
 
     // Power on the TIM6 timer
     rcc.apb1enr.modify(|_, w| w.tim6en().set_bit());

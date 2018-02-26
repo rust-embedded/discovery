@@ -4,7 +4,7 @@ If you wrote your program like this:
 
 ``` rust
 fn main() {
-    let (usart1, _mono_timer, _itm) = aux::init();
+    let (usart1, _mono_timer, _itm) = aux11::init();
 
     // Send a string
     for byte in b"The quick brown fox jumps over the lazy dog.".iter() {
@@ -44,7 +44,7 @@ Our pangram has a length of 45 bytes. That means it's going to take, at least, 3
 where executing an instruction takes 125 nanoseconds, so it's likely going to be done with the `for`
 loop is less than 3,900 microseconds.
 
-We can actually time how long it takes to execute the `for` loop. `aux::init()` returns a
+We can actually time how long it takes to execute the `for` loop. `aux11::init()` returns a
 `MonoTimer` (monotonic timer) value that exposes an `Instant` API that's similar to the one in
 `std::time`.
 
@@ -52,10 +52,10 @@ We can actually time how long it takes to execute the `for` loop. `aux::init()` 
 #![no_std]
 
 #[macro_use]
-extern crate aux;
+extern crate aux11;
 
 fn main() {
-    let (usart1, mono_timer, mut itm) = aux::init();
+    let (usart1, mono_timer, mut itm) = aux11::init();
 
     let instant = mono_timer.now();
     // Send a string
@@ -94,7 +94,7 @@ Let's use that to slowdown the processor.
 
 ``` rust
 fn main() {
-    let (usart1, mono_timer, mut itm) = aux::init();
+    let (usart1, mono_timer, mut itm) = aux11::init();
 
     let instant = mono_timer.now();
     // Send a string

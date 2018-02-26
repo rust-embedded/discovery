@@ -9,9 +9,9 @@ will blink so fast that they'll appear to always be on.
 ``` rust
 #![no_std]
 
-extern crate aux;
+extern crate aux9;
 
-use aux::tim6;
+use aux9::tim6;
 
 #[inline(never)]
 fn delay(_tim6: &tim6::RegisterBlock, _ms: u16) {
@@ -19,7 +19,7 @@ fn delay(_tim6: &tim6::RegisterBlock, _ms: u16) {
 }
 
 fn main() {
-    let (mut leds, _rcc, tim6) = aux::init();
+    let (mut leds, _rcc, tim6) = aux9::init();
 
     // TODO initialize TIM7
 

@@ -14,12 +14,12 @@ Let's try this program:
 #![no_std]
 
 #[macro_use(iprint, iprintln)]
-extern crate aux;
+extern crate aux7;
 
 use core::ptr;
 
 fn main() {
-    let mut itm = aux::init().0;
+    let mut itm = aux7::init().0;
 
     unsafe {
         const GPIOE_BSRR: u32 = 0x4800_1018;

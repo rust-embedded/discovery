@@ -3,7 +3,7 @@
 Now, I'm going to introduce two high level abstractions that we'll use to implement the LED roulette
 application.
 
-The auxiliary crate, `aux`, exposes an initialization function called `init`. When called this
+The auxiliary crate, `aux5`, exposes an initialization function called `init`. When called this
 function returns two values packed in a tuple: a `Delay` value and a `Leds` value.
 
 `Delay` can be used to block your program for a specified amount of milliseconds.
@@ -17,13 +17,13 @@ Let's try out these two abstractions by modifying the starter code to look like 
 #![deny(unsafe_code)]
 #![no_std]
 
-extern crate aux;
+extern crate aux5;
 
-use aux::prelude::*;
-use aux::{Delay, Leds};
+use aux5::prelude::*;
+use aux5::{Delay, Leds};
 
 fn main() {
-    let (mut delay, mut leds): (Delay, Leds) = aux::init();
+    let (mut delay, mut leds): (Delay, Leds) = aux5::init();
 
     let half_period = 500_u16;
 
@@ -75,7 +75,7 @@ Continuing.
 Note: automatically using hardware breakpoints for read-only addresses.
 
 Breakpoint 1, led_roulette::main () at src/main.rs:10
-10          let (mut delay, mut leds): (Delay, Leds) = aux::init();
+10          let (mut delay, mut leds): (Delay, Leds) = aux5::init();
 ```
 
 OK. Let's step through the code. This time, we'll use the `next` command instead of `step`. The

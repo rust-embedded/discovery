@@ -95,6 +95,6 @@ called the `asm::bkpt()` function and that function executed the `BKPT` (breakpo
 
 Remember that our microcontroller only supports 6 breakpoints? Well, `asm::bkpt()` *doesn't* count
 towards that limit of 6. Only breakpoints set in GDB using the `break` command count towards the
-limit. So, feel free to use the `aux::bkpt()` function in your programs from now on.
+limit. So, feel free to use the `auxN::bkpt()` function in your programs from now on.
 
 Later on, we'll look into other simpler communication protocols.

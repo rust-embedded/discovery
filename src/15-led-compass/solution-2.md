@@ -4,7 +4,7 @@
 #![deny(unsafe_code)]
 #![no_std]
 
-extern crate aux;
+extern crate aux15;
 extern crate m;
 
 // you'll find this useful ;-)
@@ -13,11 +13,11 @@ use core::f32::consts::PI;
 // this trait provides the `atan2` method
 use m::Float;
 
-use aux::prelude::*;
-use aux::{Direction, I16x3};
+use aux15::prelude::*;
+use aux15::{Direction, I16x3};
 
 fn main() {
-    let (mut leds, mut lsm303dlhc, mut delay, _itm) = aux::init();
+    let (mut leds, mut lsm303dlhc, mut delay, _itm) = aux15::init();
 
     loop {
         let I16x3 { x, y, .. } = lsm303dlhc.mag().unwrap();

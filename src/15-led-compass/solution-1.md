@@ -4,13 +4,13 @@
 #![deny(unsafe_code)]
 #![no_std]
 
-extern crate aux;
+extern crate aux15;
 
-use aux::prelude::*;
-use aux::{Direction, I16x3};
+use aux15::prelude::*;
+use aux15::{Direction, I16x3};
 
 fn main() {
-    let (mut leds, mut lsm303dlhc, mut delay, _itm) = aux::init();
+    let (mut leds, mut lsm303dlhc, mut delay, _itm) = aux15::init();
 
     loop {
         let I16x3 { x, y, .. } = lsm303dlhc.mag().unwrap();

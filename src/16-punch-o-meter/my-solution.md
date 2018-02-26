@@ -5,18 +5,18 @@
 #![no_std]
 
 #[macro_use]
-extern crate aux;
+extern crate aux16;
 extern crate m;
 
-use aux::Sensitivity;
-use aux::prelude::*;
+use aux16::Sensitivity;
+use aux16::prelude::*;
 use m::Float;
 
 fn main() {
     const SENSITIVITY: f32 = 12. / (1 << 14) as f32;
     const THRESHOLD: f32 = 0.5;
 
-    let (mut lsm303dlhc, mut delay, mono_timer, mut itm) = aux::init();
+    let (mut lsm303dlhc, mut delay, mono_timer, mut itm) = aux16::init();
 
     lsm303dlhc.set_accel_sensitivity(Sensitivity::G12).unwrap();
 

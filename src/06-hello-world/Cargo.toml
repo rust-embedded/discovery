@@ -4,14 +4,4 @@ name = "hello-world"
 version = "0.1.0"
 
 [dependencies]
-aux = { path = "aux" }
-
-[profile.dev]
-codegen-units = 1
-incremental = false
-# TODO(check) ugh, rust-lang/rust#47074 is breaking the linking step. Fix it using a sledgehammer
-lto = true
-
-[profile.release]
-debug = true
-lto = true
+aux6 = { path = "aux" }

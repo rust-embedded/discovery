@@ -23,12 +23,12 @@ Let's get familiar with the readings of the magnetometer by running the followin
 #![no_std]
 
 #[macro_use]
-extern crate aux;
+extern crate aux15;
 
-use aux::prelude::*;
+use aux15::prelude::*;
 
 fn main() {
-    let (_leds, mut lsm303dlhc, mut delay, mut itm) = aux::init();
+    let (_leds, mut lsm303dlhc, mut delay, mut itm) = aux15::init();
 
     loop {
         iprintln!(&mut itm.stim[0], "{:?}", lsm303dlhc.mag().unwrap());

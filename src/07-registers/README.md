@@ -8,10 +8,10 @@ and let's run the starter code statement by statement.
 ``` rust
 #![no_std]
 
-extern crate aux;
+extern crate aux7;
 
 fn main() {
-    aux::init();
+    aux7::init();
 
     unsafe {
         // A magic address!

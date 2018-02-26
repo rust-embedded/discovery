@@ -16,7 +16,7 @@ Wouldn't it be nice if we had an API to manipulate registers in a "safe" manner?
 should encode these three points I've mentioned: No messing around with the actual addresses, should
 respect read/write permissions and should prevent modification of the reserved parts of a register.
 
-Well, we do! `aux::init()` actually returns a value that provides a type safe API to manipulate the
+Well, we do! `aux7::init()` actually returns a value that provides a type safe API to manipulate the
 registers of the  `GPIOE` peripheral.
 
 As you may remember: a group of registers associated to a peripheral is called register block, and
@@ -32,10 +32,10 @@ The best way to get familiar with this API is to port our running example to it.
 ``` rust
 #![no_std]
 
-extern crate aux;
+extern crate aux7;
 
 fn main() {
-    let gpioe = aux::init().1;
+    let gpioe = aux7::init().1;
 
     // Turn on the North LED
     gpioe.bsrr.write(|w| w.bs9().set_bit());
@@ -177,7 +177,7 @@ $ arm-none-eabi-objdump -Cd target/thumbv7em-none-eabihf/release/registers
  8000868:       f240 1088       movw    r0, #392        ; 0x188
  800086c:       f6c0 0000       movt    r0, #2048       ; 0x800
  8000870:       7800            ldrb    r0, [r0, #0]
- 8000872:       f7ff fe69       bl      8000548 <aux::init>
+ 8000872:       f7ff fe69       bl      8000548 <aux7::init>
  8000876:       f241 0018       movw    r0, #4120       ; 0x1018
  800087a:       f44f 7100       mov.w   r1, #512        ; 0x200
  800087e:       f6c4 0000       movt    r0, #18432      ; 0x4800

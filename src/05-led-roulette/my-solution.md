@@ -8,13 +8,13 @@ Here's mine:
 #![deny(unsafe_code)]
 #![no_std]
 
-extern crate aux;
+extern crate aux5;
 
-use aux::prelude::*;
-use aux::{Delay, Leds};
+use aux5::prelude::*;
+use aux5::{Delay, Leds};
 
 fn main() {
-    let (mut delay, mut leds): (Delay, Leds) = aux::init();
+    let (mut delay, mut leds): (Delay, Leds) = aux5::init();
 
     let ms = 50_u8;
     loop {
@@ -58,7 +58,7 @@ $ arm-none-eabi-size target/thumbv7em-none-eabihf/*/led-roulette
 
 Know how to read this output? The `text` section contains the program instructions. It's around 2KB
 in my case. On the other hand, the `data` and `bss` sections contain variables statically allocated
-in RAM (`static` variables). A `static` variable is being used in `aux::init`; that's why it shows 4
+in RAM (`static` variables). A `static` variable is being used in `aux5::init`; that's why it shows 4
 bytes of `bss`.
 
 One final thing! We have been running our programs from within GDB but our programs don't depend on

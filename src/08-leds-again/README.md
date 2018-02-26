@@ -1,8 +1,8 @@
 # LEDs, again
 
 In the last section, I gave you *initialized* (configured) peripherals (I initialized them in
-`aux::init`). That's why just writing to `BSRR` was enough to control the LEDs. But, peripherals are
-not *initialized* right after the microcontroller boots.
+`aux8::init`). That's why just writing to `BSRR` was enough to control the LEDs. But, peripherals
+are not *initialized* right after the microcontroller boots.
 
 In this section, you'll have more fun with registers. I won't do any initialization and you'll have
 to initialize configure `GPIOE` pins as digital outputs pins so that you'll be able to drive LEDs
@@ -14,10 +14,10 @@ This is the starter code.
 #![deny(unsafe_code)]
 #![no_std]
 
-extern crate aux;
+extern crate aux8;
 
 fn main() {
-    let (gpioe, rcc) = aux::init();
+    let (gpioe, rcc) = aux8::init();
 
     // TODO initialize GPIOE
 
@@ -33,7 +33,7 @@ fn main() {
         w.odr15().set_bit()
     });
 
-    aux::bkpt();
+    aux8::bkpt();
 }
 ```
 
@@ -44,7 +44,7 @@ the `GPIOE` register block, you'll see that every register reads as zero even af
 ```
 (gdb) continue
 leds_again::main () at src/main.rs:24
-24          aux::bkpt();
+24          aux8::bkpt();
 
 (gdb) p/x *gpioe
 $1 = stm32f30x::gpioc::RegisterBlock {
