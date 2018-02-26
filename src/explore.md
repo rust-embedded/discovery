@@ -125,6 +125,12 @@ So where to next? There are several options:
 
 [`f3`]: https://docs.rs/f3
 
+- You could try out [this motion sensors demo][madgwick]. Details about the implementation and
+  source code are available in [this blog post][wd-1-2].
+
+[madgwick]: https://mobile.twitter.com/japaricious/status/962770003325005824
+[wd-1-2]: http://blog.japaric.io/wd-1-2-l3gd20-lsm303dlhc-madgwick/
+
 - You could check out [Real Time for The Masses]. A very efficient preemptive multitasking framework
   that supports task prioritization and dead lock free execution.
 
@@ -135,10 +141,10 @@ So where to next? There are several options:
 
 [`cortex-m-quickstart`]: https://docs.rs/cortex-m-quickstart/0.2.4/cortex_m_quickstart
 
-- You could check out this [blog post] which describes how Rust type system can prevent bugs in I/O
-  configuration.
+- You could check out [this blog post][brave-new-io] which describes how Rust type system can
+  prevent bugs in I/O configuration.
 
-[blog post]: http://blog.japaric.io/brave-new-io/
+[brave-new-io]: http://blog.japaric.io/brave-new-io/
 
 - You could check out my [blog] for miscellaneous topics about embedded development with Rust.
 
