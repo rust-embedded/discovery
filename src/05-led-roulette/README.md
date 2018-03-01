@@ -38,9 +38,9 @@ fn main() {
 ```
 
 The only thing that should look different from a standard Rust program is the addition of the
-`#![no_std]` attribute. That attributes says that this program won't use the `std` crate, which
-assumes an underlying OS, but the `core` crate, a subset of `std` that can on bare metal systems
-(systems without an OS).
+`#![no_std]` attribute. That attribute says that this program won't use the `std` crate, which
+assumes an underlying OS, but the `core` crate, a subset of `std` that can run on bare metal systems
+(i.e., systems without an OS).
 
 If you are a careful observer, you'll also notice there is a `.cargo` directory in the Cargo project
 as well. `:-)`
