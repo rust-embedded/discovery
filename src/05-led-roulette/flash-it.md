@@ -1,7 +1,7 @@
 # Flash it
 
 Flashing is the process of moving our program into the microcontroller's (persistent) memory. Once
-flashed, the microcontroller will executed the flashed program everytime it is powered on.
+flashed, the microcontroller will execute the flashed program every time it is powered on.
 
 In this case, our `led-roulette` program will be the *only* program in the microcontroller memory.
 By this I mean that there's nothing else running on the microcontroller: no OS, no "daemon",
@@ -36,22 +36,22 @@ The program will block; leave that terminal open.
 Now it's a good time to explain what this command is actually doing.
 
 I mentioned that the F3 actually has two microcontrollers. One of them is used as a
-programmer/debugger. The part of the board that's used as a programmer is called ST-LINK (that's how
+programmer/debugger. The part of the board that's used as a programmer is called ST-LINK (that's what
 STMicroelectronics decided to call it). This ST-LINK is connected to the target microcontroller
 using a Serial Wire Debug (SWD) interface (this interface is an ARM standard so you'll run into it
 when dealing with other Cortex-M based microcontrollers). This SWD interface can be used to flash
 and debug a microcontroller. The ST-LINK is connected to the "USB ST-LINK" port and will appear as
-an USB device when you connect the F3 to your laptop.
+a USB device when you connect the F3 to your laptop.
 
 <p align="center">
 <img height=640 title="On-board ST-LINK" src="assets/st-link.png">
 </p>
 
 
-As for OpenOCD. It's a software that provides some services like a *GDB server* on top of USB
+As for OpenOCD, it's software that provides some services like a *GDB server* on top of USB
 devices that expose a debugging protocol like SWD or JTAG.
 
-Onto the actual command: Those `.cfg` files we are using instruct OpenOCD to look for a ST-LINK USB
+Onto the actual command: those `.cfg` files we are using instruct OpenOCD to look for a ST-LINK USB
 device (`interface/stlink-v2-1.cfg`) and to expect a STM32F3XX microcontroller
 (`target/stm32f3x.cfg`) to be connected to the ST-LINK.
 
