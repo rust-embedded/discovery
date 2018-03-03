@@ -4,4 +4,4 @@ name = "i2c"
 version = "0.1.0"
 
 [dependencies]
-aux14 = { path = "aux" }
+aux14 = { path = "auxiliary" }

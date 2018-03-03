@@ -4,4 +4,4 @@ name = "hello-world"
 version = "0.1.0"
 
 [dependencies]
-aux6 = { path = "aux" }
+aux6 = { path = "auxiliary" }

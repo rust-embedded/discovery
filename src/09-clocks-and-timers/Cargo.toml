@@ -4,4 +4,4 @@ name = "clocks-and-timers"
 version = "0.1.0"
 
 [dependencies]
-aux9 = { path = "aux" }
+aux9 = { path = "auxiliary" }
