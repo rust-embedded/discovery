@@ -5,4 +5,4 @@ version = "0.1.0"
 
 [dependencies]
 heapless = "0.2.1"
-aux11 = { path = "aux" }
+aux11 = { path = "auxiliary" }

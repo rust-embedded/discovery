@@ -4,4 +4,4 @@ name = "leds-again"
 version = "0.1.0"
 
 [dependencies]
-aux8 = { path = "aux" }
+aux8 = { path = "auxiliary" }
