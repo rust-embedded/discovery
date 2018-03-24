@@ -19,7 +19,7 @@ First, we'll have to configure the timer to operate in one pulse mode.
 ``` rust
     // OPM Select one pulse mode
     // CEN Keep the counter disabled for now
-    tim6.cr1.write(|w| w.opm().clear_bit().cen().set_bit());
+    tim6.cr1.write(|w| w.opm().set_bit().cen().clear_bit());
 ```
 
 Then, we'll like to have the `CNT` counter operate at a frequency of 1 KHz because our `delay`
