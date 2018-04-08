@@ -21,7 +21,6 @@ script:
 after_success:
   - bash ci/after-success.sh
 
-
 branches:
   only:
     - master
