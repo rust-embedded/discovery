@@ -26,7 +26,7 @@ during GDB startup:
 OK, now run it.
 
 ``` console
-$ xargo run
+$ cargo run
 (..)
 Breakpoint 1, hello_world::main () at src/main.rs:8
 8           panic!("Hello, world!");

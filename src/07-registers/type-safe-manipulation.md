@@ -66,7 +66,7 @@ Let's run this program! There's some interesting stuff we can do *while* debuggi
 the register block.
 
 ```
-$ xargo run
+$ cargo run
 
 (gdb) next
 
@@ -168,7 +168,7 @@ did!
 [LTO]: https://en.wikipedia.org/wiki/Interprocedural_optimization
 
 ``` console
-$ xargo build --release
+$ cargo build --release
 
 $ arm-none-eabi-objdump -Cd target/thumbv7em-none-eabihf/release/registers
 08000864 <cortex_m_rt::reset_handler::main>:

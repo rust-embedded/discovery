@@ -33,13 +33,13 @@ fn main() {
 One more thing! Check that your solution also works when compiled in "release" mode:
 
 ``` console
-$ xargo build --target thumbv7em-none-eabihf --release
+$ cargo build --target thumbv7em-none-eabihf --release
 ```
 
 You can test it with this `gdb` command:
 
 ``` console
-$ # or, you could simply call `xargo run --target thumbv7em-none-eabihf --release`
+$ # or, you could simply call `cargo run --target thumbv7em-none-eabihf --release`
 $ arm-none-eabi-gdb target/thumbv7em-none-eabihf/release/led-roulette
 $ #                                              ~~~~~~~
 ```

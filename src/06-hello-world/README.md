@@ -80,7 +80,7 @@ This command will block as `itmdump` is now watching the `itm.txt` file. Leave t
 
 Alright. Now, let's build the starter code and flash it into the microcontroller.
 
-To avoid passing the `--target thumbv7em-none-eabihf` flag to every Xargo invocation we can set a
+To avoid passing the `--target thumbv7em-none-eabihf` flag to every Cargo invocation we can set a
 default target in .cargo/config:
 
 ``` diff
@@ -96,11 +96,10 @@ default target in .cargo/config:
 +target = "thumbv7em-none-eabihf"
 ```
 
-Now if `--target` is not specified Xargo / Cargo will assume that the target is
-`thumbv7em-none-eabihf`.
+Now if `--target` is not specified Cargo will assume that the target is `thumbv7em-none-eabihf`.
 
 ``` console
-$ xargo run
+$ cargo run
 Reading symbols from target/thumbv7em-none-eabihf/debug/hello-world...done.
 (..)
 0x00000000 in ?? ()

@@ -32,8 +32,6 @@ should work but we have listed the version we have tested.
 
 - Cargo & `rustc` >= nightly-2018-01-01
 
-- [Xargo] v0.3.10
-
 - [`itmdump`] v0.2.1
 
 - OpenOCD >=0.8. Tested versions: v0.9.0 and v0.10.0
@@ -48,7 +46,6 @@ should work but we have listed the version we have tested.
 
 - `PuTTY` on Windows.
 
-[Xargo]: https://crates.io/crates/xargo
 [`itmdump`]: https://crates.io/crates/itm
 
 If your laptop has Bluetooth functionality and you have the Bluetooth module, you can additionally
@@ -74,36 +71,12 @@ Then, install or switch to the nightly channel.
 $ rustup default nightly
 ```
 
-### Xargo
-
-You can install Xargo in two different ways:
-
-- By grabbing a [binary release] and placing it somewhere in your `$PATH`. `$HOME/.cargo/bin` is a
-  good place to install it to. Do make sure that the binary release you "installed" actually works
-  by executing the following command:
+**NOTE** Make sure you have a nightly newer than `nightly-2018-04-08`. `rustc -V` should return a
+date newer than the one shown below:
 
 ``` console
-$ xargo -V
-xargo 0.3.10
-cargo 0.26.0-nightly (1d6dfea44 2018-01-26)
-```
-
-[binary release]: https://github.com/japaric/xargo/releases
-
-- Or, by building it yourself with the following command:
-
-``` console
-$ cargo install xargo
-$ xargo -V
-xargo 0.3.10
-cargo 0.26.0-nightly (1d6dfea44 2018-01-26)
-```
-
-You will additionally need to install the `rust-src` component (the source of the Rust compiler and
-standard libraries) using `rustup` because Xargo depends on it:
-
-``` console
-$ rustup component add rust-src
+$ rustc -V
+rustc 1.27.0-nightly (056f589fb 2018-04-07)
 ```
 
 ### `itmdump`
