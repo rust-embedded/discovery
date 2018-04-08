@@ -1,7 +1,6 @@
 [target.thumbv7em-none-eabihf]
 runner = "arm-none-eabi-gdb"
 rustflags = [
-  "-C", "lto", # hack to work around rust-lang/rust#47074
   "-C", "link-arg=-Tlink.x",
   "-C", "linker=arm-none-eabi-ld",
   "-Z", "linker-flavor=ld",
