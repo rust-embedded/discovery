@@ -14,17 +14,21 @@ families within that architecture:
 - `thumbv7em-none-eabi`, for the Cortex-M4 and Cortex-M7 processors
 - `thumbv7em-none-eabihf`, for the Cortex-M4**F** and Cortex-M7**F** processors
 
-For the F3, we'll to use the `thumbv7em-none-eabihf` target.
-
-Now, `rustup` doesn't provide a binary release of the `core` crate for this target, for that reason
-we'll use Xargo instead of Cargo. Xargo will take care of compiling the `core` crate for us:
+For the F3, we'll to use the `thumbv7em-none-eabihf` target. Before cross compiling you have to
+download pre-compiled version of the standard library (a reduced version of it actually) for your
+target. That's done using `rustup`:
 
 ``` console
-$ xargo build --target thumbv7em-none-eabihf
-   Compiling core v0.0.0 (file://$RUST_SRC/libcore)
-    Finished release [optimized + debuginfo] target(s) in 10.81 secs
-   Compiling compiler_builtins v0.1.0 (file://$RUST_SRC/libcompiler_builtins)
-    Finished release [optimized + debuginfo] target(s) in 2.1 secs
+$ rustup target add thumbv7em-none-eabihf
+```
+
+You only the above step once; `rustup` will re-install a new standard library (`rust-std` component)
+whenever you update your toolchain.
+
+With the `rust-std` component in place you can now cross compile the program using Cargo:
+
+``` console
+$ cargo build --target thumbv7em-none-eabihf
    Compiling semver-parser v0.7.0
    Compiling aligned v0.1.1
    Compiling libc v0.2.35
@@ -40,9 +44,6 @@ $ xargo build --target thumbv7em-none-eabihf
 ```
 
 > **NOTE** Be sure to compile this crate *without* optimizations
-
-Also, let me note that Xargo exposes the exact same UI as Cargo so you can use any subcommand (even
-custom ones) that you would normally use with Cargo.
 
 OK, now we have produced an executable. As a sanity check, let's verify that the produced executable
 is actually an ARM binary:

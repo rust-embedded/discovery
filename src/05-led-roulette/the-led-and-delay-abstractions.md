@@ -40,14 +40,12 @@ fn main() {
 Now build it:
 
 ``` console
-$ xargo build --target thumbv7em-none-eabihf
+$ cargo build --target thumbv7em-none-eabihf
 ```
 
-<!-- TODO document that `xargo run` eliminates this problem -->
-
 > **NOTE** It's possible to forget to rebuild the program *before* starting a GDB session; this
-> omission can lead to very confusing debug sessions. To avoid this problem you can call `xargo run`
-> instead of `xargo build`; `xargo run` will build *and* start a debug session ensuring you never
+> omission can lead to very confusing debug sessions. To avoid this problem you can call `cargo run`
+> instead of `cargo build`; `cargo run` will build *and* start a debug session ensuring you never
 > forget to recompile your program.
 
 Now, we'll repeat the flashing procedure that we did in the previous section:

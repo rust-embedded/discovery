@@ -9,7 +9,7 @@ Actually, LLVM, the compiler's backend / optimizer, does not know we are dealing
 will merge the writes thus changing the behavior of our program. Let's check that really quick.
 
 ``` console
-$ xargo run --release
+$ cargo run --release
 
 (gdb) next
 

@@ -16,7 +16,7 @@ Invalid in the sense that there's no register at this address.
 Now, let's try it.
 
 ``` console
-$ xargo run
+$ cargo run
 
 (gdb) continue
 cortex_m_rt::default_handler (ef=0x10001fb8) at $REGISTRY/cortex-m-rt-0.3.9/src/lib.rs:452

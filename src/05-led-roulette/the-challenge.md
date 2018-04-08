@@ -19,7 +19,7 @@ This is a timing diagram. It indicates which LED is on at any given instant of t
 each LED should be on. On the X axis we have the time in milliseconds. The timing diagram shows a
 single period. This pattern will repeat itself every 800 ms. The Y axis labels each LED with a
 cardinal point: North, East, etc. As part of the challenge you'll have to figure out how each
-element in the `Leds` array maps to these cardinal points (hint: `xargo doc --open` `;-)`).
+element in the `Leds` array maps to these cardinal points (hint: `cargo doc --open` `;-)`).
 
 Before you attempt this challenge, let me give you one last tip. Our GDB sessions always involve
 entering the same commands at the beginning. We can use a `.gdbinit` file to execute some commands
@@ -40,7 +40,7 @@ With that in place, you should now be able to start a `gdb` session that will au
 the program and jump to the beginning of `main`:
 
 ``` console
-$ xargo run --target thumbv7em-none-eabihf
+$ cargo run --target thumbv7em-none-eabihf
 Reading symbols from target/thumbv7em-none-eabihf/debug/led-roulette...done.
 (..)
 Loading section .text, size 0x2014 lma 0x8000000
@@ -57,7 +57,7 @@ Breakpoint 1, led_roulette::main () at src/main.rs:8
 But if that doesn't work and, instead, you get this:
 
 ``` console
-$ xargo run --target thumbv7em-none-eabihf
+$ cargo run --target thumbv7em-none-eabihf
 Reading symbols from target/thumbv7em-none-eabihf/debug/led-roulette...done.
 warning: File "$PWD/.gdbinit" auto-loading has been declined by your `auto-load safe-path' set to "$debugdir:$datadir/auto-load".
 To enable execution of this file add

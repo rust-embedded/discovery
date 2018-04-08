@@ -14,12 +14,12 @@ main() {
 
         pushd $chapter
         if [ $(basename $chapter) = 05-led-roulette ]; then
-            xargo check --target thumbv7em-none-eabihf
+            cargo check --target thumbv7em-none-eabihf
         elif [ $(basename $chapter) = WIP-async-io-the-future ]; then
             popd
             continue
         else
-            xargo check
+            cargo check
         fi
         popd
     done
@@ -32,14 +32,14 @@ main() {
 
         pushd $chapter
         if [ $(basename $chapter) = 05-led-roulette ]; then
-            xargo build --target thumbv7em-none-eabihf
-            xargo build --target thumbv7em-none-eabihf --release
+            cargo build --target thumbv7em-none-eabihf
+            cargo build --target thumbv7em-none-eabihf --release
         elif [ $(basename $chapter) = WIP-async-io-the-future ]; then
             popd
             continue
         else
-            xargo build
-            xargo build --release
+            cargo build
+            cargo build --release
         fi
         popd
     done

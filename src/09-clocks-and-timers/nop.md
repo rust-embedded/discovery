@@ -25,7 +25,7 @@ fn delay(_tim6: &tim6::RegisterBlock, ms: u16) {
 And this time `delay` won't be compiled away by LLVM when you compile your program in release mode:
 
 ``` console
-$ xargo build --release
+$ cargo build --release
 $ arm-none-eabi-objdump -Cd target/thumbv7em-none-eabihf/release/clocks-and-timers
 08000548 <clocks_and_timers::delay>:
  8000548:       2000            movs    r0, #0

@@ -156,12 +156,15 @@ To learn more, run the command again with --verbose.
 
 #### Cause
 
-You are probably using `cargo` instead of `xargo`.
+You are using a toolchain older than `nightly-2018-04-08` and forgot to call `rustup target add
+thumbv7m-none-eabi`.
 
 #### Fix
 
-Use Xargo instead of Cargo!
+Update your nightly and install the `thumbv7em-none-eabihf` target.
 
-```
-$ xargo build --target thumbv7em-none-eabihf
+``` console
+$ rustup update nightly
+
+$ rustup target add thumbv7em-none-eabihf
 ```
