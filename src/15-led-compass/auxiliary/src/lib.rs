@@ -1,14 +1,13 @@
 //! Initialization code
 
 #![feature(lang_items)]
-#![feature(macro_reexport)]
+#![feature(use_extern_macros)]
 #![no_std]
 
-#[macro_use(iprint, iprintln)]
-#[macro_reexport(iprint, iprintln)]
 extern crate cortex_m;
 extern crate f3;
 
+pub use cortex_m::{iprint, iprintln};
 pub use cortex_m::asm::bkpt;
 pub use cortex_m::peripheral::ITM;
 pub use f3::hal::delay::Delay;

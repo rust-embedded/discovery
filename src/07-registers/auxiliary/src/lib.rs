@@ -1,19 +1,18 @@
 //! Initialization code
 
 #![feature(lang_items)]
-#![feature(macro_reexport)]
+#![feature(use_extern_macros)]
 #![no_std]
 
-#[macro_reexport(iprint, iprintln)]
-#[macro_use(iprint, iprintln)]
 extern crate cortex_m;
 extern crate f3;
 
 pub use cortex_m::asm::bkpt;
-pub use cortex_m::peripheral::ITM;
-pub use f3::hal::stm32f30x::gpioc;
 use cortex_m::itm;
+pub use cortex_m::peripheral::ITM;
+pub use cortex_m::{iprint, iprintln};
 use f3::hal::prelude::*;
+pub use f3::hal::stm32f30x::gpioc;
 use f3::hal::stm32f30x::{self, GPIOE};
 use f3::led::Leds;
 

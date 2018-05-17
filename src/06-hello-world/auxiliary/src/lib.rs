@@ -1,17 +1,16 @@
 //! Initialization code
 
 #![feature(lang_items)]
-#![feature(macro_reexport)]
+#![feature(use_extern_macros)]
 #![no_std]
 
-#[macro_use(iprintln, iprint)]
-#[macro_reexport(iprintln, iprint)]
 extern crate cortex_m;
 extern crate f3;
 
 pub use cortex_m::asm::bkpt;
-pub use cortex_m::peripheral::ITM;
 use cortex_m::itm;
+pub use cortex_m::peripheral::ITM;
+pub use cortex_m::{iprint, iprintln};
 
 pub fn init() -> ITM {
     let p = cortex_m::Peripherals::take().unwrap();
