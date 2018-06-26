@@ -157,7 +157,7 @@ To learn more, run the command again with --verbose.
 #### Cause
 
 You are using a toolchain older than `nightly-2018-04-08` and forgot to call `rustup target add
-thumbv7m-none-eabi`.
+thumbv7em-none-eabihf`.
 
 #### Fix
 
