@@ -5,3 +5,4 @@
 Cargo.lock
 book/
 target/
+/.idea
