@@ -31,7 +31,7 @@ fn main() {
 
     // OPM Select one pulse mode
     // CEN Keep the counter disabled for now
-    tim6.cr1.write(|w| w.opm().clear_bit().cen().set_bit());
+    tim6.cr1.write(|w| w.opm().set_bit().cen().clear_bit());
 
     // Configure the prescaler to have the counter operate at 1 KHz
     // APB1_CLOCK = 8 MHz
