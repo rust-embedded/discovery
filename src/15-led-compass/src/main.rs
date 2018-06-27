@@ -1,12 +1,18 @@
 #![deny(unsafe_code)]
+#![no_main]
 #![no_std]
 
-#[macro_use]
 extern crate aux15;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 
 use aux15::prelude::*;
 
-fn main() {
+entry!(main);
+
+fn main() -> ! {
     let (_leds, mut lsm303dlhc, mut delay, mut itm) = aux15::init();
 
     loop {

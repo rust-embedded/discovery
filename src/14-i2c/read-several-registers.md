@@ -46,10 +46,14 @@ Putting it all together inside a loop alongside a delay to reduce the data throu
 
 ``` rust
 #![deny(unsafe_code)]
+#![no_main]
 #![no_std]
 
-#[macro_use]
 extern crate aux14;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 
 use aux14::prelude::*;
 
@@ -60,11 +64,11 @@ const MAGNETOMETER: u8 = 0b001_1110;
 const OUT_X_H_M: u8 = 0x03;
 const IRA_REG_M: u8 = 0x0A;
 
-fn main() {
+entry!(main);
+
+fn main() -> ! {
     let (i2c1, mut delay, mut itm) = aux14::init();
 
-    // Stage 1: Send the address of the register we want to read to the
-    // magnetometer
     loop {
         // Broadcast START
         // Broadcast the MAGNETOMETER address with the R/W bit set to Write
@@ -116,11 +120,9 @@ second. The values within the array should change if you move around the board.
 ``` console
 $ # itmdump terminal
 (..)
-[255, 238, 253, 208, 0, 50]
-[255, 238, 253, 210, 0, 50]
-[255, 239, 253, 208, 0, 51]
-[255, 237, 253, 206, 0, 49]
-[255, 239, 253, 207, 0, 48]
+[0, 45, 255, 251, 0, 193]
+[0, 44, 255, 249, 0, 193]
+[0, 49, 255, 250, 0, 195]
 ```
 
 But these bytes don't make much sense like that. Let's turn them into actual readings:
@@ -145,11 +147,9 @@ Now it should look better:
 ``` console
 $ # `itmdump terminal
 (..)
-(-15, 49, -559)
-(-14, 51, -560)
-(-16, 50, -561)
-(-19, 49, -561)
-(-17, 50, -560)
+(44, 196, -7)
+(45, 195, -6)
+(46, 196, -9)
 ```
 
 This is the Earth's magnetic field decomposed alongside the XYZ axis of the magnetometer.

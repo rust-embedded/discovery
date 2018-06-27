@@ -12,11 +12,16 @@ This is the starter code.
 
 ``` rust
 #![deny(unsafe_code)]
+#![no_main]
 #![no_std]
 
 extern crate aux8;
+#[macro_use]
+extern crate cortex_m_rt;
 
-fn main() {
+entry!(main);
+
+fn main() -> ! {
     let (gpioe, rcc) = aux8::init();
 
     // TODO initialize GPIOE
@@ -34,6 +39,8 @@ fn main() {
     });
 
     aux8::bkpt();
+
+    loop {}
 }
 ```
 
@@ -43,8 +50,16 @@ the `GPIOE` register block, you'll see that every register reads as zero even af
 
 ```
 (gdb) continue
-leds_again::main () at src/main.rs:24
-24          aux8::bkpt();
+Continuing.
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+__bkpt () at asm/bkpt.s:3
+3         bkpt
+
+(gdb) finish
+Run till exit from #0  __bkpt () at asm/bkpt.s:3
+leds_again::main () at src/08-leds-again/src/main.rs:28
+28          aux8::bkpt();
 
 (gdb) p/x *gpioe
 $1 = stm32f30x::gpioc::RegisterBlock {

@@ -3,13 +3,27 @@
 If you wrote your program like this:
 
 ``` rust
-fn main() {
-    let (usart1, _mono_timer, _itm) = aux11::init();
+#![deny(unsafe_code)]
+#![no_main]
+#![no_std]
+
+extern crate aux11;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
+
+entry!(main);
+
+fn main() -> ! {
+    let (usart1, mono_timer, itm) = aux11::init();
 
     // Send a string
     for byte in b"The quick brown fox jumps over the lazy dog.".iter() {
         usart1.tdr.write(|w| w.tdr().bits(u16::from(*byte)));
     }
+
+    loop {}
 }
 ```
 
@@ -49,12 +63,19 @@ We can actually time how long it takes to execute the `for` loop. `aux11::init()
 `std::time`.
 
 ``` rust
+#![deny(unsafe_code)]
+#![no_main]
 #![no_std]
 
-#[macro_use]
 extern crate aux11;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 
-fn main() {
+entry!(main);
+
+fn main() -> ! {
     let (usart1, mono_timer, mut itm) = aux11::init();
 
     let instant = mono_timer.now();
@@ -70,6 +91,8 @@ fn main() {
         elapsed,
         elapsed as f32 / mono_timer.frequency().0 as f32 * 1e6
     );
+
+    loop {}
 }
 ```
 
@@ -78,10 +101,10 @@ In debug mode, I get:
 ``` console
 $ # itmdump terminal
 (..)
-`for` loop took 22823 ticks (2852.875 us)
+`for` loop took 22415 ticks (2801.875 us)
 ```
 
-This is less than 9,500 microseconds but it's not that far off and that's why only a few bytes of
+This is less than 3,900 microseconds but it's not that far off and that's why only a few bytes of
 information are lost.
 
 In conclusion, the processor is trying to send bytes at a faster rate than what the hardware can
@@ -93,14 +116,26 @@ to write to the `TDR` register without incurring in data loss.
 Let's use that to slowdown the processor.
 
 ``` rust
-fn main() {
+#![deny(unsafe_code)]
+#![no_main]
+#![no_std]
+
+extern crate aux11;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
+
+entry!(main);
+
+fn main() -> ! {
     let (usart1, mono_timer, mut itm) = aux11::init();
 
     let instant = mono_timer.now();
     // Send a string
     for byte in b"The quick brown fox jumps over the lazy dog.".iter() {
         // wait until it's safe to write to TDR
-        while usart1.isr.read().txe().bit_is_clear() {}
+        while usart1.isr.read().txe().bit_is_clear() {} // <- NEW!
 
         usart1.tdr.write(|w| w.tdr().bits(u16::from(*byte)));
     }
@@ -112,6 +147,8 @@ fn main() {
         elapsed,
         elapsed as f32 / mono_timer.frequency().0 as f32 * 1e6
     );
+
+    loop {}
 }
 ```
 
@@ -130,5 +167,5 @@ timing below is for the debug version.
 ``` console
 $ # itmdump terminal
 (..)
-`for` loop took 30495 ticks (3811.875 us)
+`for` loop took 30499 ticks (3812.375 us)
 ```

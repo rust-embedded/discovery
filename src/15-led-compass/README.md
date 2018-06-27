@@ -20,14 +20,20 @@ Let's get familiar with the readings of the magnetometer by running the followin
 
 ``` rust
 #![deny(unsafe_code)]
+#![no_main]
 #![no_std]
 
-#[macro_use]
 extern crate aux15;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 
 use aux15::prelude::*;
 
-fn main() {
+entry!(main);
+
+fn main() -> ! {
     let (_leds, mut lsm303dlhc, mut delay, mut itm) = aux15::init();
 
     loop {
@@ -49,9 +55,9 @@ Now run the starter code and observe the output. What X, Y and Z values do you s
 ``` console
 $ # itmdump terminal
 (..)
-I16x3 { x: -106, y: -1, z: -553 }
-I16x3 { x: -101, y: 0, z: -555 }
-I16x3 { x: -108, y: 1, z: -559 }
+I16x3 { x: 45, y: 194, z: -3 }
+I16x3 { x: 46, y: 195, z: -8 }
+I16x3 { x: 47, y: 197, z: -2 }
 ```
 
 Now rotate the board 90 degrees while keeping it parallel to the ground. What X, Y and Z values do

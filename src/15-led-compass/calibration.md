@@ -18,15 +18,21 @@ Separated Values (TSV).
 
 ``` rust
 #![deny(unsafe_code)]
+#![no_main]
 #![no_std]
 
-#[macro_use]
 extern crate aux15;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 
 use aux15::prelude::*;
 use aux15::I16x3;
 
-fn main() {
+entry!(main);
+
+fn main() -> ! {
     let (_leds, mut lsm303dlhc, mut delay, mut itm) = aux15::init();
 
     loop {
@@ -43,11 +49,11 @@ You should get an output in the console that looks like this:
 
 ``` console
 $ # itmdump console
--82     44      -546
--79     45      -544
--79     45      -544
--79     45      -544
--80     44      -546
+-76     213     -54
+-76     213     -54
+-76     213     -54
+-76     213     -54
+-73     213     -55
 ```
 
 You can pipe that to a file using:

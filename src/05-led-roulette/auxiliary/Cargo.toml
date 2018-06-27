@@ -4,12 +4,10 @@ name = "aux5"
 version = "0.1.0"
 
 [dependencies]
-cortex-m = "0.4.3"
-
-[dependencies.cortex-m-rt]
-features = ["abort-on-panic"]
-version = "0.3.13"
+cortex-m = "0.5.2"
+panic-abort = "0.2.0"
+cortex-m-rt = "0.5.1"
 
 [dependencies.f3]
 features = ["rt"]
-version = "0.5.3"
+version = "0.6.1"

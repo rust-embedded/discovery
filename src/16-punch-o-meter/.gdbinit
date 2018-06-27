@@ -1,7 +1,8 @@
 target remote :3333
 set print asm-demangle on
-load
+set print pretty on
 monitor tpiu config internal itm.txt uart off 8000000
 monitor itm port 0 on
+load
 break punch_o_meter::main
 continue

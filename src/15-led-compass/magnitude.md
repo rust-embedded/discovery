@@ -28,18 +28,24 @@ Putting all this together in a program:
 
 ``` rust
 #![deny(unsafe_code)]
+#![no_main]
 #![no_std]
 
 #[macro_use]
 extern crate aux15;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 extern crate m;
-
-use m::Float;
 
 use aux15::prelude::*;
 use aux15::I16x3;
+use m::Float;
 
-fn main() {
+entry!(main);
+
+fn main() -> ! {
     const XY_GAIN: f32 = 1100.; // LSB / G
     const Z_GAIN: f32 = 980.; // LSB / G
 
@@ -61,9 +67,10 @@ fn main() {
 }
 ```
 
-This program will report the magnitude of the magnetic field in milligauss (`mG`) because the
+This program will report the magnitude (strength) of the magnetic field in milligauss (`mG`). The
 magnitude of the Earth's magnetic field is in the range of `250 mG` to `650 mG` (the magnitude
-varies depending on your geographical location).
+varies depending on your geographical location) so you should see a value in that range or close to
+that range -- I see a magnitude of around 210 mG.
 
 Some questions:
 

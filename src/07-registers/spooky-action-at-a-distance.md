@@ -11,14 +11,20 @@ status of Port E.
 Let's try this program:
 
 ``` rust
+#![no_main]
 #![no_std]
 
-#[macro_use(iprint, iprintln)]
 extern crate aux7;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 
 use core::ptr;
 
-fn main() {
+entry!(main);
+
+fn main() -> ! {
     let mut itm = aux7::init().0;
 
     unsafe {
@@ -61,6 +67,8 @@ fn main() {
         // Turn off the EAST LED
         ptr::write_volatile(GPIOE_BSRR as *mut u32, 1 << (11 + 16));
     }
+
+    loop {}
 }
 ```
 

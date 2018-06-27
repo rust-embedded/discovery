@@ -13,14 +13,18 @@ main() {
         fi
 
         pushd $chapter
-        if [ $(basename $chapter) = 05-led-roulette ]; then
-            cargo check --target thumbv7em-none-eabihf
-        elif [ $(basename $chapter) = WIP-async-io-the-future ]; then
-            popd
-            continue
-        else
-            cargo check
-        fi
+        case $(basename $chapter) in
+            05-led-roulette | 06-hello-world)
+                cargo check --target thumbv7em-none-eabihf
+                ;;
+            WIP-async-io-the-future)
+                popd
+                continue
+                ;;
+            *)
+                cargo check
+                ;;
+        esac
         popd
     done
 
@@ -31,16 +35,20 @@ main() {
         fi
 
         pushd $chapter
-        if [ $(basename $chapter) = 05-led-roulette ]; then
-            cargo build --target thumbv7em-none-eabihf
-            cargo build --target thumbv7em-none-eabihf --release
-        elif [ $(basename $chapter) = WIP-async-io-the-future ]; then
-            popd
-            continue
-        else
-            cargo build
-            cargo build --release
-        fi
+        case $(basename $chapter) in
+            05-led-roulette | 06-hello-world)
+                cargo build --target thumbv7em-none-eabihf
+                cargo build --target thumbv7em-none-eabihf --release
+                ;;
+            WIP-async-io-the-future)
+                popd
+                continue
+                ;;
+            *)
+                cargo build
+                cargo build --release
+                ;;
+        esac
         popd
     done
 }

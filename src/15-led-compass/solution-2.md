@@ -2,27 +2,33 @@
 
 ``` rust
 #![deny(unsafe_code)]
+#![no_main]
 #![no_std]
 
 extern crate aux15;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 extern crate m;
 
 // you'll find this useful ;-)
 use core::f32::consts::PI;
 
+use aux15::prelude::*;
+use aux15::{Direction, I16x3};
 // this trait provides the `atan2` method
 use m::Float;
 
-use aux15::prelude::*;
-use aux15::{Direction, I16x3};
+entry!(main);
 
-fn main() {
+fn main() -> ! {
     let (mut leds, mut lsm303dlhc, mut delay, _itm) = aux15::init();
 
     loop {
         let I16x3 { x, y, .. } = lsm303dlhc.mag().unwrap();
 
-        let theta = (y as f32).atan2(x as f32); // radians
+        let theta = (y as f32).atan2(x as f32); // in radians
 
         let dir = if theta < -7. * PI / 8. {
             Direction::North

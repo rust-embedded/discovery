@@ -1,14 +1,3 @@
-# [dependencies]
-# "led-roulette" = { path = "src/05-led-roulette" }
-# "hello-world" = { path = "src/06-hello-world" }
-# "registers" = { path = "src/07-registers" }
-# "leds-again" = { path = "src/08-leds-again" }
-# "clocks-and-timers" = { path = "src/09-clocks-and-timers" }
-# "usart" = { path = "src/11-usart" }
-# "i2c" = { path = "src/14-i2c" }
-# "led-compass" = { path = "src/15-led-compass" }
-# "punch-o-meter" = { path = "src/16-punch-o-meter" }
-
 [workspace]
 members = [
   "src/05-led-roulette",
@@ -22,10 +11,7 @@ members = [
   "src/16-punch-o-meter",
 ]
 
-[profile.dev]
-codegen-units = 1
-incremental = false
-
 [profile.release]
+codegen-units = 1
 debug = true
 lto = true
