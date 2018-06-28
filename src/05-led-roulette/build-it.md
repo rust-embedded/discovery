@@ -28,6 +28,8 @@ whenever you update your toolchain.
 With the `rust-std` component in place you can now cross compile the program using Cargo:
 
 ``` console
+$ # make sure you are in the `src/05-led-roulette` directory
+
 $ cargo build --target thumbv7em-none-eabihf
    Compiling semver-parser v0.7.0
    Compiling aligned v0.1.1
