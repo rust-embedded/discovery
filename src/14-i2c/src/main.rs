@@ -1,8 +1,12 @@
 #![deny(unsafe_code)]
+#![no_main]
 #![no_std]
 
-#[macro_use]
 extern crate aux14;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 
 use aux14::prelude::*;
 
@@ -13,7 +17,9 @@ const MAGNETOMETER: u8 = 0b001_1110;
 const OUT_X_H_M: u8 = 0x03;
 const IRA_REG_M: u8 = 0x0A;
 
-fn main() {
+entry!(main);
+
+fn main() -> ! {
     let (i2c1, _delay, mut itm) = aux14::init();
 
     // Stage 1: Send the address of the register we want to read to the
@@ -40,4 +46,6 @@ fn main() {
 
     // Expected output: 0x0A - 0b01001000
     iprintln!(&mut itm.stim[0], "0x{:02X} - 0b{:08b}", IRA_REG_M, byte);
+
+    loop {}
 }

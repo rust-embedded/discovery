@@ -2,17 +2,23 @@
 
 ``` rust
 #![deny(unsafe_code)]
+#![no_main]
 #![no_std]
 
-#[macro_use]
 extern crate aux16;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 extern crate m;
 
-use aux16::Sensitivity;
 use aux16::prelude::*;
+use aux16::Sensitivity;
 use m::Float;
 
-fn main() {
+entry!(main);
+
+fn main() -> ! {
     const SENSITIVITY: f32 = 12. / (1 << 14) as f32;
     const THRESHOLD: f32 = 0.5;
 

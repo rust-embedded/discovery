@@ -6,14 +6,19 @@ Here's mine:
 
 ``` rust
 #![deny(unsafe_code)]
+#![no_main]
 #![no_std]
 
 extern crate aux5;
+#[macro_use]
+extern crate cortex_m_rt;
 
 use aux5::prelude::*;
 use aux5::{Delay, Leds};
 
-fn main() {
+entry!(main);
+
+fn main() -> ! {
     let (mut delay, mut leds): (Delay, Leds) = aux5::init();
 
     let ms = 50_u8;
@@ -48,10 +53,10 @@ Binary size is something we should always keep an eye on! How big is your soluti
 that using the `size` command on the release binary:
 
 ``` console
-$ arm-none-eabi-size target/thumbv7em-none-eabihf/*/led-roulette
+$ size target/thumbv7em-none-eabihf/{debug,release}/led-roulette
    text    data     bss     dec     hex filename
-  20474       0       4   20478    4ffe target/thumbv7em-none-eabihf/debug/led-roulette
-   2148       0       4    2152     868 target/thumbv7em-none-eabihf/release/led-roulette
+  19782       0       4   19786    4d4a target/thumbv7em-none-eabihf/debug/led-roulette
+   2424       0       4    2428     97c target/thumbv7em-none-eabihf/release/led-roulette
 ```
 
 > **NOTE** The Cargo project is already configured to build the release binary using LTO.

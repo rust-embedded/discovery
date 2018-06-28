@@ -1,24 +1,27 @@
 //! Initialization code
 
-#![feature(lang_items)]
-#![feature(use_extern_macros)]
+#![feature(panic_implementation)]
 #![no_std]
 
+#[macro_use]
 extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 extern crate f3;
 
-pub use cortex_m::{iprint, iprintln};
+use core::panic::PanicInfo;
+
 pub use cortex_m::asm::bkpt;
 pub use cortex_m::peripheral::ITM;
-pub use f3::Lsm303dlhc;
+use cortex_m_rt::ExceptionFrame;
 pub use f3::hal::delay::Delay;
-pub use f3::hal::prelude;
-pub use f3::hal::time::MonoTimer;
-pub use f3::lsm303dlhc::{I16x3, Sensitivity};
-use cortex_m::itm;
 use f3::hal::i2c::I2c;
+pub use f3::hal::prelude;
 use f3::hal::prelude::*;
 use f3::hal::stm32f30x;
+pub use f3::hal::time::MonoTimer;
+pub use f3::lsm303dlhc::{I16x3, Sensitivity};
+pub use f3::Lsm303dlhc;
 
 pub fn init() -> (Lsm303dlhc, Delay, MonoTimer, ITM) {
     let cp = cortex_m::Peripherals::take().unwrap();
@@ -49,20 +52,27 @@ pub fn init() -> (Lsm303dlhc, Delay, MonoTimer, ITM) {
     (lsm303dlhc, delay, mono_timer, cp.ITM)
 }
 
-#[lang = "panic_fmt"]
-unsafe extern "C" fn panic_fmt(
-    args: ::core::fmt::Arguments,
-    file: &'static str,
-    line: u32,
-    col: u32,
-) -> ! {
-    let itm = &mut *ITM::ptr();
+#[panic_implementation]
+fn panic(info: &PanicInfo) -> ! {
+    let itm = unsafe { &mut *ITM::ptr() };
 
-    itm::write_str(&mut itm.stim[0], "PANIC at '");
-    itm::write_fmt(&mut itm.stim[0], args);
-    iprintln!(&mut itm.stim[0], "', {}:{}:{}", file, line, col);
+    iprintln!(&mut itm.stim[0], "{}", info);
 
-    cortex_m::asm::bkpt();
+    bkpt();
 
+    loop {}
+}
+
+exception!(HardFault, hard_fault);
+
+fn hard_fault(_ef: &ExceptionFrame) -> ! {
+    bkpt();
+
+    loop {}
+}
+
+exception!(*, default_handler);
+
+fn default_handler(_irqn: i16) {
     loop {}
 }

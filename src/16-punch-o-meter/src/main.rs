@@ -1,14 +1,20 @@
 #![deny(unsafe_code)]
+#![no_main]
 #![no_std]
 
-#[macro_use]
 extern crate aux16;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 extern crate m;
 
 use aux16::{I16x3, Sensitivity};
 use aux16::prelude::*;
 
-fn main() {
+entry!(main);
+
+fn main() -> ! {
     let (mut lsm303dlhc, mut delay, _mono_timer, mut itm) = aux16::init();
 
     // extend sensing range to `[-12g, +12g]`

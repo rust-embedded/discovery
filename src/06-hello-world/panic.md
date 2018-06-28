@@ -5,8 +5,8 @@ The `panic!` macro also sends its output to the ITM!
 Change the `main` function to look like this:
 
 ``` rust
-fn main() {
-    panic!("Hello, world!");
+fn main() -> ! {
+    panic!("Hello, world!")
 }
 ```
 
@@ -28,15 +28,15 @@ OK, now run it.
 ``` console
 $ cargo run
 (..)
-Breakpoint 1, hello_world::main () at src/main.rs:8
-8           panic!("Hello, world!");
+Breakpoint 1, hello_world::main () at src/06-hello-world/src/main.rs:14
+14          panic!("Hello, world!")
 
 (gdb) next
 Program received signal SIGTRAP, Trace/breakpoint trap.
-rust_begin_unwind (args=..., file=..., line=8, col=5) at aux/src/lib.rs:34
-34          cortex_m::asm::bkpt();
+__bkpt () at asm/bkpt.s:3
+3         bkpt
 
-(gdb) _
+(gdb) #
 ```
 
 You'll see some new output in the `itmdump` terminal.
@@ -44,7 +44,7 @@ You'll see some new output in the `itmdump` terminal.
 ``` console
 $ # itmdump terminal
 (..)
-PANIC at 'Hello, world!', src/main.rs:8:5
+panicked at 'Hello, world!', src/06-hello-world/src/main.rs:14:5
 ```
 
 You won't get a `RUST_BACKTRACE` style backtrace in `itmdump`'s output, *but*
@@ -52,10 +52,13 @@ you can get the equivalent inside GDB. You already know the command:
 
 ```
 (gdb) backtrace
-#0  rust_begin_unwind (args=..., file=..., line=8, col=5) at aux/src/lib.rs:34
-#1  0x08002548 in core::panicking::panic_fmt (fmt=..., file_line_col=<optimized out>) at $RUST_SRC/libcore/panicking.rs:71
-#2  0x08002494 in core::panicking::panic (expr_file_line_col=<optimized out>) at $RUST_SRC/libcore/panicking.rs:51
-#3  0x080001f6 in hello_world::main () at src/main.rs:8
+#0  __bkpt () at asm/bkpt.s:3
+#1  0x08000224 in cortex_m::asm::bkpt ()
+    at /home/japaric/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.5.2/src/asm.rs:19
+#2  rust_begin_unwind (info=0x10001f84) at src/06-hello-world/auxiliary/src/lib.rs:31
+#3  0x08002548 in core::panicking::panic_fmt () at libcore/panicking.rs:92
+#4  0x080024d8 in core::panicking::panic () at libcore/panicking.rs:53
+#5  0x08000194 in hello_world::main () at src/06-hello-world/src/main.rs:14
 ```
 
 Ultimately, `panic!` is just another function call so you can see it leaves behind a trace of
@@ -73,8 +76,8 @@ xPSR: 0x01000000 pc: 0x08000188 msp: 0x10002000
 (gdb) continue
 Continuing.
 
-Breakpoint 1, hello_world::main () at src/main.rs:8
-8           panic!("Hello, world!");
+Breakpoint 1, hello_world::main () at src/06-hello-world/src/main.rs:14
+14          panic!("Hello, world!")
 ```
 
 We are back in `main`, let's `continue`:

@@ -26,15 +26,23 @@ Go to the `06-hello-world` directory. There's some starter code in it:
 
 ``` rust
 #![deny(unsafe_code)]
+#![no_main]
 #![no_std]
 
-#[macro_use]
 extern crate aux6;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 
-fn main() {
+entry!(main);
+
+fn main() -> ! {
     let mut itm = aux6::init();
 
     iprintln!(&mut itm.stim[0], "Hello, world!");
+
+    loop {}
 }
 ```
 
@@ -46,7 +54,7 @@ communication is only *one way*: the debugging host can't send data to the micro
 OpenOCD, which is managing the debug session, can receive data sent through this ITM *channel* and
 redirect it to a file.
 
-The ITM protocol works with *frames* (you can think of them as Ethernet packets). Each frame has a
+The ITM protocol works with *frames* (you can think of them as Ethernet frames). Each frame has a
 header and a variable length payload. OpenOCD will receive these frames and write them directly to a
 file without parsing them. So, if the microntroller sends the string "Hello, world!" using the
 `iprintln` macro, OpenOCD's output file won't exactly contain that string.
@@ -112,7 +120,7 @@ Breakpoint 1 at 0x800021c: file src/main.rs, line 8.
 Note: automatically using hardware breakpoints for read-only addresses.
 
 Breakpoint 1, hello_world::main () at src/main.rs:8
-8           let mut itm = aux6::init();
+14          let mut itm = aux6::init();
 ```
 
 Note that there's a `.gdbinit` at the root of the Cargo project. It's pretty similar to the one we
@@ -133,10 +141,10 @@ All should be ready! Now execute the `iprintln!` statement.
 
 ```
 (gdb) next
-10          iprintln!(&mut itm.stim[0], "Hello, world!");
+16          iprintln!(&mut itm.stim[0], "Hello, world!");
 
 (gdb) next
-11      }
+18      loop {}
 ```
 
 You should see some output in the `itmdump` terminal:

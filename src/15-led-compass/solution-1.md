@@ -2,19 +2,28 @@
 
 ``` rust
 #![deny(unsafe_code)]
+#![no_main]
 #![no_std]
 
 extern crate aux15;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 
 use aux15::prelude::*;
 use aux15::{Direction, I16x3};
 
-fn main() {
+entry!(main);
+
+fn main() -> ! {
     let (mut leds, mut lsm303dlhc, mut delay, _itm) = aux15::init();
 
     loop {
         let I16x3 { x, y, .. } = lsm303dlhc.mag().unwrap();
 
+        // Look at the signs of the X and Y components to determine in which
+        // quadrant the magnetic field is
         let dir = match (x > 0, y > 0) {
             // Quadrant I
             (true, true) => Direction::Southeast,
@@ -29,7 +38,7 @@ fn main() {
         leds.iter_mut().for_each(|led| led.off());
         leds[dir].on();
 
-        delay.delay_ms(100_u8);
+        delay.delay_ms(1_000_u16);
     }
 }
 ```

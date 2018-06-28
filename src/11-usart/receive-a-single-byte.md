@@ -9,12 +9,20 @@ do we know that we have received (new) data? The status register, `ISR`, has a b
 `RXNE`. We can just busy wait on that flag.
 
 ``` rust
+#![deny(unsafe_code)]
+#![no_main]
 #![no_std]
 
 extern crate aux11;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 
-fn main() {
-    let (usart1, _mono_timer, _itm) = aux11::init();
+entry!(main);
+
+fn main() -> ! {
+    let (usart1, mono_timer, itm) = aux11::init();
 
     loop {
         // Wait until there's data available
@@ -29,9 +37,20 @@ fn main() {
 ```
 
 Let's try this program! Let it run free using `continue` and then type a single character in
-minicom/PuTTY's console. What happens? What are the contents of the `_byte` variable? Try:
+minicom/PuTTY's console. What happens? What are the contents of the `_byte` variable?
 
 ```
+(gdb) continue
+Continuing.
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+__bkpt () at asm/bkpt.s:3
+
+(gdb) finish
+Run till exit from #0  __bkpt () at asm/bkpt.s:3
+usart::main () at src/11-usart/src/main.rs:23
+23              aux11::bkpt();
+
 (gdb) p/c _byte
-$1 = 88 'X'
+$1 = 97 'a'
 ```

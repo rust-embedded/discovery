@@ -9,17 +9,26 @@ This time you'll need a buffer; you can use [`heapless::Vec`]. Here's the starte
 [`heapless::Vec`]: https://docs.rs/heapless/0.2.1/heapless/struct.Vec.html
 
 ``` rust
+#![deny(unsafe_code)]
+#![no_main]
 #![no_std]
 
 extern crate aux11;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 extern crate heapless;
 
-use heapless::Vec;
+use heapless::{consts, Vec};
 
-fn main() {
-    let (_usart1, _mono_timer, _itm) = aux11::init();
+entry!(main);
 
-    let mut buffer: Vec<u8, [u8; 32]> = Vec::new();
+fn main() -> ! {
+    let (usart1, mono_timer, itm) = aux11::init();
+
+    // A buffer with 32 bytes of capacity
+    let mut buffer: Vec<u8, consts::U32> = Vec::new();
 
     loop {
         buffer.clear();

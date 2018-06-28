@@ -8,7 +8,7 @@ Here are the installation commands for a few Linux distributions.
 
 ``` console
 $ sudo apt-get install \
-  binutils-arm-none-eabi \
+  gcc-arm-none-eabi \
   gdb-arm-none-eabi \
   minicom \
   openocd
@@ -18,7 +18,7 @@ $ sudo apt-get install \
 
 ``` console
 $ sudo dnf install \
-  arm-none-eabi-binutils-cs \
+  arm-none-eabi-gcc-cs \
   arm-none-eabi-gdb \
   minicom \
   openocd
@@ -28,7 +28,7 @@ $ sudo dnf install \
 
 ``` console
 $ sudo pacman -S \
-  arm-none-eabi-binutils \
+  arm-none-eabi-gcc \
   arm-none-eabi-gdb \
   minicom \
   openocd

@@ -1,16 +1,20 @@
 //! Initialization code
 
-#![feature(lang_items)]
-#![feature(use_extern_macros)]
+#![feature(panic_implementation)]
 #![no_std]
 
+#[macro_use]
 extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 extern crate f3;
 
+use core::panic::PanicInfo;
+
+use cortex_m::asm;
 pub use cortex_m::asm::bkpt;
-use cortex_m::itm;
 pub use cortex_m::peripheral::ITM;
-pub use cortex_m::{iprint, iprintln};
+use cortex_m_rt::ExceptionFrame;
 
 pub fn init() -> ITM {
     let p = cortex_m::Peripherals::take().unwrap();
@@ -18,20 +22,27 @@ pub fn init() -> ITM {
     p.ITM
 }
 
-#[lang = "panic_fmt"]
-unsafe extern "C" fn panic_fmt(
-    args: ::core::fmt::Arguments,
-    file: &'static str,
-    line: u32,
-    col: u32,
-) -> ! {
-    let itm = &mut *ITM::ptr();
+#[panic_implementation]
+fn panic(info: &PanicInfo) -> ! {
+    let itm = unsafe { &mut *ITM::ptr() };
 
-    itm::write_str(&mut itm.stim[0], "PANIC at '");
-    itm::write_fmt(&mut itm.stim[0], args);
-    iprintln!(&mut itm.stim[0], "', {}:{}:{}", file, line, col);
+    iprintln!(&mut itm.stim[0], "{}", info);
 
     cortex_m::asm::bkpt();
 
+    loop {}
+}
+
+exception!(HardFault, hard_fault);
+
+fn hard_fault(_ef: &ExceptionFrame) -> ! {
+    asm::bkpt();
+
+    loop {}
+}
+
+exception!(*, default_handler);
+
+fn default_handler(_irqn: i16) {
     loop {}
 }

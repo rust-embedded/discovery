@@ -17,22 +17,33 @@ to turn on based on the value of `theta`.
 
 ``` rust
 #![deny(unsafe_code)]
+#![no_main]
 #![no_std]
 
 extern crate aux15;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 extern crate m;
+
+// you'll find this useful ;-)
+use core::f32::consts::PI;
 
 use aux15::prelude::*;
 use aux15::{Direction, I16x3};
+// this trait provides the `atan2` method
 use m::Float;
 
-fn main() {
+entry!(main);
+
+fn main() -> ! {
     let (mut leds, mut lsm303dlhc, mut delay, _itm) = aux15::init();
 
     loop {
         let I16x3 { x, y, .. } = lsm303dlhc.mag().unwrap();
 
-        let _theta = (y as f32).atan2(x as f32);
+        let _theta = (y as f32).atan2(x as f32); // in radians
 
         // FIXME pick a direction to point to based on `theta`
         let dir = Direction::Southeast;
@@ -43,7 +54,6 @@ fn main() {
         delay.delay_ms(100_u8);
     }
 }
-
 ```
 
 Suggestions/tips:

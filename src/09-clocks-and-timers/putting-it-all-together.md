@@ -1,9 +1,12 @@
 # Putting it all together
 
 ``` rust
+#![no_main]
 #![no_std]
 
 extern crate aux9;
+#[macro_use]
+extern crate cortex_m_rt;
 
 use aux9::tim6;
 
@@ -23,7 +26,9 @@ fn delay(tim6: &tim6::RegisterBlock, ms: u16) {
     tim6.sr.modify(|_, w| w.uif().clear_bit());
 }
 
-fn main() {
+entry!(main);
+
+fn main() -> ! {
     let (mut leds, rcc, tim6) = aux9::init();
 
     // Power on the TIM6 timer

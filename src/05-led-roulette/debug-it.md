@@ -18,8 +18,8 @@ Breakpoint 1 at 0x8000218: file src/main.rs, line 8.
 Continuing.
 Note: automatically using hardware breakpoints for read-only addresses.
 
-Breakpoint 1, led_roulette::main () at src/main.rs:8
-8           let x = 42;
+Breakpoint 1, led_roulette::main () at src/05-led-roulette/src/main.rs:13
+13          let x = 42;
 ```
 
 Breakpoints can be used to stop the normal flow of a program. The `continue` command will let the
@@ -54,7 +54,7 @@ again.
 
 ```
 (gdb) step
-9           _y = x;
+14           _y = x;
 ```
 
 If you are not using the TUI mode, on each `step` call GDB will print back the current statement
@@ -68,16 +68,16 @@ is initialized but `y` is not. Let's inspect those stack/local variables using t
 $1 = 42
 
 (gdb) print &x
-$2 = (i32 *) 0x10001f8c
+$2 = (i32 *) 0x10001fdc
 
 (gdb) print _y
-$3 = -536810104
+$3 = 134219052
 
 (gdb) print &_y
-$4 = (i32 *) 0x10001f88
+$4 = (i32 *) 0x10001fd8
 ```
 
-As expected, `x` contains the value `42`. `y`, however, contains the value `-536810104` (?). Because
+As expected, `x` contains the value `42`. `y`, however, contains the value `134219052` (?). Because
 `_y` has not been initialized yet, it contains some garbage value.
 
 The command `print &x` prints the address of the variable `x`. The interesting bit here is that GDB
@@ -90,14 +90,14 @@ Instead of printing the local variables one by one, you can also use the `info l
 ```
 (gdb) info locals
 x = 42
-_y = -536810104
+_y = 134219052
 ```
 
 OK. With another `step`, we'll be on top of the `loop {}` statement:
 
 ```
 (gdb) step
-12          loop {}
+17          loop {}
 ```
 
 And `_y` should now be initialized.
@@ -125,23 +125,23 @@ program around the line you are currently at.
 ```
 (gdb) disassemble /m
 Dump of assembler code for function led_roulette::main:
-6       fn main() {
-   0x08000216 <+0>:     sub     sp, #8
+11      fn main() -> ! {
+   0x08000188 <+0>:     sub     sp, #8
 
-7           let _y;
-8           let x = 42;
-   0x08000218 <+2>:     movs    r0, #42 ; 0x2a
-   0x0800021a <+4>:     str     r0, [sp, #4]
+12          let _y;
+13          let x = 42;
+   0x0800018a <+2>:     movs    r0, #42 ; 0x2a
+   0x0800018c <+4>:     str     r0, [sp, #4]
 
-9           _y = x;
-   0x0800021c <+6>:     ldr     r0, [sp, #4]
-   0x0800021e <+8>:     str     r0, [sp, #0]
+14          _y = x;
+   0x0800018e <+6>:     ldr     r0, [sp, #4]
+   0x08000190 <+8>:     str     r0, [sp, #0]
 
-10
-11          // infinite loop; just so we don't leave this stack frame
-12          loop {}
-=> 0x08000220 <+10>:    b.n     0x8000222 <led_roulette::main+12>
-   0x08000222 <+12>:    b.n     0x8000222 <led_roulette::main+12>
+15
+16          // infinite loop; just so we don't leave this stack frame
+17          loop {}
+=> 0x08000192 <+10>:    b.n     0x8000194 <led_roulette::main+12>
+   0x08000194 <+12>:    b.n     0x8000194 <led_roulette::main+12>
 
 End of assembler dump.
 ```
@@ -153,10 +153,10 @@ If not inside the TUI mode on each `stepi` command GDB will print the statement,
 
 ```
 (gdb) stepi
-0x08000222      12          loop {}
+0x08000194      17          loop {}
 
 (gdb) stepi
-0x08000222      12          loop {}
+0x08000194      17          loop {}
 ```
 
 One last trick before we move to something more interesting. Enter the following commands into GDB:

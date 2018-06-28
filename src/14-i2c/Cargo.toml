@@ -5,3 +5,5 @@ version = "0.1.0"
 
 [dependencies]
 aux14 = { path = "auxiliary" }
+cortex-m = "0.5.2"
+cortex-m-rt = "0.5.1"

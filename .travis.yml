@@ -3,10 +3,8 @@ rust: nightly
 
 addons:
   apt:
-    sources:
-      - debian-sid
     packages:
-      - binutils-arm-none-eabi
+      - gcc-arm-none-eabi
 
 env:
   global:

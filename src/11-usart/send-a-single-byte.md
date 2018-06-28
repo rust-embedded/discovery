@@ -10,11 +10,25 @@ Go into the `11-usart` directory and let's run the starter code therein. Make su
 minicom/PuTTY open.
 
 ``` rust
-fn main() {
-    let usart1 = aux11::init().0;
+#![deny(unsafe_code)]
+#![no_main]
+#![no_std]
+
+extern crate aux11;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
+
+entry!(main);
+
+fn main() -> ! {
+    let (usart1, mono_timer, itm) = aux11::init();
 
     // Send a single character
     usart1.tdr.write(|w| w.tdr().bits(u16::from(b'X')));
+
+    loop {}
 }
 ```
 

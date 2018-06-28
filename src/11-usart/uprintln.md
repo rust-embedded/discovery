@@ -4,7 +4,7 @@ For the next exercise, we'll implement the `uprint!` family of macros. Your goal
 line of code work:
 
 ``` rust
-    uprintln!("The answer is {}", 40 + 2)
+    uprintln!(serial, "The answer is {}", 40 + 2);
 ```
 
 Which must send the string `"The answer is 42"` through the serial interface.
@@ -61,9 +61,15 @@ Above we saw that `Write` is in `std::fmt`. We don't have access to `std` but `W
 available in `core::fmt`.
 
 ``` rust
+#![deny(unsafe_code)]
+#![no_main]
 #![no_std]
 
 extern crate aux11;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 
 use core::fmt::{self, Write};
 
@@ -95,11 +101,15 @@ impl Write for SerialPort {
     }
 }
 
-fn main() {
-    let (usart1, _mono_timer, _itm) = aux11::init();
+entry!(main);
+
+fn main() -> ! {
+    let (usart1, mono_timer, itm) = aux11::init();
 
     let mut serial = SerialPort { usart1 };
 
     uprintln!(serial, "The answer is {}", 40 + 2);
+
+    loop {}
 }
 ```

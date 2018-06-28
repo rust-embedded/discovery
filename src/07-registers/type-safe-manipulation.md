@@ -30,11 +30,18 @@ and that prevent the modification of the reserved parts of the register.
 The best way to get familiar with this API is to port our running example to it.
 
 ``` rust
+#![no_main]
 #![no_std]
 
 extern crate aux7;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 
-fn main() {
+entry!(main);
+
+fn main() -> ! {
     let gpioe = aux7::init().1;
 
     // Turn on the North LED
@@ -48,6 +55,8 @@ fn main() {
 
     // Turn off the East LED
     gpioe.bsrr.write(|w| w.br11().set_bit());
+
+    loop {}
 }
 ```
 
@@ -171,24 +180,20 @@ did!
 $ cargo build --release
 
 $ arm-none-eabi-objdump -Cd target/thumbv7em-none-eabihf/release/registers
-08000864 <cortex_m_rt::reset_handler::main>:
- 8000864:       b580            push    {r7, lr}
- 8000866:       466f            mov     r7, sp
- 8000868:       f240 1088       movw    r0, #392        ; 0x188
- 800086c:       f6c0 0000       movt    r0, #2048       ; 0x800
- 8000870:       7800            ldrb    r0, [r0, #0]
- 8000872:       f7ff fe69       bl      8000548 <aux7::init>
- 8000876:       f241 0018       movw    r0, #4120       ; 0x1018
- 800087a:       f44f 7100       mov.w   r1, #512        ; 0x200
- 800087e:       f6c4 0000       movt    r0, #18432      ; 0x4800
- 8000882:       6001            str     r1, [r0, #0]    ; <-
- 8000884:       f44f 6100       mov.w   r1, #2048       ; 0x800
- 8000888:       6001            str     r1, [r0, #0]    ; <-
- 800088a:       f04f 7100       mov.w   r1, #33554432   ; 0x2000000
- 800088e:       6001            str     r1, [r0, #0]    ; <-
- 8000890:       f04f 6100       mov.w   r1, #134217728  ; 0x8000000
- 8000894:       6001            str     r1, [r0, #0]    ; <-
- 8000896:       bd80            pop     {r7, pc}
+08000188 <registers::main>:
+ 8000188:       b580            push    {r7, lr}
+ 800018a:       f000 f814       bl      80001b6 <aux7::init>
+ 800018e:       f241 0018       movw    r0, #4120       ; 0x1018
+ 8000192:       f44f 7100       mov.w   r1, #512        ; 0x200
+ 8000196:       f6c4 0000       movt    r0, #18432      ; 0x4800
+ 800019a:       6001            str     r1, [r0, #0]
+ 800019c:       f44f 6100       mov.w   r1, #2048       ; 0x800
+ 80001a0:       6001            str     r1, [r0, #0]
+ 80001a2:       f04f 7100       mov.w   r1, #33554432   ; 0x2000000
+ 80001a6:       6001            str     r1, [r0, #0]
+ 80001a8:       f04f 6100       mov.w   r1, #134217728  ; 0x8000000
+ 80001ac:       6001            str     r1, [r0, #0]
+ 80001ae:       e7fe            b.n     80001ae <registers::main+0x26>
 ```
 
 The best part of all this is that I didn't have to write a single line of code to implement the

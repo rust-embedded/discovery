@@ -1,8 +1,15 @@
+#![no_main]
 #![no_std]
 
 extern crate aux7;
+#[macro_use]
+extern crate cortex_m;
+#[macro_use]
+extern crate cortex_m_rt;
 
-fn main() {
+entry!(main);
+
+fn main() -> ! {
     aux7::init();
 
     unsafe {
@@ -21,4 +28,6 @@ fn main() {
         // Turn off the "East" LED
         *(GPIOE_BSRR as *mut u32) = 1 << (11 + 16);
     }
+
+    loop {}
 }
