@@ -45,6 +45,8 @@ $ cargo build --target thumbv7em-none-eabihf
 
 > **NOTE** Be sure to compile this crate *without* optimizations
 
+> **NOTE** If you get errors like ``duplicate lang item found: `panic_fmt` ``, make sure you have changed into the `src/05-led-roulette` directory.
+
 OK, now we have produced an executable. As a sanity check, let's verify that the produced executable
 is actually an ARM binary:
 
