@@ -30,7 +30,7 @@ several MBs in size.
 We'll use all the tools listed below. Where a minimum version is not specified, any recent version
 should work but we have listed the version we have tested.
 
-- Cargo & `rustc` >= nightly-2018-01-01
+- Cargo & `rustc` >= nightly-2018-06-04
 
 - [`itmdump`] v0.2.1
 
