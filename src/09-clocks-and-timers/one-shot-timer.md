@@ -13,11 +13,11 @@ The microcontroller we are using has several (in fact, more than 10) timers of d
 We'll be using one of the *basic* timers: `TIM6`. This is one of the simplest timers available in
 our microcontroller. The documentation for basic timers is in the following section:
 
-> Section 22 Timers - Page 674 - Reference Manual
+> Section 22 Timers - Page 670 - Reference Manual
 
 Its registers are documented in:
 
-> Section 22.4.9 TIM6/TIM7 register map - Page 686 - Reference Manual
+> Section 22.4.9 TIM6/TIM7 register map - Page 682 - Reference Manual
 
 The registers we'll be using in this section are:
 
