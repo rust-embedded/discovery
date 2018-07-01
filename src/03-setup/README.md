@@ -5,7 +5,7 @@ different than your laptop's and we'll have to run and debug programs on a "remo
 
 ## Documentation
 
-Tooling is not everything though. Without documentation is pretty much impossible to work with
+Tooling is not everything though. Without documentation it is pretty much impossible to work with
 microcontrollers.
 
 We'll be referring to all these documents throughout this book:
