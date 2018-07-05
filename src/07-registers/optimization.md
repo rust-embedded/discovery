@@ -57,79 +57,88 @@ register, but the *release* (optimized) program only has one.
 We can check that using `objdump`:
 
 ``` console
-$ arm-none-eabi-objdump -Cd target/thumbv7em-none-eabihf/debug/registers
-08000188 <registers::main>:
- 8000188:       b580            push    {r7, lr}
- 800018a:       b086            sub     sp, #24
- 800018c:       f000 f86a       bl      8000264 <aux7::init>
- 8000190:       9005            str     r0, [sp, #20]
- 8000192:       e7ff            b.n     8000194 <registers::main+0xc>
- 8000194:       e7ff            b.n     8000196 <registers::main+0xe>
- 8000196:       f241 0018       movw    r0, #4120       ; 0x1018
- 800019a:       f6c4 0000       movt    r0, #18432      ; 0x4800
- 800019e:       f44f 7100       mov.w   r1, #512        ; 0x200
- 80001a2:       6001            str     r1, [r0, #0]    ; <- 1
- 80001a4:       e7ff            b.n     80001a6 <registers::main+0x1e>
- 80001a6:       f241 0018       movw    r0, #4120       ; 0x1018
- 80001aa:       f6c4 0000       movt    r0, #18432      ; 0x4800
- 80001ae:       f44f 6100       mov.w   r1, #2048       ; 0x800
- 80001b2:       6001            str     r1, [r0, #0]    ; <- 2
- 80001b4:       2019            movs    r0, #25
- 80001b6:       4601            mov     r1, r0
- 80001b8:       2809            cmp     r0, #9
- 80001ba:       9104            str     r1, [sp, #16]
- 80001bc:       d62c            bvs.n   8000218 <registers::main+0x90>
- 80001be:       e7ff            b.n     80001c0 <registers::main+0x38>
- 80001c0:       9804            ldr     r0, [sp, #16]
- 80001c2:       f000 011f       and.w   r1, r0, #31
- 80001c6:       2201            movs    r2, #1
- 80001c8:       fa02 f101       lsl.w   r1, r2, r1
- 80001cc:       f06f 021f       mvn.w   r2, #31
- 80001d0:       4210            tst     r0, r2
- 80001d2:       9103            str     r1, [sp, #12]
- 80001d4:       d127            bne.n   8000226 <registers::main+0x9e>
- 80001d6:       e7ff            b.n     80001d8 <registers::main+0x50>
- 80001d8:       f241 0018       movw    r0, #4120       ; 0x1018
- 80001dc:       f6c4 0000       movt    r0, #18432      ; 0x4800
- 80001e0:       9903            ldr     r1, [sp, #12]
- 80001e2:       6001            str     r1, [r0, #0]    ; <- 3
- 80001e4:       201b            movs    r0, #27
- 80001e6:       4602            mov     r2, r0
- 80001e8:       280b            cmp     r0, #11
- 80001ea:       9202            str     r2, [sp, #8]
- 80001ec:       d622            bvs.n   8000234 <registers::main+0xac>
- 80001ee:       e7ff            b.n     80001f0 <registers::main+0x68>
- 80001f0:       9802            ldr     r0, [sp, #8]
- 80001f2:       f000 011f       and.w   r1, r0, #31
- 80001f6:       2201            movs    r2, #1
- 80001f8:       fa02 f101       lsl.w   r1, r2, r1
- 80001fc:       f06f 021f       mvn.w   r2, #31
- 8000200:       4210            tst     r0, r2
- 8000202:       9101            str     r1, [sp, #4]
- 8000204:       d11d            bne.n   8000242 <registers::main+0xba>
- 8000206:       e7ff            b.n     8000208 <registers::main+0x80>
- 8000208:       f241 0018       movw    r0, #4120       ; 0x1018
- 800020c:       f6c4 0000       movt    r0, #18432      ; 0x4800
- 8000210:       9901            ldr     r1, [sp, #4]
- 8000212:       6001            str     r1, [r0, #0]    ; <- 4
- 8000214:       e7ff            b.n     8000216 <registers::main+0x8e>
- 8000216:       e7fe            b.n     8000216 <registers::main+0x8e>
- 8000218:       f244 205c       movw    r0, #16988      ; 0x425c
- 800021c:       f6c0 0000       movt    r0, #2048       ; 0x800
- 8000220:       f003 fed6       bl      8003fd0 <core::panicking::panic>
- 8000224:       defe            udf     #254    ; 0xfe
- 8000226:       f244 20a4       movw    r0, #17060      ; 0x42a4
- 800022a:       f6c0 0000       movt    r0, #2048       ; 0x800
- 800022e:       f003 fecf       bl      8003fd0 <core::panicking::panic>
- 8000232:       defe            udf     #254    ; 0xfe
- 8000234:       f244 20bc       movw    r0, #17084      ; 0x42bc
- 8000238:       f6c0 0000       movt    r0, #2048       ; 0x800
- 800023c:       f003 fec8       bl      8003fd0 <core::panicking::panic>
- 8000240:       defe            udf     #254    ; 0xfe
- 8000242:       f244 20d4       movw    r0, #17108      ; 0x42d4
- 8000246:       f6c0 0000       movt    r0, #2048       ; 0x800
- 800024a:       f003 fec1       bl      8003fd0 <core::panicking::panic>
- 800024e:       defe            udf     #254    ; 0xfe
+$ cargo objdump -- -d -no-show-raw-insn target/thumbv7em-none-eabihf/debug/registers
+registers::main::h92bcf844b62ba8a0:
+; fn main() -> ! {
+ 8000188:       push    {r7, lr}
+ 800018a:       sub     sp, #24
+; aux7::init();
+ 800018c:       bl      #212
+ 8000190:       str     r0, [sp, #20]
+ 8000192:       b       #-2 <registers::main::h92bcf844b62ba8a0+0xc>
+; *(GPIOE_BSRR as *mut u32) = 1 << 9;
+ 8000194:       b       #-2 <registers::main::h92bcf844b62ba8a0+0xe>
+ 8000196:       movw    r0, #4120
+ 800019a:       movt    r0, #18432
+ 800019e:       mov.w   r1, #512
+ 80001a2:       str     r1, [r0]
+; *(GPIOE_BSRR as *mut u32) = 1 << 11;
+ 80001a4:       b       #-2 <registers::main::h92bcf844b62ba8a0+0x1e>
+ 80001a6:       movw    r0, #4120
+ 80001aa:       movt    r0, #18432
+ 80001ae:       mov.w   r1, #2048
+ 80001b2:       str     r1, [r0]
+; *(GPIOE_BSRR as *mut u32) = 1 << (9 + 16);
+ 80001b4:       movs    r0, #25
+ 80001b6:       mov     r1, r0
+ 80001b8:       cmp     r0, #9
+ 80001ba:       str     r1, [sp, #16]
+ 80001bc:       bvs     #88 <registers::main::h92bcf844b62ba8a0+0x90>
+ 80001be:       b       #-2 <registers::main::h92bcf844b62ba8a0+0x38>
+ 80001c0:       ldr     r0, [sp, #16]
+ 80001c2:       and     r1, r0, #31
+ 80001c6:       movs    r2, #1
+ 80001c8:       lsl.w   r1, r2, r1
+ 80001cc:       mvn     r2, #31
+ 80001d0:       tst     r0, r2
+ 80001d2:       str     r1, [sp, #12]
+ 80001d4:       bne     #78 <registers::main::h92bcf844b62ba8a0+0x9e>
+ 80001d6:       b       #-2 <registers::main::h92bcf844b62ba8a0+0x50>
+ 80001d8:       movw    r0, #4120
+ 80001dc:       movt    r0, #18432
+ 80001e0:       ldr     r1, [sp, #12]
+ 80001e2:       str     r1, [r0]
+; *(GPIOE_BSRR as *mut u32) = 1 << (11 + 16);
+ 80001e4:       movs    r0, #27
+ 80001e6:       mov     r2, r0
+ 80001e8:       cmp     r0, #11
+ 80001ea:       str     r2, [sp, #8]
+ 80001ec:       bvs     #68 <registers::main::h92bcf844b62ba8a0+0xac>
+ 80001ee:       b       #-2 <registers::main::h92bcf844b62ba8a0+0x68>
+ 80001f0:       ldr     r0, [sp, #8]
+ 80001f2:       and     r1, r0, #31
+ 80001f6:       movs    r2, #1
+ 80001f8:       lsl.w   r1, r2, r1
+ 80001fc:       mvn     r2, #31
+ 8000200:       tst     r0, r2
+ 8000202:       str     r1, [sp, #4]
+ 8000204:       bne     #58 <registers::main::h92bcf844b62ba8a0+0xba>
+ 8000206:       b       #-2 <registers::main::h92bcf844b62ba8a0+0x80>
+ 8000208:       movw    r0, #4120
+ 800020c:       movt    r0, #18432
+ 8000210:       ldr     r1, [sp, #4]
+ 8000212:       str     r1, [r0]
+; loop {}
+ 8000214:       b       #-2 <registers::main::h92bcf844b62ba8a0+0x8e>
+ 8000216:       b       #-4 <registers::main::h92bcf844b62ba8a0+0x8e>
+; *(GPIOE_BSRR as *mut u32) = 1 << (9 + 16);
+ 8000218:       movw    r0, #16988
+ 800021c:       movt    r0, #2048
+ 8000220:       bl      #16112
+ 8000224:       trap
+ 8000226:       movw    r0, #17060
+ 800022a:       movt    r0, #2048
+ 800022e:       bl      #16098
+ 8000232:       trap
+; *(GPIOE_BSRR as *mut u32) = 1 << (11 + 16);
+ 8000234:       movw    r0, #17084
+ 8000238:       movt    r0, #2048
+ 800023c:       bl      #16084
+ 8000240:       trap
+ 8000242:       movw    r0, #17108
+ 8000246:       movt    r0, #2048
+ 800024a:       bl      #16070
+ 800024e:       trap
 ```
 
 How do we prevent LLVM from misoptimizing our program? We use *volatile* operations instead of plain
@@ -173,24 +182,24 @@ fn main() -> ! {
 }
 ```
 
-If we look at the disassemble of this new program compiled in release mode:
+If we look at the disassembly of this new program compiled in release mode:
 
 ``` console
-$ arm-none-eabi-objdump -Cd target/thumbv7em-none-eabihf/release/registers
-08000188 <registers::main>:
- 8000188:       b580            push    {r7, lr}
- 800018a:       f000 f814       bl      80001b6 <aux7::init>
- 800018e:       f241 0018       movw    r0, #4120       ; 0x1018
- 8000192:       f44f 7100       mov.w   r1, #512        ; 0x200
- 8000196:       f6c4 0000       movt    r0, #18432      ; 0x4800
- 800019a:       6001            str     r1, [r0, #0]    ; <- 1
- 800019c:       f44f 6100       mov.w   r1, #2048       ; 0x800
- 80001a0:       6001            str     r1, [r0, #0]    ; <- 2
- 80001a2:       f04f 7100       mov.w   r1, #33554432   ; 0x2000000
- 80001a6:       6001            str     r1, [r0, #0]    ; <- 3
- 80001a8:       f04f 6100       mov.w   r1, #134217728  ; 0x8000000
- 80001ac:       6001            str     r1, [r0, #0]    ; <- 4
- 80001ae:       e7fe            b.n     80001ae <registers::main+0x26>
+$ cargo objdump -- -d -no-show-raw-insn target/thumbv7em-none-eabihf/release/registers
+registers::main::h3fb012c2979103e9:
+ 8000188:       push    {r7, lr}
+ 800018a:       bl      #40
+ 800018e:       movw    r0, #4120
+ 8000192:       mov.w   r1, #512
+ 8000196:       movt    r0, #18432
+ 800019a:       str     r1, [r0]
+ 800019c:       mov.w   r1, #2048
+ 80001a0:       str     r1, [r0]
+ 80001a2:       mov.w   r1, #33554432
+ 80001a6:       str     r1, [r0]
+ 80001a8:       mov.w   r1, #134217728
+ 80001ac:       str     r1, [r0]
+ 80001ae:       b       #-4 <registers::main::h3fb012c2979103e9+0x26>
 ```
 
 We see that the four writes (`str` instructions) are preserved. If you run it (use `stepi`), you'll

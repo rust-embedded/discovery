@@ -57,31 +57,4 @@ led-roulette: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), statically
 $ #                                      ^^^  ^^^^^                   ^^^^^^^^^^^^^^^^^
 ```
 
-Another way to do that is to use `readelf` because the executable produced by `rustc` is actually an
-ELF (Executable and Linkable Format) file.
-
-``` console
-$ arm-none-eabi-readelf -h target/thumbv7em-none-eabihf/debug/led-roulette
-ELF Header:
-  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00
-  Class:                             ELF32
-  Data:                              2's complement, little endian
-  Version:                           1 (current)
-  OS/ABI:                            UNIX - System V
-  ABI Version:                       0
-  Type:                              EXEC (Executable file)
-  Machine:                           ARM <--
-  Version:                           0x1
-  Entry point address:               0x800023f <--
-  Start of program headers:          52 (bytes into file)
-  Start of section headers:          2347432 (bytes into file)
-  Flags:                             0x5000400, Version5 EABI, hard-float ABI <--
-  Size of this header:               52 (bytes)
-  Size of program headers:           32 (bytes)
-  Number of program headers:         2
-  Size of section headers:           40 (bytes)
-  Number of section headers:         21
-  Section header string table index: 20
-```
-
 Next, we'll flash the program into our microcontroller.

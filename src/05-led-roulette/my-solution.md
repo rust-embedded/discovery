@@ -53,10 +53,48 @@ Binary size is something we should always keep an eye on! How big is your soluti
 that using the `size` command on the release binary:
 
 ``` console
-$ size target/thumbv7em-none-eabihf/{debug,release}/led-roulette
-   text    data     bss     dec     hex filename
-  19782       0       4   19786    4d4a target/thumbv7em-none-eabihf/debug/led-roulette
-   2424       0       4    2428     97c target/thumbv7em-none-eabihf/release/led-roulette
+$ cargo size -- target/thumbv7em-none-eabihf/{debug,release}/led-roulette
+target/thumbv7em-none-eabihf/debug/led-roulette  :
+section               size        addr
+.vector_table          392   0x8000000
+.text                16500   0x8000188
+.rodata               2812   0x8004200
+.data                    0  0x20000000
+.bss                     4  0x20000000
+.debug_str          234583         0x0
+.debug_abbrev        11028         0x0
+.debug_info         216136         0x0
+.debug_ranges        41704         0x0
+.debug_macinfo          44         0x0
+.debug_pubnames      22666         0x0
+.debug_pubtypes      48842         0x0
+.ARM.attributes         58         0x0
+.debug_frame         62536         0x0
+.debug_line          89927         0x0
+.debug_loc             374         0x0
+.debug_aranges         160         0x0
+Total               747766
+
+target/thumbv7em-none-eabihf/release/led-roulette  :
+section              size        addr
+.vector_table         392   0x8000000
+.text                1948   0x8000188
+.rodata                84   0x8000924
+.data                   0  0x20000000
+.bss                    4  0x20000000
+.debug_str          22672         0x0
+.debug_loc           6313         0x0
+.debug_abbrev        1464         0x0
+.debug_info         40426         0x0
+.debug_ranges        3008         0x0
+.debug_macinfo          1         0x0
+.debug_pubnames      5621         0x0
+.debug_pubtypes     10001         0x0
+.ARM.attributes        54         0x0
+.debug_frame          212         0x0
+.debug_line          9090         0x0
+.debug_aranges        160         0x0
+Total              101450
 ```
 
 > **NOTE** The Cargo project is already configured to build the release binary using LTO.
