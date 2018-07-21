@@ -48,7 +48,7 @@ At any point you can leave the TUI mode using the following command:
 ```
 
 OK. We are now at the beginning of `main`. We can advance the program statement by statement using
-the `step` command. So let's use that twice to reach the `y = x` statement. Once you've typed `step`
+the `step` command. So let's use that twice to reach the `_y = x` statement. Once you've typed `step`
 once you can just hit enter to run it
 again.
 
