@@ -22,8 +22,8 @@ target. That's done using `rustup`:
 $ rustup target add thumbv7em-none-eabihf
 ```
 
-You only the above step once; `rustup` will re-install a new standard library (`rust-std` component)
-whenever you update your toolchain.
+You only need to do the above step once; `rustup` will re-install a new standard library
+(`rust-std` component) whenever you update your toolchain.
 
 With the `rust-std` component in place you can now cross compile the program using Cargo:
 
