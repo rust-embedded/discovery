@@ -25,7 +25,7 @@ used to synchronize the communication, this is a *synchronous* protocol.
 This protocol uses a *master* *slave* model where the master is the device that *starts* and
 drives the communication with a slave device. Several devices, both masters and slaves, can be
 connected to the same bus at the same time. A master device can communicate with a specific slave
-device by first broadcasting its *address* to the bus. These address can be 7 bits or 10 bits long.
+device by first broadcasting its *address* to the bus. This address can be 7 bits or 10 bits long.
 Once a master has *started* a communication with a slave, no other device can make use of the bus
 until the master *stops* the communication.
 
