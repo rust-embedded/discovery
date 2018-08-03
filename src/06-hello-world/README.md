@@ -68,7 +68,9 @@ You should have already installed the `itmdump` program during the [installation
 
 In a new terminal, run this command inside the `/tmp` directory, if you are using a *nix OS, or from
 within the `%TEMP%` directory, if you are running Windows. This should be the same directory from
-where you are running OpenOCD. It's very important that both `itmdump` and `openocd` are running
+where you are running OpenOCD.
+
+> **NOTE** It's very important that both `itmdump` and `openocd` are running
 from the same directory!
 
 ``` console
