@@ -18,7 +18,7 @@ macro_rules! print {
 }
 ```
 
-Looks simple so far. We need the built-in `format_args!` macro (it's implement in the compiler so we
+Looks simple so far. We need the built-in `format_args!` macro (it's implemented in the compiler so we
 can't see what it actually does). We'll have to use that macro in the exact same way. What does this
 `_print` function do?
 
