@@ -48,7 +48,7 @@ At any point you can leave the TUI mode using the following command:
 ```
 
 OK. We are now at the beginning of `main`. We can advance the program statement by statement using
-the `step` command. So let's use that twice to reach the `y = x` statement. Once you've typed `step`
+the `step` command. So let's use that twice to reach the `_y = x` statement. Once you've typed `step`
 once you can just hit enter to run it
 again.
 
@@ -60,8 +60,8 @@ again.
 If you are not using the TUI mode, on each `step` call GDB will print back the current statement
 along with its line number.
 
-We are now "on" the `y = x` statement; that statement hasn't been executed yet. This means that `x`
-is initialized but `y` is not. Let's inspect those stack/local variables using the `print` command:
+We are now "on" the `_y = x` statement; that statement hasn't been executed yet. This means that `x`
+is initialized but `_y` is not. Let's inspect those stack/local variables using the `print` command:
 
 ```
 (gdb) print x
@@ -77,7 +77,7 @@ $3 = 134219052
 $4 = (i32 *) 0x10001fd8
 ```
 
-As expected, `x` contains the value `42`. `y`, however, contains the value `134219052` (?). Because
+As expected, `x` contains the value `42`. `_y`, however, contains the value `134219052` (?). Because
 `_y` has not been initialized yet, it contains some garbage value.
 
 The command `print &x` prints the address of the variable `x`. The interesting bit here is that GDB
