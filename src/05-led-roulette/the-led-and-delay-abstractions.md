@@ -15,14 +15,19 @@ Let's try out these two abstractions by modifying the starter code to look like 
 
 ``` rust
 #![deny(unsafe_code)]
+#![no_main]
 #![no_std]
 
 extern crate aux5;
+#[macro_use]
+extern crate cortex_m_rt;
 
 use aux5::prelude::*;
 use aux5::{Delay, Leds};
 
-fn main() {
+entry!(main);
+
+fn main() -> ! {
     let (mut delay, mut leds): (Delay, Leds) = aux5::init();
 
     let half_period = 500_u16;
