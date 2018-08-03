@@ -185,7 +185,7 @@ fn main() -> ! {
 If we look at the disassembly of this new program compiled in release mode:
 
 ``` console
-$ cargo objdump -- -d -no-show-raw-insn target/thumbv7em-none-eabihf/release/registers
+$ cargo objdump -- -source -no-show-raw-insn target/thumbv7em-none-eabihf/release/registers
 registers::main::h3fb012c2979103e9:
  8000188:       push    {r7, lr}
  800018a:       bl      #40
