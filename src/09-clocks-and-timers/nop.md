@@ -26,15 +26,17 @@ And this time `delay` won't be compiled away by LLVM when you compile your progr
 
 ``` console
 $ cargo build --release
-$ arm-none-eabi-objdump -Cd target/thumbv7em-none-eabihf/release/clocks-and-timers
-08000548 <clocks_and_timers::delay>:
- 8000548:       2000            movs    r0, #0
- 800054a:       3001            adds    r0, #1
- 800054c:       bf00            nop
- 800054e:       b281            uxth    r1, r0
- 8000550:       2996            cmp     r1, #150        ; 0x96
- 8000552:       d3fa            bcc.n   800054a <clocks_and_timers::delay+0x2>
- 8000554:       4770            bx      lr
+
+$ cargo objdump -- -d -no-show-raw-insn target/thumbv7em-none-eabihf/release/clocks-and-timers
+clocks_and_timers::delay::h5d4fd91ff4b074a8:
+ 8000188:       push    {r4, r5, r7, lr}
+ 800018a:       movs    r4, #0
+ 800018c:       adds    r4, #1
+ 800018e:       uxth    r5, r4
+ 8000190:       bl      #4884
+ 8000194:       cmp     r5, #150
+ 8000196:       blo     #-14 <clocks_and_timers::delay::h5d4fd91ff4b074a8+0x4>
+ 8000198:       pop     {r4, r5, r7, pc}
 ```
 
 Now, test this: Compile the program in debug mode and run it, then compile the program in release

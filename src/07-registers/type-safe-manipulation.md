@@ -179,21 +179,21 @@ did!
 ``` console
 $ cargo build --release
 
-$ arm-none-eabi-objdump -Cd target/thumbv7em-none-eabihf/release/registers
-08000188 <registers::main>:
- 8000188:       b580            push    {r7, lr}
- 800018a:       f000 f814       bl      80001b6 <aux7::init>
- 800018e:       f241 0018       movw    r0, #4120       ; 0x1018
- 8000192:       f44f 7100       mov.w   r1, #512        ; 0x200
- 8000196:       f6c4 0000       movt    r0, #18432      ; 0x4800
- 800019a:       6001            str     r1, [r0, #0]
- 800019c:       f44f 6100       mov.w   r1, #2048       ; 0x800
- 80001a0:       6001            str     r1, [r0, #0]
- 80001a2:       f04f 7100       mov.w   r1, #33554432   ; 0x2000000
- 80001a6:       6001            str     r1, [r0, #0]
- 80001a8:       f04f 6100       mov.w   r1, #134217728  ; 0x8000000
- 80001ac:       6001            str     r1, [r0, #0]
- 80001ae:       e7fe            b.n     80001ae <registers::main+0x26>
+$ cargo objdump -- -d -no-show-raw-insn target/thumbv7em-none-eabihf/release/registers
+registers::main::h3fb012c2979103e9:
+ 8000188:       push    {r7, lr}
+ 800018a:       bl      #40
+ 800018e:       movw    r0, #4120
+ 8000192:       mov.w   r1, #512
+ 8000196:       movt    r0, #18432
+ 800019a:       str     r1, [r0]
+ 800019c:       mov.w   r1, #2048
+ 80001a0:       str     r1, [r0]
+ 80001a2:       mov.w   r1, #33554432
+ 80001a6:       str     r1, [r0]
+ 80001a8:       mov.w   r1, #134217728
+ 80001ac:       str     r1, [r0]
+ 80001ae:       b       #-4 <registers::main::h3fb012c2979103e9+0x26>
 ```
 
 The best part of all this is that I didn't have to write a single line of code to implement the

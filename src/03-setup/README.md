@@ -30,7 +30,7 @@ several MBs in size.
 We'll use all the tools listed below. Where a minimum version is not specified, any recent version
 should work but we have listed the version we have tested.
 
-- Cargo & `rustc` >= nightly-2018-06-04
+- Cargo & `rustc` >= nightly-2018-08-02
 
 - [`itmdump`] v0.2.1
 
@@ -40,6 +40,10 @@ should work but we have listed the version we have tested.
 
 - `arm-none-eabi-gdb`. Version 7.12 or newer highly recommended. Tested versions: 7.10, 7.11,
   7.12 and 8.1
+
+- [`cargo-binutils`]. Version 0.1.2 or newer.
+
+[`cargo-binutils`]: https://github.com/japaric/cargo-binutils
 
 - `minicom` on Linux and macOS. Tested version: 2.7. Readers report that `picocom` also works but
   we'll use `minicom` in this text.
@@ -71,18 +75,36 @@ Then, install or switch to the nightly channel.
 $ rustup default nightly
 ```
 
-**NOTE** Make sure you have a nightly newer than `nightly-2018-04-08`. `rustc -V` should return a
+**NOTE** Make sure you have a nightly newer than `nightly-2018-08-02`. `rustc -V` should return a
 date newer than the one shown below:
 
 ``` console
 $ rustc -V
-rustc 1.27.0-nightly (056f589fb 2018-04-07)
+rustc 1.29.0-nightly (97085f9fb 2018-08-01)
 ```
 
 ### `itmdump`
 
 ``` console
-$ cargo install itm --vers 0.2.1
+$ cargo install itm --vers 0.3.1
+
+$ itmdump -V
+itmdump 0.3.1
+```
+
+### `cargo-binutils`
+
+``` console
+$ rustup component add llvm-tools-preview
+
+$ cargo install cargo-binutils --vers 0.1.1
+
+$ cargo size -- --version
+LLVM (http://llvm.org/):
+  LLVM version 7.0.0svn
+  Optimized build.
+  Default target: x86_64-unknown-linux-gnu
+  Host CPU: skylake
 ```
 
 ### OS specific instructions
