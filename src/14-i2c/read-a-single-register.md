@@ -17,7 +17,7 @@ These registers are documented in the following section of the Reference Manual:
 We'll be using the `I2C1` peripheral in conjunction with pins `PB6` (`SCL`) and `PB7` (`SDA`).
 
 You won't have to wire anything this time because the sensor is on the board and it's already
-connected to the microcontroller. However, I do would recommend that you disconnect the serial /
+connected to the microcontroller. However, I would recommend that you disconnect the serial /
 Bluetooth module from the F3 to make it easier to manipulate. Later on, we'll be moving the board
 around quite a bit.
 
