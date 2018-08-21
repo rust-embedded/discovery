@@ -1,13 +1,9 @@
 language: rust
 rust: nightly
 
-addons:
-  apt:
-    packages:
-      - gcc-arm-none-eabi
-
 install:
   - bash ci/install.sh
+  - export PATH="$PATH:$PWD/gcc/bin"
 
 script:
   - bash ci/script.sh
