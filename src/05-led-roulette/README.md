@@ -17,7 +17,7 @@ The starter code is in the `src` directory of that repository. Inside that direc
 directories named after each chapter of this book. Most of those directories are starter Cargo
 projects.
 
-[discovery]: https://github.com/japaric/discovery
+[discovery]: https://github.com/rust-embedded/discovery
 
 Now, jump into the `src/05-led-roulette` directory. Check the `src/main.rs` file:
 
