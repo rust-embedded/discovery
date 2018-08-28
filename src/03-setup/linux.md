@@ -124,7 +124,7 @@ $ #  ^^^^
 
 If `uucp` appears in the output. You are all set! Go to the [next section]. Otherwise, keep reading:
 
-[next section]: 03-setup/verify.html
+[next section]: /03-setup/verify.html
 
 - Add yourself to the `uucp` group.
 

@@ -60,7 +60,7 @@ report it on the [issue tracker].
 
 <p align="center">
 <a href="http://integer32.com/">
-<img style="width: 50%" title="integer 32" src="assets/integer32.svg">
+<img style="width: 50%" title="integer 32" src="/assets/integer32.svg">
 </a>
 </p>
 

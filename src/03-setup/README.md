@@ -111,6 +111,6 @@ LLVM (http://llvm.org/):
 
 Now follow the instructions specific to the OS you are using:
 
-- [Linux](03-setup/linux.html)
-- [Windows](03-setup/windows.html)
-- [macOS](03-setup/macos.html)
+- [Linux](/03-setup/linux.html)
+- [Windows](/03-setup/windows.html)
+- [macOS](/03-setup/macos.html)
