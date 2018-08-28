@@ -52,6 +52,7 @@ pub fn init() -> (Lsm303dlhc, Delay, MonoTimer, ITM) {
     (lsm303dlhc, delay, mono_timer, cp.ITM)
 }
 
+#[allow(deprecated)]
 #[panic_implementation]
 fn panic(info: &PanicInfo) -> ! {
     let itm = unsafe { &mut *ITM::ptr() };

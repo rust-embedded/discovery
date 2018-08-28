@@ -49,6 +49,7 @@ pub fn init() -> (Leds, Lsm303dlhc, Delay, ITM) {
     (leds, lsm303dlhc, delay, cp.ITM)
 }
 
+#[allow(deprecated)]
 #[panic_implementation]
 fn panic(info: &PanicInfo) -> ! {
     let itm = unsafe { &mut *ITM::ptr() };

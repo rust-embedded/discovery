@@ -32,6 +32,7 @@ pub fn init() -> (ITM, &'static gpioc::RegisterBlock) {
     (cp.ITM, unsafe { &*GPIOE::ptr() })
 }
 
+#[allow(deprecated)]
 #[panic_implementation]
 fn panic(info: &PanicInfo) -> ! {
     let itm = unsafe { &mut *ITM::ptr() };

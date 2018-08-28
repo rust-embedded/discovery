@@ -22,6 +22,7 @@ pub fn init() -> ITM {
     p.ITM
 }
 
+#[allow(deprecated)]
 #[panic_implementation]
 fn panic(info: &PanicInfo) -> ! {
     let itm = unsafe { &mut *ITM::ptr() };

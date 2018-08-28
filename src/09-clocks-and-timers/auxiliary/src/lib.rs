@@ -34,6 +34,7 @@ pub fn init() -> (
     (leds, unsafe { &*RCC::ptr() }, unsafe { &*TIM6::ptr() })
 }
 
+#[allow(deprecated)]
 #[panic_implementation]
 fn panic(info: &PanicInfo) -> ! {
     let itm = unsafe { &mut *ITM::ptr() };

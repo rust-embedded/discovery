@@ -47,6 +47,7 @@ pub fn init() -> (&'static mut usart1::RegisterBlock, MonoTimer, ITM) {
     }
 }
 
+#[allow(deprecated)]
 #[panic_implementation]
 fn panic(info: &PanicInfo) -> ! {
     let itm = unsafe { &mut *ITM::ptr() };

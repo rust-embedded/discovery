@@ -45,6 +45,7 @@ pub fn init() -> (&'static i2c1::RegisterBlock, Delay, ITM) {
     unsafe { (&mut *(I2C1::ptr() as *mut _), delay, cp.ITM) }
 }
 
+#[allow(deprecated)]
 #[panic_implementation]
 fn panic(info: &PanicInfo) -> ! {
     let itm = unsafe { &mut *ITM::ptr() };
