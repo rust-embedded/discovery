@@ -53,8 +53,9 @@ Binary size is something we should always keep an eye on! How big is your soluti
 that using the `size` command on the release binary:
 
 ``` console
-$ cargo size -- target/thumbv7em-none-eabihf/{debug,release}/led-roulette
-target/thumbv7em-none-eabihf/debug/led-roulette  :
+$ # equivalent to size target/thumbv7em-none-eabihf/debug/led-roulette
+$ cargo size --bin led-roulette -- -A
+led-roulette  :
 section               size        addr
 .vector_table          392   0x8000000
 .text                16500   0x8000188
@@ -75,7 +76,8 @@ section               size        addr
 .debug_aranges         160         0x0
 Total               747766
 
-target/thumbv7em-none-eabihf/release/led-roulette  :
+$ cargo size --bin led-roulette -- -A
+led-roulette  :
 section              size        addr
 .vector_table         392   0x8000000
 .text                1948   0x8000188

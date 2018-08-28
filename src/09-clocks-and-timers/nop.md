@@ -27,7 +27,7 @@ And this time `delay` won't be compiled away by LLVM when you compile your progr
 ``` console
 $ cargo build --release
 
-$ cargo objdump -- -d -no-show-raw-insn target/thumbv7em-none-eabihf/release/clocks-and-timers
+$ cargo objdump --bin clocks-and-timers --release -- -d -no-show-raw-insn
 clocks_and_timers::delay::h5d4fd91ff4b074a8:
  8000188:       push    {r4, r5, r7, lr}
  800018a:       movs    r4, #0

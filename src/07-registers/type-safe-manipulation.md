@@ -179,7 +179,7 @@ did!
 ``` console
 $ cargo build --release
 
-$ cargo objdump -- -d -no-show-raw-insn target/thumbv7em-none-eabihf/release/registers
+$ cargo objdump --bin registers --release -- -d -no-show-raw-insn
 registers::main::h3fb012c2979103e9:
  8000188:       push    {r7, lr}
  800018a:       bl      #40
