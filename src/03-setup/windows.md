@@ -1,6 +1,6 @@
 # Windows
 
-## `arm-none-eabi-*`
+## `arm-none-eabi-gdb`
 
 ARM provides `.exe` installers for Windows. Grab one from [here][gcc], and follow the instructions.
 Just before the installation process finishes tick/select the "Add path to environment variable"

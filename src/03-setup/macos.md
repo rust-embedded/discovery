@@ -5,7 +5,6 @@ All the tools can be install using [Homebrew]:
 [Homebrew]: http://brew.sh/
 
 ``` console
-$ brew cask install gcc-arm-embedded
 $ brew install minicom openocd
 ```
 

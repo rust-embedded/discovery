@@ -36,8 +36,6 @@ should work but we have listed the version we have tested.
 
 - OpenOCD >=0.8. Tested versions: v0.9.0 and v0.10.0
 
-- `arm-none-eabi` toolchain. Tested version: gcc 8.1.0, binutils 2.30
-
 - `arm-none-eabi-gdb`. Version 7.12 or newer highly recommended. Tested versions: 7.10, 7.11,
   7.12 and 8.1
 
