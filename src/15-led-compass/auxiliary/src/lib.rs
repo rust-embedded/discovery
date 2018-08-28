@@ -10,6 +10,7 @@ extern crate cortex_m_rt;
 extern crate f3;
 
 use core::panic::PanicInfo;
+use core::sync::atomic::{self, Ordering};
 
 pub use cortex_m::asm::bkpt;
 pub use cortex_m::peripheral::ITM;
@@ -58,7 +59,9 @@ fn panic(info: &PanicInfo) -> ! {
 
     bkpt();
 
-    loop {}
+    loop {
+        atomic::compiler_fence(Ordering::SeqCst)
+    }
 }
 
 exception!(HardFault, hard_fault);
@@ -66,11 +69,15 @@ exception!(HardFault, hard_fault);
 fn hard_fault(_ef: &ExceptionFrame) -> ! {
     bkpt();
 
-    loop {}
+    loop {
+        atomic::compiler_fence(Ordering::SeqCst)
+    }
 }
 
 exception!(*, default_handler);
 
 fn default_handler(_irqn: i16) {
-    loop {}
+    loop {
+        atomic::compiler_fence(Ordering::SeqCst)
+    }
 }

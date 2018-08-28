@@ -8,6 +8,8 @@ extern crate cortex_m_rt;
 extern crate f3;
 extern crate panic_abort;
 
+use core::sync::atomic::{self, Ordering};
+
 use cortex_m::asm;
 use cortex_m_rt::ExceptionFrame;
 pub use f3::hal::delay::Delay;
@@ -37,11 +39,15 @@ exception!(HardFault, hard_fault);
 fn hard_fault(_ef: &ExceptionFrame) -> ! {
     asm::bkpt();
 
-    loop {}
+    loop {
+        atomic::compiler_fence(Ordering::SeqCst)
+    }
 }
 
 exception!(*, default_handler);
 
 fn default_handler(_irqn: i16) {
-    loop {}
+    loop {
+        atomic::compiler_fence(Ordering::SeqCst)
+    }
 }
