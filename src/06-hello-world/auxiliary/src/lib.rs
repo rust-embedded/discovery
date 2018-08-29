@@ -43,6 +43,8 @@ fn hard_fault(_ef: &ExceptionFrame) -> ! {
     asm::bkpt();
 
     loop {
+        // add some side effect to prevent LLVM from turning this into a UDF (abort) instruction
+        // see rust-lang/rust#28728 for details
         atomic::compiler_fence(Ordering::SeqCst)
     }
 }

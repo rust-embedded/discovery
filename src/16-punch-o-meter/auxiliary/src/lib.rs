@@ -63,6 +63,8 @@ fn panic(info: &PanicInfo) -> ! {
     bkpt();
 
     loop {
+        // add some side effect to prevent this from turning into a UDF (abort) instruction
+        // see rust-lang/rust#28728 for details
         atomic::compiler_fence(Ordering::SeqCst)
     }
 }

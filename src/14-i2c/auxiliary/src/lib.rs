@@ -56,6 +56,8 @@ fn panic(info: &PanicInfo) -> ! {
     cortex_m::asm::bkpt();
 
     loop {
+        // add some side effect to prevent LLVM from turning this loop into a UDF (abort) instruction
+        // see rust-lang/rust#28728 for details
         atomic::compiler_fence(Ordering::SeqCst)
     }
 }
