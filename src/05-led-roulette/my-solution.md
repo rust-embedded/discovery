@@ -54,7 +54,7 @@ that using the `size` command on the release binary:
 
 ``` console
 $ # equivalent to size target/thumbv7em-none-eabihf/debug/led-roulette
-$ cargo size --bin led-roulette -- -A
+$ cargo size --target thumbv7em-none-eabihf --bin led-roulette -- -A
 led-roulette  :
 section               size        addr
 .vector_table          392   0x8000000
@@ -76,7 +76,7 @@ section               size        addr
 .debug_aranges         160         0x0
 Total               747766
 
-$ cargo size --bin led-roulette -- -A
+$ cargo size --target thumbv7em-none-eabihf --bin led-roulette --release -- -A
 led-roulette  :
 section              size        addr
 .vector_table         392   0x8000000
