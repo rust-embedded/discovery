@@ -8,7 +8,6 @@ Here are the installation commands for a few Linux distributions.
 
 ``` console
 $ sudo apt-get install \
-  gcc-arm-none-eabi \
   gdb-arm-none-eabi \
   minicom \
   openocd
@@ -18,7 +17,6 @@ $ sudo apt-get install \
 
 ``` console
 $ sudo dnf install \
-  arm-none-eabi-gcc-cs \
   arm-none-eabi-gdb \
   minicom \
   openocd
@@ -28,22 +26,25 @@ $ sudo dnf install \
 
 ``` console
 $ sudo pacman -S \
-  arm-none-eabi-gcc \
   arm-none-eabi-gdb \
   minicom \
   openocd
 ```
 
-- Other distros
+- `arm-none-eabi-gdb` for other distros
 
-For distros that don't have packages for [ARM's pre-built toolchain](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads), download the "Linux 64-bit" file and put its `bin` directory on your path. Here's one way to do it:
+For distros that don't have packages for [ARM's pre-built
+toolchain](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads),
+download the "Linux 64-bit" file and put its `bin` directory on your path.
+Here's one way to do it:
 
 ``` console
 $ mkdir -p ~/local && cd ~/local
 $ tar xjf /path/to/downloaded/file/gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2.tbz
 ```
 
-Then, use your editor of choice to append to your `PATH` in the appropriate shell init file (e.g. `~/.zshrc` or `~/.bashrc`):
+Then, use your editor of choice to append to your `PATH` in the appropriate
+shell init file (e.g. `~/.zshrc` or `~/.bashrc`):
 
 ```
 PATH=$PATH:$HOME/local/gcc-arm-none-eabi-7-2017-q4-major/bin
@@ -124,7 +125,7 @@ $ #  ^^^^
 
 If `uucp` appears in the output. You are all set! Go to the [next section]. Otherwise, keep reading:
 
-[next section]: 03-setup/verify.html
+[next section]: /03-setup/verify.html
 
 - Add yourself to the `uucp` group.
 

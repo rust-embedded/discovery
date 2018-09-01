@@ -1,6 +1,6 @@
 # Windows
 
-## `arm-none-eabi-*`
+## `arm-none-eabi-gdb`
 
 ARM provides `.exe` installers for Windows. Grab one from [here][gcc], and follow the instructions.
 Just before the installation process finishes tick/select the "Add path to environment variable"
@@ -47,4 +47,4 @@ instructions and make sure you install the right (32-bit or 64-bit) version of t
 
 That's all! Go to the [next section].
 
-[next section]: 03-setup/verify.html
+[next section]: /03-setup/verify.html

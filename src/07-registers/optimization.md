@@ -57,7 +57,8 @@ register, but the *release* (optimized) program only has one.
 We can check that using `objdump`:
 
 ``` console
-$ cargo objdump -- -d -no-show-raw-insn target/thumbv7em-none-eabihf/debug/registers
+$ # same as cargo objdump -- -d -no-show-raw-insn target/thumbv7em-none-eabihf/debug/registers
+$ cargo objdump --bin registers -- -d -no-show-raw-insn
 registers::main::h92bcf844b62ba8a0:
 ; fn main() -> ! {
  8000188:       push    {r7, lr}
@@ -185,7 +186,7 @@ fn main() -> ! {
 If we look at the disassembly of this new program compiled in release mode:
 
 ``` console
-$ cargo objdump -- -source -no-show-raw-insn target/thumbv7em-none-eabihf/release/registers
+$ cargo objdump --bin registers --release -- -source -no-show-raw-insn
 registers::main::h3fb012c2979103e9:
  8000188:       push    {r7, lr}
  800018a:       bl      #40

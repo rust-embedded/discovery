@@ -36,8 +36,6 @@ should work but we have listed the version we have tested.
 
 - OpenOCD >=0.8. Tested versions: v0.9.0 and v0.10.0
 
-- `arm-none-eabi` toolchain. Tested version: gcc 8.1.0, binutils 2.30
-
 - `arm-none-eabi-gdb`. Version 7.12 or newer highly recommended. Tested versions: 7.10, 7.11,
   7.12 and 8.1
 
@@ -97,7 +95,7 @@ itmdump 0.3.1
 ``` console
 $ rustup component add llvm-tools-preview
 
-$ cargo install cargo-binutils --vers 0.1.1
+$ cargo install cargo-binutils --vers 0.1.2
 
 $ cargo size -- --version
 LLVM (http://llvm.org/):
@@ -111,6 +109,6 @@ LLVM (http://llvm.org/):
 
 Now follow the instructions specific to the OS you are using:
 
-- [Linux](03-setup/linux.html)
-- [Windows](03-setup/windows.html)
-- [macOS](03-setup/macos.html)
+- [Linux](/03-setup/linux.html)
+- [Windows](/03-setup/windows.html)
+- [macOS](/03-setup/macos.html)

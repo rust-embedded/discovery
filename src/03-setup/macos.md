@@ -6,6 +6,7 @@ All the tools can be install using [Homebrew]:
 
 ``` console
 $ brew cask install gcc-arm-embedded
+
 $ brew install minicom openocd
 ```
 
@@ -14,4 +15,4 @@ Caskroom/tap` first and try again.
 
 That's all! Go to the [next section].
 
-[next section]: 03-setup/verify.html
+[next section]: /03-setup/verify.html

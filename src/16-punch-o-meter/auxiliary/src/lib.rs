@@ -10,6 +10,7 @@ extern crate cortex_m_rt;
 extern crate f3;
 
 use core::panic::PanicInfo;
+use core::sync::atomic::{self, Ordering};
 
 pub use cortex_m::asm::bkpt;
 pub use cortex_m::peripheral::ITM;
@@ -52,6 +53,7 @@ pub fn init() -> (Lsm303dlhc, Delay, MonoTimer, ITM) {
     (lsm303dlhc, delay, mono_timer, cp.ITM)
 }
 
+#[allow(deprecated)]
 #[panic_implementation]
 fn panic(info: &PanicInfo) -> ! {
     let itm = unsafe { &mut *ITM::ptr() };
@@ -60,7 +62,11 @@ fn panic(info: &PanicInfo) -> ! {
 
     bkpt();
 
-    loop {}
+    loop {
+        // add some side effect to prevent this from turning into a UDF (abort) instruction
+        // see rust-lang/rust#28728 for details
+        atomic::compiler_fence(Ordering::SeqCst)
+    }
 }
 
 exception!(HardFault, hard_fault);
@@ -68,11 +74,15 @@ exception!(HardFault, hard_fault);
 fn hard_fault(_ef: &ExceptionFrame) -> ! {
     bkpt();
 
-    loop {}
+    loop {
+        atomic::compiler_fence(Ordering::SeqCst)
+    }
 }
 
 exception!(*, default_handler);
 
 fn default_handler(_irqn: i16) {
-    loop {}
+    loop {
+        atomic::compiler_fence(Ordering::SeqCst)
+    }
 }
