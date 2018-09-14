@@ -23,11 +23,11 @@ file `/dev/bus/usb/003/004` *is* the F3. Let's check its permissions:
 
 ``` console
 $ ls -l /dev/bus/usb/003/004
-crw-rw-r-- 1 root uucp 189, 262 Oct 27 00:00 /dev/bus/usb/003/004
+crw-rw-rw- 1 root root 189, 20 Sep 13 00:00 /dev/bus/usb/003/004
 ```
 
-The group should be `uucp`. If it's not ... then check your [udev rules] and try re-loading them
-with:
+The permissions should be `crw-rw-rw-`. If it's not ... then check your [udev
+rules] and try re-loading them with:
 
 [udev rules]: /03-setup/linux.html#udev%20rules
 
@@ -48,10 +48,10 @@ In my case, it's the `/dev/bus/usb/003/005`. Now, check its permissions:
 
 ``` console
 $ ls -l /dev/bus/usb/003/005
-crw-rw-r--+ 1 root uucp 189, 261 Oct 27 00:00 /dev/bus/usb/003/005
+crw-rw-r-- 1 root root 189, 21 Sep 13 00:00 /dev/bus/usb/003/005
 ```
 
-As before, the group should be `uucp`.
+As before, the permissions should be `crw-rw-r--`.
 
 ## All
 
