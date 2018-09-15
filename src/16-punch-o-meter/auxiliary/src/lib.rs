@@ -1,28 +1,19 @@
 //! Initialization code
 
-#![feature(panic_implementation)]
 #![no_std]
 
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
-extern crate f3;
+#[allow(unused_extern_crates)] // NOTE(allow) bug rust-lang/rust#53964
+extern crate panic_itm; // panic handler
 
-use core::panic::PanicInfo;
-use core::sync::atomic::{self, Ordering};
+pub use cortex_m::{asm::bkpt, iprint, iprintln, peripheral::ITM};
+pub use cortex_m_rt::entry;
+pub use f3::{
+    hal::{delay::Delay, prelude, time::MonoTimer},
+    lsm303dlhc::{I16x3, Sensitivity},
+    Lsm303dlhc,
+};
 
-pub use cortex_m::asm::bkpt;
-pub use cortex_m::peripheral::ITM;
-use cortex_m_rt::ExceptionFrame;
-pub use f3::hal::delay::Delay;
-use f3::hal::i2c::I2c;
-pub use f3::hal::prelude;
-use f3::hal::prelude::*;
-use f3::hal::stm32f30x;
-pub use f3::hal::time::MonoTimer;
-pub use f3::lsm303dlhc::{I16x3, Sensitivity};
-pub use f3::Lsm303dlhc;
+use f3::hal::{i2c::I2c, prelude::*, stm32f30x};
 
 pub fn init() -> (Lsm303dlhc, Delay, MonoTimer, ITM) {
     let cp = cortex_m::Peripherals::take().unwrap();
@@ -51,38 +42,4 @@ pub fn init() -> (Lsm303dlhc, Delay, MonoTimer, ITM) {
     let mono_timer = MonoTimer::new(cp.DWT, clocks);
 
     (lsm303dlhc, delay, mono_timer, cp.ITM)
-}
-
-#[allow(deprecated)]
-#[panic_implementation]
-fn panic(info: &PanicInfo) -> ! {
-    let itm = unsafe { &mut *ITM::ptr() };
-
-    iprintln!(&mut itm.stim[0], "{}", info);
-
-    bkpt();
-
-    loop {
-        // add some side effect to prevent this from turning into a UDF (abort) instruction
-        // see rust-lang/rust#28728 for details
-        atomic::compiler_fence(Ordering::SeqCst)
-    }
-}
-
-exception!(HardFault, hard_fault);
-
-fn hard_fault(_ef: &ExceptionFrame) -> ! {
-    bkpt();
-
-    loop {
-        atomic::compiler_fence(Ordering::SeqCst)
-    }
-}
-
-exception!(*, default_handler);
-
-fn default_handler(_irqn: i16) {
-    loop {
-        atomic::compiler_fence(Ordering::SeqCst)
-    }
 }

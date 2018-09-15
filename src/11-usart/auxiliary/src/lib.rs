@@ -1,26 +1,18 @@
 //! Initialization code
 
-#![feature(panic_implementation)]
 #![no_std]
 
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
-extern crate f3;
+#[allow(unused_extern_crates)] // NOTE(allow) bug rust-lang/rust53964
+extern crate panic_itm; // panic handler
 
-use core::panic::PanicInfo;
+pub use cortex_m::{asm::bkpt, iprint, iprintln, peripheral::ITM};
+pub use cortex_m_rt::entry;
+pub use f3::hal::{prelude, serial::Serial, stm32f30x::usart1, time::MonoTimer};
 
-pub use cortex_m::asm::bkpt;
-use cortex_m::asm;
-pub use cortex_m::peripheral::ITM;
-use cortex_m_rt::ExceptionFrame;
-pub use f3::hal::prelude;
-use f3::hal::prelude::*;
-pub use f3::hal::serial::Serial;
-pub use f3::hal::stm32f30x::usart1;
-use f3::hal::stm32f30x::{self, USART1};
-pub use f3::hal::time::MonoTimer;
+use f3::hal::{
+    prelude::*,
+    stm32f30x::{self, USART1},
+};
 
 pub fn init() -> (&'static mut usart1::RegisterBlock, MonoTimer, ITM) {
     let cp = cortex_m::Peripherals::take().unwrap();
@@ -45,30 +37,4 @@ pub fn init() -> (&'static mut usart1::RegisterBlock, MonoTimer, ITM) {
             cp.ITM,
         )
     }
-}
-
-#[allow(deprecated)]
-#[panic_implementation]
-fn panic(info: &PanicInfo) -> ! {
-    let itm = unsafe { &mut *ITM::ptr() };
-
-    iprintln!(&mut itm.stim[0], "{}", info);
-
-    cortex_m::asm::bkpt();
-
-    loop {}
-}
-
-exception!(HardFault, hard_fault);
-
-fn hard_fault(_ef: &ExceptionFrame) -> ! {
-    asm::bkpt();
-
-    loop {}
-}
-
-exception!(*, default_handler);
-
-fn default_handler(_irqn: i16) {
-    loop {}
 }

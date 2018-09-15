@@ -1,14 +1,10 @@
 #![no_main]
 #![no_std]
 
-extern crate aux7;
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
+#[allow(unused_imports)]
+use aux7::{entry, iprint, iprintln};
 
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     aux7::init();
 

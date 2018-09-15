@@ -2,14 +2,10 @@
 #![no_main]
 #![no_std]
 
-extern crate aux6;
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
+#[allow(unused_imports)]
+use aux6::{entry, iprint, iprintln};
 
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     let mut itm = aux6::init();
 

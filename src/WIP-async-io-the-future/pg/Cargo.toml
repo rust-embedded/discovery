@@ -1,5 +1,6 @@
 [package]
 authors = ["Jorge Aparicio <jorge@japaric.io>"]
+edition = "2018"
 name = "pg"
 version = "0.1.0"
 

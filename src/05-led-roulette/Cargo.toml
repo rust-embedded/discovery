@@ -1,8 +1,8 @@
 [package]
 authors = ["Jorge Aparicio <jorge@japaric.io>"]
+edition = "2018"
 name = "led-roulette"
 version = "0.1.0"
 
 [dependencies]
 aux5 = { path = "auxiliary" }
-cortex-m-rt = "0.5.3"

@@ -2,15 +2,10 @@
 #![no_main]
 #![no_std]
 
-extern crate aux11;
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
-extern crate heapless;
+#[allow(unused_imports)]
+use aux11::{entry, iprint, iprintln};
 
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     let (usart1, mono_timer, itm) = aux11::init();
 

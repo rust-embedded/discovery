@@ -2,18 +2,10 @@
 #![no_main]
 #![no_std]
 
-extern crate aux16;
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
-extern crate m;
+#[allow(unused_imports)]
+use aux16::{entry, iprint, iprintln, prelude::*, I16x3, Sensitivity};
 
-use aux16::{I16x3, Sensitivity};
-use aux16::prelude::*;
-
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     let (mut lsm303dlhc, mut delay, _mono_timer, mut itm) = aux16::init();
 

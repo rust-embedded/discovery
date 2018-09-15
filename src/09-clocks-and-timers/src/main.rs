@@ -1,19 +1,14 @@
 #![no_main]
 #![no_std]
 
-extern crate aux9;
-#[macro_use]
-extern crate cortex_m_rt;
-
-use aux9::tim6;
+use aux9::{entry, tim6};
 
 #[inline(never)]
 fn delay(tim6: &tim6::RegisterBlock, ms: u16) {
     // TODO implement this
 }
 
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     let (mut leds, rcc, tim6) = aux9::init();
 
