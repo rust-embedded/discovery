@@ -7,14 +7,10 @@ If you wrote your program like this:
 #![no_main]
 #![no_std]
 
-extern crate aux11;
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
+#[allow(unused_imports)]
+use aux11::{entry, iprint, iprintln};
 
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     let (usart1, mono_timer, itm) = aux11::init();
 
@@ -67,14 +63,10 @@ We can actually time how long it takes to execute the `for` loop. `aux11::init()
 #![no_main]
 #![no_std]
 
-extern crate aux11;
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
+#[allow(unused_imports)]
+use aux11::{entry, iprint, iprintln};
 
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     let (usart1, mono_timer, mut itm) = aux11::init();
 
@@ -120,14 +112,10 @@ Let's use that to slowdown the processor.
 #![no_main]
 #![no_std]
 
-extern crate aux11;
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
+#[allow(unused_imports)]
+use aux11::{entry, iprint, iprintln};
 
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     let (usart1, mono_timer, mut itm) = aux11::init();
 

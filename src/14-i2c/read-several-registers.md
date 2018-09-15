@@ -49,13 +49,8 @@ Putting it all together inside a loop alongside a delay to reduce the data throu
 #![no_main]
 #![no_std]
 
-extern crate aux14;
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
-
-use aux14::prelude::*;
+#[allow(unused_imports)]
+use aux14::{entry, iprint, iprintln, prelude::*};
 
 // Slave address
 const MAGNETOMETER: u8 = 0b001_1110;
@@ -64,8 +59,7 @@ const MAGNETOMETER: u8 = 0b001_1110;
 const OUT_X_H_M: u8 = 0x03;
 const IRA_REG_M: u8 = 0x0A;
 
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     let (i2c1, mut delay, mut itm) = aux14::init();
 

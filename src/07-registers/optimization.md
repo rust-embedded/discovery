@@ -10,42 +10,46 @@ will merge the writes thus changing the behavior of our program. Let's check tha
 
 ``` console
 $ cargo run --release
+(..)
+Breakpoint 1, main () at src/07-registers/src/main.rs:9
+9           aux7::init();
 
 (gdb) next
+25              *(GPIOE_BSRR as *mut u32) = 1 << (11 + 16);
 
 (gdb) disassemble /m
-Dump of assembler code for function registers::main:
-10      fn main() -> ! {
-   0x08000188 <+0>:     push    {r7, lr}
+Dump of assembler code for function main:
+7       #[entry]
 
-11          aux7::init();
-   0x0800018a <+2>:     bl      0x80001a4 <aux7::init>
+8       fn main() -> ! {
+9           aux7::init();
+   0x08000188 <+0>:     bl      0x800019c <aux7::init>
+   0x0800018c <+4>:     movw    r0, #4120       ; 0x1018
+   0x08000190 <+8>:     mov.w   r1, #134217728  ; 0x8000000
+   0x08000194 <+12>:    movt    r0, #18432      ; 0x4800
 
-12
-13          unsafe {
-14              // A magic address!
-15              const GPIOE_BSRR: u32 = 0x48001018;
-16
-17              // Turn on the "North" LED (red)
-18              *(GPIOE_BSRR as *mut u32) = 1 << 9;
-19
-20              // Turn on the "East" LED (green)
-21              *(GPIOE_BSRR as *mut u32) = 1 << 11;
-22
-23              // Turn off the "North" LED
-24              *(GPIOE_BSRR as *mut u32) = 1 << (9 + 16);
-25
-26              // Turn off the "East" LED
-27              *(GPIOE_BSRR as *mut u32) = 1 << (11 + 16);
-=> 0x0800018e <+6>:     movw    r0, #4120       ; 0x1018
-   0x08000192 <+10>:    mov.w   r1, #134217728  ; 0x8000000
-   0x08000196 <+14>:    movt    r0, #18432      ; 0x4800
-   0x0800019a <+18>:    str     r1, [r0, #0]    ; <- 1
+10
+11          unsafe {
+12              // A magic address!
+13              const GPIOE_BSRR: u32 = 0x48001018;
+14
+15              // Turn on the "North" LED (red)
+16              *(GPIOE_BSRR as *mut u32) = 1 << 9;
+17
+18              // Turn on the "East" LED (green)
+19              *(GPIOE_BSRR as *mut u32) = 1 << 11;
+20
+21              // Turn off the "North" LED
+22              *(GPIOE_BSRR as *mut u32) = 1 << (9 + 16);
+23
+24              // Turn off the "East" LED
+25              *(GPIOE_BSRR as *mut u32) = 1 << (11 + 16);
+=> 0x08000198 <+16>:    str     r1, [r0, #0]
 
-28          }
-29
-30          loop {}
-   0x0800019c <+20>:    b.n     0x800019c <registers::main+20>
+26          }
+27
+28          loop {}
+   0x0800019a <+18>:    b.n     0x800019a <main+18>
 
 End of assembler dump.
 ```
@@ -57,89 +61,91 @@ register, but the *release* (optimized) program only has one.
 We can check that using `objdump`:
 
 ``` console
-$ # same as cargo objdump -- -d -no-show-raw-insn target/thumbv7em-none-eabihf/debug/registers
-$ cargo objdump --bin registers -- -d -no-show-raw-insn
-registers::main::h92bcf844b62ba8a0:
-; fn main() -> ! {
- 8000188:       push    {r7, lr}
- 800018a:       sub     sp, #24
+$ # same as cargo objdump -- -d -no-show-raw-insn -print-imm-hex -source target/thumbv7em-none-eabihf/debug/registers
+$ cargo objdump --bin registers -- -d -no-show-raw-insn -print-imm-hex -source
+registers:      file format ELF32-arm-little
+
+Disassembly of section .text:
+main:
+; #[entry]
+ 8000188:       sub     sp, #0x18
 ; aux7::init();
- 800018c:       bl      #212
- 8000190:       str     r0, [sp, #20]
- 8000192:       b       #-2 <registers::main::h92bcf844b62ba8a0+0xc>
+ 800018a:       bl      #0xbc
+ 800018e:       str     r0, [sp, #0x14]
+ 8000190:       b       #-0x2 <main+0xa>
 ; *(GPIOE_BSRR as *mut u32) = 1 << 9;
- 8000194:       b       #-2 <registers::main::h92bcf844b62ba8a0+0xe>
- 8000196:       movw    r0, #4120
- 800019a:       movt    r0, #18432
- 800019e:       mov.w   r1, #512
- 80001a2:       str     r1, [r0]
+ 8000192:       b       #-0x2 <main+0xc>
+ 8000194:       movw    r0, #0x1018
+ 8000198:       movt    r0, #0x4800
+ 800019c:       mov.w   r1, #0x200
+ 80001a0:       str     r1, [r0]
 ; *(GPIOE_BSRR as *mut u32) = 1 << 11;
- 80001a4:       b       #-2 <registers::main::h92bcf844b62ba8a0+0x1e>
- 80001a6:       movw    r0, #4120
- 80001aa:       movt    r0, #18432
- 80001ae:       mov.w   r1, #2048
- 80001b2:       str     r1, [r0]
+ 80001a2:       b       #-0x2 <main+0x1c>
+ 80001a4:       movw    r0, #0x1018
+ 80001a8:       movt    r0, #0x4800
+ 80001ac:       mov.w   r1, #0x800
+ 80001b0:       str     r1, [r0]
+ 80001b2:       movs    r0, #0x19
 ; *(GPIOE_BSRR as *mut u32) = 1 << (9 + 16);
- 80001b4:       movs    r0, #25
- 80001b6:       mov     r1, r0
- 80001b8:       cmp     r0, #9
- 80001ba:       str     r1, [sp, #16]
- 80001bc:       bvs     #88 <registers::main::h92bcf844b62ba8a0+0x90>
- 80001be:       b       #-2 <registers::main::h92bcf844b62ba8a0+0x38>
- 80001c0:       ldr     r0, [sp, #16]
- 80001c2:       and     r1, r0, #31
- 80001c6:       movs    r2, #1
- 80001c8:       lsl.w   r1, r2, r1
- 80001cc:       mvn     r2, #31
- 80001d0:       tst     r0, r2
- 80001d2:       str     r1, [sp, #12]
- 80001d4:       bne     #78 <registers::main::h92bcf844b62ba8a0+0x9e>
- 80001d6:       b       #-2 <registers::main::h92bcf844b62ba8a0+0x50>
- 80001d8:       movw    r0, #4120
- 80001dc:       movt    r0, #18432
- 80001e0:       ldr     r1, [sp, #12]
- 80001e2:       str     r1, [r0]
+ 80001b4:       mov     r1, r0
+ 80001b6:       cmp     r0, #0x9
+ 80001b8:       str     r1, [sp, #0x10]
+ 80001ba:       bvs     #0x54 <main+0x8a>
+ 80001bc:       b       #-0x2 <main+0x36>
+ 80001be:       ldr     r0, [sp, #0x10]
+ 80001c0:       and     r1, r0, #0x1f
+ 80001c4:       movs    r2, #0x1
+ 80001c6:       lsl.w   r1, r2, r1
+ 80001ca:       lsrs    r2, r0, #0x5
+ 80001cc:       cmp     r2, #0x0
+ 80001ce:       str     r1, [sp, #0xc]
+ 80001d0:       bne     #0x4c <main+0x98>
+ 80001d2:       b       #-0x2 <main+0x4c>
+ 80001d4:       movw    r0, #0x1018
+ 80001d8:       movt    r0, #0x4800
+ 80001dc:       ldr     r1, [sp, #0xc]
+ 80001de:       str     r1, [r0]
+ 80001e0:       movs    r0, #0x1b
 ; *(GPIOE_BSRR as *mut u32) = 1 << (11 + 16);
- 80001e4:       movs    r0, #27
- 80001e6:       mov     r2, r0
- 80001e8:       cmp     r0, #11
- 80001ea:       str     r2, [sp, #8]
- 80001ec:       bvs     #68 <registers::main::h92bcf844b62ba8a0+0xac>
- 80001ee:       b       #-2 <registers::main::h92bcf844b62ba8a0+0x68>
- 80001f0:       ldr     r0, [sp, #8]
- 80001f2:       and     r1, r0, #31
- 80001f6:       movs    r2, #1
- 80001f8:       lsl.w   r1, r2, r1
- 80001fc:       mvn     r2, #31
- 8000200:       tst     r0, r2
- 8000202:       str     r1, [sp, #4]
- 8000204:       bne     #58 <registers::main::h92bcf844b62ba8a0+0xba>
- 8000206:       b       #-2 <registers::main::h92bcf844b62ba8a0+0x80>
- 8000208:       movw    r0, #4120
- 800020c:       movt    r0, #18432
- 8000210:       ldr     r1, [sp, #4]
- 8000212:       str     r1, [r0]
+ 80001e2:       mov     r2, r0
+ 80001e4:       cmp     r0, #0xb
+ 80001e6:       str     r2, [sp, #0x8]
+ 80001e8:       bvs     #0x42 <main+0xa6>
+ 80001ea:       b       #-0x2 <main+0x64>
+ 80001ec:       ldr     r0, [sp, #0x8]
+ 80001ee:       and     r1, r0, #0x1f
+ 80001f2:       movs    r2, #0x1
+ 80001f4:       lsl.w   r1, r2, r1
+ 80001f8:       lsrs    r2, r0, #0x5
+ 80001fa:       cmp     r2, #0x0
+ 80001fc:       str     r1, [sp, #0x4]
+ 80001fe:       bne     #0x3a <main+0xb4>
+ 8000200:       b       #-0x2 <main+0x7a>
+ 8000202:       movw    r0, #0x1018
+ 8000206:       movt    r0, #0x4800
+ 800020a:       ldr     r1, [sp, #0x4]
+ 800020c:       str     r1, [r0]
 ; loop {}
- 8000214:       b       #-2 <registers::main::h92bcf844b62ba8a0+0x8e>
- 8000216:       b       #-4 <registers::main::h92bcf844b62ba8a0+0x8e>
+ 800020e:       b       #-0x2 <main+0x88>
+ 8000210:       b       #-0x4 <main+0x88>
 ; *(GPIOE_BSRR as *mut u32) = 1 << (9 + 16);
- 8000218:       movw    r0, #16988
- 800021c:       movt    r0, #2048
- 8000220:       bl      #16112
- 8000224:       trap
- 8000226:       movw    r0, #17060
- 800022a:       movt    r0, #2048
- 800022e:       bl      #16098
- 8000232:       trap
+ 8000212:       movw    r0, #0x41bc
+ 8000216:       movt    r0, #0x800
+ 800021a:       bl      #0x3b28
+ 800021e:       trap
+ 8000220:       movw    r0, #0x4204
+ 8000224:       movt    r0, #0x800
+ 8000228:       bl      #0x3b1a
+ 800022c:       trap
 ; *(GPIOE_BSRR as *mut u32) = 1 << (11 + 16);
- 8000234:       movw    r0, #17084
- 8000238:       movt    r0, #2048
- 800023c:       bl      #16084
- 8000240:       trap
- 8000242:       movw    r0, #17108
- 8000246:       movt    r0, #2048
- 800024a:       bl      #16070
- 800024e:       trap
+ 800022e:       movw    r0, #0x421c
+ 8000232:       movt    r0, #0x800
+ 8000236:       bl      #0x3b0c
+ 800023a:       trap
+ 800023c:       movw    r0, #0x4234
+ 8000240:       movt    r0, #0x800
+ 8000244:       bl      #0x3afe
+ 8000248:       trap
 ```
 
 How do we prevent LLVM from misoptimizing our program? We use *volatile* operations instead of plain
@@ -149,16 +155,12 @@ reads/writes:
 #![no_main]
 #![no_std]
 
-extern crate aux7;
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
-
 use core::ptr;
 
-entry!(main);
+#[allow(unused_imports)]
+use aux7::{entry, iprint, iprintln};
 
+#[entry]
 fn main() -> ! {
     aux7::init();
 
@@ -186,21 +188,26 @@ fn main() -> ! {
 If we look at the disassembly of this new program compiled in release mode:
 
 ``` console
-$ cargo objdump --bin registers --release -- -source -no-show-raw-insn
-registers::main::h3fb012c2979103e9:
- 8000188:       push    {r7, lr}
- 800018a:       bl      #40
- 800018e:       movw    r0, #4120
- 8000192:       mov.w   r1, #512
- 8000196:       movt    r0, #18432
- 800019a:       str     r1, [r0]
- 800019c:       mov.w   r1, #2048
- 80001a0:       str     r1, [r0]
- 80001a2:       mov.w   r1, #33554432
- 80001a6:       str     r1, [r0]
- 80001a8:       mov.w   r1, #134217728
- 80001ac:       str     r1, [r0]
- 80001ae:       b       #-4 <registers::main::h3fb012c2979103e9+0x26>
+$ cargo objdump --bin registers --release -- -d -no-show-raw-insn -print-imm-hex -source
+registers:      file format ELF32-arm-little
+
+Disassembly of section .text:
+main:
+; #[entry]
+ 8000188:       bl      #0x22
+; aux7::init();
+ 800018c:       movw    r0, #0x1018
+ 8000190:       mov.w   r1, #0x200
+ 8000194:       movt    r0, #0x4800
+ 8000198:       str     r1, [r0]
+ 800019a:       mov.w   r1, #0x800
+ 800019e:       str     r1, [r0]
+ 80001a0:       mov.w   r1, #0x2000000
+ 80001a4:       str     r1, [r0]
+ 80001a6:       mov.w   r1, #0x8000000
+ 80001aa:       str     r1, [r0]
+; loop {}
+ 80001ac:       b       #-0x4 <main+0x24>
 ```
 
 We see that the four writes (`str` instructions) are preserved. If you run it (use `stepi`), you'll

@@ -5,12 +5,9 @@
 #![no_main]
 #![no_std]
 
-extern crate aux8;
-#[macro_use]
-extern crate cortex_m_rt;
+use aux8::entry;
 
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     let (gpioe, rcc) = aux8::init();
 

@@ -19,28 +19,7 @@ Only the X and Y axes are shown above. The Z axis is pointing "out" of your scre
 Let's get familiar with the readings of the magnetometer by running the following starter code:
 
 ``` rust
-#![deny(unsafe_code)]
-#![no_main]
-#![no_std]
-
-extern crate aux15;
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
-
-use aux15::prelude::*;
-
-entry!(main);
-
-fn main() -> ! {
-    let (_leds, mut lsm303dlhc, mut delay, mut itm) = aux15::init();
-
-    loop {
-        iprintln!(&mut itm.stim[0], "{:?}", lsm303dlhc.mag().unwrap());
-        delay.delay_ms(1_000_u16);
-    }
-}
+{{#include src/main.rs}}
 ```
 
 This `lsm303dlhc` module provides high level API over the LSM303DLHC. Under the hood it does the

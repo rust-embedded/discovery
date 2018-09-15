@@ -9,15 +9,9 @@ Here's mine:
 #![no_main]
 #![no_std]
 
-extern crate aux5;
-#[macro_use]
-extern crate cortex_m_rt;
+use aux5::{entry, prelude::*, Delay, Leds};
 
-use aux5::prelude::*;
-use aux5::{Delay, Leds};
-
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     let (mut delay, mut leds): (Delay, Leds) = aux5::init();
 
@@ -33,6 +27,7 @@ fn main() -> ! {
         }
     }
 }
+
 ```
 
 One more thing! Check that your solution also works when compiled in "release" mode:
@@ -58,45 +53,45 @@ $ cargo size --target thumbv7em-none-eabihf --bin led-roulette -- -A
 led-roulette  :
 section               size        addr
 .vector_table          392   0x8000000
-.text                16500   0x8000188
-.rodata               2812   0x8004200
+.text                16404   0x8000188
+.rodata               2924   0x80041a0
 .data                    0  0x20000000
 .bss                     4  0x20000000
-.debug_str          234583         0x0
-.debug_abbrev        11028         0x0
-.debug_info         216136         0x0
-.debug_ranges        41704         0x0
-.debug_macinfo          44         0x0
-.debug_pubnames      22666         0x0
-.debug_pubtypes      48842         0x0
+.debug_str          602185         0x0
+.debug_abbrev        24134         0x0
+.debug_info         553143         0x0
+.debug_ranges       112744         0x0
+.debug_macinfo          86         0x0
+.debug_pubnames      56467         0x0
+.debug_pubtypes      94866         0x0
 .ARM.attributes         58         0x0
-.debug_frame         62536         0x0
-.debug_line          89927         0x0
-.debug_loc             374         0x0
-.debug_aranges         160         0x0
-Total               747766
+.debug_frame        174812         0x0
+.debug_line         354866         0x0
+.debug_loc             534         0x0
+.comment                75         0x0
+Total              1993694
 
 $ cargo size --target thumbv7em-none-eabihf --bin led-roulette --release -- -A
 led-roulette  :
 section              size        addr
 .vector_table         392   0x8000000
-.text                1948   0x8000188
-.rodata                84   0x8000924
+.text                1826   0x8000188
+.rodata                84   0x80008ac
 .data                   0  0x20000000
 .bss                    4  0x20000000
-.debug_str          22672         0x0
-.debug_loc           6313         0x0
-.debug_abbrev        1464         0x0
-.debug_info         40426         0x0
-.debug_ranges        3008         0x0
+.debug_str          23334         0x0
+.debug_loc           6964         0x0
+.debug_abbrev        1337         0x0
+.debug_info         40582         0x0
+.debug_ranges        2936         0x0
 .debug_macinfo          1         0x0
-.debug_pubnames      5621         0x0
-.debug_pubtypes     10001         0x0
-.ARM.attributes        54         0x0
-.debug_frame          212         0x0
-.debug_line          9090         0x0
-.debug_aranges        160         0x0
-Total              101450
+.debug_pubnames      5470         0x0
+.debug_pubtypes     10016         0x0
+.ARM.attributes        58         0x0
+.debug_frame          164         0x0
+.debug_line          9081         0x0
+.comment               18         0x0
+Total              102267
 ```
 
 > **NOTE** The Cargo project is already configured to build the release binary using LTO.

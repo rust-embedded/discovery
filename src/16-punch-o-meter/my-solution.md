@@ -5,19 +5,11 @@
 #![no_main]
 #![no_std]
 
-extern crate aux16;
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
-extern crate m;
-
-use aux16::prelude::*;
-use aux16::Sensitivity;
+#[allow(unused_imports)]
+use aux16::{entry, iprint, iprintln, prelude::*, I16x3, Sensitivity};
 use m::Float;
 
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     const SENSITIVITY: f32 = 12. / (1 << 14) as f32;
     const THRESHOLD: f32 = 0.5;

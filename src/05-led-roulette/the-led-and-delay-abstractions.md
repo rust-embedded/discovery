@@ -18,15 +18,9 @@ Let's try out these two abstractions by modifying the starter code to look like 
 #![no_main]
 #![no_std]
 
-extern crate aux5;
-#[macro_use]
-extern crate cortex_m_rt;
+use aux5::{entry, prelude::*, Delay, Leds};
 
-use aux5::prelude::*;
-use aux5::{Delay, Leds};
-
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     let (mut delay, mut leds): (Delay, Leds) = aux5::init();
 
@@ -70,15 +64,15 @@ Loading section .rodata, size 0xa0c lma 0x8004150
 Start address 0x8000188, load size 19290
 Transfer rate: 19 KB/sec, 4822 bytes/write.
 
-(gdb) break led_roulette::main
-Breakpoint 1 at 0x800021e: file src/main.rs, line 10.
+(gdb) break main
+Breakpoint 1 at 0x800018c: file src/05-led-roulette/src/main.rs, line 9.
 
 (gdb) continue
 Continuing.
 Note: automatically using hardware breakpoints for read-only addresses.
 
-Breakpoint 1, led_roulette::main () at src/05-led-roulette/src/main.rs:15
-15          let (mut delay, mut leds): (Delay, Leds) = aux5::init();
+Breakpoint 1, main () at src/05-led-roulette/src/main.rs:9
+9           let (mut delay, mut leds): (Delay, Leds) = aux5::init();
 ```
 
 OK. Let's step through the code. This time, we'll use the `next` command instead of `step`. The
@@ -86,16 +80,16 @@ difference is that the `next` command will step *over* function calls instead of
 
 ```
 (gdb) next
-17          let half_period = 500_u16;
+11          let half_period = 500_u16;
 
 (gdb) next
-19          loop {
+13          loop {
 
 (gdb) next
-20              leds[0].on();
+14              leds[0].on();
 
 (gdb) next
-21              delay.delay_ms(half_period);
+15              delay.delay_ms(half_period);
 ```
 
 After executing the `leds[0].on()` statement, you should see a red LED, the one pointing North,
@@ -105,10 +99,10 @@ Let's continue stepping over the program:
 
 ```
 (gdb) next
-23              leds[0].off();
+17              leds[0].off();
 
 (gdb) next
-24              delay.delay_ms(half_period);
+18              delay.delay_ms(half_period);
 ```
 
 The `delay_ms` call will block the program for half a second but you may not notice because the
@@ -130,16 +124,14 @@ First, let's stop the infinite loop by hitting `Ctrl+C`. You'll probably end up 
 
 ```
 Program received signal SIGINT, Interrupt.
-core::ptr::read_volatile (src=0xe000e010)
-    at $RUST_SRC/libcore/ptr.rs:454
-454     pub unsafe fn read_volatile<T>(src: *const T) -> T {
-(gdb)
+0x080033f6 in core::ptr::read_volatile (src=0xe000e010) at /checkout/src/libcore/ptr.rs:472
+472     /checkout/src/libcore/ptr.rs: No such file or directory.
 ```
 
 In my case, the program stopped its execution inside a `read_volatile` function. GDB output shows
 some interesting information about that: `core::ptr::read_volatile (src=0xe000e010)`. This means
 that the function comes from the `core` crate and that it was called with argument `src =
-0x10001f44`.
+0xe000e010`.
 
 Just so you know, a more explicit way to show the arguments of a function is to use the `info args`
 command:
@@ -154,22 +146,21 @@ Regardless of where your program may have stopped you can always look at the out
 
 ```
 (gdb) backtrace
-#0  core::ptr::read_volatile (src=0xe000e010)
-    at $RUST_SRC/libcore/ptr.rs:454
-#1  0x080034fc in <vcell::VolatileCell<T>>::get (self=0xe000e010)
+#0  0x080033f6 in core::ptr::read_volatile (src=0xe000e010)
+    at /checkout/src/libcore/ptr.rs:472
+#1  0x08003248 in <vcell::VolatileCell<T>>::get (self=0xe000e010)
     at $REGISTRY/vcell-0.1.0/src/lib.rs:43
 #2  <volatile_register::RW<T>>::read (self=0xe000e010)
     at $REGISTRY/volatile-register-0.2.0/src/lib.rs:75
-#3  cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::has_wrapped (self=0x10001f9c)
-    at $REGISTRY/cortex-m-0.5.2/src/peripheral/syst.rs:124
-#4  0x08002e86 in <stm32f30x_hal::delay::Delay as embedded_hal::blocking::delay::DelayUs<u32>>::delay_us (self=0x10001f9c, us=500000)
+#3  cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::has_wrapped (self=0x10001fbc)
+    at $REGISTRY/cortex-m-0.5.7/src/peripheral/syst.rs:124
+#4  0x08002d9c in <stm32f30x_hal::delay::Delay as embedded_hal::blocking::delay::DelayUs<u32>>::delay_us (self=0x10001fbc, us=500000)
     at $REGISTRY/stm32f30x-hal-0.2.0/src/delay.rs:58
-#5  0x08002dae in <stm32f30x_hal::delay::Delay as embedded_hal::blocking::delay::DelayMs<u32>>::delay_ms (self=0x10001f9c, ms=500)
+#5  0x08002cce in <stm32f30x_hal::delay::Delay as embedded_hal::blocking::delay::DelayMs<u32>>::delay_ms (self=0x10001fbc, ms=500)
     at $REGISTRY/stm32f30x-hal-0.2.0/src/delay.rs:32
-#6  0x08002dee in <stm32f30x_hal::delay::Delay as embedded_hal::blocking::delay::DelayMs<u16>>::delay_ms (self=0x10001f9c, ms=500)
+#6  0x08002d0e in <stm32f30x_hal::delay::Delay as embedded_hal::blocking::delay::DelayMs<u16>>::delay_ms (self=0x10001fbc, ms=500)
     at $REGISTRY/stm32f30x-hal-0.2.0/src/delay.rs:38
-#7  0x080001d0 in led_roulette::main () at src/05-led-roulette/src/main.rs:21
-#8  0x08000206 in main () at <entry macros>:3
+#7  0x080001ee in main () at src/05-led-roulette/src/main.rs:18
 ```
 
 `backtrace` will print a trace of function calls from the current function down to main.
@@ -180,18 +171,17 @@ right after the program returns from the current function. We'll have to call it
 
 ```
 (gdb) finish
-Run till exit from #0  core::ptr::read_volatile (src=0xe000e010)
-    at $RUST_SRC/libcore/ptr.rs:454
-cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::has_wrapped (self=0x10001f9c)
-    at $REGISTRY/cortex-m-0.5.2/src/peripheral/syst.rs:124
+cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::has_wrapped (self=0x10001fbc)
+    at $REGISTRY/cortex-m-0.5.7/src/peripheral/syst.rs:124
 124             self.csr.read() & SYST_CSR_COUNTFLAG != 0
 Value returned is $1 = 5
 
 (gdb) finish
 Run till exit from #0  cortex_m::peripheral::syst::<impl cortex_m::peripheral::SYST>::has_wrapped (
-    self=0x10001f9c)
-    at $REGISTRY/cortex-m-0.5.2/src/peripheral/syst.rs:124
-0x08002e86 in <stm32f30x_hal::delay::Delay as embedded_hal::blocking::delay::DelayUs<u32>>::delay_us (self=0x10001f9c, us=500000)
+    self=0x10001fbc)
+    at $REGISTRY/cortex-m-0.5.7/src/peripheral/syst.rs:124
+0x08002d9c in <stm32f30x_hal::delay::Delay as embedded_hal::blocking::delay::DelayUs<u32>>::delay_us (
+    self=0x10001fbc, us=500000)
     at $REGISTRY/stm32f30x-hal-0.2.0/src/delay.rs:58
 58              while !self.syst.has_wrapped() {}
 Value returned is $2 = false
@@ -199,10 +189,10 @@ Value returned is $2 = false
 (..)
 
 (gdb) finish
-Run till exit from #0  0x08002dee in <stm32f30x_hal::delay::Delay as embedded_hal::blocking::delay::DelayMs<u16>>::delay_ms (self=0x10001f9c, ms=500)
+Run till exit from #0  0x08002d0e in <stm32f30x_hal::delay::Delay as embedded_hal::blocking::delay::DelayMs<u16>>::delay_ms (self=0x10001fbc, ms=500)
     at $REGISTRY/stm32f30x-hal-0.2.0/src/delay.rs:38
-0x080001d0 in led_roulette::main () at src/05-led-roulette/src/main.rs:21
-21              delay.delay_ms(half_period);
+0x080001ee in main () at src/05-led-roulette/src/main.rs:18
+18              delay.delay_ms(half_period);
 ```
 
 We are back in `main`. We have a local variable in here: `half_period`

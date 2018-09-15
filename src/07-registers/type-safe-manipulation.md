@@ -33,14 +33,10 @@ The best way to get familiar with this API is to port our running example to it.
 #![no_main]
 #![no_std]
 
-extern crate aux7;
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
+#[allow(unused_imports)]
+use aux7::{entry, iprint, iprintln};
 
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     let gpioe = aux7::init().1;
 
@@ -76,8 +72,11 @@ the register block.
 
 ```
 $ cargo run
+Breakpoint 3, main () at src/07-registers/src/main.rs:9
+9           let gpioe = aux7::init().1;
 
 (gdb) next
+12          gpioe.bsrr.write(|w| w.bs9().set_bit());
 
 (gdb) print gpioe
 $1 = (stm32f30x::gpioc::RegisterBlock *) 0x48001000
@@ -177,23 +176,23 @@ did!
 [LTO]: https://en.wikipedia.org/wiki/Interprocedural_optimization
 
 ``` console
-$ cargo build --release
+$ cargo objdump --bin registers --release -- -d -no-show-raw-insn -print-imm-hex
+registers:      file format ELF32-arm-little
 
-$ cargo objdump --bin registers --release -- -d -no-show-raw-insn
-registers::main::h3fb012c2979103e9:
- 8000188:       push    {r7, lr}
- 800018a:       bl      #40
- 800018e:       movw    r0, #4120
- 8000192:       mov.w   r1, #512
- 8000196:       movt    r0, #18432
- 800019a:       str     r1, [r0]
- 800019c:       mov.w   r1, #2048
- 80001a0:       str     r1, [r0]
- 80001a2:       mov.w   r1, #33554432
- 80001a6:       str     r1, [r0]
- 80001a8:       mov.w   r1, #134217728
- 80001ac:       str     r1, [r0]
- 80001ae:       b       #-4 <registers::main::h3fb012c2979103e9+0x26>
+Disassembly of section .text:
+main:
+ 8000188:       bl      #0x22
+ 800018c:       movw    r0, #0x1018
+ 8000190:       mov.w   r1, #0x200
+ 8000194:       movt    r0, #0x4800
+ 8000198:       str     r1, [r0]
+ 800019a:       mov.w   r1, #0x800
+ 800019e:       str     r1, [r0]
+ 80001a0:       mov.w   r1, #0x2000000
+ 80001a4:       str     r1, [r0]
+ 80001a6:       mov.w   r1, #0x8000000
+ 80001aa:       str     r1, [r0]
+ 80001ac:       b       #-0x4 <main+0x24>
 ```
 
 The best part of all this is that I didn't have to write a single line of code to implement the

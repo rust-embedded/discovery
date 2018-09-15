@@ -5,7 +5,7 @@ obvious solution is to implement it as a `for` loop delay:
 
 ``` rust
 #[inline(never)]
-fn delay(ms: u16) {
+fn delay(tim6: &tim6::RegisterBlock, ms: u16) {
     for _ in 0..1_000 {}
 }
 ```

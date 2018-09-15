@@ -22,24 +22,7 @@ projects.
 Now, jump into the `src/05-led-roulette` directory. Check the `src/main.rs` file:
 
 ``` rust
-#![deny(unsafe_code)]
-#![no_main]
-#![no_std]
-
-extern crate aux5;
-#[macro_use]
-extern crate cortex_m_rt;
-
-entry!(main);
-
-fn main() -> ! {
-    let _y;
-    let x = 42;
-    _y = x;
-
-    // infinite loop; just so we don't leave this stack frame
-    loop {}
-}
+{{#include src/main.rs}}
 ```
 
 Microcontroller programs are different from standard programs in two aspects: `#![no_std]` and
@@ -51,7 +34,7 @@ systems (i.e., systems without OS abstractions like files and sockets).
 
 The `no_main` attribute says that this program won't use the standard `main` interface, which is
 tailored for command line applications that receive arguments. Instead of the standard `main` we'll
-use the `entry!` macro from the [`cortex-m-rt`] crate to define a custom entry point. In this
+use the `entry` attribute from the [`cortex-m-rt`] crate to define a custom entry point. In this
 program we have named the entry point "main", but any other name could have been used. The entry
 point function must have signature `fn() -> !`; this type indicates that the function can't return
 -- this means that the program never terminates.
