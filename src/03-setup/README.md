@@ -30,7 +30,7 @@ several MBs in size.
 We'll use all the tools listed below. Where a minimum version is not specified, any recent version
 should work but we have listed the version we have tested.
 
-- Cargo & `rustc` >= nightly-2018-08-02
+- Rust 1.30, 1.30-beta, nightly-2018-09-13, or a newer toolchain.
 
 - [`itmdump`] v0.2.1
 
@@ -39,7 +39,7 @@ should work but we have listed the version we have tested.
 - `arm-none-eabi-gdb`. Version 7.12 or newer highly recommended. Tested versions: 7.10, 7.11,
   7.12 and 8.1
 
-- [`cargo-binutils`]. Version 0.1.2 or newer.
+- [`cargo-binutils`]. Version 0.1.4 or newer.
 
 [`cargo-binutils`]: https://github.com/japaric/cargo-binutils
 
@@ -73,12 +73,12 @@ Then, install or switch to the nightly channel.
 $ rustup default nightly
 ```
 
-**NOTE** Make sure you have a nightly newer than `nightly-2018-08-02`. `rustc -V` should return a
+**NOTE** Make sure you have a nightly newer than `nightly-2018-09-13`. `rustc -V` should return a
 date newer than the one shown below:
 
 ``` console
 $ rustc -V
-rustc 1.29.0-nightly (97085f9fb 2018-08-01)
+rustc 1.30.0-nightly (f2302daef 2018-09-12)
 ```
 
 ### `itmdump`
@@ -95,11 +95,11 @@ itmdump 0.3.1
 ``` console
 $ rustup component add llvm-tools-preview
 
-$ cargo install cargo-binutils --vers 0.1.2
+$ cargo install cargo-binutils --vers 0.1.4
 
-$ cargo size -- --version
+$ cargo size -- -version
 LLVM (http://llvm.org/):
-  LLVM version 7.0.0svn
+  LLVM version 8.0.0svn
   Optimized build.
   Default target: x86_64-unknown-linux-gnu
   Host CPU: skylake
