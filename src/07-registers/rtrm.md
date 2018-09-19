@@ -53,14 +53,14 @@ We'll use GDB's `examine` command: `x`.
 
 ```
 (gdb) next
-18              *(GPIOE_BSRR as *mut u32) = 1 << 9;
+16              *(GPIOE_BSRR as *mut u32) = 1 << 9;
 
 (gdb) x 0x48001018
 0x48001018:     0x00000000
 
 (gdb) # the next command will turn the North LED on
 (gdb) next
-21              *(GPIOE_BSRR as *mut u32) = 1 << 11;
+19              *(GPIOE_BSRR as *mut u32) = 1 << 11;
 
 (gdb) x 0x48001018
 0x48001018:     0x00000000

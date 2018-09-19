@@ -1,10 +1,9 @@
 [package]
 authors = ["Jorge Aparicio <jorge@japaric.io>"]
+edition = "2018"
 name = "usart"
 version = "0.1.0"
 
 [dependencies]
 aux11 = { path = "auxiliary" }
-cortex-m-rt = "0.5.3"
-cortex-m = "0.5.6"
 heapless = "0.3.6"

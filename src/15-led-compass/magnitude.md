@@ -31,20 +31,11 @@ Putting all this together in a program:
 #![no_main]
 #![no_std]
 
-#[macro_use]
-extern crate aux15;
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
-extern crate m;
-
-use aux15::prelude::*;
-use aux15::I16x3;
+#[allow(unused_imports)]
+use aux15::{entry, iprint, iprintln, prelude::*, I16x3};
 use m::Float;
 
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     const XY_GAIN: f32 = 1100.; // LSB / G
     const Z_GAIN: f32 = 980.; // LSB / G

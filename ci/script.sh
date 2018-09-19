@@ -15,14 +15,14 @@ main() {
         pushd $chapter
         case $(basename $chapter) in
             05-led-roulette | 06-hello-world)
-                cargo check --target thumbv7em-none-eabihf
+                RUSTFLAGS="-D rust_2018_compatibility -D rust_2018_idioms" cargo check --target thumbv7em-none-eabihf
                 ;;
             WIP-async-io-the-future)
                 popd
                 continue
                 ;;
             *)
-                cargo check
+                RUSTFLAGS="-D rust_2018_compatibility -D rust_2018_idioms" cargo check
                 ;;
         esac
         popd

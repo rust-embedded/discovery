@@ -13,14 +13,10 @@ do we know that we have received (new) data? The status register, `ISR`, has a b
 #![no_main]
 #![no_std]
 
-extern crate aux11;
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
+#[allow(unused_imports)]
+use aux11::{entry, iprint, iprintln};
 
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     let (usart1, mono_timer, itm) = aux11::init();
 
@@ -44,12 +40,12 @@ minicom/PuTTY's console. What happens? What are the contents of the `_byte` vari
 Continuing.
 
 Program received signal SIGTRAP, Trace/breakpoint trap.
-__bkpt () at asm/bkpt.s:3
+0x8003d48 in __bkpt ()
 
 (gdb) finish
-Run till exit from #0  __bkpt () at asm/bkpt.s:3
-usart::main () at src/11-usart/src/main.rs:23
-23              aux11::bkpt();
+Run till exit from #0  0x8003d48 in __bkpt ()
+usart::main () at src/11-usart/src/main.rs:19
+19              aux11::bkpt();
 
 (gdb) p/c _byte
 $1 = 97 'a'

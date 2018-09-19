@@ -20,23 +20,15 @@ to turn on based on the value of `theta`.
 #![no_main]
 #![no_std]
 
-extern crate aux15;
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
-extern crate m;
-
-// you'll find this useful ;-)
+// You'll find this useful ;-)
 use core::f32::consts::PI;
 
-use aux15::prelude::*;
-use aux15::{Direction, I16x3};
+#[allow(unused_imports)]
+use aux15::{entry, iprint, iprintln, prelude::*, Direction, I16x3};
 // this trait provides the `atan2` method
 use m::Float;
 
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     let (mut leds, mut lsm303dlhc, mut delay, _itm) = aux15::init();
 

@@ -11,37 +11,7 @@ again.
 This is the starter code.
 
 ``` rust
-#![deny(unsafe_code)]
-#![no_main]
-#![no_std]
-
-extern crate aux8;
-#[macro_use]
-extern crate cortex_m_rt;
-
-entry!(main);
-
-fn main() -> ! {
-    let (gpioe, rcc) = aux8::init();
-
-    // TODO initialize GPIOE
-
-    // Turn on all the LEDs in the compass
-    gpioe.odr.write(|w| {
-        w.odr8().set_bit();
-        w.odr9().set_bit();
-        w.odr10().set_bit();
-        w.odr11().set_bit();
-        w.odr12().set_bit();
-        w.odr13().set_bit();
-        w.odr14().set_bit();
-        w.odr15().set_bit()
-    });
-
-    aux8::bkpt();
-
-    loop {}
-}
+{{#include src/main.rs}}
 ```
 
 If you run the starter code, you'll see that nothing happens this time. Furthermore, if you print
@@ -49,17 +19,20 @@ the `GPIOE` register block, you'll see that every register reads as zero even af
 `gpioe.odr.write` statement was executed!
 
 ```
+$ cargo run
+Breakpoint 1, main () at src/08-leds-again/src/main.rs:9
+9           let (gpioe, rcc) = aux8::init();
+
 (gdb) continue
 Continuing.
 
 Program received signal SIGTRAP, Trace/breakpoint trap.
-__bkpt () at asm/bkpt.s:3
-3         bkpt
+0x08000f3c in __bkpt ()
 
 (gdb) finish
-Run till exit from #0  __bkpt () at asm/bkpt.s:3
-leds_again::main () at src/08-leds-again/src/main.rs:28
-28          aux8::bkpt();
+Run till exit from #0  0x08000f3c in __bkpt ()
+main () at src/08-leds-again/src/main.rs:25
+25          aux8::bkpt();
 
 (gdb) p/x *gpioe
 $1 = stm32f30x::gpioc::RegisterBlock {

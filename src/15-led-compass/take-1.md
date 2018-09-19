@@ -35,17 +35,10 @@ Let's try that logic. Here's the starter code:
 #![no_main]
 #![no_std]
 
-extern crate aux15;
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
+#[allow(unused_imports)]
+use aux15::{entry, iprint, iprintln, prelude::*, Direction, I16x3};
 
-use aux15::prelude::*;
-use aux15::{Direction, I16x3};
-
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     let (mut leds, mut lsm303dlhc, mut delay, _itm) = aux15::init();
 

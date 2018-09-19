@@ -11,15 +11,15 @@ At this time, we are not interested in that "pre-main" part so let's skip right 
 the `main` function. We'll do that using a breakpoint:
 
 ```
-(gdb) break led_roulette::main
-Breakpoint 1 at 0x8000218: file src/main.rs, line 8.
+(gdb) break main
+Breakpoint 1 at 0x800018c: file src/05-led-roulette/src/main.rs, line 10.
 
 (gdb) continue
 Continuing.
 Note: automatically using hardware breakpoints for read-only addresses.
 
-Breakpoint 1, led_roulette::main () at src/05-led-roulette/src/main.rs:13
-13          let x = 42;
+Breakpoint 1, main () at src/05-led-roulette/src/main.rs:10
+10          let x = 42;
 ```
 
 Breakpoints can be used to stop the normal flow of a program. The `continue` command will let the
@@ -68,16 +68,16 @@ is initialized but `_y` is not. Let's inspect those stack/local variables using 
 $1 = 42
 
 (gdb) print &x
-$2 = (i32 *) 0x10001fdc
+$2 = (i32 *) 0x10001ff4
 
 (gdb) print _y
-$3 = 134219052
+$3 = -536810104
 
 (gdb) print &_y
-$4 = (i32 *) 0x10001fd8
+$4 = (i32 *) 0x10001ff0
 ```
 
-As expected, `x` contains the value `42`. `_y`, however, contains the value `134219052` (?). Because
+As expected, `x` contains the value `42`. `_y`, however, contains the value `-536810104` (?). Because
 `_y` has not been initialized yet, it contains some garbage value.
 
 The command `print &x` prints the address of the variable `x`. The interesting bit here is that GDB
@@ -90,7 +90,7 @@ Instead of printing the local variables one by one, you can also use the `info l
 ```
 (gdb) info locals
 x = 42
-_y = 134219052
+_y = -536810104
 ```
 
 OK. With another `step`, we'll be on top of the `loop {}` statement:
@@ -124,24 +124,25 @@ program around the line you are currently at.
 
 ```
 (gdb) disassemble /m
-Dump of assembler code for function led_roulette::main:
-11      fn main() -> ! {
+Dump of assembler code for function main:
+7       #[entry]
    0x08000188 <+0>:     sub     sp, #8
-
-12          let _y;
-13          let x = 42;
    0x0800018a <+2>:     movs    r0, #42 ; 0x2a
+
+8       fn main() -> ! {
+9           let _y;
+10          let x = 42;
    0x0800018c <+4>:     str     r0, [sp, #4]
 
-14          _y = x;
+11          _y = x;
    0x0800018e <+6>:     ldr     r0, [sp, #4]
    0x08000190 <+8>:     str     r0, [sp, #0]
 
-15
-16          // infinite loop; just so we don't leave this stack frame
-17          loop {}
-=> 0x08000192 <+10>:    b.n     0x8000194 <led_roulette::main+12>
-   0x08000194 <+12>:    b.n     0x8000194 <led_roulette::main+12>
+12
+13          // infinite loop; just so we don't leave this stack frame
+14          loop {}
+=> 0x08000192 <+10>:    b.n     0x8000194 <main+12>
+   0x08000194 <+12>:    b.n     0x8000194 <main+12>
 
 End of assembler dump.
 ```
@@ -153,10 +154,10 @@ If not inside the TUI mode on each `stepi` command GDB will print the statement,
 
 ```
 (gdb) stepi
-0x08000194      17          loop {}
+0x08000194      14          loop {}
 
 (gdb) stepi
-0x08000194      17          loop {}
+0x08000194      14          loop {}
 ```
 
 One last trick before we move to something more interesting. Enter the following commands into GDB:
@@ -167,13 +168,13 @@ Unable to match requested speed 1000 kHz, using 950 kHz
 Unable to match requested speed 1000 kHz, using 950 kHz
 adapter speed: 950 kHz
 target halted due to debug-request, current mode: Thread
-xPSR: 0x01000000 pc: 0x08000188 msp: 0x10002000
+xPSR: 0x01000000 pc: 0x08000196 msp: 0x10002000
 
 (gdb) continue
 Continuing.
 
-Breakpoint 1, led_roulette::main () at src/main.rs:8
-8           let x = 42;
+Breakpoint 1, main () at src/05-led-roulette/src/main.rs:10
+10          let x = 42;
 ```
 
 We are now back at the beginning of `main`!

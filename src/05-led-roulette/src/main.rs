@@ -2,12 +2,9 @@
 #![no_main]
 #![no_std]
 
-extern crate aux5;
-#[macro_use]
-extern crate cortex_m_rt;
+use aux5::entry;
 
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     let _y;
     let x = 42;

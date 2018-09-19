@@ -22,18 +22,36 @@ cardinal point: North, East, etc. As part of the challenge you'll have to figure
 element in the `Leds` array maps to these cardinal points (hint: `cargo doc --open` `;-)`).
 
 Before you attempt this challenge, let me give you one last tip. Our GDB sessions always involve
-entering the same commands at the beginning. We can use a `.gdbinit` file to execute some commands
+entering the same commands at the beginning. We can use a `.gdb` file to execute some commands
 right after GDB is started. This way you can save yourself the effort of having to enter them
 manually on each GDB session.
 
-Place this `.gdbinit` file at the root of the Cargo project, right next to the `Cargo.toml`:
+Place this `openocd.gdb` file in the root of the Cargo project, right next to the `Cargo.toml`:
 
 ``` console
-$ cat .gdbinit
+$ cat openocd.gdb
+```
+
+``` text
 target remote :3333
 load
-break led_roulette::main
+break main
 continue
+```
+
+Then modify the second line of the `.cargo/config` file:
+
+``` console
+$ cat .cargo/config
+```
+
+``` toml
+[target.thumbv7em-none-eabihf]
+runner = "arm-none-eabi-gdb -q -x openocd.gdb" # <-
+rustflags = [
+  "-C", "linker=rust-lld",
+  "-C", "link-arg=-Tlink.x",
+]
 ```
 
 With that in place, you should now be able to start a `gdb` session that will automatically flash
@@ -41,58 +59,18 @@ the program and jump to the beginning of `main`:
 
 ``` console
 $ cargo run --target thumbv7em-none-eabihf
+     Running `arm-none-eabi-gdb -q -x openocd.gdb target/thumbv7em-none-eabihf/debug/led-roulette`
 Reading symbols from target/thumbv7em-none-eabihf/debug/led-roulette...done.
 (..)
-Loading section .text, size 0x2014 lma 0x8000000
-Start address 0x8000194, load size 8212
-Transfer rate: 15 KB/sec, 8212 bytes/write.
-Breakpoint 1 at 0x80001e6: file $PWD/src/main.rs, line 12.
+Loading section .vector_table, size 0x188 lma 0x8000000
+Loading section .text, size 0x3b20 lma 0x8000188
+Loading section .rodata, size 0xb0c lma 0x8003cc0
+Start address 0x8003b1c, load size 18356
+Transfer rate: 20 KB/sec, 6118 bytes/write.
+Breakpoint 1 at 0x800018c: file src/05-led-roulette/src/main.rs, line 9.
 Note: automatically using hardware breakpoints for read-only addresses.
 
-Breakpoint 1, led_roulette::main () at src/main.rs:8
-8           let x = 42;
+Breakpoint 1, main () at src/05-led-roulette/src/main.rs:9
+9           let (mut delay, mut leds): (Delay, Leds) = aux5::init();
 (gdb)
 ```
-
-But if that doesn't work and, instead, you get this:
-
-``` console
-$ cargo run --target thumbv7em-none-eabihf
-Reading symbols from target/thumbv7em-none-eabihf/debug/led-roulette...done.
-warning: File "$PWD/.gdbinit" auto-loading has been declined by your `auto-load safe-path' set to "$debugdir:$datadir/auto-load".
-To enable execution of this file add
-        add-auto-load-safe-path $PWD/.gdbinit
-line to your configuration file "$HOME/.gdbinit".
-To completely disable this security protection add
-        set auto-load safe-path /
-line to your configuration file "$HOME/.gdbinit".
-For more information about this security protection see the
-"Auto-loading safe path" section in the GDB manual.  E.g., run from the shell:
-        info "(gdb)Auto-loading safe path"
-```
-
-You'll have to do a few extra steps. It's definitively worth it though.
-
-## *nix
-
-This command should do the trick.
-
-``` console
-$ echo 'set auto-load safe-path /' > ~/.gdbinit
-```
-
-The project local `.gdbinit` should work now.
-
-## Windows
-
-AFAIK, Windows doesn't set a `%HOME%` env variable by default so you'll have to add that variable to
-your environment first. I recommend you set it to `%USERPROFILE%` (e.g. `C:\Users\japaric`).
-
-Then you have to create a `.gdbinit` file in `%HOME%` (e.g.
-`C:\Users\japaric\.gdbinit`) with these contents:
-
-```
-set auto-load safe-path /
-```
-
-The project local `.gdbinit` should work now.

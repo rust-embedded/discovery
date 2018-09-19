@@ -65,15 +65,10 @@ available in `core::fmt`.
 #![no_main]
 #![no_std]
 
-extern crate aux11;
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
-
 use core::fmt::{self, Write};
 
-use aux11::usart1;
+#[allow(unused_imports)]
+use aux11::{entry, iprint, iprintln, usart1};
 
 macro_rules! uprint {
     ($serial:expr, $($arg:tt)*) => {
@@ -94,15 +89,15 @@ struct SerialPort {
     usart1: &'static mut usart1::RegisterBlock,
 }
 
-impl Write for SerialPort {
+impl fmt::Write for SerialPort {
     fn write_str(&mut self, s: &str) -> fmt::Result {
         // TODO implement this
         // hint: this will look very similar to the previous program
+        Ok(())
     }
 }
 
-entry!(main);
-
+#[entry]
 fn main() -> ! {
     let (usart1, mono_timer, itm) = aux11::init();
 

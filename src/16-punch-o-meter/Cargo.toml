@@ -1,5 +1,6 @@
 [package]
 authors = ["Jorge Aparicio <jorge@japaric.io>"]
+edition = "2018"
 name = "punch-o-meter"
 version = "0.1.0"
 
@@ -7,4 +8,4 @@ version = "0.1.0"
 m = "0.1.1"
 aux16 = { path = "auxiliary" }
 cortex-m = "0.5.6"
-cortex-m-rt = "0.5.3"
+cortex-m-rt = "0.6.3"

@@ -14,16 +14,12 @@ Let's try this program:
 #![no_main]
 #![no_std]
 
-extern crate aux7;
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
-
 use core::ptr;
 
-entry!(main);
+#[allow(unused_imports)]
+use aux7::{entry, iprint, iprintln};
 
+#[entry]
 fn main() -> ! {
     let mut itm = aux7::init().0;
 

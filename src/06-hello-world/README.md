@@ -25,25 +25,7 @@ console.
 Go to the `06-hello-world` directory. There's some starter code in it:
 
 ``` rust
-#![deny(unsafe_code)]
-#![no_main]
-#![no_std]
-
-extern crate aux6;
-#[macro_use]
-extern crate cortex_m;
-#[macro_use]
-extern crate cortex_m_rt;
-
-entry!(main);
-
-fn main() -> ! {
-    let mut itm = aux6::init();
-
-    iprintln!(&mut itm.stim[0], "Hello, world!");
-
-    loop {}
-}
+{{#include src/main.rs}}
 ```
 
 The `iprintln` macro will format messages and output them to the microcontroller's *ITM*. ITM stands
@@ -112,17 +94,16 @@ Now if `--target` is not specified Cargo will assume that the target is `thumbv7
 $ cargo run
 Reading symbols from target/thumbv7em-none-eabihf/debug/hello-world...done.
 (..)
-0x00000000 in ?? ()
-Loading section .vector_table, size 0x188 lma 0x8000000
-Loading section .text, size 0x382e lma 0x8000188
-Loading section .rodata, size 0x125c lma 0x80039c0
-Start address 0x8000188, load size 19474
-Transfer rate: 19 KB/sec, 6491 bytes/write.
-Breakpoint 1 at 0x800021c: file src/main.rs, line 8.
+Loading section .vector_table, size 0x400 lma 0x8000000
+Loading section .text, size 0x27c4 lma 0x8000400
+Loading section .rodata, size 0x744 lma 0x8002be0
+Start address 0x8002980, load size 13064
+Transfer rate: 18 KB/sec, 4354 bytes/write.
+Breakpoint 1 at 0x8000402: file src/06-hello-world/src/main.rs, line 10.
 Note: automatically using hardware breakpoints for read-only addresses.
 
-Breakpoint 1, hello_world::main () at src/main.rs:8
-14          let mut itm = aux6::init();
+Breakpoint 1, main () at src/06-hello-world/src/main.rs:10
+10          let mut itm = aux6::init();
 ```
 
 Note that there's a `.gdbinit` at the root of the Cargo project. It's pretty similar to the one we
@@ -143,20 +124,20 @@ All should be ready! Now execute the `iprintln!` statement.
 
 ```
 (gdb) next
-16          iprintln!(&mut itm.stim[0], "Hello, world!");
+12          iprintln!(&mut itm.stim[0], "Hello, world!");
 
 (gdb) next
-18      loop {}
+14          loop {}
 ```
 
 You should see some output in the `itmdump` terminal:
 
 ``` console
-$ # itmdump terminal
+$ itmdump -F -f itm.txt
 (..)
 Hello, world!
 ```
 
 Awesome, right? Feel free to use `iprintln` as a logging tool in the coming sections.
 
-Next: That's not all! The `iprint!` macros are not the only thing that use the ITM. `:-)`
+Next: That's not all! The `iprint!` macros are not the only thing that uses the ITM. `:-)`
