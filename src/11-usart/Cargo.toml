@@ -6,4 +6,7 @@ version = "0.1.0"
 
 [dependencies]
 aux11 = { path = "auxiliary" }
-heapless = "0.3.6"
+
+[dependencies.heapless]
+default-features = false
+version = "0.3.7"

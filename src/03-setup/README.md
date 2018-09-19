@@ -67,18 +67,18 @@ Next, follow OS-agnostic installation instructions for a few of the tools:
 
 Install rustup by following the instructions at [https://rustup.rs](https://rustup.rs).
 
-Then, install or switch to the nightly channel.
+Then, install or switch to the beta channel.
 
 ``` console
-$ rustup default nightly
+$ rustup default beta
 ```
 
-**NOTE** Make sure you have a nightly newer than `nightly-2018-09-13`. `rustc -V` should return a
-date newer than the one shown below:
+**NOTE** Make sure you have a toolchain newer than `1.30-beta.1`. `rustc -V`
+should return a date newer than the one shown below:
 
 ``` console
 $ rustc -V
-rustc 1.30.0-nightly (f2302daef 2018-09-12)
+rustc 1.30.0-beta.1 (14f51b05d 2018-09-18)
 ```
 
 ### `itmdump`
