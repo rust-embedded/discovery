@@ -47,8 +47,7 @@ $ cargo build --target thumbv7em-none-eabihf
 
 > **NOTE** Be sure to compile this crate *without* optimizations
 
-OK, now we have produced an executable. As a sanity check, let's verify that the produced executable
-is actually an ARM binary:
+OK, now we have produced an executable. This isn't a version that will actually blink any leds but a simplified version we will build on through the rest of the chapter. As a sanity check, let's verify that the produced executable is actually an ARM binary:
 
 ``` console
 $ # equivalent to `readelf -h target/thumbv7em-none-eabihf/debug/led-roulette`
