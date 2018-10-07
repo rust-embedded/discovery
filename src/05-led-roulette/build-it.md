@@ -45,9 +45,9 @@ $ cargo build --target thumbv7em-none-eabihf
     Finished dev [unoptimized + debuginfo] target(s) in 35.84 secs
 ```
 
-> **NOTE** Be sure to compile this crate *without* optimizations. The provided Cargo.toml file used with the build command givn above will ensure optimizations are off. Just don't add any extra build options.
+> **NOTE** Be sure to compile this crate *without* optimizations. The provided Cargo.toml file and build command above will ensure optimizations are off. 
 
- OK, now we have produced an executable. This executable won't blink any leds, it's just a simplified version that we will build upon through out the rest of the chapter. As a sanity check, let's verify that the produced executable is actually an ARM binary:
+OK, now we have produced an executable. This executable won't blink any leds, it's just a simplified version that we will build upon later in the chapter. As a sanity check, let's verify that the produced executable is actually an ARM binary:
 
 ``` console
 $ # equivalent to `readelf -h target/thumbv7em-none-eabihf/debug/led-roulette`
