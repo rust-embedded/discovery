@@ -11,7 +11,7 @@ The first thing we'll need to do is: turn on the Bluetooth module. We'll have to
 F3 power to it using the following connection:
 
 <p align="center">
-<img height=640 title="F3 <-> Bluetooth connection (power only)" src="/assets/f3-bluetooth-power-only.png">
+<img height=640 title="F3 <-> Bluetooth connection (power only)" src="../assets/f3-bluetooth-power-only.png">
 </p>
 
 The recommend steps to wire this up are:

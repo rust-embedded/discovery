@@ -44,7 +44,7 @@ and debug a microcontroller. The ST-LINK is connected to the "USB ST-LINK" port 
 a USB device when you connect the F3 to your laptop.
 
 <p align="center">
-<img height=640 title="On-board ST-LINK" src="/assets/st-link.png">
+<img height=640 title="On-board ST-LINK" src="../assets/st-link.png">
 </p>
 
 

@@ -25,7 +25,7 @@ Also, to follow this material you'll need the following hardware:
 [3]: http://www.ebay.com/sch/i.html?_nkw=stm32f3discovery
 
 <p align="center">
-<img title="STM32F3DISCOVERY" src="/assets/f3.jpg">
+<img title="STM32F3DISCOVERY" src="../assets/f3.jpg">
 </p>
 
 - OPTIONAL. A **3.3V** USB <-> Serial module. [This particular model][sparkfun] will be used
@@ -39,7 +39,7 @@ cheaper for you to get)
 [4]: https://www.aliexpress.com/wholesale?SearchText=CH340G
 
 <p align="center">
-<img title="A 3.3v USB <-> Serial module" src="/assets/serial.jpg">
+<img title="A 3.3v USB <-> Serial module" src="../assets/serial.jpg">
 </p>
 
 - OPTIONAL. A HC-05 Bluetooth module (with headers!). A HC-06 would work too.
@@ -51,14 +51,14 @@ cheaper for you to get)
 [6]: https://www.aliexpress.com/wholesale?SearchText=hc-05
 
 <p align="center">
-<img title="The HC-05 Bluetooth module" src="/assets/bluetooth.jpg">
+<img title="The HC-05 Bluetooth module" src="../assets/bluetooth.jpg">
 </p>
 
 - Two mini-B USB cables. One is required to make the STM32F3DISCOVERY board work. The other is only
   required if you have the Serial <-> USB module.
 
 <p align="center">
-<img title="mini-B USB cable" src="/assets/usb-cable.jpg">
+<img title="mini-B USB cable" src="../assets/usb-cable.jpg">
 </p>
 
 > **NOTE** These are **not** the USB cables that ship with pretty much every Android phone; those
@@ -75,7 +75,7 @@ cheaper for you to get)
 [9]: https://www.aliexpress.com/wholesale?SearchText=dupont+wire
 
 <p align="center">
-<img title="Jumper wires" src="/assets/jumper-wires.jpg">
+<img title="Jumper wires" src="../assets/jumper-wires.jpg">
 </p>
 
 > **FAQ**: Wait, why do I need this specific hardware?

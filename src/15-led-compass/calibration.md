@@ -101,7 +101,7 @@ plt.close
 ```
 
 <p align="center">
-<img title="Earth's magnetic field" src="/assets/emf.svg">
+<img title="Earth's magnetic field" src="../assets/emf.svg">
 </p>
 
 If you rotated the board on a flat horizontal surface, the Z component of the magnetic field should

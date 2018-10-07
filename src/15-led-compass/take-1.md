@@ -9,7 +9,7 @@ For example, what LED would you turn on in the following case. EMF stands for Ea
 and green arrow has the direction of the EMF (it points north).
 
 <p align="center">
-<img title="Quadrant I" src="/assets/quadrant-i.png">
+<img title="Quadrant I" src="../assets/quadrant-i.png">
 </p
 
 The `Southeast` LED, right?
@@ -21,7 +21,7 @@ If we only looked at the signs of the X and Y components we could determine to w
 magnetic field belongs to.
 
 <p align="center">
-<img title="Quadrants" src="/assets/quadrants.png">
+<img title="Quadrants" src="../assets/quadrants.png">
 </p>
 
 In the previous example, the magnetic field was in the first quadrant (x and y were positive) and it

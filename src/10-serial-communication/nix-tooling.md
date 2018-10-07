@@ -67,7 +67,7 @@ This tells `minicom` to open the serial device at `/dev/ttyUSB0` and set its bau
 A text-based user interface (TUI) will pop out.
 
 <p align="center">
-<img height="480" title="minicom" src="/assets/minicom.png">
+<img height="480" title="minicom" src="../assets/minicom.png">
 </p>
 
 You can now send data using the keyboard! Go ahead and type something. Note that the TUI *won't*

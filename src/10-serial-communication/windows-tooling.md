@@ -16,7 +16,7 @@ on the list. That's the COM port assigned to the serial module.
 Now launch `putty`. A GUI will pop out.
 
 <p align="center">
-<img title="PuTTY settings" src="/assets/putty-settings.png">
+<img title="PuTTY settings" src="../assets/putty-settings.png">
 </p>
 
 On the starter screen, which should have the "Session" category open, pick "Serial" as the
@@ -35,7 +35,7 @@ that the serial port is configured as follows:
 Finally, click the Open button. A console will show up now:
 
 <p align="center">
-<img title="PuTTY console" src="/assets/putty-console.png">
+<img title="PuTTY console" src="../assets/putty-console.png">
 </p>
 
 If you type on this console, the TX (red) LED on the Serial module should blink. Each key stroke
