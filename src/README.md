@@ -53,8 +53,8 @@ use of the STM32F3DISCOVERY development board.
 The source of this book is in [this repository]. If you encounter any typo or problem with the code
 report it on the [issue tracker].
 
-[this repository]: https://github.com/japaric/discovery
-[issue tracker]: https://github.com/japaric/discovery/issues
+[this repository]: https://github.com/rust-embedded/discovery
+[issue tracker]: https://github.com/rust-embedded/discovery/issues
 
 ## Sponsored by
 

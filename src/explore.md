@@ -153,7 +153,7 @@ So where to next? There are several options:
 - You could check out the [`embedded-hal`] project which aims to build abstractions (traits) for all
   the embedded I/O functionality commonly found on microcontrollers.
 
-[`embedded-hal`]: https://github.com/japaric/embedded-hal
+[`embedded-hal`]: https://github.com/rust-embedded/embedded-hal
 
 - You could join the [Weekly driver initiative] and help us write generic drivers on top of the
   `embedded-hal` traits and that work for all sorts of platforms (ARM Cortex-M, AVR, MSP430, RISCV,
