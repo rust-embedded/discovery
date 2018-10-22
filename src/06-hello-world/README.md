@@ -77,11 +77,10 @@ default target in .cargo/config:
 
 ``` diff
  [target.thumbv7em-none-eabihf]
- runner = "arm-none-eabi-gdb"
+ runner = "arm-none-eabi-gdb -q -x openocd.gdb"
  rustflags = [
+   "-C", "linker=rust-lld",
    "-C", "link-arg=-Tlink.x",
-   "-C", "linker=arm-none-eabi-ld",
-   "-Z", "linker-flavor=ld",
  ]
 
 +[build]
