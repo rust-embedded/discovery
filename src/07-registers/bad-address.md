@@ -74,7 +74,7 @@ We can get more information about the exception from the debugger. Let's see:
 `ef` is a snapshot of the program state right before the exception occurred. Let's inspect it:
 
 ```
-(gdb) print/x *_ef
+(gdb) print/x *ef
 $1 = cortex_m_rt::ExceptionFrame {
   r0: 0x48001800,
   r1: 0x48001800,
