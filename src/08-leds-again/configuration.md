@@ -13,7 +13,7 @@ The register we'll have to deal with is: `MODER`.
 Your task for this section is to further update the starter code to configure the *right* `GPIOE`
 pins as digital outputs. You'll have to:
 
-- Figure out *which* pins you need to configure as digital outupts. (hint: check Section 6.4 LEDs of
+- Figure out *which* pins you need to configure as digital outputs. (hint: check Section 6.4 LEDs of
   the *User Manual* (page 18)).
 - Read the documentation to understand what the bits in the `MODER` register do.
 - Modify the `MODER` register to configure the pins as digital outputs.
