@@ -41,7 +41,7 @@ should work but we have listed the version we have tested.
 
 - [`cargo-binutils`]. Version 0.1.4 or newer.
 
-[`cargo-binutils`]: https://github.com/japaric/cargo-binutils
+[`cargo-binutils`]: https://github.com/rust-embedded/cargo-binutils
 
 - `minicom` on Linux and macOS. Tested version: 2.7. Readers report that `picocom` also works but
   we'll use `minicom` in this text.
