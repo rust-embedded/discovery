@@ -7,6 +7,7 @@ main() {
                     | grep -E '^v0.2.[0-9]+$' \
                     | sort --version-sort \
                     | tail -n1)
+    local tag="v0.2.1"
     curl -LSfs https://japaric.github.io/trust/install.sh | \
         sh -s -- \
            --force \
