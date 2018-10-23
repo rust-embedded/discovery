@@ -1,7 +1,7 @@
 # LEDs, again
 
 In the last section, I gave you *initialized* (configured) peripherals (I initialized them in
-`aux8::init`). That's why just writing to `BSRR` was enough to control the LEDs. But, peripherals
+`aux7::init`). That's why just writing to `BSRR` was enough to control the LEDs. But, peripherals
 are not *initialized* right after the microcontroller boots.
 
 In this section, you'll have more fun with registers. I won't do any initialization and you'll have
