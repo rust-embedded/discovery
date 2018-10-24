@@ -79,7 +79,6 @@ default target in .cargo/config:
  [target.thumbv7em-none-eabihf]
  runner = "arm-none-eabi-gdb -q -x openocd.gdb"
  rustflags = [
-   "-C", "linker=rust-lld",
    "-C", "link-arg=-Tlink.x",
  ]
 
