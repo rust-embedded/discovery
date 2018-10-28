@@ -12,7 +12,7 @@ acceleration of the gravity, about `9.8` meters per second squared.
 {{#include src/main.rs}}
 ```
 
-The output of this program with the board sitting still is:
+The output of this program with the board sitting still will be something like:
 
 ``` console
 $ # itmdump console

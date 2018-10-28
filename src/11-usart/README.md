@@ -12,8 +12,9 @@ and RX stands for receiver. Transmitter and receiver are relative terms though; 
 transmitter and which line is the receiver depends from which side of the communication you are
 looking at the lines.
 
-We'll be using the pin `PA9` as the microcontroller's TX line and `PA10` as its RX line. IOW, the
-pin `PA9` outputs data onto its wire wheres the pin `PA10` listens for data on its wire.
+We'll be using the pin `PA9` as the microcontroller's TX line and `PA10` as its RX line. In other
+words, the pin `PA9` outputs data onto its wire whereas the pin `PA10` listens for data on its
+wire.
 
 We could have used a different pair of pins as the TX and RX pins. There's a table in page 44 of the
 [Data Sheet] that list all the other possible pins we could have used.
