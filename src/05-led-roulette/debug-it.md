@@ -109,7 +109,8 @@ $5 = 42
 
 If we use `step` again on top of the `loop {}` statement, we'll get stuck because the program will
 never pass that statement. Instead, we'll switch to the disassemble view with the `layout asm`
-command and advance one instruction at a time using `stepi`.
+command and advance one instruction at a time using `stepi`. You can always switch back into Rust
+source code view later by issuing the `layout src` command again.
 
 > **NOTE** If you used the `step` command by mistake and GDB got stuck, you can get unstuck by hitting `Ctrl+C`.
 
