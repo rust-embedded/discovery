@@ -56,6 +56,16 @@ report it on the [issue tracker].
 [this repository]: https://github.com/rust-embedded/discovery
 [issue tracker]: https://github.com/rust-embedded/discovery/issues
 
+## Other embedded Rust resources
+
+This Discovery book is just one of several embedded Rust resources provided by the
+[Embedded Working Group]. The full selection can be found at [The Embedded Rust Bookshelf]. This
+includes the list of [Frequently Asked Questions].
+
+[Embedded Working Group]: https://github.com/rust-embedded/wg
+[The Embedded Rust Bookshelf]: https://rust-embedded.github.io/bookshelf/
+[Frequently Asked Questions]: https://rust-embedded.github.io/bookshelf/faq.html
+
 ## Sponsored by
 
 <p align="center">
