@@ -29,7 +29,7 @@ crw-rw-rw- 1 root root 189, 20 Sep 13 00:00 /dev/bus/usb/003/004
 The permissions should be `crw-rw-rw-`. If it's not ... then check your [udev
 rules] and try re-loading them with:
 
-[udev rules]: /03-setup/linux.html#udev%20rules
+[udev rules]: linux.md#udev-rules
 
 ``` console
 $ sudo udevadm control --reload-rules
@@ -104,7 +104,7 @@ Info : stm32f3x.cpu: hardware has 6 breakpoints, 4 watchpoints
 
 (If you don't ... then check the [general troubleshooting] instructions.)
 
-[general troubleshooting]: /appendix/1-general-troubleshooting/README.html
+[general troubleshooting]: ../appendix/1-general-troubleshooting/index.html
 
 `openocd` will block the terminal. That's fine.
 

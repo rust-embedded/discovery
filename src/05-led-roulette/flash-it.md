@@ -29,7 +29,7 @@ $ openocd \
 > **NOTE** Older revisions of the board need to pass slightly different arguments to
 > `openocd`. Review [this section] for the details.
 
-[this section]: /03-setup/verify.html#First%20OpenOCD%20connection
+[this section]: ../03-setup/verify.md#first-openocd-connection
 
 The program will block; leave that terminal open.
 

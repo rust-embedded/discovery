@@ -33,4 +33,4 @@ is 1234.
 
 Linux users will have to follow (some of) [these instructions].
 
-[these instructions]: /12-bluetooth-setup/linux.html
+[these instructions]: linux.md

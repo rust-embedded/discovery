@@ -115,4 +115,4 @@ If you had any board plugged to your laptop, unplug them and then plug them in a
 
 Now, go to the [next section].
 
-[next section]: /03-setup/verify.html
+[next section]: verify.md

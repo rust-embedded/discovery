@@ -46,7 +46,7 @@ To retrieve the original string, OpenOCD's output file will have to be parsed. W
 
 You should have already installed the `itmdump` program during the [installation chapter].
 
-[installation chapter]: /03-setup/README.html#itmdump
+[installation chapter]: ../03-setup/index.html#itmdump
 
 In a new terminal, run this command inside the `/tmp` directory, if you are using a *nix OS, or from
 within the `%TEMP%` directory, if you are running Windows. This should be the same directory from

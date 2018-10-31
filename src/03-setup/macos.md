@@ -15,4 +15,4 @@ Caskroom/tap` first and try again.
 
 That's all! Go to the [next section].
 
-[next section]: /03-setup/verify.html
+[next section]: verify.md
