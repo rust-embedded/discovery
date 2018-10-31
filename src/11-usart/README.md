@@ -26,7 +26,7 @@ microcontroller's TX pin to the serial module's RX pin and the micro's RX pin to
 TX pin. The wiring diagram below shows all the necessary connections.
 
 <p align="center">
-<img height=640 title="F3 <-> Serial connection" src="/assets/f3-serial.png">
+<img height=640 title="F3 <-> Serial connection" src="../assets/f3-serial.png">
 </p>
 
 These are the recommended steps to connect the microcontroller and the serial module:

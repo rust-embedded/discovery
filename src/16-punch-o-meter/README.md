@@ -11,7 +11,7 @@ can also be accessed using the I2C bus. It also has the same coordinate system a
 Here's the coordinate system again:
 
 <p align="center">
-<img height=480 title="Magnetometer axes" src="/assets/f3-lsm303dlhc.png">
+<img height=480 title="Magnetometer axes" src="../assets/f3-lsm303dlhc.png">
 </p>
 
 Just like in the previous unit, we'll be using a high level API to directly get the sensor readings

@@ -3,7 +3,7 @@
 > **NOTE** incomplete
 
 <p align="center">
-<img height=640 title="Bluetooth <-> Serial connection" src="/assets/bluetooth-serial.png">
+<img height=640 title="Bluetooth <-> Serial connection" src="../assets/bluetooth-serial.png">
 </p>
 
 Entering AT mode:

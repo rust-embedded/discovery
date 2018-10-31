@@ -39,7 +39,7 @@ mode, on the GDB shell enter the following command:
 > **NOTE** Apologies Windows users. The GDB shipped with the GNU ARM Embedded Toolchain doesn't
 > support this TUI mode `:-(`.
 
-![GDB session](/assets/gdb-layout-src.png "GDB TUI")
+![GDB session](../assets/gdb-layout-src.png "GDB TUI")
 
 At any point you can leave the TUI mode using the following command:
 
@@ -118,7 +118,7 @@ source code view later by issuing the `layout src` command again.
 (gdb) layout asm
 ```
 
-![GDB session](/assets/gdb-layout-asm.png "GDB disassemble")
+![GDB session](../assets/gdb-layout-asm.png "GDB disassemble")
 
 If you are not using the TUI mode, you can use the `disassemble /m` command to disassemble the
 program around the line you are currently at.

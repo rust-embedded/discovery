@@ -11,7 +11,7 @@ but it reports back the *decomposition* of said field along *its axes*.
 See below, the magnetometer has three axes associated to it.
 
 <p align="center">
-<img height=480 title="Magnetometer axes" src="/assets/f3-lsm303dlhc.png">
+<img height=480 title="Magnetometer axes" src="../assets/f3-lsm303dlhc.png">
 </p>
 
 Only the X and Y axes are shown above. The Z axis is pointing "out" of your screen.

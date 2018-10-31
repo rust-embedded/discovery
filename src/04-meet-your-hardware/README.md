@@ -5,7 +5,7 @@ Let's get familiar with the hardware we'll be working with.
 ## STM32F3DISCOVERY (the "F3")
 
 <p align="center">
-<img title="F3" src="/assets/f3.jpg">
+<img title="F3" src="../assets/f3.jpg">
 </p>
 
 We'll refer to this board as "F3" throughout this book.
@@ -46,7 +46,7 @@ What does this board contain?
 ## The Serial module
 
 <p align="center">
-<img title="Serial module" src="/assets/serial.jpg">
+<img title="Serial module" src="../assets/serial.jpg">
 </p>
 
 We'll use this module to exchange data between the microcontroller in the F3 and your laptop. This
@@ -55,7 +55,7 @@ module will be connected to your laptop using an USB cable. I won't say more at 
 ## The Bluetooth module
 
 <p align="center">
-<img title="The HC-05 Bluetooth module" src="/assets/bluetooth.jpg">
+<img title="The HC-05 Bluetooth module" src="../assets/bluetooth.jpg">
 </p>
 
 This module has the exact same purpose as the serial module but it sends the data over Bluetooth

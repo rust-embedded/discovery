@@ -3,7 +3,7 @@
 If you have a graphical Bluetooth manager, you can use that to pair your laptop to the Bluetooth
 module and skip most of these steps. You'll probably still have to [this step] though.
 
-[this step]: /12-bluetooth-setup/linux.html#rfcomm%20device
+[this step]: #rfcomm-device
 
 ## Power up
 

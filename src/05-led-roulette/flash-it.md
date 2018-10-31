@@ -29,7 +29,7 @@ $ openocd \
 > **NOTE** Older revisions of the board need to pass slightly different arguments to
 > `openocd`. Review [this section] for the details.
 
-[this section]: /03-setup/verify.html#First%20OpenOCD%20connection
+[this section]: ../03-setup/verify.md#first-openocd-connection
 
 The program will block; leave that terminal open.
 
@@ -44,7 +44,7 @@ and debug a microcontroller. The ST-LINK is connected to the "USB ST-LINK" port 
 a USB device when you connect the F3 to your laptop.
 
 <p align="center">
-<img height=640 title="On-board ST-LINK" src="/assets/st-link.png">
+<img height=640 title="On-board ST-LINK" src="../assets/st-link.png">
 </p>
 
 
