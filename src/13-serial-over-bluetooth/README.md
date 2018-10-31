@@ -4,7 +4,7 @@ Now that we verify that the Bluetooth module works with minicom/PuTTY, let's con
 microcontroller:
 
 <p align="center">
-<img height=640 title="F3 <-> Bluetooth connection" src="/assets/f3-bluetooth.png">
+<img height=640 title="F3 <-> Bluetooth connection" src="../assets/f3-bluetooth.png">
 </p>
 
 Recommended steps to wire this up:

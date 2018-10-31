@@ -10,7 +10,7 @@
 [User Manual]: http://www.st.com/resource/en/user_manual/dm00063382.pdf
 
 <p align="center">
-<img height=640 title="Manual SWD connection" src="/assets/f3-swd.png">
+<img height=640 title="Manual SWD connection" src="../assets/f3-swd.png">
 </p>
 
 ---

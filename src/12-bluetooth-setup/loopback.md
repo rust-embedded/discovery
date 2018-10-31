@@ -9,7 +9,7 @@ indicators for the transmission and reception events like the serial module did,
 module using a loopback connection:
 
 <p align="center">
-<img height=640 title="F3 <-> Bluetooth connection (loopback)" src="/assets/f3-bluetooth-loopback.png">
+<img height=640 title="F3 <-> Bluetooth connection (loopback)" src="../assets/f3-bluetooth-loopback.png">
 </p>
 
 Just connect the module's TXD pin to its RXD pin using a F/F wire.

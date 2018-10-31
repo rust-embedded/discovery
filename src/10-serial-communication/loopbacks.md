@@ -6,7 +6,7 @@ can send us some data ... or is there?
 Enter: loopbacks
 
 <p align="center">
-<img title="Serial module loopback" src="/assets/serial-loopback.png">
+<img title="Serial module loopback" src="../assets/serial-loopback.png">
 </p>
 
 You can send data to yourself! Not very useful in production but very useful for debugging.
