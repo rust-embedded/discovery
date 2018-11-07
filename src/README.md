@@ -63,8 +63,8 @@ This Discovery book is just one of several embedded Rust resources provided by t
 includes the list of [Frequently Asked Questions].
 
 [Embedded Working Group]: https://github.com/rust-embedded/wg
-[The Embedded Rust Bookshelf]: https://rust-embedded.github.io/bookshelf/
-[Frequently Asked Questions]: https://rust-embedded.github.io/bookshelf/faq.html
+[The Embedded Rust Bookshelf]: https://docs.rust-embedded.org
+[Frequently Asked Questions]: https://docs.rust-embedded.org/faq.html
 
 ## Sponsored by
 
