@@ -109,6 +109,6 @@ LLVM (http://llvm.org/):
 
 Now follow the instructions specific to the OS you are using:
 
-- [Linux](linux.html)
-- [Windows](windows.html)
-- [macOS](macos.html)
+- [Linux](linux.md)
+- [Windows](windows.md)
+- [macOS](macos.md)
