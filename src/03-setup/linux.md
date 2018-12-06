@@ -27,8 +27,16 @@ $ sudo dnf install \
 ``` console
 $ sudo pacman -S \
   arm-none-eabi-gdb \
-  minicom \
-  openocd
+  minicom
+```
+`openocd` is not availabie in the official Arch repositories, but can be installed from the [AUR](https://aur.archlinux.org/packages/openocd/) or can be compiled from source as follows:
+
+``` console
+git clone git://git.code.sf.net/p/openocd/code openocd-code
+cd openocd-code
+./bootstrap
+./configure
+make && make install
 ```
 
 - `arm-none-eabi-gdb` for other distros
