@@ -30,7 +30,7 @@ several MBs in size.
 We'll use all the tools listed below. Where a minimum version is not specified, any recent version
 should work but we have listed the version we have tested.
 
-- Rust 1.30, 1.30-beta, nightly-2018-09-13, or a newer toolchain.
+- Rust 1.31 or a newer toolchain.
 
 - [`itmdump`] v0.2.1
 
@@ -67,18 +67,13 @@ Next, follow OS-agnostic installation instructions for a few of the tools:
 
 Install rustup by following the instructions at [https://rustup.rs](https://rustup.rs).
 
-Then, install or switch to the beta channel.
-
-``` console
-$ rustup default beta
-```
-
-**NOTE** Make sure you have a toolchain newer than `1.30-beta.1`. `rustc -V`
-should return a date newer than the one shown below:
+If you already have rustup installed double check that you are on the stable
+channel and your stable toolchain is up to date. `rustc -V` should return a date
+newer than the one shown below:
 
 ``` console
 $ rustc -V
-rustc 1.30.0-beta.1 (14f51b05d 2018-09-18)
+rustc 1.31.0 (abe02cefd 2018-12-04)
 ```
 
 ### `itmdump`
