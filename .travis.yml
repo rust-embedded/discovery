@@ -1,5 +1,4 @@
 language: rust
-rust: beta
 
 install:
   - bash ci/install.sh
