@@ -2,14 +2,15 @@
 
 Connect the serial module to your laptop and let's find out what name the OS assigned to it.
 
+> **NOTE** On macs, the USB device will named like this: `/dev/cu.usbserial-*`. You won't
+> find it using `dmesg`, instead use `ls -l /dev | grep cu.usb` and adjust the following 
+> commands accordingly!
+
 ``` console
 $ dmesg | grep -i tty
 (..)
 [  +0.000155] usb 3-2: FTDI USB Serial Device converter now attached to ttyUSB0
 ```
-
-> **NOTE** On macs, the USB device will named like this: `cu.usbserial-*`.  Adjust the following
-> commands accordingly!
 
 But what's this `ttyUSB0` thing? It's a file of course! Everything is a file in *nix:
 
