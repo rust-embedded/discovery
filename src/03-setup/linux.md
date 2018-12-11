@@ -4,7 +4,34 @@ Here are the installation commands for a few Linux distributions.
 
 ## REQUIRED packages
 
-- Ubuntu 16.04 or newer / Debian Jessie or newer
+- Ubuntu 18.04 or newer / Debian stretch or newer
+
+> **NOTE** `gdb-multiarch` is the GDB command you'll use to debug your ARM
+> Cortex-M programs
+
+<!-- Debian stretch -->
+<!-- GDB 7.12 -->
+<!-- OpenOCD 0.9.0 -->
+
+<!-- Ubuntu 18.04 -->
+<!-- GDB 8.1 -->
+<!-- OpenOCD 0.10.0 -->
+
+``` console
+$ sudo apt-get install \
+  gdb-multiarch \
+  minicom \
+  openocd
+```
+
+- Ubuntu 14.04 and 16.04
+
+> **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
+> Cortex-M programs
+
+<!-- Ubuntu 14.04 -->
+<!-- GDB 7.6 -->
+<!-- OpenOCD 0.7.0 -->
 
 ``` console
 $ sudo apt-get install \
@@ -15,6 +42,9 @@ $ sudo apt-get install \
 
 - Fedora 23 or newer
 
+> **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
+> Cortex-M programs
+
 ``` console
 $ sudo dnf install \
   arm-none-eabi-gdb \
@@ -23,6 +53,9 @@ $ sudo dnf install \
 ```
 
 - Arch Linux
+
+> **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug ARM
+> Cortex-M programs
 
 ``` console
 $ sudo pacman -S \
