@@ -82,10 +82,14 @@ available.
 I mentioned that OpenOCD provides a GDB server so let's connect to that right now:
 
 ``` console
-$ arm-none-eabi-gdb -q target/thumbv7em-none-eabihf/debug/led-roulette
+$ <gdb> -q target/thumbv7em-none-eabihf/debug/led-roulette
 Reading symbols from target/thumbv7em-none-eabihf/debug/led-roulette...done.
 (gdb)
 ```
+
+**NOTE**: `<gdb>` represents a GDB program capable of debugging ARM binaries.
+This could be `arm-none-eabi-gdb`, `gdb-multiarch` or `gdb` depending on your
+system -- you may have to try all three.
 
 This only opens a GDB shell. To actually connect to the OpenOCD GDB server, use the following
 command within the GDB shell:
