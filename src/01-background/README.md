@@ -19,7 +19,7 @@ user interface like a washing machine does; most of their operation is done on t
 
 The other common trait of these systems is that they *control* a process. And for that these systems
 usually have one or more sensors and one or more actuators. For example, an HVAC system has several
-sensors, thermometers and humidy sensors spread across some area, and several actuators as well,
+sensors, thermometers and humidity sensors spread across some area, and several actuators as well,
 heating elements and fans connected to ducts.
 
 ## When should I use a microcontroller?
@@ -29,7 +29,7 @@ that runs Linux. Why should I bother with a microcontroller that operates withou
 it would be harder to develop a program.
 
 The main reason is cost. A microcontroller is much cheaper than a general purpose computer. Not only
-the microcontroller is cheaper; it also requires much less external electrical components to
+the microcontroller is cheaper; it also requires many fewer external electrical components to
 operate. This makes Printed Circuit Boards (PCB) smaller and cheaper to design and manufacture.
 
 The other big reason is power consumption. A microcontroller consumes orders of magnitude less power
