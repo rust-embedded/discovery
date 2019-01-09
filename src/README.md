@@ -45,7 +45,7 @@ What's out of scope for this book:
 - Covering Rustic, low level details. We won't be talking about linker scripts, the boot process or
   how to glue those two into a minimally working Rust program.
 
-Also I don't intent to port this material to other development boards; this book will make exclusive
+Also I don't intend to port this material to other development boards; this book will make exclusive
 use of the STM32F3DISCOVERY development board.
 
 ## Reporting problems
