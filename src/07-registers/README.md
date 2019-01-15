@@ -11,7 +11,7 @@ and let's run the starter code statement by statement.
 
 What's this magic?
 
-The address `0x48001018` points to a *register*. A register is special region of memory that
+The address `0x48001018` points to a *register*. A register is a special region of memory that
 controls a *peripheral*. A peripheral is a piece of electronics that sits right next to the
 processor within the microcontroller package and provides the processor with extra functionality.
 After all, the processor, on its own, can only do math and logic.
