@@ -10,7 +10,7 @@
 <em>This is what we'll be using. I hope your laptop has one!</em>
 </p>
 
-Nah, don't worry. This connector, the DE-9, when out of fashion on PCs quite some time ago; it got
+Nah, don't worry. This connector, the DE-9, went out of fashion on PCs quite some time ago; it got
 replaced by the Universal Serial Bus (USB). We won't be dealing with the DE-9 connector itself but
 with the communication protocol that this cable is/was usually used for.
 
