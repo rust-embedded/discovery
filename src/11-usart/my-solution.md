@@ -40,6 +40,8 @@ fn main() -> ! {
                     while usart1.isr.read().txe().bit_is_clear() {}
                     usart1.tdr.write(|w| w.tdr().bits(u16::from(*byte)));
                 }
+
+                break;
             }
         }
     }
