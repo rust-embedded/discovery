@@ -16,8 +16,11 @@ But what's this `ttyUSB0` thing? It's a file of course! Everything is a file in 
 
 ``` console
 $ ls -l /dev/ttyUSB0
-crw-rw---- 1 root uucp 188, 0 Oct 27 00:00 /dev/ttyUSB0
+crw-rw-rw- 1 root uucp 188, 0 Oct 27 00:00 /dev/ttyUSB0
 ```
+
+> **NOTE** if the permissions above is `crw-rw----`, the udev rules have not been set correctly
+> see [udev rules](../03-setup/linux.html#udev-rules)
 
 You can send out data by simply writing to this file:
 
