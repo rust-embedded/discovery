@@ -135,6 +135,8 @@ $ cat /etc/udev/rules.d/99-ftdi.rules
 ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", MODE:="0666"
 ```
 
+If you have a different USB <-> Serial converter, get its vendor and product ids from `lsusb` output.
+
 ``` console
 $ cat /etc/udev/rules.d/99-openocd.rules
 ```
