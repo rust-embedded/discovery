@@ -48,10 +48,10 @@ In my case, it's the `/dev/bus/usb/003/005`. Now, check its permissions:
 
 ``` console
 $ ls -l /dev/bus/usb/003/005
-crw-rw-r-- 1 root root 189, 21 Sep 13 00:00 /dev/bus/usb/003/005
+crw-rw-rw- 1 root root 189, 21 Sep 13 00:00 /dev/bus/usb/003/005
 ```
 
-As before, the permissions should be `crw-rw-r--`.
+As before, the permissions should be `crw-rw-rw-`.
 
 ## All
 
