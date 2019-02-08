@@ -11,7 +11,8 @@ $ dmesg | tail | grep -i tty
 [13560.675310] cdc_acm 1-1.1:1.2: ttyACM0: USB ACM device
 ```
 
-This is the USB <-> Serial device. On Linux, it's named `ttyACM*`.
+This is the USB <-> Serial device. On Linux, it's named `tty*` (usually
+`ttyACM*` or `ttyUSB*`).
 
 If you don't see the device appear then you probably have an older revision of
 the board; check the next section, which contains instructions for older
