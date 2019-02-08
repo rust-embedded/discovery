@@ -70,6 +70,10 @@ $ itmdump -F -f itm.txt
 
 This command will block as `itmdump` is now watching the `itm.txt` file. Leave this terminal open.
 
+Make sure that F3 is connected to your laptop. Open another terminal from `/tmp` directory (on Windows `%TEMP%`) to launch OpenOCD similar as described in chapter [First OpenOCD connection].
+
+[First OpenOCD connection]: ../03-setup/verify.html#first-openocd-connection
+
 Alright. Now, let's build the starter code and flash it into the microcontroller.
 
 To avoid passing the `--target thumbv7em-none-eabihf` flag to every Cargo invocation we can set a
@@ -104,7 +108,7 @@ Breakpoint 1, main () at src/06-hello-world/src/main.rs:10
 10          let mut itm = aux6::init();
 ```
 
-Note that there's a `.gdbinit` at the root of the Cargo project. It's pretty similar to the one we
+Note that there's a `openocd.gdb` at the root of the Cargo project. It's pretty similar to the one we
 used in the previous section.
 
 Before we execute the `iprintln!` statement. We have to instruct OpenOCD to redirect the ITM output
