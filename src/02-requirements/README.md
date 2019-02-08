@@ -30,7 +30,7 @@ Also, to follow this material you'll need the following hardware:
 
 - OPTIONAL. A **3.3V** USB <-> Serial module. To elaborate: if you have one of
   the latest revisions of the discovery board (which is usually the case given
-  the first revision was released years old) then you do *not* need this module
+  the first revision was released years ago) then you do *not* need this module
   because the board includes this functionality on-board. If you have an older
   revision of the board then you'll need this module for chapters 10 and 11. For
   completeness, we'll include instructions for using a Serial module. The book
