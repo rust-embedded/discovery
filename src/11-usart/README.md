@@ -29,7 +29,7 @@ enable the `adapter` feature of the `aux11` crate dependency in `Cargo.toml`.
 ``` toml
 [dependencies.aux11]
 path = "auxiliary"
-# enable this if you are going to use an external adapter
+# enable this if you are going to use an external serial adapter
 features = ["adapter"] # <- uncomment this
 ```
 
