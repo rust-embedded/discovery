@@ -35,7 +35,7 @@ Also, to follow this material you'll need the following hardware:
   revision of the board then you'll need this module for chapters 10 and 11. For
   completeness, we'll include instructions for using a Serial module. The book
   will use [this particular model][sparkfun] but you can use any other model as
-  long as it operates at 3.3V. The (Chinese) CH340G module, which you can buy
+  long as it operates at 3.3V. The CH340G module, which you can buy
   [e-commerce][4] sites, works too and it's probably cheaper for you to get.
 
 [sparkfun]: https://www.sparkfun.com/products/9873
