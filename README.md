@@ -1,5 +1,12 @@
 # `Discovery`
 
+> Rustでマイクロコントローラの世界を楽しもう
+
+和訳にご協力頂く際は、[コントリビューションガイド](./CONTRIBUTING.md)をご参照下さい。不明な点があれば、お気軽にお尋ね下さい。
+組込み固有の[対訳表](./TranslationTableEmbedded.md)も、不完全ではありますが、用意しています。
+
+# `Discovery`
+
 > Discover the world of microcontrollers through Rust
 
 This project is developed and maintained by the [Resources team][team].
