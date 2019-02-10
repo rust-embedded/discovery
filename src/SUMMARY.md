@@ -1,4 +1,4 @@
-[Introduction](README.md)
+[導入](README.md)
 - [Background](01-background/README.md)
 - [Hardware/knowledge requirements](02-requirements/README.md)
 - [Setting up a development environment](03-setup/README.md)
