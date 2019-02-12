@@ -1,5 +1,5 @@
 [導入](README.md)
-- [Background](01-background/README.md)
+- [背景](01-background/README.md)
 - [Hardware/knowledge requirements](02-requirements/README.md)
 - [Setting up a development environment](03-setup/README.md)
     - [Linux](03-setup/linux.md)
