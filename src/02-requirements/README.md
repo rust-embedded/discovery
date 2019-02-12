@@ -1,4 +1,6 @@
-# Hardware/knowledge requirements
+<!-- # Hardware/knowledge requirements -->
+
+# ハードウェア/知識の要求
 
 The only knowledge requirement to read this book is to know *some* Rust. It's
 hard for me to quantify *some* but at least I can tell you that you don't need
