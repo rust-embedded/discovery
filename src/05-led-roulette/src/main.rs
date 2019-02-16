@@ -10,6 +10,6 @@ fn main() -> ! {
     let x = 42;
     _y = x;
 
-    // infinite loop; just so we don't leave this stack frame
+    // 無限ループ。このスタックフレームから抜けないためのものです。
     loop {}
 }
