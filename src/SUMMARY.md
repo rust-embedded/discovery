@@ -1,7 +1,7 @@
 [導入](README.md)
 - [背景](01-background/README.md)
 - [ハードウェア/知識の要求](02-requirements/README.md)
-- [Setting up a development environment](03-setup/README.md)
+- [開発環境の構築](03-setup/README.md)
     - [Linux](03-setup/linux.md)
     - [Windows](03-setup/windows.md)
     - [macOS](03-setup/macos.md)
