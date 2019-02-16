@@ -6,7 +6,7 @@
     - [Windows](03-setup/windows.md)
     - [macOS](03-setup/macos.md)
     - [インストールの確認](03-setup/verify.md)
-- [Meet your hardware](04-meet-your-hardware/README.md)
+- [ハードウェアとの出会い](04-meet-your-hardware/README.md)
 - [LED roulette](05-led-roulette/README.md)
     - [Build it](05-led-roulette/build-it.md)
     - [Flash it](05-led-roulette/flash-it.md)
