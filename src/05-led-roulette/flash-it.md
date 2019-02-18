@@ -1,17 +1,39 @@
-# Flash it
+<!-- # Flash it -->
 
+# Flashへの書き込み
+
+<!-- 
 Flashing is the process of moving our program into the microcontroller's (persistent) memory. Once
 flashed, the microcontroller will execute the flashed program every time it is powered on.
+ -->
 
+Flashへの書き込みとは、マイクロコントローラの（永続）メモリにプログラムを移動するプロセスのことです。
+一度、Flashへ書き込むと、マイクロコントローラは、電源が入るたびに書き込まれたプログラムを実行します。
+
+<!-- 
 In this case, our `led-roulette` program will be the *only* program in the microcontroller memory.
 By this I mean that there's nothing else running on the microcontroller: no OS, no "daemon",
 nothing. `led-roulette` has full control over the device.
+ -->
 
+今回の場合、`led-roulette`プログラムが、マイクロコントローラのメモリ内にある*唯一の*プログラムになります。
+これは、マイクロコントローラ上で他には何も実行されないことを意味します。OSも「デーモン」もありません。
+`led-roulette`は、デバイスを完全に制御できます。
+
+<!-- 
 Onto the actual flashing. First thing we need is to do is launch OpenOCD. We did that in the
 previous section but this time we'll run the command inside a temporary directory (`/tmp` on *nix;
 `%TEMP%` on Windows).
+ -->
 
+実際にFlashへ書き込みましょう。まず始めに、OpenOCDを起動する必要が有ります。これは、前のセクションで行いました。
+しかし、今回はこのコマンドを一時ディレクトリ（*nixでは`/tmp`、Windowsでは`%TEMP%`）の中で実行します。
+
+<!-- 
 Make sure the F3 is connected to your laptop and run the following commands on a new terminal.
+ -->
+
+F3がノートPCに接続されていることを確認し、新しい端末で次のコマンドを実行して下さい。
 
 ``` console
 $ # *nix
@@ -20,21 +42,33 @@ $ cd /tmp
 $ # Windows
 $ cd %TEMP%
 
-$ # Windows: remember that you need an extra `-s %PATH_TO_OPENOCD%\share\scripts`
+$ # Windowsでは、追加で`-s %PATH_TO_OPENOCD%\share\scripts`が必要なことを思い出して下さい。
 $ openocd \
   -f interface/stlink-v2-1.cfg \
   -f target/stm32f3x.cfg
 ```
 
+<!-- 
 > **NOTE** Older revisions of the board need to pass slightly different arguments to
 > `openocd`. Review [this section] for the details.
+ -->
 
-[this section]: ../03-setup/verify.md#first-openocd-connection
+> **注記** ボードが古いリビジョンの場合、`openocd`に若干異なる引数を渡す必要があります。
+> 詳細は[このセクション]を見返して下さい。
 
-The program will block; leave that terminal open.
+<!-- [this section]: ../03-setup/verify.md#first-openocd-connection -->
 
-Now it's a good time to explain what this command is actually doing.
+[このセクション]: ../03-setup/verify.md#first-openocd-connection
 
+<!-- The program will block; leave that terminal open. -->
+
+このプログラムは端末をブロックします。端末を開いたままにしておいて下さい。
+
+<!-- Now it's a good time to explain what this command is actually doing. -->
+
+さて、このコマンドが実際に何をやっているのか、説明するのに良いタイミングです。
+
+<!-- 
 I mentioned that the F3 actually has two microcontrollers. One of them is used as a
 programmer/debugger. The part of the board that's used as a programmer is called ST-LINK (that's what
 STMicroelectronics decided to call it). This ST-LINK is connected to the target microcontroller
@@ -42,20 +76,38 @@ using a Serial Wire Debug (SWD) interface (this interface is an ARM standard so 
 when dealing with other Cortex-M based microcontrollers). This SWD interface can be used to flash
 and debug a microcontroller. The ST-LINK is connected to the "USB ST-LINK" port and will appear as
 a USB device when you connect the F3 to your laptop.
+ -->
+
+F3が実際には2つのマイクロコントローラを搭載していると述べました。1つはプログラマ/デバッガとして使用されます。
+プログラマとして使用されるボードの一部をST-LINKと呼びます（STマイクロエレクトロニクスがそう呼ぶと決めたからです）。
+ST-LINKは、Serial Wire Debug (SWD) インタフェースを使ってターゲットのマイクロコントローラと接続されます
+（SWDインタフェースはARMの標準なので、他のCortex-Mベースのマイクロコントローラを扱う時でも使うでしょう）。
+SWDインタフェースは、マイクロコントローラのFlashに書き込み、デバッグするために使用されます。
+ST-LINKは「USB ST-LINK」ポートに接続されています。そのため、F3をノートPCに接続した時に、USBデバイスとして現れます。
 
 <p align="center">
 <img height=640 title="On-board ST-LINK" src="../assets/st-link.png">
 </p>
 
-
+<!-- 
 As for OpenOCD, it's software that provides some services like a *GDB server* on top of USB
 devices that expose a debugging protocol like SWD or JTAG.
+ -->
 
+OpenOCDについては、SWDやJTAGのようなデバッグプロトコルを公開するUSBデバイスに、*GDBサーバー*のようなサービスを提供するソフトウェアです。
+
+<!-- 
 Onto the actual command: those `.cfg` files we are using instruct OpenOCD to look for a ST-LINK USB
 device (`interface/stlink-v2-1.cfg`) and to expect a STM32F3XX microcontroller
 (`target/stm32f3x.cfg`) to be connected to the ST-LINK.
+ -->
 
-The OpenOCD output looks like this:
+実際のコマンドで、`.cfg`ファイルは、OpenOCDにST-LINK USBデバイスを探させて（`interface/stlink-v2-1.cfg`）、
+STM32F3XXマイクロコントローラがST-LINKに接続されているのを求めています(`target/stm32f3x.cfg`)。
+
+<!-- The OpenOCD output looks like this: -->
+
+OpenOCDの出力は次のようになります。
 
 ``` console
 Open On-Chip Debugger 0.9.0 (2016-04-27-23:18)
@@ -76,10 +128,16 @@ Info : Target voltage: 2.919073
 Info : stm32f3x.cpu: hardware has 6 breakpoints, 4 watchpoints
 ```
 
+<!-- 
 The "6 breakpoints, 4 watchpoints" part indicates the debugging features the processor has
 available.
+ -->
 
-I mentioned that OpenOCD provides a GDB server so let's connect to that right now:
+「6 breakpoints, 4 watchpoints」の部分は、プロセッサで利用可能なデバッグ機能を示しています。
+
+<!-- I mentioned that OpenOCD provides a GDB server so let's connect to that right now: -->
+
+OpenOCDはGDBサーバーの機能を提供すると言いました。それでは、早速接続してみましょう。
 
 ``` console
 $ <gdb> -q target/thumbv7em-none-eabihf/debug/led-roulette
@@ -87,12 +145,22 @@ Reading symbols from target/thumbv7em-none-eabihf/debug/led-roulette...done.
 (gdb)
 ```
 
+<!-- 
 **NOTE**: `<gdb>` represents a GDB program capable of debugging ARM binaries.
 This could be `arm-none-eabi-gdb`, `gdb-multiarch` or `gdb` depending on your
 system -- you may have to try all three.
+ -->
 
+**注記** `<gdb>`は、ARMバイナリをデバッグできるGDBプログラムを意味しています。
+これは、`arm-none-eabi-gdb`か`gdb-multiarch`か`gdb`です。
+あなたのシステムに依存しているため、3つ全てを試してみる必要があるでしょう。
+
+<!-- 
 This only opens a GDB shell. To actually connect to the OpenOCD GDB server, use the following
 command within the GDB shell:
+ -->
+
+まだGDBシェルを開いただけです。OpenOCDのGDBサーバーに実際に接続するためには、GDBシェル内で次のコマンドを実行します。
 
 ```
 (gdb) target remote :3333
@@ -100,10 +168,17 @@ Remote debugging using :3333
 0x00000000 in ?? ()
 ```
 
+<!-- 
 By default OpenOCD's GDB server listens on TCP port 3333 (localhost). This command is connecting to
 that port.
+ -->
 
-After entering this command, you'll see new output in the OpenOCD terminal:
+デフォルトでは、OpenOCDのGDBサーバーは3333番のTCPポート（localhost）で待ち受けています。
+上記コマンドはこのポートへと接続します。
+
+<!-- After entering this command, you'll see new output in the OpenOCD terminal: -->
+
+上記コマンドを実行した後、次のような出力が、OpenOCDの端末に現れるでしょう。
 
 ``` diff
  Info : stm32f3x.cpu: hardware has 6 breakpoints, 4 watchpoints
@@ -112,7 +187,9 @@ After entering this command, you'll see new output in the OpenOCD terminal:
 +Info : flash size = 256kbytes
 ```
 
-Almost there. To flash the device, we'll use the `load` command inside the GDB shell:
+<!-- Almost there. To flash the device, we'll use the `load` command inside the GDB shell: -->
+
+もう一歩です。デバイスのFlashに書き込むには、`load`コマンドをGDBシェル内で使います。
 
 ```
 (gdb) load
@@ -123,7 +200,9 @@ Start address 0x8000188, load size 1306
 Transfer rate: 6 KB/sec, 435 bytes/write.
 ```
 
-And that's it. You'll also see new output in the OpenOCD terminal.
+<!-- And that's it. You'll also see new output in the OpenOCD terminal. -->
+
+これで終わりです。OpenOCDの端末に新しい出力が見られるでしょう。
 
 ``` diff
  Info : flash size = 256kbytes
@@ -147,4 +226,6 @@ And that's it. You'll also see new output in the OpenOCD terminal.
 +xPSR: 0x01000000 pc: 0x08000194 msp: 0x2000a000
 ```
 
-Our program is loaded, let's debug it!
+<!-- Our program is loaded, let's debug it! -->
+
+プログラムはロードされました。デバッグしてみましょう！
