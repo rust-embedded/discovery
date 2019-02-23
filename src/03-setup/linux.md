@@ -97,7 +97,7 @@ PATH=$PATH:$HOME/local/gcc-arm-none-eabi-7-2017-q4-major/bin
 
 ## Optional packages
 
-- Ubuntu / Debian
+### Ubuntu / Debian
 
 ``` console
 $ sudo apt-get install \
@@ -105,7 +105,7 @@ $ sudo apt-get install \
   rfkill
 ```
 
-- Fedora
+### Fedora
 
 ``` console
 $ sudo dnf install \
@@ -113,7 +113,7 @@ $ sudo dnf install \
   rfkill
 ```
 
-- Arch Linux
+### Arch Linux
 
 ``` console
 $ sudo pacman -S \
