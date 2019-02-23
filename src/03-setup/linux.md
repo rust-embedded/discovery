@@ -4,7 +4,7 @@ Here are the installation commands for a few Linux distributions.
 
 ## REQUIRED packages
 
-- Ubuntu 18.04 or newer / Debian stretch or newer
+### Ubuntu 18.04 or newer / Debian stretch or newer
 
 > **NOTE** `gdb-multiarch` is the GDB command you'll use to debug your ARM
 > Cortex-M programs
@@ -24,7 +24,7 @@ $ sudo apt-get install \
   openocd
 ```
 
-- Ubuntu 14.04 and 16.04
+### Ubuntu 14.04 and 16.04
 
 > **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
 > Cortex-M programs
@@ -40,7 +40,7 @@ $ sudo apt-get install \
   openocd
 ```
 
-- Fedora 23 or newer
+### Fedora 23 or newer
 
 > **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
 > Cortex-M programs
@@ -52,9 +52,9 @@ $ sudo dnf install \
   openocd
 ```
 
-- Arch Linux
+### Arch Linux
 
-> **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug ARM
+> **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
 > Cortex-M programs
 
 ``` console
@@ -63,7 +63,7 @@ $ sudo pacman -S \
   minicom
 ```
 
-`openocd` is not available in the official Arch repositories, but can be installed from the [AUR](https://aur.archlinux.org/packages/openocd/) or can be compiled from source as follows:
+`openocd` is not available in the official Arch repositories, but can be installed from the AUR ([openocd-git](https://aur.archlinux.org/packages/openocd-git/) package) or can be compiled from source as follows:
 
 ``` console
 git clone git://git.code.sf.net/p/openocd/code openocd-code
@@ -73,7 +73,10 @@ cd openocd-code
 make && make install
 ```
 
-- `arm-none-eabi-gdb` for other distros
+### Other distros
+
+> **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
+> Cortex-M programs
 
 For distros that don't have packages for [ARM's pre-built
 toolchain](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads),
@@ -94,7 +97,7 @@ PATH=$PATH:$HOME/local/gcc-arm-none-eabi-7-2017-q4-major/bin
 
 ## Optional packages
 
-- Ubuntu / Debian
+### Ubuntu / Debian
 
 ``` console
 $ sudo apt-get install \
@@ -102,7 +105,7 @@ $ sudo apt-get install \
   rfkill
 ```
 
-- Fedora
+### Fedora
 
 ``` console
 $ sudo dnf install \
@@ -110,7 +113,7 @@ $ sudo dnf install \
   rfkill
 ```
 
-- Arch Linux
+### Arch Linux
 
 ``` console
 $ sudo pacman -S \
