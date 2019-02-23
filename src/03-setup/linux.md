@@ -63,7 +63,7 @@ $ sudo pacman -S \
   minicom
 ```
 
-`openocd` is not available in the official Arch repositories, but can be installed from the [AUR](https://aur.archlinux.org/packages/openocd/) or can be compiled from source as follows:
+`openocd` is not available in the official Arch repositories, but can be installed from the AUR ([openocd-git](https://aur.archlinux.org/packages/openocd-git/) package) or can be compiled from source as follows:
 
 ``` console
 git clone git://git.code.sf.net/p/openocd/code openocd-code
