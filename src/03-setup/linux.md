@@ -54,7 +54,7 @@ $ sudo dnf install \
 
 ### Arch Linux
 
-> **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug ARM
+> **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
 > Cortex-M programs
 
 ``` console
