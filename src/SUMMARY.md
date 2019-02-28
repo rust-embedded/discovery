@@ -10,7 +10,7 @@
 - [LEDルーレット](05-led-roulette/README.md)
     - [ビルド](05-led-roulette/build-it.md)
     - [Flashへの書き込み](05-led-roulette/flash-it.md)
-    - [Debug it](05-led-roulette/debug-it.md)
+    - [デバッグ](05-led-roulette/debug-it.md)
     - [The `led` and `delay` abstractions](05-led-roulette/the-led-and-delay-abstractions.md)
     - [The challenge](05-led-roulette/the-challenge.md)
     - [My solution](05-led-roulette/my-solution.md)
