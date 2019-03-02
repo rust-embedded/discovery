@@ -1,4 +1,6 @@
-# The challenge
+<!-- # The challenge -->
+
+# 課題
 
 You are now well armed to face a challenge! Your task will be to implement the application I showed
 you at the beginning of this chapter.
