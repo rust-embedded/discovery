@@ -18,7 +18,7 @@ If you have a newer revision of the board and are using the on-board USB <->
 Serial functionality then the `auxiliary` crate will set pin `PC4` as the TX
 line and pin `PC5` as the RX line.
 
-Everything is already wired on the board so you don't to wire anything yourself.
+Everything is already wired on the board so you don't need to wire anything yourself.
 You can move on to the [next section](send-a-single-byte.html).
 
 ### Older board revisions / external serial module
