@@ -40,7 +40,7 @@ Now try to enter some text into minicom/PuTTY and observe.
 > things to the serial pins (PC4 and PC5) we recommend *holding* the reset
 > button while you enter text into minicom/PuTTY.
 
-If all is working you should see what you typo echo back to the minicom/PuTTY
+If all is working you should see what you type echoed back to minicom/PuTTY
 console.
 
 ---
