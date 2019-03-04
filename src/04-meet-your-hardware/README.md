@@ -55,7 +55,7 @@ will be connected to your laptop using an USB cable. I won't say more at this
 point.
 
 If you have a newer release of the board then you don't need this module. The
-ST-LINK will act as a serial module connected to pins PC4 and PC5.
+ST-LINK will double as a USB<->serial converter connected to the microcontroller USART1 at pins PC4 and PC5.
 
 ## The Bluetooth module
 
