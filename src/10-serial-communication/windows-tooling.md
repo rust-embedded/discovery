@@ -2,7 +2,7 @@
 
 Start by unplugging your discovery board.
 
-Before plugging the discover or the Serial module, run the following command on
+Before plugging the discovery board or the serial module, run the following command on
 the terminal:
 
 ``` console
