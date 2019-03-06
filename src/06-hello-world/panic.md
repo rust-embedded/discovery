@@ -1,8 +1,12 @@
 # `panic!`
 
-The `panic!` macro also sends its output to the ITM!
+<!-- The `panic!` macro also sends its output to the ITM! -->
 
-Change the `main` function to look like this:
+`panic!`マクロも出力をITMに送信します！
+
+<!-- Change the `main` function to look like this: -->
+
+`main`関数を次のように変更して下さい。
 
 ``` rust
 #[entry]
@@ -11,8 +15,12 @@ fn main() -> ! {
 }
 ```
 
+<!-- 
 Let's try this program. But before that let's update `openocd.gdb` to run that `monitor` stuff for
 us during GDB startup:
+ -->
+
+上のプログラムを試してみましょう。ただ、その前に、`monitor`に関連する処理をGDB起動時に実行するように、`openocd.gdb`を更新しましょう。
 
 ``` diff
  target remote :3333
@@ -25,7 +33,9 @@ us during GDB startup:
  continue
 ```
 
-OK, now run it.
+<!-- OK, now run it. -->
+
+それでは、実行します。
 
 ``` console
 $ cargo run
@@ -36,7 +46,9 @@ Breakpoint 1, main () at src/06-hello-world/src/main.rs:10
 (gdb) next
 ```
 
-You'll see some new output in the `itmdump` terminal.
+<!-- You'll see some new output in the `itmdump` terminal. -->
+
+`itmdump`端末に新しい出力が見えるでしょう。
 
 ``` console
 $ # itmdump terminal
@@ -63,8 +75,12 @@ panicked at 'Hello, world!', src/06-hello-world/src/main.rs:10:5
 <!-- Ultimately, `panic!` is just another function call so you can see it leaves behind a trace of -->
 <!-- function calls. -->
 
+<!-- 
 Another thing you can do is catch the panic *before* it does the logging by
 putting a breakpoint on the `rust_begin_unwind` symbol.
+ -->
+
+他にも、`rust_begin_unwind`シンボルにブレイクポイントを置くことで、ログ出力する*前*にパニックを捕捉することができます。
 
 ```
 (gdb) monitor reset halt
@@ -82,7 +98,14 @@ Breakpoint 2, rust_begin_unwind (info=0x10001fac) at $REGISTRY/panic-itm-0.4.0/s
 46          interrupt::disable();
 ```
 
+<!-- 
 You'll notice that nothing got printed on the `itmdump` console this time. If
 you resume the program using `continue` then a new line will be printed.
+ -->
 
-In a later section we'll look into other simpler communication protocols.
+今回は、`itmdump`コンソールに何も表示されないことに気づくでしょう。
+`continue`を使ってプログラムを再開すると、新しい行が表示されます。
+
+<!-- In a later section we'll look into other simpler communication protocols. -->
+
+後のセクションでは、他のより簡単な通信プロトコルを検討します。
