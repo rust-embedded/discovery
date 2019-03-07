@@ -16,7 +16,7 @@
     - [解答例](05-led-roulette/my-solution.md)
 - [Hello, world!](06-hello-world/README.md)
     - [`panic!`](06-hello-world/panic.md)
-- [Registers](07-registers/README.md)
+- [レジスタ](07-registers/README.md)
     - [RTRM](07-registers/rtrm.md)
     - [(mis)Optimization](07-registers/optimization.md)
     - [`0xBAAAAAAD` address](07-registers/bad-address.md)

@@ -9,19 +9,19 @@ fn main() -> ! {
     aux7::init();
 
     unsafe {
-        // A magic address!
+        // 魔法のアドレス！
         const GPIOE_BSRR: u32 = 0x48001018;
 
-        // Turn on the "North" LED (red)
+        // 「北」のLED（赤）を点灯します
         *(GPIOE_BSRR as *mut u32) = 1 << 9;
 
-        // Turn on the "East" LED (green)
+        // 「東」のLED（緑）を点灯します
         *(GPIOE_BSRR as *mut u32) = 1 << 11;
 
-        // Turn off the "North" LED
+        // 「北」のLEDを消灯します
         *(GPIOE_BSRR as *mut u32) = 1 << (9 + 16);
 
-        // Turn off the "East" LED
+        // 「東」のLEDを消灯します
         *(GPIOE_BSRR as *mut u32) = 1 << (11 + 16);
     }
 
