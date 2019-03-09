@@ -1,12 +1,25 @@
-# (mis)Optimization
+<!-- # (mis)Optimization -->
 
+# （誤った）最適化
+
+<!-- 
 Reads/writes to registers are quite special. I may even dare to say that they are embodiment of side
 effects. In the previous example we wrote four different values to the same register. If you didn't
 know that address was a register, you may have simplified the logic to just write the final value `1
 << (11 + 16)` into the register.
+ -->
 
+レジスタへの読み書きは、非常に特殊です。レジスタへの読み書きが、副作用の化身であることを、あえて明言することもあります。
+前回のサンプルでは、4つの異なる値を同じレジスタに書き込みました。
+そのアドレスがレジスタであることを知らなければ、最後の値である`1 << (11 + 16)`だけをレジスタに書き込むように、ロジックを単純化するかもしれません。
+
+<!-- 
 Actually, LLVM, the compiler's backend / optimizer, does not know we are dealing with a register and
 will merge the writes thus changing the behavior of our program. Let's check that really quick.
+ -->
+
+実際に、コンパイラのバックエンド/最適化であるLLVMは、レジスタを取り扱っていることを知りません。
+そして、レジスタへの書き込みを結合し、プログラムの動作を変更します。このことを手軽にチェックします。
 
 ``` console
 $ cargo run --release
@@ -30,19 +43,19 @@ Dump of assembler code for function main:
 
 10
 11          unsafe {
-12              // A magic address!
+12              // 魔法のアドレス！
 13              const GPIOE_BSRR: u32 = 0x48001018;
 14
-15              // Turn on the "North" LED (red)
+15              // 「北」のLED（赤）を点灯します
 16              *(GPIOE_BSRR as *mut u32) = 1 << 9;
 17
-18              // Turn on the "East" LED (green)
+18              // 「東」のLED（緑）を点灯します
 19              *(GPIOE_BSRR as *mut u32) = 1 << 11;
 20
-21              // Turn off the "North" LED
+21              // 「北」のLEDを消灯します
 22              *(GPIOE_BSRR as *mut u32) = 1 << (9 + 16);
 23
-24              // Turn off the "East" LED
+24              // 「東」のLEDを消灯します
 25              *(GPIOE_BSRR as *mut u32) = 1 << (11 + 16);
 => 0x08000198 <+16>:    str     r1, [r0, #0]
 
@@ -54,14 +67,22 @@ Dump of assembler code for function main:
 End of assembler dump.
 ```
 
+<!-- 
 The state of the LEDs didn't change this time! The `str` instruction is the one that writes a value
 to the register. Our *debug* (unoptimized) program had four of them, one for each write to the
 register, but the *release* (optimized) program only has one.
+ -->
 
-We can check that using `objdump`:
+この場合、LEDの状態は変わりません！`str`命令は、値をレジスタに書き込み命令の1つです。
+*debug*（最適化されていない）プログラムには、4つのstr命令があります。各命令は、レジスタに書き込みします。
+しかし、*release*（最適化された）プログラムは、1つしかstr命令がありません。
+
+<!-- We can check that using `objdump`: -->
+
+`objdump`を使って、このことを確認できます。
 
 ``` console
-$ # same as cargo objdump -- -d -no-show-raw-insn -print-imm-hex -source target/thumbv7em-none-eabihf/debug/registers
+$ # cargo objdump -- -d -no-show-raw-insn -print-imm-hex -source target/thumbv7em-none-eabihf/debug/registersと同じです
 $ cargo objdump --bin registers -- -d -no-show-raw-insn -print-imm-hex -source
 registers:      file format ELF32-arm-little
 
@@ -148,8 +169,12 @@ main:
  8000248:       trap
 ```
 
+<!-- 
 How do we prevent LLVM from misoptimizing our program? We use *volatile* operations instead of plain
 reads/writes:
+ -->
+
+LLVMがプログラムに誤った最適化を行うのを、どのようにすれば防げるのでしょうか？通常の読み書きの代わりに、*volatile*操作を使います。
 
 ``` rust
 #![no_main]
@@ -165,19 +190,19 @@ fn main() -> ! {
     aux7::init();
 
     unsafe {
-        // A magic address!
+        // 魔法のアドレス！
         const GPIOE_BSRR: u32 = 0x48001018;
 
-        // Turn on the "North" LED (red)
+        // 「北」のLED（赤）を点灯します
         ptr::write_volatile(GPIOE_BSRR as *mut u32, 1 << 9);
 
-        // Turn on the "East" LED (green)
+        // 「東」のLED（緑）を点灯します
         ptr::write_volatile(GPIOE_BSRR as *mut u32, 1 << 11);
 
-        // Turn off the "North" LED
+        // 「北」のLEDを消灯します
         ptr::write_volatile(GPIOE_BSRR as *mut u32, 1 << (9 + 16));
 
-        // Turn off the "East" LED
+        // 「東」のLEDを消灯します
         ptr::write_volatile(GPIOE_BSRR as *mut u32, 1 << (11 + 16));
     }
 
@@ -185,7 +210,9 @@ fn main() -> ! {
 }
 ```
 
-If we look at the disassembly of this new program compiled in release mode:
+<!-- If we look at the disassembly of this new program compiled in release mode: -->
+
+リリースモードでコンパイルされた新しいプログラムの逆アセンブルを見てみます。
 
 ``` console
 $ cargo objdump --bin registers --release -- -d -no-show-raw-insn -print-imm-hex -source
@@ -210,5 +237,10 @@ main:
  80001ac:       b       #-0x4 <main+0x24>
 ```
 
+<!-- 
 We see that the four writes (`str` instructions) are preserved. If you run it (use `stepi`), you'll
 also see that behavior of the program is preserved.
+ -->
+
+4つの書き込み（`str`命令）が、保たれていることがわかります。（`stepi`）を使って、これを実行すると、
+プログラムの動作も保たれていることがわかります。

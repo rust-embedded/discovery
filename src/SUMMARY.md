@@ -18,7 +18,7 @@
     - [`panic!`](06-hello-world/panic.md)
 - [レジスタ](07-registers/README.md)
     - [RTRM](07-registers/rtrm.md)
-    - [(mis)Optimization](07-registers/optimization.md)
+    - [(誤った)最適化](07-registers/optimization.md)
     - [`0xBAAAAAAD` address](07-registers/bad-address.md)
     - [Spooky action at a distance](07-registers/spooky-action-at-a-distance.md)
     - [Type safe manipulation](07-registers/type-safe-manipulation.md)
