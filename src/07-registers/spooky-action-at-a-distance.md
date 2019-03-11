@@ -1,14 +1,25 @@
-# Spooky action at a distance
+<!-- # Spooky action at a distance -->
 
+# 異なる場所での不気味な動作
+
+<!-- 
 `BSRR` is not the only register that can control the pins of Port E. The `ODR` register also lets
 you change the value of the pins. Furthermore, `ODR` also lets you retrieve the current output
 status of Port E.
+ -->
 
-`ODR` is documented in:
+ポートEのピンを制御できるレジスタは、`BSRR`だけではありません。`ODR`レジスタもピンの値を変更できます。
+さらに、`ODR`を使って、ポートEの現在の出力状態を取得できます。
+
+<!-- `ODR` is documented in: -->
+
+`ODR`については、下記に書かれています。
 
 > Section 11.4.6 GPIO port output data register - Page 239
 
-Let's try this program:
+<!-- Let's try this program: -->
+
+次のプログラムを試してみましょう。
 
 ``` rust
 #![no_main]
@@ -33,7 +44,7 @@ fn main() -> ! {
             ptr::read_volatile(GPIOE_ODR as *const u16)
         );
 
-        // Turn on the NORTH LED (red)
+        // 北のLEDの（赤）を点灯
         ptr::write_volatile(GPIOE_BSRR as *mut u32, 1 << 9);
 
         iprintln!(
@@ -42,7 +53,7 @@ fn main() -> ! {
             ptr::read_volatile(GPIOE_ODR as *const u16)
         );
 
-        // Turn on the EAST LED (green)
+        // 東のLEDの（緑）を点灯
         ptr::write_volatile(GPIOE_BSRR as *mut u32, 1 << 11);
 
         iprintln!(
@@ -51,7 +62,7 @@ fn main() -> ! {
             ptr::read_volatile(GPIOE_ODR as *const u16)
         );
 
-        // Turn off the NORTH LED
+        // 北のLEDのを消灯
         ptr::write_volatile(GPIOE_BSRR as *mut u32, 1 << (9 + 16));
 
         iprintln!(
@@ -60,7 +71,7 @@ fn main() -> ! {
             ptr::read_volatile(GPIOE_ODR as *const u16)
         );
 
-        // Turn off the EAST LED
+        // 東のLEDのを消灯
         ptr::write_volatile(GPIOE_BSRR as *mut u32, 1 << (11 + 16));
     }
 
@@ -68,7 +79,9 @@ fn main() -> ! {
 }
 ```
 
-If you run this program, you'll see:
+<!-- If you run this program, you'll see: -->
+
+このプログラムを実行すると、次の出力が得られます。
 
 ``` console
 $ # itmdump's console
@@ -79,5 +92,9 @@ ODR = 0x0a00
 ODR = 0x0800
 ```
 
+<!-- 
 Side effects! Although we are reading the same address multiple times without actually modifying it,
 we still see its value change every time `BSRR` is written to.
+ -->
+
+副作用！実際の値を変更することなしに、複数回同じアドレスを読み込んでいるにも関わらず、毎回`BSRR`に書き込んだ値に変化していることがわかります。

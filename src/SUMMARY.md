@@ -20,7 +20,7 @@
     - [RTRM](07-registers/rtrm.md)
     - [(誤った)最適化](07-registers/optimization.md)
     - [`0xBAAAAAAD`番地](07-registers/bad-address.md)
-    - [Spooky action at a distance](07-registers/spooky-action-at-a-distance.md)
+    - [異なる場所での不気味な動作](07-registers/spooky-action-at-a-distance.md)
     - [Type safe manipulation](07-registers/type-safe-manipulation.md)
 - [LEDs, again](08-leds-again/README.md)
     - [Power](08-leds-again/power.md)
