@@ -8,9 +8,9 @@ use aux8::entry;
 fn main() -> ! {
     let (gpioe, rcc) = aux8::init();
 
-    // TODO initialize GPIOE
+    // TODO GPIOEを初期化して下さい
 
-    // Turn on all the LEDs in the compass
+    // コンパスの全てのLEDを点灯します。
     gpioe.odr.write(|w| {
         w.odr8().set_bit();
         w.odr9().set_bit();

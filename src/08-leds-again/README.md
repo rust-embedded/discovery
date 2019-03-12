@@ -1,22 +1,42 @@
-# LEDs, again
+<!-- # LEDs, again -->
 
+# LED、再び
+
+<!-- 
 In the last section, I gave you *initialized* (configured) peripherals (I initialized them in
 `aux7::init`). That's why just writing to `BSRR` was enough to control the LEDs. But, peripherals
 are not *initialized* right after the microcontroller boots.
+ -->
 
+前のセクションでは、*初期化済み*（設定済み）のペリフェラルを提供しました（`aux7::init`で初期化していました）。
+LEDを制御するために、`BSRR`に書き込むだけで十分だったのは、このおかげです。
+しかし、マイクロコントローラが起動した直後、ペリフェラルは*初期化*されていません。
+
+<!-- 
 In this section, you'll have more fun with registers. I won't do any initialization and you'll have
 to initialize configure `GPIOE` pins as digital outputs pins so that you'll be able to drive LEDs
 again.
+ -->
 
-This is the starter code.
+このセクションでは、レジスタを使ってもっとおもしろいことをやります。
+私は初期化を行いません。再びLEDを駆動できるようにするために、あなたが`GPIOE`ピンをデジタル出力ピンとして初期化、設定します。
+
+<!-- This is the starter code. -->
+
+スターターコードは下記の通りです。
 
 ``` rust
 {{#include src/main.rs}}
 ```
 
+<!-- 
 If you run the starter code, you'll see that nothing happens this time. Furthermore, if you print
 the `GPIOE` register block, you'll see that every register reads as zero even after the
 `gpioe.odr.write` statement was executed!
+ -->
+
+スターターコードを動かすと、今回は何も起こりません。その上、`GPIOE`レジスタブロックを表示すると、
+`gpioe.odr.write`ステートメントを実行した後でも、全てのレジスタがゼロになっていることがわかるでしょう。
 
 ```
 $ cargo run

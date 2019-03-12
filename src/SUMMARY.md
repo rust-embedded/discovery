@@ -22,7 +22,7 @@
     - [`0xBAAAAAAD`番地](07-registers/bad-address.md)
     - [異なる場所での不気味な動作](07-registers/spooky-action-at-a-distance.md)
     - [型安全な操作](07-registers/type-safe-manipulation.md)
-- [LEDs, again](08-leds-again/README.md)
+- [LED、再び](08-leds-again/README.md)
     - [Power](08-leds-again/power.md)
     - [Configuration](08-leds-again/configuration.md)
     - [The solution](08-leds-again/the-solution.md)
