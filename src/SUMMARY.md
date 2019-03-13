@@ -24,7 +24,7 @@
     - [型安全な操作](07-registers/type-safe-manipulation.md)
 - [LED、再び](08-leds-again/README.md)
     - [電源](08-leds-again/power.md)
-    - [Configuration](08-leds-again/configuration.md)
+    - [設定](08-leds-again/configuration.md)
     - [The solution](08-leds-again/the-solution.md)
 - [Clocks and timers](09-clocks-and-timers/README.md)
     - [`for` loop delays](09-clocks-and-timers/for-loop-delays.md)
