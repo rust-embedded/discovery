@@ -23,7 +23,7 @@
     - [異なる場所での不気味な動作](07-registers/spooky-action-at-a-distance.md)
     - [型安全な操作](07-registers/type-safe-manipulation.md)
 - [LED、再び](08-leds-again/README.md)
-    - [Power](08-leds-again/power.md)
+    - [電源](08-leds-again/power.md)
     - [Configuration](08-leds-again/configuration.md)
     - [The solution](08-leds-again/the-solution.md)
 - [Clocks and timers](09-clocks-and-timers/README.md)
