@@ -1,4 +1,6 @@
-# The solution
+<!-- # The solution -->
+
+# 解答例
 
 ``` rust
 #![deny(unsafe_code)]
@@ -11,10 +13,10 @@ use aux8::entry;
 fn main() -> ! {
     let (gpioe, rcc) = aux8::init();
 
-    // enable the GPIOE peripheral
+    // GPIOEペリフェラルを有効化します
     rcc.ahbenr.modify(|_, w| w.iopeen().set_bit());
 
-    // configure the pins as outputs
+    // ピンを出力に設定します
     gpioe.moder.modify(|_, w| {
         w.moder8().output();
         w.moder9().output();
@@ -26,7 +28,7 @@ fn main() -> ! {
         w.moder15().output()
     });
 
-    // Turn on all the LEDs in the compass
+    // コンパスのLEDを全て点灯します
     gpioe.odr.write(|w| {
         w.odr8().set_bit();
         w.odr9().set_bit();
