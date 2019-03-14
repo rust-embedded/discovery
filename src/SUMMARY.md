@@ -27,7 +27,7 @@
     - [設定](08-leds-again/configuration.md)
     - [解答例](08-leds-again/the-solution.md)
 - [クロックと時間](09-clocks-and-timers/README.md)
-    - [`for` loop delays](09-clocks-and-timers/for-loop-delays.md)
+    - [`for`ループで遅延](09-clocks-and-timers/for-loop-delays.md)
     - [NOP](09-clocks-and-timers/nop.md)
     - [One-shot timer](09-clocks-and-timers/one-shot-timer.md)
     - [Initialization](09-clocks-and-timers/initialization.md)
