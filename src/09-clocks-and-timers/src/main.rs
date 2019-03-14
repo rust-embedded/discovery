@@ -5,14 +5,14 @@ use aux9::{entry, tim6};
 
 #[inline(never)]
 fn delay(tim6: &tim6::RegisterBlock, ms: u16) {
-    // TODO implement this
+    // 実装して下さい
 }
 
 #[entry]
 fn main() -> ! {
     let (mut leds, rcc, tim6) = aux9::init();
 
-    // TODO initialize TIM6
+    // TIMGを実装して下さい
 
     let ms = 50;
     loop {

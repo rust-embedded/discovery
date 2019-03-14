@@ -26,7 +26,7 @@
     - [電源](08-leds-again/power.md)
     - [設定](08-leds-again/configuration.md)
     - [解答例](08-leds-again/the-solution.md)
-- [Clocks and timers](09-clocks-and-timers/README.md)
+- [クロックと時間](09-clocks-and-timers/README.md)
     - [`for` loop delays](09-clocks-and-timers/for-loop-delays.md)
     - [NOP](09-clocks-and-timers/nop.md)
     - [One-shot timer](09-clocks-and-timers/one-shot-timer.md)
