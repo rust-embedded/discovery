@@ -29,7 +29,7 @@
 - [クロックと時間](09-clocks-and-timers/README.md)
     - [`for`ループで遅延](09-clocks-and-timers/for-loop-delays.md)
     - [NOP](09-clocks-and-timers/nop.md)
-    - [One-shot timer](09-clocks-and-timers/one-shot-timer.md)
+    - [ワンショットタイマ](09-clocks-and-timers/one-shot-timer.md)
     - [Initialization](09-clocks-and-timers/initialization.md)
     - [Busy waiting](09-clocks-and-timers/busy-waiting.md)
     - [Putting it all together](09-clocks-and-timers/putting-it-all-together.md)
