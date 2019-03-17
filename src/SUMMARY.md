@@ -31,7 +31,7 @@
     - [NOP](09-clocks-and-timers/nop.md)
     - [ワンショットタイマ](09-clocks-and-timers/one-shot-timer.md)
     - [初期化](09-clocks-and-timers/initialization.md)
-    - [Busy waiting](09-clocks-and-timers/busy-waiting.md)
+    - [ビジーウェイト](09-clocks-and-timers/busy-waiting.md)
     - [Putting it all together](09-clocks-and-timers/putting-it-all-together.md)
 - [Serial communication](10-serial-communication/README.md)
     - [*nix tooling](10-serial-communication/nix-tooling.md)
