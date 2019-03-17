@@ -1,4 +1,6 @@
-# Putting it all together
+<!-- # Putting it all together -->
+
+# 全てをまとめる
 
 ``` rust
 #![no_main]
@@ -8,17 +10,17 @@ use aux9::{entry, tim6};
 
 #[inline(never)]
 fn delay(tim6: &tim6::RegisterBlock, ms: u16) {
-    // Set the timer to go off in `ms` ticks
-    // 1 tick = 1 ms
+    // `ms`ティック後にオフになるようにタイマを設定します。
+    // 1ティックは1msです。
     tim6.arr.write(|w| w.arr().bits(ms));
 
-    // CEN: Enable the counter
+    // CEN：カウンタを有効化します。
     tim6.cr1.modify(|_, w| w.cen().set_bit());
 
-    // Wait until the alarm goes off (until the update event occurs)
+    // アラームがオフになるまで（更新イベントが発生するまで）待ちます
     while !tim6.sr.read().uif().bit_is_set() {}
 
-    // Clear the update event flag
+    // 更新イベントフラグをクリアします
     tim6.sr.modify(|_, w| w.uif().clear_bit());
 }
 
@@ -26,18 +28,18 @@ fn delay(tim6: &tim6::RegisterBlock, ms: u16) {
 fn main() -> ! {
     let (mut leds, rcc, tim6) = aux9::init();
 
-    // Power on the TIM6 timer
+    // TIM6のタイマの電源を入れます。
     rcc.apb1enr.modify(|_, w| w.tim6en().set_bit());
 
-    // OPM Select one pulse mode
-    // CEN Keep the counter disabled for now
+    // OPM：ワンパルスモードを選択します。
+    // CEN：今はカウンタを無効にしておきます。
     tim6.cr1.write(|w| w.opm().set_bit().cen().clear_bit());
 
-    // Configure the prescaler to have the counter operate at 1 KHz
+    // カウンタが1KHzで動作するようにプリスケーラを設定します。
     // APB1_CLOCK = 8 MHz
     // PSC = 7999
     // 8 MHz / (7999 + 1) = 1 KHz
-    // The counter (CNT) will increase on every millisecond
+    // カウンタ（CNT）は、毎ミリ秒ごとに増加します。
     tim6.psc.write(|w| w.psc().bits(7_999));
 
     let ms = 50;
