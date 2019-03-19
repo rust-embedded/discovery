@@ -21,7 +21,7 @@ Recommended steps to enter AT mode:
 - Next connect the F3 to your laptop via USB cable while simultaneously pressing and holding the button on the Bluetooth module (kinda tricky).
 - Now, release the button and the Bluetooth module will enter AT mode. You can confirm this by observing that the red LED on the Bluetooth module is blinking in a slow pattern (approx 1-2 seconds on/off).
 
-The AT mode always operates at a baud rate of 38400, so configure minicom/putty for that baud rate and connect to the FTDI device.
+The AT mode always operates at a baud rate of 38400, so configure your terminal program for that baud rate and connect to the FTDI device.
 
 When your serial connection is established, you may get a bunch of `ERROR: (0)` repeatedly being displayed. If this happens, just hit ENTER to stop the errors.
 
