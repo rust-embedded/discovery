@@ -36,6 +36,13 @@ OK
 
 Answers `OK` repeatedly until you hit ENTER again.
 
+### Rename the device
+
+```
+$ at+name=ferris
+OK
+```
+
 ### Query for the current baud rate of the Bluetooth module
 
 ```
