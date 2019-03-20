@@ -34,7 +34,7 @@
     - [ビジーウェイト](09-clocks-and-timers/busy-waiting.md)
     - [全てをまとめる](09-clocks-and-timers/putting-it-all-together.md)
 - [シリアル通信](10-serial-communication/README.md)
-    - [*nix tooling](10-serial-communication/nix-tooling.md)
+    - [*nixのツール](10-serial-communication/nix-tooling.md)
     - [Windows tooling](10-serial-communication/windows-tooling.md)
     - [Loopbacks](10-serial-communication/loopbacks.md)
 - [USART](11-usart/README.md)
