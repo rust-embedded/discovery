@@ -35,7 +35,7 @@
     - [全てをまとめる](09-clocks-and-timers/putting-it-all-together.md)
 - [シリアル通信](10-serial-communication/README.md)
     - [*nixのツール](10-serial-communication/nix-tooling.md)
-    - [Windows tooling](10-serial-communication/windows-tooling.md)
+    - [Windowsのツール](10-serial-communication/windows-tooling.md)
     - [Loopbacks](10-serial-communication/loopbacks.md)
 - [USART](11-usart/README.md)
     - [Send a single byte](11-usart/send-a-single-byte.md)
