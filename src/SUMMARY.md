@@ -36,7 +36,7 @@
 - [シリアル通信](10-serial-communication/README.md)
     - [*nixのツール](10-serial-communication/nix-tooling.md)
     - [Windowsのツール](10-serial-communication/windows-tooling.md)
-    - [Loopbacks](10-serial-communication/loopbacks.md)
+    - [ループバック](10-serial-communication/loopbacks.md)
 - [USART](11-usart/README.md)
     - [Send a single byte](11-usart/send-a-single-byte.md)
     - [Send a string](11-usart/send-a-string.md)
