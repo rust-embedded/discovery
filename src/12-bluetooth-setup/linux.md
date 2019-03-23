@@ -1,14 +1,27 @@
 # Linux
 
+<!-- 
 If you have a graphical Bluetooth manager, you can use that to pair your laptop to the Bluetooth
 module and skip most of these steps. You'll probably still have to [this step] though.
+ -->
 
-[this step]: #rfcomm-device
+グラフィカルなBluetoothマネージャがある場合、ノートPCとBluetoothモジュールのペアリングに使えます。その場合、これらのほとんどの手順は不要です。
+もしかすると、[この手順]は必要かもしれません。
 
-## Power up
+<!-- [this step]: #rfcomm-device -->
 
+[この手順]: #rfcomm-device
+
+<!-- ## Power up -->
+
+## 電源を入れる
+
+<!-- 
 First, your laptop's Bluetooth transceiver may be OFF. Check its status with `hciconfig` and turn it
 ON if necessary:
+ -->
+
+まず、ノートPCのBluetoothトランシーバは、オフになっている可能性があります。`hciconfig`で状態を確認し、必要があれば電源を入れて下さい。
 
 ``` console
 $ hciconfig
@@ -28,21 +41,29 @@ hci0:   Type: Primary  Bus: USB
         TX bytes:1072 acl:0 sco:0 commands:66 errors:0
 ```
 
-Then you need to launch the BlueZ (Bluetooth) daemon:
+<!-- Then you need to launch the BlueZ (Bluetooth) daemon: -->
 
-- On systemd based Linux distributions, use:
+その後、BlueZ (Bluetooth) デーモンを起動しなければなりません。
+
+<!-- - On systemd based Linux distributions, use: -->
+
+- systemdベースのLinuxディストリビューションでは、下記コマンドを使います。
 
 ``` console
 $ sudo systemctl start bluetooth
 ```
 
-- On Ubuntu (or upstart based Linux distributions), use:
+<!-- - On Ubuntu (or upstart based Linux distributions), use: -->
+
+- Ubuntu（またはupstartベースのLinuxディストリビューション）では、下記コマンドを使います。
 
 ``` console
 $ sudo /etc/init.d/bluetooth start
 ```
 
-You may also need to unblock your Bluetooth, depending on what `rfkill list` says:
+<!-- You may also need to unblock your Bluetooth, depending on what `rfkill list` says: -->
+
+Bluetoothをアンブロックする必要があるかもしれません。`rfkill list`の出力に依存します。
 
 ``` console
 $ rkfill list
@@ -59,7 +80,9 @@ $ rkfill list
 
 ```
 
-## Scan
+<!-- ## Scan -->
+
+## スキャン
 
 ``` console
 $ hcitool scan
@@ -68,7 +91,9 @@ Scanning ...
 $ #                             ^^^^^^
 ```
 
-## Pair
+<!-- ## Pair -->
+
+## ペアリング
 
 ``` console
 $ bluetoothctl
@@ -81,21 +106,33 @@ Request PIN code
 [agent] Enter PIN code: 1234
 ```
 
-## rfcomm device
+<!-- ## rfcomm device -->
 
+## rfcommデバイス
+
+<!-- 
 We'll create a device file for our Bluetooth module in `/dev`. Then we'll be able to use it just
 like we used `/dev/ttyUSB0`.
+ -->
+
+`/dev`にBluetoothデバイス用のデバイスファイルを作成します。すると、`/dev/ttyUSB0`を使ったように、Bluetoothデバイスを使うことができます。
 
 ``` console
 $ sudo rfcomm bind 0 20:16:05:XX:XX:XX
 ```
 
+<!-- 
 Because we used `0` as an argument to `bind`, `/dev/rfcomm0` will be the device file assigned to our
 Bluetooth module.
+ -->
 
-You can release (destroy) the device file at any time with the following command:
+`bind`の引数として`0`を使用したため、`/dev/rfcomm0`がBluetoothモジュールのデバイスファイルとして割り当てられます。
+
+<!-- You can release (destroy) the device file at any time with the following command: -->
+
+次のコマンドで、いつでもデバイスファイルを解放（削除）することができます。
 
 ``` console
-$ # Don't actually run this command right now!
+$ # 今はこのコマンドを実行しないで下さい！
 $ sudo rfcomm release 0
 ```
