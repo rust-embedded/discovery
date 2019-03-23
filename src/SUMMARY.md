@@ -44,7 +44,7 @@
     - [`uprintln!`](11-usart/uprintln.md)
     - [1バイト受信](11-usart/receive-a-single-byte.md)
     - [エコーサーバー](11-usart/echo-server.md)
-    - [Reverse a string](11-usart/reverse-a-string.md)
+    - [文字列の反転](11-usart/reverse-a-string.md)
     - [My solution](11-usart/my-solution.md)
 - [Bluetooth setup](12-bluetooth-setup/README.md)
     - [Linux](12-bluetooth-setup/linux.md)
