@@ -52,7 +52,7 @@
     <!-- - [AT commands]() -->
 - [Bluetooth経由のシリアル](13-serial-over-bluetooth/README.md)
 - [I2C](14-i2c/README.md)
-    - [The general protocol](14-i2c/the-general-protocol.md)
+    - [一般的なプロトコル](14-i2c/the-general-protocol.md)
     - [LSM303DLHC](14-i2c/lsm303dlhc.md)
     - [Read a single register](14-i2c/read-a-single-register.md)
     - [The solution](14-i2c/the-solution.md)
