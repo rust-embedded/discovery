@@ -45,7 +45,7 @@
     - [1バイト受信](11-usart/receive-a-single-byte.md)
     - [エコーサーバー](11-usart/echo-server.md)
     - [文字列の反転](11-usart/reverse-a-string.md)
-    - [My solution](11-usart/my-solution.md)
+    - [解答例](11-usart/my-solution.md)
 - [Bluetooth setup](12-bluetooth-setup/README.md)
     - [Linux](12-bluetooth-setup/linux.md)
     - [Loopback](12-bluetooth-setup/loopback.md)

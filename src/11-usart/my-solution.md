@@ -1,4 +1,6 @@
-# My solution
+<!-- # My solution -->
+
+# 解答例
 
 ```rust
 #![deny(unsafe_code)]
@@ -13,7 +15,7 @@ use heapless::{consts, Vec};
 fn main() -> ! {
     let (usart1, mono_timer, itm) = aux11::init();
 
-    // A buffer with 32 bytes of capacity
+    // 32バイト容量のバッファ
     let mut buffer: Vec<u8, consts::U32> = Vec::new();
 
     loop {
@@ -24,7 +26,7 @@ fn main() -> ! {
             let byte = usart1.rdr.read().rdr().bits() as u8;
 
             if buffer.push(byte).is_err() {
-                // buffer full
+                // バッファが満杯
                 for byte in b"error: buffer full\n\r" {
                     while usart1.isr.read().txe().bit_is_clear() {}
                     usart1.tdr.write(|w| w.tdr().bits(u16::from(*byte)));
@@ -33,9 +35,9 @@ fn main() -> ! {
                 break;
             }
 
-            // Carriage return
+            // キャリッジリターン
             if byte == 13 {
-                // Respond
+                // 返信
                 for byte in buffer.iter().rev().chain(&[b'\n', b'\r']) {
                     while usart1.isr.read().txe().bit_is_clear() {}
                     usart1.tdr.write(|w| w.tdr().bits(u16::from(*byte)));
