@@ -39,7 +39,7 @@
     - [ループバック](10-serial-communication/loopbacks.md)
 - [USART](11-usart/README.md)
     - [1バイト送信](11-usart/send-a-single-byte.md)
-    - [Send a string](11-usart/send-a-string.md)
+    - [文字列送信](11-usart/send-a-string.md)
     - [Buffer overrun](11-usart/buffer-overrun.md)
     - [`uprintln!`](11-usart/uprintln.md)
     - [Receive a single byte](11-usart/receive-a-single-byte.md)
