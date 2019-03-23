@@ -42,7 +42,7 @@
     - [文字列送信](11-usart/send-a-string.md)
     - [バッファオーバーラン](11-usart/buffer-overrun.md)
     - [`uprintln!`](11-usart/uprintln.md)
-    - [Receive a single byte](11-usart/receive-a-single-byte.md)
+    - [1バイト受信](11-usart/receive-a-single-byte.md)
     - [Echo server](11-usart/echo-server.md)
     - [Reverse a string](11-usart/reverse-a-string.md)
     - [My solution](11-usart/my-solution.md)
