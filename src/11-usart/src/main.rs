@@ -9,7 +9,7 @@ use aux11::{entry, iprint, iprintln};
 fn main() -> ! {
     let (usart1, mono_timer, itm) = aux11::init();
 
-    // Send a single character
+    // 1文字送信します
     usart1.tdr.write(|w| w.tdr().bits(u16::from(b'X')));
 
     loop {}
