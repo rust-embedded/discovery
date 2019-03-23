@@ -40,7 +40,7 @@
 - [USART](11-usart/README.md)
     - [1バイト送信](11-usart/send-a-single-byte.md)
     - [文字列送信](11-usart/send-a-string.md)
-    - [Buffer overrun](11-usart/buffer-overrun.md)
+    - [バッファオーバーラン](11-usart/buffer-overrun.md)
     - [`uprintln!`](11-usart/uprintln.md)
     - [Receive a single byte](11-usart/receive-a-single-byte.md)
     - [Echo server](11-usart/echo-server.md)
