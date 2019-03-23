@@ -50,7 +50,7 @@
     - [Linux](12-bluetooth-setup/linux.md)
     - [ループバック](12-bluetooth-setup/loopback.md)
     <!-- - [AT commands]() -->
-- [Serial over Bluetooth](13-serial-over-bluetooth/README.md)
+- [Bluetooth経由のシリアル](13-serial-over-bluetooth/README.md)
 - [I2C](14-i2c/README.md)
     - [The general protocol](14-i2c/the-general-protocol.md)
     - [LSM303DLHC](14-i2c/lsm303dlhc.md)
