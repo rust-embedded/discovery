@@ -61,7 +61,7 @@
     - [第一弾](15-led-compass/take-1.md)
     - [解答例1](15-led-compass/solution-1.md)
     - [第二弾](15-led-compass/take-2.md)
-    - [Solution 2](15-led-compass/solution-2.md)
+    - [解答例2](15-led-compass/solution-2.md)
     - [Magnitude](15-led-compass/magnitude.md)
     - [Calibration](15-led-compass/calibration.md)
 - [Punch-o-meter](16-punch-o-meter/README.md)

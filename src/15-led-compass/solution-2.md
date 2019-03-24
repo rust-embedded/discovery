@@ -1,11 +1,13 @@
-# Solution 2
+<!-- # Solution 2 -->
+
+# 解答例2
 
 ``` rust
 #![deny(unsafe_code)]
 #![no_main]
 #![no_std]
 
-// You'll find this useful ;-)
+// これが便利だと気づくでしょう ;-)
 use core::f32::consts::PI;
 
 #[allow(unused_imports)]
@@ -19,7 +21,7 @@ fn main() -> ! {
     loop {
         let I16x3 { x, y, .. } = lsm303dlhc.mag().unwrap();
 
-        let theta = (y as f32).atan2(x as f32); // in radians
+        let theta = (y as f32).atan2(x as f32); // ラジアン
 
         let dir = if theta < -7. * PI / 8. {
             Direction::North
