@@ -72,7 +72,7 @@
 
 ---
 
-[General troubleshooting](appendix/1-general-troubleshooting/README.md)
+[トラブルシューティング](appendix/1-general-troubleshooting/README.md)
 
 <!-- - [Async IO: The future](17-async-io-the-future/README.md) -->
 <!--     - [Timer](17-async-io-the-future/timer.md) -->
