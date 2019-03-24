@@ -58,7 +58,7 @@
     - [解答例](14-i2c/the-solution.md)
     - [複数のレジスタを読む](14-i2c/read-several-registers.md)
 - [LEDコンパス](15-led-compass/README.md)
-    - [Take 1](15-led-compass/take-1.md)
+    - [1回目](15-led-compass/take-1.md)
     - [Solution 1](15-led-compass/solution-1.md)
     - [Take 2](15-led-compass/take-2.md)
     - [Solution 2](15-led-compass/solution-2.md)
