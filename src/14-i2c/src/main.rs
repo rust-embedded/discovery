@@ -5,10 +5,10 @@
 #[allow(unused_imports)]
 use aux14::{entry, iprint, iprintln, prelude::*};
 
-// Slave address
+// スレーブアドレス
 const MAGNETOMETER: u8 = 0b001_1110;
 
-// Addresses of the magnetometer's registers
+// 磁気計レジスタのアドレス
 const OUT_X_H_M: u8 = 0x03;
 const IRA_REG_M: u8 = 0x0A;
 
@@ -16,29 +16,28 @@ const IRA_REG_M: u8 = 0x0A;
 fn main() -> ! {
     let (i2c1, _delay, mut itm) = aux14::init();
 
-    // Stage 1: Send the address of the register we want to read to the
-    // magnetometer
+    // ステージ1：読みたいレジスタのアドレスを磁気計に送信します。
     {
-        // TODO Broadcast START
+        // TODO STARTをブロードキャストします
 
-        // TODO Broadcast the MAGNETOMETER address with the R/W bit set to Write
+        // TODO 磁気計のアドレスをR/WビットをWriteに設定して、ブロードキャストします
 
-        // TODO Send the address of the register that we want to read: IRA_REG_M
+        // TODO 読みたい`IRA_REG_M`レジスタのアドレスを送信します
     }
 
-    // Stage 2: Receive the contents of the register we asked for
+    // ステージ2：要求したレジスタの内容を受信します
     let byte = {
-        // TODO Broadcast RESTART
+        // TODO RESTARTをブロードキャストします
 
-        // TODO Broadcast the MAGNETOMETER address with the R/W bit set to Read
+        // TODO 磁気計のアドレスをR/WビットをReadに設定して、ブロードキャストします
 
-        // TODO Receive the contents of the register
+        // TODO レジスタの内容を受信します
 
-        // TODO Broadcast STOP
+        // TODO STOPをブロードキャストします
         0
     };
 
-    // Expected output: 0x0A - 0b01001000
+    // 期待する出力：0x0A - 0b01001000
     iprintln!(&mut itm.stim[0], "0x{:02X} - 0b{:08b}", IRA_REG_M, byte);
 
     loop {}

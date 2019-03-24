@@ -54,7 +54,7 @@
 - [I2C](14-i2c/README.md)
     - [一般的なプロトコル](14-i2c/the-general-protocol.md)
     - [LSM303DLHC](14-i2c/lsm303dlhc.md)
-    - [Read a single register](14-i2c/read-a-single-register.md)
+    - [1つのレジスタを読む](14-i2c/read-a-single-register.md)
     - [The solution](14-i2c/the-solution.md)
     - [Read several registers](14-i2c/read-several-registers.md)
 - [LED compass](15-led-compass/README.md)
