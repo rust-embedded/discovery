@@ -31,8 +31,8 @@ gyroscope. The accelerometer and magnetometer are packaged in a single component
 via an I2C bus.
  -->
 
-使用しているF3ボードには、加速度計、磁気計、ジャイロスコープの3つのモーションセンサがあります。
-加速度計と磁気計は1つのコンポーネントにパッケージされており、I2Cバスでアクセスできます。
+使用しているF3ボードには、加速度計、磁力計、ジャイロスコープの3つのモーションセンサがあります。
+加速度計と磁力計は1つのコンポーネントにパッケージされており、I2Cバスでアクセスできます。
 
 <!-- 
 I2C stands for Inter-Integrated Circuit and is a *synchronous* *serial* communication protocol. It

@@ -52,7 +52,7 @@ Your task is to write a program that reads the contents of the magnetometer's `I
 This register is read only and always contains the value `0b01001000`.
  -->
 
-あなたのタスクは、磁気計の`IRA_REG_M`レジスタの内容を読み取るプログラムを書くことです。
+あなたのタスクは、磁力計の`IRA_REG_M`レジスタの内容を読み取るプログラムを書くことです。
 このレジスタは読み込み専用で、常に`0b01001000`という値が入っています。
 
 <!-- 
@@ -60,7 +60,7 @@ The microcontroller will be taking the role of the I2C master and the magnetomet
 LSM303DLHC will be the I2C slave.
  -->
 
-マイクロコントローラは、I2Cマスターの役割を果たします。そしてLSM303DLHC内の磁気計は、I2Cスレーブになります。
+マイクロコントローラは、I2Cマスターの役割を果たします。そしてLSM303DLHC内の磁力計は、I2Cスレーブになります。
 
 <!-- Here's the starter code. You'll have to implement the `TODO`s. -->
 

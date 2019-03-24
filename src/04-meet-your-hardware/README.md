@@ -53,7 +53,7 @@
 
 <!-- - An [accelerometer] and a [magnetometer][] (in a single package). -->
 
-- [加速度計]1つと[磁気計]1つ（1つのパッケージ内にまとめられています）。
+- [加速度計]1つと[磁力計]1つ（1つのパッケージ内にまとめられています）。
 
 <!-- 
 [accelerometer]: https://en.wikipedia.org/wiki/Accelerometer
@@ -61,7 +61,7 @@
  -->
 
 [加速度計]: https://en.wikipedia.org/wiki/Accelerometer
-[磁気計]: https://en.wikipedia.org/wiki/Magnetometer
+[磁力計]: https://en.wikipedia.org/wiki/Magnetometer
 
 <!-- - A [gyroscope]. -->
 

@@ -15,7 +15,7 @@ This time, we'll read the registers of the magnetometer that actually expose the
 Six contiguous registers are involved and they start with `OUT_X_H_M` at address `0x03`.
  -->
 
-今回は、実際のセンサの測定値がわかる磁気計のレジスタを読みます。
+今回は、実際のセンサの測定値がわかる磁力計のレジスタを読みます。
 6つの連続したレジスタが関係しており、そのレジスタは`0x03`番地の`OUT_X_H_M`から始まります。
 
 <!-- 
@@ -28,7 +28,7 @@ We'll modify our previous program to read these six registers. Only a few modifi
 We'll need to change the address we request from the magnetometer from `IRA_REG_M` to `OUT_X_H_M`.
  -->
 
-磁気計に要求するアドレスを、`IRA_REG_M`から`OUT_X_H_M`に変更します。
+磁力計に要求するアドレスを、`IRA_REG_M`から`OUT_X_H_M`に変更します。
 
 ``` rust
     // 読みたい`OUT_X_H_M`レジスタのアドレスを送信します
@@ -41,7 +41,7 @@ We'll need to change the address we request from the magnetometer from `IRA_REG_
 
 ``` rust
     // RESTARTをブロードキャストします
-    // 磁気計のアドレスをR/WビットをReadに設定して、ブロードキャストします
+    // 磁力計のアドレスをR/WビットをReadに設定して、ブロードキャストします
     i2c1.cr2.modify(|_, w| {
         w.start().set_bit();
         w.nbytes().bits(6);
@@ -83,7 +83,7 @@ use aux14::{entry, iprint, iprintln, prelude::*};
 // スレーブアドレス
 const MAGNETOMETER: u8 = 0b001_1110;
 
-// 磁気計レジスタのアドレス
+// 磁力計レジスタのアドレス
 const OUT_X_H_M: u8 = 0x03;
 const IRA_REG_M: u8 = 0x0A;
 
@@ -93,7 +93,7 @@ fn main() -> ! {
 
     loop {
         // STARTをブロードキャストします
-        // 磁気計のアドレスをR/WビットをWriteに設定して、ブロードキャストします
+        // 磁力計のアドレスをR/WビットをWriteに設定して、ブロードキャストします
         i2c1.cr2.write(|w| {
             w.start().set_bit();
             w.sadd1().bits(MAGNETOMETER);
@@ -112,7 +112,7 @@ fn main() -> ! {
         while i2c1.isr.read().tc().bit_is_clear() {}
 
         // RESTARTをブロードキャストします
-        // 磁気計のアドレスをR/WビットをReadに設定して、ブロードキャストします
+        // 磁力計のアドレスをR/WビットをReadに設定して、ブロードキャストします
         i2c1.cr2.modify(|_, w| {
             w.start().set_bit();
             w.nbytes().bits(6);
@@ -187,7 +187,7 @@ $ # `itmdump terminal
 This is the Earth's magnetic field decomposed alongside the XYZ axis of the magnetometer.
  -->
 
-これは、磁気計のXYZ軸で分解された地球磁場です。
+これは、磁力計のXYZ軸で分解された地球磁場です。
 
 <!-- In the next section, we'll learn how to make sense of these numbers. -->
 

@@ -6,7 +6,7 @@ component: the LSM303DLHC integrated circuit. These two sensors can be accessed 
 sensor behaves like an I2C slave and has a *different* address.
  -->
 
-F3にある磁気計と加速度計の2つのセンサは、1つのコンポーネントにまとめられています。このコンポーネントは、LSM303DLHCという集積回路です。
+F3にある磁力計と加速度計の2つのセンサは、1つのコンポーネントにまとめられています。このコンポーネントは、LSM303DLHCという集積回路です。
 これら2つのセンサは、I2Cバスでアクセスできます。各センサは*異なる*アドレスを持つI2Cスレーブとして動作します。
 
 <!-- 

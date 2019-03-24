@@ -7,7 +7,7 @@ This time, we'll use math to get the precise angle that the magnetic field forms
 axes of the magnetometer.
  -->
 
-今回は、磁気計のX、Y軸から、数学を使って磁場の正確な角度を求めます。
+今回は、磁力計のX、Y軸から、数学を使って磁場の正確な角度を求めます。
 
 <!-- 
 We'll use the `atan2` function. This function returns an angle in the `-PI` to `PI` range. The

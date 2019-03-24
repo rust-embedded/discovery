@@ -8,7 +8,7 @@ use aux14::{entry, iprint, iprintln, prelude::*};
 // スレーブアドレス
 const MAGNETOMETER: u8 = 0b001_1110;
 
-// 磁気計レジスタのアドレス
+// 磁力計レジスタのアドレス
 const OUT_X_H_M: u8 = 0x03;
 const IRA_REG_M: u8 = 0x0A;
 
@@ -16,11 +16,11 @@ const IRA_REG_M: u8 = 0x0A;
 fn main() -> ! {
     let (i2c1, _delay, mut itm) = aux14::init();
 
-    // ステージ1：読みたいレジスタのアドレスを磁気計に送信します。
+    // ステージ1：読みたいレジスタのアドレスを磁力計に送信します。
     {
         // TODO STARTをブロードキャストします
 
-        // TODO 磁気計のアドレスをR/WビットをWriteに設定して、ブロードキャストします
+        // TODO 磁力計のアドレスをR/WビットをWriteに設定して、ブロードキャストします
 
         // TODO 読みたい`IRA_REG_M`レジスタのアドレスを送信します
     }
@@ -29,7 +29,7 @@ fn main() -> ! {
     let byte = {
         // TODO RESTARTをブロードキャストします
 
-        // TODO 磁気計のアドレスをR/WビットをReadに設定して、ブロードキャストします
+        // TODO 磁力計のアドレスをR/WビットをReadに設定して、ブロードキャストします
 
         // TODO レジスタの内容を受信します
 

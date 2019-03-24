@@ -18,11 +18,11 @@ but it reports back the *decomposition* of said field along *its axes*.
  -->
 
 磁場は、ガウスまたはテスラで測定された大きさと、*方向*の両方を持ちます。
-F3の磁気計は、外部磁界の大きさと方向とを測定します。しかし、*ボードの軸*に沿って磁場を*分解*したものを報告します。
+F3の磁力計は、外部磁界の大きさと方向とを測定します。しかし、*ボードの軸*に沿って磁場を*分解*したものを報告します。
 
 <!-- See below, the magnetometer has three axes associated to it. -->
 
-下記の通り、磁気計は関連する3つの軸を持ちます。
+下記の通り、磁力計は関連する3つの軸を持ちます。
 
 <p align="center">
 <img height=480 title="Magnetometer axes" src="../assets/f3-lsm303dlhc.png">
@@ -36,7 +36,7 @@ F3の磁気計は、外部磁界の大きさと方向とを測定します。し
 Let's get familiar with the readings of the magnetometer by running the following starter code:
  -->
 
-次のスターターコードを実行して、磁気計の読み取り方に詳しくなりましょう。
+次のスターターコードを実行して、磁力計の読み取り方に詳しくなりましょう。
 
 ``` rust
 {{#include src/main.rs}}
