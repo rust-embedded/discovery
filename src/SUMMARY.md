@@ -64,7 +64,7 @@
     - [解答例2](15-led-compass/solution-2.md)
     - [大きさ](15-led-compass/magnitude.md)
     - [キャリブレーション](15-led-compass/calibration.md)
-- [Punch-o-meter](16-punch-o-meter/README.md)
+- [パンチングマシン](16-punch-o-meter/README.md)
     - [Gravity is up?](16-punch-o-meter/gravity-is-up.md)
     - [The challenge](16-punch-o-meter/the-challenge.md)
     - [My solution](16-punch-o-meter/my-solution.md)
