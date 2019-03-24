@@ -67,7 +67,7 @@
 - [パンチングマシン](16-punch-o-meter/README.md)
     - [重力は上を向いている？](16-punch-o-meter/gravity-is-up.md)
     - [課題](16-punch-o-meter/the-challenge.md)
-    - [My solution](16-punch-o-meter/my-solution.md)
+    - [解答例](16-punch-o-meter/my-solution.md)
 - [What's left for you to explore](explore.md)
 
 ---

@@ -1,4 +1,6 @@
-# My solution
+<!-- # My solution -->
+
+# 解答例
 
 ``` rust
 #![deny(unsafe_code)]
@@ -18,7 +20,7 @@ fn main() -> ! {
 
     lsm303dlhc.set_accel_sensitivity(Sensitivity::G12).unwrap();
 
-    let measurement_time = mono_timer.frequency().0; // 1 second in ticks
+    let measurement_time = mono_timer.frequency().0; // 1秒ティック
     let mut instant = None;
     let mut max_g = 0.;
     loop {
@@ -26,7 +28,7 @@ fn main() -> ! {
 
         match instant {
             None => {
-                // If acceleration goes above a threshold, we start measuring
+                // 加速度がしきい値を超えると、計測を開始します
                 if g_x > THRESHOLD {
                     iprintln!(&mut itm.stim[0], "START!");
 
@@ -34,20 +36,20 @@ fn main() -> ! {
                     instant = Some(mono_timer.now());
                 }
             }
-            // Still measuring
+            // まだ計測しています
             Some(ref instant) if instant.elapsed() < measurement_time => {
                 if g_x > max_g {
                     max_g = g_x;
                 }
             }
             _ => {
-                // Report max value
+                // 最大値を報告します
                 iprintln!(&mut itm.stim[0], "Max acceleration: {}g", max_g);
 
-                // Measurement done
+                // 計測を終了します
                 instant = None;
 
-                // Reset
+                // リセットします
                 max_g = 0.;
             }
         }
