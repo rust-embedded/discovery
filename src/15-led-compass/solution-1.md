@@ -1,4 +1,6 @@
-# Solution 1
+<!-- # Solution 1 -->
+
+# 解答例1
 
 ``` rust
 #![deny(unsafe_code)]
@@ -15,16 +17,15 @@ fn main() -> ! {
     loop {
         let I16x3 { x, y, .. } = lsm303dlhc.mag().unwrap();
 
-        // Look at the signs of the X and Y components to determine in which
-        // quadrant the magnetic field is
+        // 磁場がどの象限に属するか決めるため、XとY要素の符号を見ます。
         let dir = match (x > 0, y > 0) {
-            // Quadrant I
+            // 第I象限
             (true, true) => Direction::Southeast,
-            // Quadrant II
+            // 第II象限
             (false, true) => Direction::Northeast,
-            // Quadrant III
+            // 第III象限
             (false, false) => Direction::Northwest,
-            // Quadrant IV
+            // 第IV象限
             (true, false) => Direction::Southwest,
         };
 
