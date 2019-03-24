@@ -56,7 +56,7 @@
     - [LSM303DLHC](14-i2c/lsm303dlhc.md)
     - [1つのレジスタを読む](14-i2c/read-a-single-register.md)
     - [解答例](14-i2c/the-solution.md)
-    - [Read several registers](14-i2c/read-several-registers.md)
+    - [複数のレジスタを読む](14-i2c/read-several-registers.md)
 - [LED compass](15-led-compass/README.md)
     - [Take 1](15-led-compass/take-1.md)
     - [Solution 1](15-led-compass/solution-1.md)
