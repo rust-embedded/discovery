@@ -1,6 +1,6 @@
 <!-- # Take 1 -->
 
-# 1回目
+# 第一弾
 
 <!-- What's the simplest way in which we can implement the LED compass? Even if it's not perfect. -->
 
