@@ -2,7 +2,7 @@
 
 > Discover the world of microcontrollers through [Rust]!
 
-[Rust]: https://www.rust-lang.org/en-US/
+[Rust]: https://www.rust-lang.org/
 
 This book is an introductory course on microcontroller-based embedded systems that uses Rust as the
 teaching language rather than the usual C/C++.

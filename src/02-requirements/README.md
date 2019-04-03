@@ -99,4 +99,4 @@ and "easy to follow"-ness, IMO.
 If you have a different development board and you don't consider yourself a total beginner, you are
 better off starting with the [quickstart] project template.
 
-[quickstart]: https://docs.rs/cortex-m-quickstart
+[quickstart]: https://rust-embedded.github.io/cortex-m-quickstart/cortex_m_quickstart/
