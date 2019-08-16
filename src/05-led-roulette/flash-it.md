@@ -79,6 +79,8 @@ Info : stm32f3x.cpu: hardware has 6 breakpoints, 4 watchpoints
 The "6 breakpoints, 4 watchpoints" part indicates the debugging features the processor has
 available.
 
+Leave that `openocd` process running, and open a new terminal. Make sure that you are inside the project's `src/05-led-roulette/` directory.
+
 I mentioned that OpenOCD provides a GDB server so let's connect to that right now:
 
 ``` console
@@ -99,6 +101,8 @@ command within the GDB shell:
 Remote debugging using :3333
 0x00000000 in ?? ()
 ```
+
+**NOTE**: If you are getting errors like `undefined debug reason 7 - target needs reset` on the OpenOCD GDB server, then you may need to try using `arm-none-eabi-gdb` instead of the `gdb` command, as described above.
 
 By default OpenOCD's GDB server listens on TCP port 3333 (localhost). This command is connecting to
 that port.
