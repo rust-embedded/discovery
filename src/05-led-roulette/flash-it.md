@@ -102,7 +102,9 @@ Remote debugging using :3333
 0x00000000 in ?? ()
 ```
 
-**NOTE**: If you are getting errors like `undefined debug reason 7 - target needs reset` on the OpenOCD GDB server, then you may need to try using `arm-none-eabi-gdb` instead of the `gdb` command, as described above.
+**NOTE**: If you are getting errors like `undefined debug reason 7 - target needs reset`, you can try running `monitor reset halt` as described [here](https://stackoverflow.com/questions/38994596/reason-7-target-needs-reset-unreliable-debugging-setup).
+
+**NOTE**: If the debugger is still not connecting to the OpenOCD server, then you may need to try using `arm-none-eabi-gdb` instead of the `gdb` command, as described above.
 
 By default OpenOCD's GDB server listens on TCP port 3333 (localhost). This command is connecting to
 that port.
