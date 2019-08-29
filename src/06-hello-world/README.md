@@ -104,7 +104,7 @@ Breakpoint 1, main () at src/06-hello-world/src/main.rs:10
 10          let mut itm = aux6::init();
 ```
 
-Note that there's a `.gdbinit` at the root of the Cargo project. It's pretty similar to the one we
+Note that there's a `openocd.gdb` at the root of the Cargo project. It's pretty similar to the one we
 used in the previous section.
 
 Before we execute the `iprintln!` statement. We have to instruct OpenOCD to redirect the ITM output
