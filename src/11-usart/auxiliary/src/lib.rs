@@ -29,6 +29,9 @@ pub fn init() -> (&'static mut usart1::RegisterBlock, MonoTimer, ITM) {
     let rx = gpioa.pa10.into_af7(&mut gpioa.moder, &mut gpioa.afrh);
 
     Serial::usart1(dp.USART1, (tx, rx), 115_200.bps(), clocks, &mut rcc.apb2);
+    // If you are having trouble sending/receiving data to/from the
+    // HC-05 bluetooth module, try this configuration instead:
+    // Serial::usart1(dp.USART1, (tx, rx), 9600.bps(), clocks, &mut rcc.apb2);
 
     unsafe {
         (
