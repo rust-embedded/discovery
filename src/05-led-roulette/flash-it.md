@@ -18,12 +18,10 @@ $ # *nix
 $ cd /tmp
 
 $ # Windows
-$ cd %TEMP%
+$ cd ~\AppData\Local\Temp
 
-$ # Windows: remember that you need an extra `-s %PATH_TO_OPENOCD%\share\scripts`
-$ openocd \
-  -f interface/stlink-v2-1.cfg \
-  -f target/stm32f3x.cfg
+$ # Windows and *nix
+$ openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
 ```
 
 > **NOTE** Older revisions of the board need to pass slightly different arguments to
