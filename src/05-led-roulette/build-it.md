@@ -74,4 +74,6 @@ ELF Header:
   Section header string table index: 18
 ```
 
+* For Windows, you will need to go into the `discovery\target\thumbv7em-none-eabihf\debug` folder and manually change the filetype of `led-roulette` to `.exe` for the file to be recognized. 
+
 Next, we'll flash the program into our microcontroller.
