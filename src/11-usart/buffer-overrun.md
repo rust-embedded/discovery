@@ -52,7 +52,7 @@ so let me quote myself:
 Our pangram has a length of 45 bytes. That means it's going to take, at least, 3,900 microseconds
 (`45 bytes / (11,520 bytes/s) = 3,906 us`) to send the string. The processor is working at 8 MHz,
 where executing an instruction takes 125 nanoseconds, so it's likely going to be done with the `for`
-loop is less than 3,900 microseconds.
+loop in less than 3,900 microseconds.
 
 We can actually time how long it takes to execute the `for` loop. `aux11::init()` returns a
 `MonoTimer` (monotonic timer) value that exposes an `Instant` API that's similar to the one in
