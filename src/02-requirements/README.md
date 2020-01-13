@@ -55,7 +55,8 @@ cheaper for you to get)
 </p>
 
 - Two mini-B USB cables. One is required to make the STM32F3DISCOVERY board work. The other is only
-  required if you have the Serial <-> USB module.
+  required if you have the Serial <-> USB module. Make sure that the cables both
+  support data transfer as some cables only support charging devices.
 
 <p align="center">
 <img title="mini-B USB cable" src="../assets/usb-cable.jpg">
