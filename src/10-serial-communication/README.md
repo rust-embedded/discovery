@@ -14,7 +14,7 @@ Nah, don't worry. This connector, the DE-9, went out of fashion on PCs quite som
 replaced by the Universal Serial Bus (USB). We won't be dealing with the DE-9 connector itself but
 with the communication protocol that this cable is/was usually used for.
 
-So what's this *serial communication*? It's an *asynchronous* communication protocol where two
+So what's this [*serial communication*][ASC]? It's an *asynchronous* communication protocol where two
 devices exchange data *serially*, as in one bit at a time, using two data lines (plus a common
 ground). The protocol is asynchronous in the sense that neither of the shared lines carries a clock
 signal. Instead both parties must agree on how fast data will be sent along the wire *before* the
@@ -49,3 +49,5 @@ offers. Pick a route:
 
 - [*nix](nix-tooling.md)
 - [Windows](windows-tooling.md)
+
+[ASC]: https://en.wikipedia.org/wiki/Asynchronous_serial_communication
