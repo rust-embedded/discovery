@@ -77,7 +77,7 @@ fn main() -> ! {
         // Wait until we can send more data
         while i2c1.isr.read().txis().bit_is_clear() {}
 
-        // Send the address of the register that we want to read: IRA_REG_M
+        // Send the address of the register that we want to read: OUT_X_H_M
         i2c1.txdr.write(|w| w.txdata().bits(OUT_X_H_M));
 
         // Wait until the previous byte has been transmitted
