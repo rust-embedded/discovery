@@ -14,7 +14,7 @@ families within that architecture:
 - `thumbv7em-none-eabi`, for the Cortex-M4 and Cortex-M7 processors
 - `thumbv7em-none-eabihf`, for the Cortex-M4**F** and Cortex-M7**F** processors
 
-For the F3, we'll to use the `thumbv7em-none-eabihf` target. Before cross compiling you have to
+For the F3, we'll use the `thumbv7em-none-eabihf` target. Before cross compiling you have to
 download pre-compiled version of the standard library (a reduced version of it actually) for your
 target. That's done using `rustup`:
 
