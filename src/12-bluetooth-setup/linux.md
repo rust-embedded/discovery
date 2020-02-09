@@ -45,14 +45,14 @@ $ sudo /etc/init.d/bluetooth start
 You may also need to unblock your Bluetooth, depending on what `rfkill list` says:
 
 ``` console
-$ rkfill list
+$ rfkill list
 9: hci0: Bluetooth
         Soft blocked: yes # <--
         Hard blocked: no
 
 $ sudo rfkill unblock bluetooth
 
-$ rkfill list
+$ rfkill list
 9: hci0: Bluetooth
         Soft blocked: no  # <--
         Hard blocked: no
