@@ -19,7 +19,7 @@ several MBs in size.
 - [LSM303DLHC]
 - [L3GD20]
 
-[L3GD20]: http://www.st.com/resource/en/datasheet/l3gd20.pdf
+[L3GD20]: https://www.st.com/content/ccc/resource/technical/document/application_note/2c/d9/a7/f8/43/48/48/64/DM00119036.pdf/files/DM00119036.pdf/jcr:content/translations/en.DM00119036.pdf
 [LSM303DLHC]: http://www.st.com/resource/en/datasheet/lsm303dlhc.pdf
 [ds]: http://www.st.com/resource/en/datasheet/stm32f303vc.pdf
 [rm]: http://www.st.com/resource/en/reference_manual/dm00043574.pdf
