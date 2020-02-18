@@ -7,7 +7,7 @@ We'll use the `atan2` function. This function returns an angle in the `-PI` to `
 graphic below shows how this angle is measured:
 
 <p align="center">
-<img title="atan2" src="https://upload.wikimedia.org/wikipedia/commons/0/03/Atan2_60.svg">
+<img title="atan2" class="white_bg" src="https://upload.wikimedia.org/wikipedia/commons/0/03/Atan2_60.svg">
 </p>
 
 Although not explicitly shown in this graph the X axis points to the right and the Y axis points up.

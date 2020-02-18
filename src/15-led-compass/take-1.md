@@ -21,7 +21,7 @@ If we only looked at the signs of the X and Y components we could determine to w
 magnetic field belongs to.
 
 <p align="center">
-<img title="Quadrants" src="../assets/quadrants.png">
+<img title="Quadrants" class="white_bg" src="../assets/quadrants.png">
 </p>
 
 In the previous example, the magnetic field was in the first quadrant (x and y were positive) and it

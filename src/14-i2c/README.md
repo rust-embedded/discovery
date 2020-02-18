@@ -19,7 +19,7 @@ uses two lines to exchange data: a data line (SDA) and a clock line (SCL). Becau
 used to synchronize the communication, this is a *synchronous* protocol.
 
 <p align="center">
-<img height=180 title="I2C bus" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/I2C.svg">
+<img height=180 title="I2C bus" class="white_bg" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/I2C.svg">
 </p>
 
 This protocol uses a *master* *slave* model where the master is the device that *starts* and

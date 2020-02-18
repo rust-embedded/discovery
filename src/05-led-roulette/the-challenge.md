@@ -12,7 +12,7 @@ Here's the GIF again:
 Also, this may help:
 
 <p align="center">
-<img src="../assets/timing-diagram.png">
+<img class="white_bg" src="../assets/timing-diagram.png">
 </p>
 
 This is a timing diagram. It indicates which LED is on at any given instant of time and for how long

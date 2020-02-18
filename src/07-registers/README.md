@@ -28,7 +28,7 @@ connected to LEDs. An LED, a Light Emitting Diode, will only emit light when vol
 it with a certain polarity.
 
 <p align="center">
-<img height=180 title="LED circuit" src="https://upload.wikimedia.org/wikipedia/commons/c/c9/LED_circuit.svg">
+<img height=180 title="LED circuit" class="white_bg" src="https://upload.wikimedia.org/wikipedia/commons/c/c9/LED_circuit.svg">
 </p>
 
 Luckily for us, the microcontroller's pins are connected to the LEDs with the right polarity. All

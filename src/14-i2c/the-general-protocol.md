@@ -8,7 +8,7 @@ communication between several devices. Let's see how it works using examples:
 If the master wants to send data to the slave:
 
 <p align="center">
-  <img height=180 title="I2C bus" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/I2C.svg">
+  <img height=180 title="I2C bus" class="white_bg" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/I2C.svg">
 </p>
 
 1. Master: Broadcast START
@@ -27,7 +27,7 @@ If the master wants to send data to the slave:
 If the master wants to read data from the slave:
 
 <p align="center">
-<img height=180 title="I2C bus" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/I2C.svg">
+<img height=180 title="I2C bus" class="white_bg" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/I2C.svg">
 </p>
 
 1. M: Broadcast START
