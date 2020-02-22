@@ -5,7 +5,7 @@
 > **not** soldered even though the [User Manual][] (page 21) says that it **should be**.
 
 > **TL;DR** You have two options to fix this: Either **solder** the solder bridge SB10 or connect a
-> wire between SWO and PB3 as shown in the picture below.
+> female to female jumper wire between SWO and PB3 as shown in the picture below.
 
 [User Manual]: http://www.st.com/resource/en/user_manual/dm00063382.pdf
 
