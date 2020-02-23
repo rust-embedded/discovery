@@ -12,7 +12,7 @@ Just like with the USART peripheral, I've taken care of initializing everything 
 
 These registers are documented in the following section of the Reference Manual:
 
-> Section 28.7 I2C registers - Page 873 - Reference Manual
+> Section 28.7 I2C registers - Page 868 - Reference Manual
 
 We'll be using the `I2C1` peripheral in conjunction with pins `PB6` (`SCL`) and `PB7` (`SDA`).
 
