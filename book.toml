@@ -5,4 +5,4 @@ author = "Rust Embedded Resources Team"
 language = "en"
 
 [output.html]
-additional-css = ["custom.css"]
+additional-css = ["./custom.css"]
