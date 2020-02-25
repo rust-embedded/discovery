@@ -12,8 +12,7 @@ main() {
         sh -s -- \
            --force \
            --git rust-lang/mdbook \
-           --tag $tag \
-           --target x86_64-unknown-linux-musl
+           --tag $tag
 
     rustup target add thumbv7em-none-eabihf
 
