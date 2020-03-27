@@ -22,7 +22,7 @@ recommend `C:\OpenOCD` but with the drive letter that makes sense to you) then u
 environment variable to include the following path: `C:\OpenOCD\bin` (or the path that you used
 before).
 
-[openocd]: https://github.com/gnu-mcu-eclipse/openocd/releases
+[openocd]: https://github.com/xpack-dev-tools/openocd-xpack/releases
 
 Verify that OpenOCD is in yout `%PATH%` with:
 
