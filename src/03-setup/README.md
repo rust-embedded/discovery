@@ -32,7 +32,7 @@ should work but we have listed the version we have tested.
 
 - Rust 1.31 or a newer toolchain.
 
-- [`itmdump`] v0.3.1
+- [`itmdump`] v0.3.1 (`cargo install itm`)
 
 - OpenOCD >=0.8. Tested versions: v0.9.0 and v0.10.0
 
