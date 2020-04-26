@@ -1,5 +1,26 @@
 # *nix tooling
 
+## Newer revisions of the discovery board
+
+With newer revisions, if you connect the discovery board to your laptop / PC you
+should see a new TTY device appear in `/dev`.
+
+``` console
+$ # Linux
+$ dmesg | tail | grep -i tty
+[13560.675310] cdc_acm 1-1.1:1.2: ttyACM0: USB ACM device
+```
+
+This is the USB <-> Serial device. On Linux, it's named `tty*` (usually
+`ttyACM*` or `ttyUSB*`).
+
+If you don't see the device appear then you probably have an older revision of
+the board; check the next section, which contains instructions for older
+revisions. If you do have a newer revision skip the next section and move to the
+"minicom" section.
+
+## Older revisions of the discovery board / external serial module
+
 Connect the serial module to your laptop and let's find out what name the OS assigned to it.
 
 > **NOTE** On macs, the USB device will named like this: `/dev/cu.usbserial-*`. You won't
@@ -30,7 +51,7 @@ $ echo 'Hello, world!' > /dev/ttyUSB0
 
 You should see the TX (red) LED on the serial module blink, just once and very fast!
 
-## minicom
+## All revisions: minicom
 
 Dealing with serial devices using `echo` is far from ergonomic. So, we'll use the program `minicom`
 to interact with the serial device using the keyboard.
@@ -64,18 +85,20 @@ go over it line by line:
 Once that's in place. We can launch `minicom`
 
 ``` console
-$ minicom -D /dev/ttyUSB0 -b 115200
+$ # NOTE you may need to use a different device here
+$ minicom -D /dev/ttyACM0 -b 115200
 ```
 
-This tells `minicom` to open the serial device at `/dev/ttyUSB0` and set its baud rate to 115200.
-A text-based user interface (TUI) will pop out.
+This tells `minicom` to open the serial device at `/dev/ttyACM0` and set its
+baud rate to 115200. A text-based user interface (TUI) will pop out.
 
 <p align="center">
-<img height="480" title="minicom" src="../assets/minicom.png">
+<img title="minicom" src="../assets/minicom.png">
 </p>
 
-You can now send data using the keyboard! Go ahead and type something. Note that the TUI *won't*
-echo back what you type but you'll see TX (red) LED on the serial module blink with each keystroke.
+You can now send data using the keyboard! Go ahead and type something. Note that
+the TUI will *not* echo back what you type but, if you are using an external
+module, you *may* see some LED on the module blink with each keystroke.
 
 ## `minicom` commands
 

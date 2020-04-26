@@ -1,6 +1,9 @@
 # Windows tooling
 
-Before plugging the Serial module, run the following command on the terminal:
+Start by unplugging your discovery board.
+
+Before plugging the discovery board or the serial module, run the following command on
+the terminal:
 
 ``` console
 $ mode
@@ -10,8 +13,14 @@ It will print a list of devices that are connected to your laptop. The ones that
 their names are serial devices. This is the kind of device we'll be working with. Take note of all
 the `COM` *ports* `mode` outputs *before* plugging the serial module.
 
-Now, plug the Serial module and run the `mode` command again. You should see a new `COM` port appear
-on the list. That's the COM port assigned to the serial module.
+Now, plug the discovery board and run the `mode` command again. If you see a new
+`COM` port appear on the list then you have a newer revision of the discovery
+and that's the COM port assigned to the serial functionality on the discovery.
+You can skip the next paragraph.
+
+If you didn't get a new COM port then you probably have an older revision of the
+discovery. Now plug the serial module; you should see new COM port appear;
+that's the COM port of the serial module.
 
 Now launch `putty`. A GUI will pop out.
 

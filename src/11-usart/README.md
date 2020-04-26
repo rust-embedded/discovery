@@ -12,6 +12,27 @@ and RX stands for receiver. Transmitter and receiver are relative terms though; 
 transmitter and which line is the receiver depends from which side of the communication you are
 looking at the lines.
 
+### Newer board revisions
+
+If you have a newer revision of the board and are using the on-board USB <->
+Serial functionality then the `auxiliary` crate will set pin `PC4` as the TX
+line and pin `PC5` as the RX line.
+
+Everything is already wired on the board so you don't need to wire anything yourself.
+You can move on to the [next section](send-a-single-byte.html).
+
+### Older board revisions / external serial module
+
+If you are using an external USB <-> Serial module then you will **need** to
+enable the `adapter` feature of the `aux11` crate dependency in `Cargo.toml`.
+
+``` toml
+[dependencies.aux11]
+path = "auxiliary"
+# enable this if you are going to use an external serial adapter
+features = ["adapter"] # <- uncomment this
+```
+
 We'll be using the pin `PA9` as the microcontroller's TX line and `PA10` as its RX line. In other
 words, the pin `PA9` outputs data onto its wire whereas the pin `PA10` listens for data on its
 wire.

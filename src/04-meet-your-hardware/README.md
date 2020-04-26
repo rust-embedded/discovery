@@ -49,8 +49,13 @@ What does this board contain?
 <img title="Serial module" src="../assets/serial.jpg">
 </p>
 
-We'll use this module to exchange data between the microcontroller in the F3 and your laptop. This
-module will be connected to your laptop using an USB cable. I won't say more at this point.
+If you have an older revision of the discovery board, you can use this module to
+exchange data between the microcontroller in the F3 and your laptop. This module
+will be connected to your laptop using an USB cable. I won't say more at this
+point.
+
+If you have a newer release of the board then you don't need this module. The
+ST-LINK will double as a USB<->serial converter connected to the microcontroller USART1 at pins PC4 and PC5.
 
 ## The Bluetooth module
 
