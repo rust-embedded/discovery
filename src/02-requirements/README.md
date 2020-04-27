@@ -1,12 +1,29 @@
 # Hardware/knowledge requirements
 
-The only knowledge requirement to read this book is to know *some* Rust. It's
+The primary knowledge requirement to read this book is to know *some* Rust. It's
 hard for me to quantify *some* but at least I can tell you that you don't need
 to fully grok generics but you do need to know how to *use* closures. You also
 need to be familiar with the idioms of the [2018 edition], in particular with
 the fact that `extern crate` is not necessary in the 2018 edition.
 
 [2018 edition]: https://rust-lang-nursery.github.io/edition-guide/
+
+Due to the nature of embedded programming, it will also be extremely helpful to
+understand how binary and hexadecimal representations of values work, as well
+as the use of some bitwise operators. For example, it would be useful to
+understand how the following program produces its output.
+
+```rust
+fn main() {
+    let a = 0x4000_0000 + 0xa2;
+
+    // Use of the bit shift "<<" operation.
+    let b = 1 << 5;
+
+    // {:X} will format values as hexadecimal
+    println!("{:X}: {:X}", a, b);
+}
+```
 
 Also, to follow this material you'll need the following hardware:
 
