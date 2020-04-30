@@ -42,8 +42,8 @@ What's out of scope for this book:
 - Being a comprehensive text about electric circuit theory or electronics. We'll just cover the
   minimum required to understand how some devices work.
 
-- Covering Rustic, low level details. We won't be talking about linker scripts, the boot process or
-  how to glue those two into a minimally working Rust program.
+- Covering details such as linker scripts and the boot process. For example, we'll use existing tools
+  to help get your code onto your board, but not go into detail about how those tools work.
 
 Also I don't intend to port this material to other development boards; this book will make exclusive
 use of the STM32F3DISCOVERY development board.
