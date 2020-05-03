@@ -49,7 +49,7 @@
 - [Bluetooth setup](12-bluetooth-setup/README.md)
     - [Linux](12-bluetooth-setup/linux.md)
     - [Loopback](12-bluetooth-setup/loopback.md)
-    <!-- - [AT commands]() -->
+    - [AT commands](12-bluetooth-setup/at-commands.md)
 - [Serial over Bluetooth](13-serial-over-bluetooth/README.md)
 - [I2C](14-i2c/README.md)
     - [The general protocol](14-i2c/the-general-protocol.md)
