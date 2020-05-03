@@ -70,6 +70,10 @@ $ itmdump -F -f itm.txt
 
 This command will block as `itmdump` is now watching the `itm.txt` file. Leave this terminal open.
 
+Make sure that F3 is connected to your laptop. Open another terminal from `/tmp` directory (on Windows `%TEMP%`) to launch OpenOCD similar as described in chapter [First OpenOCD connection].
+
+[First OpenOCD connection]: ../03-setup/verify.html#first-openocd-connection
+
 Alright. Now, let's build the starter code and flash it into the microcontroller.
 
 To avoid passing the `--target thumbv7em-none-eabihf` flag to every Cargo invocation we can set a
