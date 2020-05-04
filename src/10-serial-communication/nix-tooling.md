@@ -2,7 +2,7 @@
 
 ## Newer revisions of the discovery board
 
-With newer revisions, if you connect the discovery board to your laptop / PC you
+With newer revisions, if you connect the discovery board to your computer you
 should see a new TTY device appear in `/dev`.
 
 ``` console
@@ -21,7 +21,7 @@ revisions. If you do have a newer revision skip the next section and move to the
 
 ## Older revisions of the discovery board / external serial module
 
-Connect the serial module to your laptop and let's find out what name the OS assigned to it.
+Connect the serial module to your computer and let's find out what name the OS assigned to it.
 
 > **NOTE** On macs, the USB device will named like this: `/dev/cu.usbserial-*`. You won't
 > find it using `dmesg`, instead use `ls -l /dev | grep cu.usb` and adjust the following 

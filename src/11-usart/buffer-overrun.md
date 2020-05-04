@@ -23,7 +23,7 @@ fn main() -> ! {
 }
 ```
 
-You probably received something like this on your laptop when you executed the program compiled in
+You probably received something like this on your computer when you executed the program compiled in
 debug mode.
 
 ``` console

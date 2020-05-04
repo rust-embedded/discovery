@@ -9,7 +9,7 @@ the terminal:
 $ mode
 ```
 
-It will print a list of devices that are connected to your laptop. The ones that start with `COM` in
+It will print a list of devices that are connected to your computer. The ones that start with `COM` in
 their names are serial devices. This is the kind of device we'll be working with. Take note of all
 the `COM` *ports* `mode` outputs *before* plugging the serial module.
 

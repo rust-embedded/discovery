@@ -1,7 +1,7 @@
 # Build it
 
 The first step is to build our "binary" crate. Because the microcontroller has a different
-architecture than your laptop we'll have to cross compile. Cross compiling in Rust land is as simple
+architecture than your computer we'll have to cross compile. Cross compiling in Rust land is as simple
 as passing an extra `--target` flag to `rustc`or Cargo. The complicated part is figuring out the
 argument of that flag: the *name* of the target.
 

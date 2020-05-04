@@ -10,15 +10,15 @@ The Bluetooth module supports an AT mode that allows you to examine and change i
 
 Recommended steps to enter AT mode:
 
-- Disconnect the F3 and FTDI from your laptop.
+- Disconnect the F3 and FTDI from your computer.
 - Connect F3's GND pin to the Bluetooth's GND pin using a Female/Female (F/F) wire
   (preferably, a black one).
 - Connect F3's 5V pin to the Bluetooth's VCC pin using a F/F wire (preferably, a
   red one).
 - Connect the FTDI RXI pin to the Bluetooth's TXD pin using a Female/Male (F/M) wire.
 - Connect the FTDI TXO pin to the Bluetooth's RXD pin using a Female/Male (F/M) wire.
-- Now connect the FTDI to your laptop via USB cable.
-- Next connect the F3 to your laptop via USB cable while simultaneously pressing and holding the button on the Bluetooth module (kinda tricky).
+- Now connect the FTDI to your computer via USB cable.
+- Next connect the F3 to your computer via USB cable while simultaneously pressing and holding the button on the Bluetooth module (kinda tricky).
 - Now, release the button and the Bluetooth module will enter AT mode. You can confirm this by observing that the red LED on the Bluetooth module is blinking in a slow pattern (approx 1-2 seconds on/off).
 
 The AT mode always operates at a baud rate of 38400, so configure your terminal program for that baud rate and connect to the FTDI device.

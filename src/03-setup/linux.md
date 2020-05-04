@@ -149,7 +149,7 @@ Then reload the udev rules with:
 $ sudo udevadm control --reload-rules
 ```
 
-If you had any board plugged to your laptop, unplug them and then plug them in again.
+If you had any board plugged to your computer, unplug them and then plug them in again.
 
 Now, go to the [next section].
 

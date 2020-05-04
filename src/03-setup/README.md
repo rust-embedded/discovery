@@ -1,7 +1,7 @@
 # Setting up a development environment
 
 Dealing with microcontrollers involves several tools as we'll be dealing with an architecture
-different than your laptop's and we'll have to run and debug programs on a "remote" device.
+different than your computer's and we'll have to run and debug programs on a "remote" device.
 
 ## Documentation
 
@@ -50,7 +50,7 @@ should work but we have listed the version we have tested.
 
 [`itmdump`]: https://crates.io/crates/itm
 
-If your laptop has Bluetooth functionality and you have the Bluetooth module, you can additionally
+If your computer has Bluetooth functionality and you have the Bluetooth module, you can additionally
 install these tools to play with the Bluetooth module. All these are optional:
 
 - Linux, only if you don't have a Bluetooth manager application like Blueman.

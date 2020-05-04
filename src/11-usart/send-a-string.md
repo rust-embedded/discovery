@@ -1,9 +1,9 @@
 # Send a string
 
-The next task will be to send a whole string from the micro to your laptop.
+The next task will be to send a whole string from the micro to your computer.
 
 I want you to send the string `"The quick brown fox jumps over the lazy dog."` from the micro to
-your laptop.
+your computer.
 
 It's your turn to write the program.
 

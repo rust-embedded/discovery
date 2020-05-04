@@ -46,4 +46,4 @@ console.
 ---
 
 Now that you are familiar with sending and receiving data over serial port using minicom/PuTTY,
-let's make your microcontroller and your laptop talk!
+let's make your microcontroller and your computer talk!
