@@ -74,7 +74,7 @@ Searching through [ST's marketing materials] we can also learn the following:
 > Arm licenses a bunch of different designs. Their "Cortex-M" family of designs
 > are mainly used as the core in microcontrollers. For example, the Cortex-M0
 > is designed for low cost and low power usage. The Cortex-M7 is higher cost,
-> but with more features and performance.  The core of our STM32F3 is based on
+> but with more features and performance. The core of our STM32F3 is based on
 > the Cortex-M4, which is in the middle: more features and performance than the
 > Cortex-M0, but less expensive than the Cortex-M7.
 >
