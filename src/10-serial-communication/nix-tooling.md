@@ -1,4 +1,4 @@
-# *nix tooling
+# \*nix tooling
 
 ## Newer revisions of the discovery board
 
@@ -33,7 +33,7 @@ $ dmesg | grep -i tty
 [  +0.000155] usb 3-2: FTDI USB Serial Device converter now attached to ttyUSB0
 ```
 
-But what's this `ttyUSB0` thing? It's a file of course! Everything is a file in *nix:
+But what's this `ttyUSB0` thing? It's a file of course! Everything is a file in \*nix:
 
 ``` console
 $ ls -l /dev/ttyUSB0

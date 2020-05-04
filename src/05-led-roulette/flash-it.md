@@ -8,7 +8,7 @@ By this I mean that there's nothing else running on the microcontroller: no OS, 
 nothing. `led-roulette` has full control over the device.
 
 Onto the actual flashing. First thing we need is to do is launch OpenOCD. We did that in the
-previous section but this time we'll run the command inside a temporary directory (`/tmp` on *nix;
+previous section but this time we'll run the command inside a temporary directory (`/tmp` on \*nix;
 `%TEMP%` on Windows).
 
 Make sure the F3 is connected to your computer and run the following commands on a new terminal.

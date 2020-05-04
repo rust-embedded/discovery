@@ -47,7 +47,7 @@ will see the microcontroller as a virtual serial device.
 Now, let's get familiar with the serial module and the serial communication tools that your OS
 offers. Pick a route:
 
-- [*nix](nix-tooling.md)
+- [\*nix](nix-tooling.md)
 - [Windows](windows-tooling.md)
 
 [ASC]: https://en.wikipedia.org/wiki/Asynchronous_serial_communication
