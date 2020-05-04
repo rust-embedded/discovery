@@ -43,13 +43,15 @@ current flows through a circuit. By enabling or disabling electrical current to
 flow through a specific pin, an LED attached to that pin (via the traces) can
 be turned on and off.
 
-By looking at the part number and doing some research, we can learn more
-information about electronic components. The part number of our microcontroller
-starts with `STM32`, which indicates that it was manufactured by [ST
-Microelectronics]. It also lets us know that this is an Arm®-based 32-bit
-microcontroller. The `F3` in the part number indicates that the microcontroller
-is based on the Cortex®-M4. The rest of the part number provides more specifics
-(e.g., extra features, RAM size), and aren't as important to us right now.
+Part numbers of components can often give us information about the part. In the
+case of our MCU (with part number `STM32F303VCT6`), the `STM` at the start
+hints to use that this is manufactured by [ST Microelectronics]. Each
+manufacturer uses a different part numbering scheme, but with some research we
+can also determine that the `32` implies that this is specifically an
+Arm®-based 32-bit microcontroller, and the `F3` indicates that the
+microcontroller is based on the Cortex®-M4. The rest of the part number
+provides more specifics (e.g., extra features, RAM size), and aren't as
+important to us right now.
 
 [ST Microelectronics]: https://st.com/
 
