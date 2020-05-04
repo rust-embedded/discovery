@@ -42,17 +42,20 @@ current flows through a circuit. By enabling or disabling electrical current to
 flow through a specific pin, an LED attached to that pin (via the traces) can
 be turned on and off.
 
-Part numbers of components can often give us information about the part. In the
-case of our MCU (with part number `STM32F303VCT6`), the `ST` at the start
-hints to us that this is manufactured by [ST Microelectronics]. Each
-manufacturer uses a different part numbering scheme, but with some research we
-can also determine that the `M32` implies that this is specifically an
-Arm®-based 32-bit microcontroller, and the `F3` indicates that the
-microcontroller is based on the Cortex®-M4. The rest of the part number
-provides more specifics (e.g., extra features, RAM size), and aren't as
-important to us right now.
+Each manufacturer uses a different part numbering scheme, but many will allow
+you to determine information about a component simply by looking at the part
+number. Looking at our MCU's part number (`STM32F303VCT6`), the `ST` at the
+front hints to us that this is a part manufactured by [ST Microelectronics].
+Searching through [ST's marketing materials] we can also learn the following:
 
 [ST Microelectronics]: https://st.com/
+[ST's marketing materials]: https://www.st.com/en/microcontrollers-microprocessors/stm32-mainstream-mcus.html
+
+- The `M32` represents that this is an Arm®-based 32-bit microcontroller.
+- The `F3` represents that the MCU is from ST's "STM32F3" series. This is a
+  series of MCUs based on the Cortex®-M4 processor design.
+- The remainder of the part number goes into more details about things like
+  extra features and RAM size, which at this point we're less concerned about.
 
 > ### Arm? Cortex-M4?
 >
