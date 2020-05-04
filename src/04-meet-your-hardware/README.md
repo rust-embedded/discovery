@@ -43,10 +43,10 @@ flow through a specific pin, an LED attached to that pin (via the traces) can
 be turned on and off.
 
 Part numbers of components can often give us information about the part. In the
-case of our MCU (with part number `STM32F303VCT6`), the `STM` at the start
+case of our MCU (with part number `STM32F303VCT6`), the `ST` at the start
 hints to us that this is manufactured by [ST Microelectronics]. Each
 manufacturer uses a different part numbering scheme, but with some research we
-can also determine that the `32` implies that this is specifically an
+can also determine that the `M32` implies that this is specifically an
 Arm®-based 32-bit microcontroller, and the `F3` indicates that the
 microcontroller is based on the Cortex®-M4. The rest of the part number
 provides more specifics (e.g., extra features, RAM size), and aren't as
