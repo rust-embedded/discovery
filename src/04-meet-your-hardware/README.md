@@ -11,6 +11,7 @@ Let's get familiar with the hardware we'll be working with.
 We'll refer to this board as "F3" throughout this book. Here are some of the
 many components on the board:
 
+- A [microcontroller].
 - A number of LEDs, including the eight aligned in a "compass" formation.
 - Two buttons.
 - Two USB ports.
@@ -18,17 +19,17 @@ many components on the board:
 - A [magnetometer].
 - A [gyroscope].
 
+[microcontroller]: https://en.wikipedia.org/wiki/Microcontroller
 [accelerometer]: https://en.wikipedia.org/wiki/Accelerometer
 [magnetometer]: https://en.wikipedia.org/wiki/Magnetometer
 [gyroscope]: https://en.wikipedia.org/wiki/Gyroscope
 
-Of these components, the most important is the [microcontroller] (sometimes
+Of these components, the most important is the microcontroller (sometimes
 shortened to "MCU" for "microcontroller unit"), which is the large black square
 sitting in the center of your board. The MCU is what runs your code. You might
 sometimes read about "programming a board", when in reality what we are doing
 is programming the MCU that is installed on the board.
 
-[microcontroller]: https://en.wikipedia.org/wiki/Microcontroller
 
 ## STM32F303VCT6 (the "STM32F3")
 
