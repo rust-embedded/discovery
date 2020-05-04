@@ -4,7 +4,7 @@ Below are some useful GDB commands that can help us debug our programs. This ass
 
 ## General Debugging
 
-**NOTE:** Many of the commands you see below can be executed using a short form. For example, `continue` can simply be used as `c`, or `break $location` can be used as `b $location`. While you are learning GDB try to see how short you can get the commands to go before GDB doesn't recognize it!
+> **NOTE:** Many of the commands you see below can be executed using a short form. For example, `continue` can simply be used as `c`, or `break $location` can be used as `b $location`. While you are learning GDB try to see how short you can get the commands to go before GDB doesn't recognize it!
 
 
 ### Dealing with Breakpoints
