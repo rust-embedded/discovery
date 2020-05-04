@@ -17,6 +17,8 @@
 - [Hello, world!](06-hello-world/README.md)
     - [`panic!`](06-hello-world/panic.md)
 - [Registers](07-registers/README.md)
+    - [Memory Mapping](07-registers/memory-mapping.md)
+    - [Peripherals](07-registers/peripherals.md)
     - [RTRM](07-registers/rtrm.md)
     - [(mis)Optimization](07-registers/optimization.md)
     - [`0xBAAAAAAD` address](07-registers/bad-address.md)

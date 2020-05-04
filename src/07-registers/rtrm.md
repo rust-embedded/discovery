@@ -85,3 +85,24 @@ Correlating that information with our program, all seems to be in agreement:
 - Writing `1 << 25` (`BR9 = 1`) to `BSRR` sets `PE9` *low*. That turns the North LED *off*.
 
 - Finally, writing `1 << 27` (`BR11 = 1`) to `BSRR` sets `PE11` *low*. That turns the East LED *off*.
+
+> ## An aside: LEDs, digital outputs and voltage levels
+>
+> Drive? Pin? Low? High?
+>
+> A pin is a electrical contact. Our microcontroller has several of them and some of them are
+> connected to LEDs. An LED, a Light Emitting Diode, will only emit light when voltage is applied to
+> it with a certain polarity.
+>
+> <p align="center">
+> <img class="white_bg" height=180 alt="LED circuit" title="LED circuit" src="https://upload.wikimedia.org/wikipedia/commons/c/c9/LED_circuit.svg">
+> </p>
+>
+> Luckily for us, the microcontroller's pins are connected to the LEDs with the right polarity. All
+> that we have to do is *output* some non-zero voltage through the pin to turn the LED on. The pins
+> attached to the LEDs are configured as *digital outputs* and can only output two different voltage
+> levels: "low", 0 Volts, or "high", 3 Volts. A "high" (voltage) level will turn the LED on whereas
+> a "low" (voltage) level will turn it off.
+>
+> These "low" and "high" states map directly to the concept of digital logic. "low" is `0` or `false`
+> and "high" is `1` or `true`. This is why this pin configuration is known as digital output.
