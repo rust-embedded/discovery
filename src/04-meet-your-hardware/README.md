@@ -35,11 +35,11 @@ is programming the MCU that is installed on the board.
 Since the MCU is so important, let's take a closer look at the one sitting on our board.
 
 Our MCU is surrounded by 100 tiny metal **pins**. These pins are connected to
-**tracings**, the little "roads" that act as the wires connecting components
+**traces**, the little "roads" that act as the wires connecting components
 together on the board. The MCU can dynamically alter the electrical properties
 of the pins. This works similar to a lightswitch altering how electrical
 current flows through a circuit. By enabling or disabling electrical current to
-flow through a specific pin, an LED attached to that pin (via the tracing) can
+flow through a specific pin, an LED attached to that pin (via the traces) can
 be turned on and off.
 
 By looking at the part number and doing some research, we can learn more
@@ -59,7 +59,7 @@ is based on the Cortex®-M4. The rest of the part number provides more specifics
 >
 > You might be surprised to hear that while "Arm-based" chips are quite
 > popular, the company behind the "Arm" trademark ([Arm Holdings][]) doesn't
-> actually manuafacture chips for purchase. Instead, their primary business
+> actually manufacture chips for purchase. Instead, their primary business
 > model is to just *design* parts of chips. They will then license those designs to
 > manufacturers, who will in turn implement the designs (perhaps with some of
 > their own tweaks) in the form of physical hardware that can then be sold.
