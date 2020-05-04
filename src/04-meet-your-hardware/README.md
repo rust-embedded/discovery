@@ -30,7 +30,6 @@ sitting in the center of your board. The MCU is what runs your code. You might
 sometimes read about "programming a board", when in reality what we are doing
 is programming the MCU that is installed on the board.
 
-
 ## STM32F303VCT6 (the "STM32F3")
 
 Since the MCU is so important, let's take a closer look at the one sitting on our board.
@@ -38,14 +37,14 @@ Since the MCU is so important, let's take a closer look at the one sitting on ou
 Our MCU is surrounded by 100 tiny metal **pins**. These pins are connected to
 **traces**, the little "roads" that act as the wires connecting components
 together on the board. The MCU can dynamically alter the electrical properties
-of the pins. This works similar to a lightswitch altering how electrical
+of the pins. This works similar to a light switch altering how electrical
 current flows through a circuit. By enabling or disabling electrical current to
 flow through a specific pin, an LED attached to that pin (via the traces) can
 be turned on and off.
 
 Part numbers of components can often give us information about the part. In the
 case of our MCU (with part number `STM32F303VCT6`), the `STM` at the start
-hints to use that this is manufactured by [ST Microelectronics]. Each
+hints to us that this is manufactured by [ST Microelectronics]. Each
 manufacturer uses a different part numbering scheme, but with some research we
 can also determine that the `32` implies that this is specifically an
 Arm®-based 32-bit microcontroller, and the `F3` indicates that the
