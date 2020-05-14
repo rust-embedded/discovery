@@ -4,5 +4,8 @@ edition = "2018"
 name = "registers"
 version = "0.1.0"
 
+[profile.release]
+debug=1
+
 [dependencies]
 aux7 = { path = "auxiliary" }
