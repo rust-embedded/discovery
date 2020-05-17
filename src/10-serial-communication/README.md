@@ -7,7 +7,7 @@
 </a>
 
 <p align="center">
-<em>This is what we'll be using. I hope your laptop has one!</em>
+<em>This is what we'll be using. I hope your computer has one!</em>
 </p>
 
 Nah, don't worry. This connector, the DE-9, went out of fashion on PCs quite some time ago; it got
@@ -21,9 +21,9 @@ signal. Instead both parties must agree on how fast data will be sent along the 
 communication occurs. This protocol allows *duplex* communication as data can be sent from A to B
 and from B to A simultaneously.
 
-We'll be using this protocol to exchange data between the microcontroller and your laptop. In
+We'll be using this protocol to exchange data between the microcontroller and your computer. In
 contrast to the ITM protocol we have used before, with the serial communication protocol you can
-send data from your laptop to the microcontroller.
+send data from your computer to the microcontroller.
 
 The next practical question you probably want to ask is: How fast can we send data through this
 protocol?
@@ -38,16 +38,16 @@ one frame carries a byte of data that results in a data rate of 11.52 KB/s. In p
 rate will probably be lower because of processing times on the slower side of the communication (the
 microcontroller).
 
-Today's laptops/PCs don't support the serial communication protocol. So you can't directly connect
-your laptop to the microcontroller. But that's where the serial module comes in. This module will
+Today's computers don't support the serial communication protocol. So you can't directly connect
+your computer to the microcontroller. But that's where the serial module comes in. This module will
 sit between the two and expose a serial interface to the microcontroller and an USB interface to
-your laptop. The microcontroller will see your laptop as another serial device and your laptop
+your computer. The microcontroller will see your computer as another serial device and your computer
 will see the microcontroller as a virtual serial device.
 
 Now, let's get familiar with the serial module and the serial communication tools that your OS
 offers. Pick a route:
 
-- [*nix](nix-tooling.md)
+- [\*nix](nix-tooling.md)
 - [Windows](windows-tooling.md)
 
 [ASC]: https://en.wikipedia.org/wiki/Asynchronous_serial_communication

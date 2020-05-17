@@ -94,8 +94,8 @@ Searching through [ST's marketing materials] we can also learn the following:
 </p>
 
 If you have an older revision of the discovery board, you can use this module to
-exchange data between the microcontroller in the F3 and your laptop. This module
-will be connected to your laptop using an USB cable. I won't say more at this
+exchange data between the microcontroller in the F3 and your computer. This module
+will be connected to your computer using an USB cable. I won't say more at this
 point.
 
 If you have a newer release of the board then you don't need this module. The

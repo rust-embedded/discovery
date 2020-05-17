@@ -19,7 +19,7 @@ Just a little more of helpful magic before we start doing low level stuff.
 
 Blinking an LED is like the "Hello, world" of the embedded world.
 
-But in this section, we'll run a proper "Hello, world" program that prints stuff to your laptop
+But in this section, we'll run a proper "Hello, world" program that prints stuff to your computer
 console.
 
 Go to the `06-hello-world` directory. There's some starter code in it:
@@ -48,7 +48,7 @@ You should have already installed the `itmdump` program during the [installation
 
 [installation chapter]: ../03-setup/index.html#itmdump
 
-In a new terminal, run this command inside the `/tmp` directory, if you are using a *nix OS, or from
+In a new terminal, run this command inside the `/tmp` directory, if you are using a \*nix OS, or from
 within the `%TEMP%` directory, if you are running Windows. This should be the same directory from
 where you are running OpenOCD.
 
@@ -70,7 +70,7 @@ $ itmdump -F -f itm.txt
 
 This command will block as `itmdump` is now watching the `itm.txt` file. Leave this terminal open.
 
-Make sure that F3 is connected to your laptop. Open another terminal from `/tmp` directory (on Windows `%TEMP%`) to launch OpenOCD similar as described in chapter [First OpenOCD connection].
+Make sure that F3 is connected to your computer. Open another terminal from `/tmp` directory (on Windows `%TEMP%`) to launch OpenOCD similar as described in chapter [First OpenOCD connection].
 
 [First OpenOCD connection]: ../03-setup/verify.html#first-openocd-connection
 

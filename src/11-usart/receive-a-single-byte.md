@@ -1,7 +1,7 @@
 # Receive a single byte
 
-So far we have sending data from the micro to your laptop. It's time to try the opposite: receiving
-data from your laptop.
+So far we have sending data from the microcontroller to your computer. It's time to try the opposite: receiving
+data from your computer.
 
 There's a `RDR` register that will be filled with the data that comes from the RX line. If we read
 that register, we'll retrieve the data that the other side of the channel sent. The question is: How

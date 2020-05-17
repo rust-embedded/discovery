@@ -1,6 +1,6 @@
 # Send a single byte
 
-Our first task will be to send a single byte from the microcontroller to the laptop over the serial
+Our first task will be to send a single byte from the microcontroller to the computer over the serial
 connection.
 
 This time, I'm going to provide you with an already initialized USART peripheral. You'll only have
@@ -16,5 +16,5 @@ minicom/PuTTY open.
 This program writes to the `TDR` register. This causes the `USART` peripheral to send one byte of
 information through the serial interface.
 
-On the receiving end, your laptop, you should see show the character `X` appear on minicom/PuTTY's
+On the receiving end, your computer, you should see show the character `X` appear on minicom/PuTTY's
 terminal.

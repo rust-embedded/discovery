@@ -1,6 +1,6 @@
 # Loopback, again
 
-After pairing your laptop to the Bluetooth module, your OS should have created a device file / COM
+After pairing your computer to the Bluetooth module, your OS should have created a device file / COM
 port for you. On Linux, it should be `/dev/rfcomm*`; on mac, it should be `/dev/cu.*`; and on
 Windows, it should be a new COM port.
 

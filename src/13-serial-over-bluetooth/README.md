@@ -10,13 +10,13 @@ microcontroller:
 Recommended steps to wire this up:
 
 - Close OpenOCD and `itmdump`.
-- Disconnect the F3 from your laptop.
+- Disconnect the F3 from your computer.
 - Connect F3's GND pin to the module's GND pin using a female to female (F/F) wire (preferably, a
   black one).
 - Connect F3's 5V pin to the module's VCC pin using a F/F wire (preferably, a red one).
 - Connect the PA9 (TX) pin on the back of the F3 to the Bluetooth's RXD pin using a F/F wire.
 - Connect the PA10 (RX) pin on the back of the F3 to the Bluetooth's TXD pin using a F/F wire.
-- Now connect the F3 and your laptop using an USB cable.
+- Now connect the F3 and your computer using an USB cable.
 - Re-launch OpenOCD and `itmdump`.
 
 And that's it! You should be able to run all the programs you wrote in [section 11] without

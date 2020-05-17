@@ -27,7 +27,7 @@ The recommend steps to wire this up are:
 Two LEDs, a blue one and a red one, on the Bluetooth module should start blinking right after you
 power on the F3 board.
 
-Next thing to do is pair your laptop and the Bluetooth module. AFAIK, Windows and mac users can
+Next thing to do is pair your computer and the Bluetooth module. AFAIK, Windows and mac users can
 simply use their OS default Bluetooth manager to do the pairing. The Bluetooth module default pin
 is 1234.
 

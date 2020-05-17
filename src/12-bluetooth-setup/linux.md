@@ -1,13 +1,13 @@
 # Linux
 
-If you have a graphical Bluetooth manager, you can use that to pair your laptop to the Bluetooth
+If you have a graphical Bluetooth manager, you can use that to pair your computer to the Bluetooth
 module and skip most of these steps. You'll probably still have to [this step] though.
 
 [this step]: #rfcomm-device
 
 ## Power up
 
-First, your laptop's Bluetooth transceiver may be OFF. Check its status with `hciconfig` and turn it
+First, your computer's Bluetooth transceiver may be OFF. Check its status with `hciconfig` and turn it
 ON if necessary:
 
 ``` console

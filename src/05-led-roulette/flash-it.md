@@ -8,10 +8,10 @@ By this I mean that there's nothing else running on the microcontroller: no OS, 
 nothing. `led-roulette` has full control over the device.
 
 Onto the actual flashing. First thing we need is to do is launch OpenOCD. We did that in the
-previous section but this time we'll run the command inside a temporary directory (`/tmp` on *nix;
+previous section but this time we'll run the command inside a temporary directory (`/tmp` on \*nix;
 `%TEMP%` on Windows).
 
-Make sure the F3 is connected to your laptop and run the following commands on a new terminal.
+Make sure the F3 is connected to your computer and run the following commands on a new terminal.
 
 ``` console
 $ # *nix
@@ -41,7 +41,7 @@ STMicroelectronics decided to call it). This ST-LINK is connected to the target 
 using a Serial Wire Debug (SWD) interface (this interface is an ARM standard so you'll run into it
 when dealing with other Cortex-M based microcontrollers). This SWD interface can be used to flash
 and debug a microcontroller. The ST-LINK is connected to the "USB ST-LINK" port and will appear as
-a USB device when you connect the F3 to your laptop.
+a USB device when you connect the F3 to your computer.
 
 <p align="center">
 <img height=640 title="On-board ST-LINK" src="../assets/st-link.png">

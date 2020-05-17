@@ -2,7 +2,7 @@
 
 ## What's a microcontroller?
 
-A microcontroller is a *system* on a chip. Whereas your laptop is made up of several discrete
+A microcontroller is a *system* on a chip. Whereas your computer is made up of several discrete
 components: a processor, RAM sticks, a hard drive, an ethernet port, etc.; a microcontroller has all
 those components built into a single "chip" or package. This makes it possible to build systems with
 minimal part count.

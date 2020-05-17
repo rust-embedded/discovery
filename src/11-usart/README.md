@@ -5,7 +5,7 @@ Synchronous/Asynchronous Receiver/Transmitter. This peripheral can be configured
 several communication protocols like the serial communication protocol.
 
 Throughout this chapter, we'll use serial communication to exchange information between the
-microcontroller and your laptop. But before we do that we have to wire up everything.
+microcontroller and your computer. But before we do that we have to wire up everything.
 
 I mentioned before that this protocol involves two data lines: TX and RX. TX stands for transmitter
 and RX stands for receiver. Transmitter and receiver are relative terms though; which line is the
