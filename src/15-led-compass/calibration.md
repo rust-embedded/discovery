@@ -10,7 +10,7 @@ The calibration involves quite a bit of math (matrices) so we won't cover it her
 [Application Note] describes the procedure if you are interested. Instead, what we'll do in this
 section is *visualize* how off we are.
 
-[Application Note]: http://cache.freescale.com/files/sensors/doc/app_note/AN4246.pdf
+[Application Note]: https://www.nxp.com/docs/en/application-note/AN4246.pdf
 
 Let's try this experiment: Let's record the readings of the magnetometer while we slowly rotate the
 board in different directions. We'll use the `iprintln` macro to format the readings as Tab
