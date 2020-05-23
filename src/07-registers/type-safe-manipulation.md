@@ -2,7 +2,7 @@
 
 The last register we were working with, `ODR`, had this in its documentation:
 
-> Bits 16:31 Reserved, must be kept at reset value
+> Bits 31:16 Reserved, must be kept at reset value
 
 We are not supposed to write to those bits of the register or Bad Stuff May Happen.
 
