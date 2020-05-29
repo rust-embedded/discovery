@@ -86,7 +86,7 @@ that address:
 0x0004_BFFF: Access the final address of SRAM.
 ```
 
-As a result, manufacturers can what types and sizes of memory to to build into
+As a result, manufacturers can decide what types and sizes of memory to to build into
 their microcontrollers, and the processor core doesn't need to really be
 redesigned. The manufacturers just need to include a "decoder" on the
 microcontroller, which is the piece of hardware that can make these conversions
