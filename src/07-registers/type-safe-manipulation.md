@@ -7,7 +7,7 @@ The last register we were working with, `ODR`, had this in its documentation:
 We are not supposed to write to those bits of the register or Bad Stuff May Happen.
 
 There's also the fact the registers have different read/write permissions. Some of them are write
-only, others can be read and wrote to and there must be others that are read only.
+only, others can be read and written to and there must be others that are read only.
 
 Finally, directly working with hexadecimal addresses is error prone. You already saw that trying to
 access an invalid memory address causes an exception which disrupts the execution of our program.
