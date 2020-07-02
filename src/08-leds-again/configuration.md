@@ -1,6 +1,6 @@
 # Configuration
 
-After turning on the GPIOE peripheral. The peripheral still needs to be configured. In this case, we
+After turning on the GPIOE peripheral, it still needs to be configured. In this case, we
 want the pins to be configured as digital *outputs* so they can drive the LEDs; by default, most
 pins are configured as digital *inputs*.
 
