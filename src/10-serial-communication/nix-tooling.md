@@ -82,7 +82,7 @@ go over it line by line:
 - `pu rtscts No`. No hardware control flow.
 - `pu xonxoff No`. No software control flow.
 
-Once that's in place. We can launch `minicom`
+Once that's in place, we can launch `minicom`.
 
 ``` console
 $ # NOTE you may need to use a different device here
