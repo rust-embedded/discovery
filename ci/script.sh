@@ -4,15 +4,13 @@ main() {
     # test that building the book works
     mdbook build
 
-    # mdbook doesn't handle relative links correctly in print.html so skip it.
-    linkchecker --ignore-url "print.html" book
+    linkchecker book
 
     # now check this as a directory of the bookshelf
     rm -rf shelf
     mkdir shelf
     mv book shelf
-    # Skipping bad relative link errors in print.html again here.
-    linkchecker --ignore-url "print.html" shelf
+    linkchecker shelf
 
     mv shelf/book .
     rmdir shelf
