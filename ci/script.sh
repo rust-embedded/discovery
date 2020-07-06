@@ -62,6 +62,6 @@ main() {
     done
 }
 
-if [ $TRAVIS_BRANCH != master ]; then
+if [ $TRAVIS_BRANCH != master ] || [ $TRAVIS_PULL_REQUEST != false ]; then
     main
 fi
