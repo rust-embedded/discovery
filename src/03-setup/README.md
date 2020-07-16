@@ -90,7 +90,7 @@ itmdump 0.3.1
 ``` console
 $ rustup component add llvm-tools-preview
 
-$ cargo install cargo-binutils --vers 0.1.4
+$ cargo install cargo-binutils --vers 0.3.0
 
 $ cargo size -- -version
 LLVM (http://llvm.org/):
