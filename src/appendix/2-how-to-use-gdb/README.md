@@ -4,7 +4,7 @@ Below are some useful GDB commands that can help us debug our programs. This ass
 
 ## General Debugging
 
-> **NOTE:** Many of the commands you see below can be executed using a short form. For example, `continue` can simply be used as `c`, or `break $location` can be used as `b $location`. Once you have experience with the commands below, try to see how short you can get the commands to go before GDB doesn't recognize it!
+> **NOTE:** Many of the commands you see below can be executed using a short form. For example, `continue` can simply be used as `c`, or `break $location` can be used as `b $location`. Once you have experience with the commands below, try to see how short you can get the commands to go before GDB doesn't recognize them!
 
 
 ### Dealing with Breakpoints
@@ -16,7 +16,7 @@ Below are some useful GDB commands that can help us debug our programs. This ass
     * `break main.rs:123` - Break on line 123 of the file `main.rs`
 * `info break`: Display current breakpoints
 * `delete`: Delete all breakpoints
-    * `delete $n`: Delete breakpoint `$n`
+    * `delete $n`: Delete breakpoint `$n` (`n` being a number. For example: `delete $2`)
 * `clear`: Delete breakpoint at next instruction
     * `clear main.rs:$function`: Delete breakpoint at entry of `$function` in `main.rs`
     * `clear main.rs:123`: Delete breakpoint on line 123 of `main.rs`
