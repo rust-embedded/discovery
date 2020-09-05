@@ -10,56 +10,32 @@ microcontrollers.
 
 We'll be referring to all these documents throughout this book:
 
-*HEADS UP* All these links point to PDF files and some of them are hundreds of pages long and
-several MBs in size.
+- [LSM303AGR]
 
-- [STM32F3DISCOVERY User Manual][um]
-- [STM32F303VC Datasheet][ds]
-- [STM32F303VC Reference Manual][rm]
-- [LSM303DLHC]
-- [L3GD20]
-
-[L3GD20]: https://www.st.com/content/ccc/resource/technical/document/application_note/2c/d9/a7/f8/43/48/48/64/DM00119036.pdf/files/DM00119036.pdf/jcr:content/translations/en.DM00119036.pdf
-[LSM303DLHC]: http://www.st.com/resource/en/datasheet/lsm303dlhc.pdf
-[ds]: http://www.st.com/resource/en/datasheet/stm32f303vc.pdf
-[rm]: http://www.st.com/resource/en/reference_manual/dm00043574.pdf
-[um]: http://www.st.com/resource/en/user_manual/dm00063382.pdf
+[LSM303AGR]: https://www.st.com/resource/en/datasheet/lsm303agr.pdf
 
 ## Tools
 
 We'll use all the tools listed below. Where a minimum version is not specified, any recent version
 should work but we have listed the version we have tested.
 
-- Rust 1.31 or a newer toolchain.
+- Rust 1.45.2 or a newer toolchain.
 
-- [`itmdump`] v0.3.1 (`cargo install itm`)
-
-- OpenOCD >=0.8. Tested versions: v0.9.0 and v0.10.0
-
-- `arm-none-eabi-gdb`. Version 7.12 or newer highly recommended. Tested versions: 7.10, 7.11,
-  7.12 and 8.1
+- `gdb-multiarch`. Tested version: 9.1. Other versions will most likely work as well though
+  If your distribution/platform does not have `gdb-multiarch` available `arm-none-eabi-gdb`
+  will do the trick as well.
 
 - [`cargo-binutils`]. Version 0.1.4 or newer.
 
 [`cargo-binutils`]: https://github.com/rust-embedded/cargo-binutils
 
-- `minicom` on Linux and macOS. Tested version: 2.7. Readers report that `picocom` also works but
-  we'll use `minicom` in this text.
+- [`cargo-embed`]. Version 0.9.0 or newer.
+
+[`cargo-embed`]: https://github.com/probe-rs/cargo-embed
+
+- `minicom` on Linux and macOS. Tested version: 2.7.1. Other versions will most likely work as well though
 
 - `PuTTY` on Windows.
-
-[`itmdump`]: https://crates.io/crates/itm
-
-If your computer has Bluetooth functionality and you have the Bluetooth module, you can additionally
-install these tools to play with the Bluetooth module. All these are optional:
-
-- Linux, only if you don't have a Bluetooth manager application like Blueman.
-  - `bluez`
-  - `hcitool`
-  - `rfcomm`
-  - `rfkill`
-
-macOS / OSX / Windows users only need the default bluetooth manager that ships with their OS.
 
 Next, follow OS-agnostic installation instructions for a few of the tools:
 
@@ -73,16 +49,7 @@ newer than the one shown below:
 
 ``` console
 $ rustc -V
-rustc 1.31.0 (abe02cefd 2018-12-04)
-```
-
-### `itmdump`
-
-``` console
-$ cargo install itm --vers 0.3.1
-
-$ itmdump -V
-itmdump 0.3.1
+rustc 1.45.2 (d3fb005a3 2020-07-31)
 ```
 
 ### `cargo-binutils`
@@ -90,14 +57,23 @@ itmdump 0.3.1
 ``` console
 $ rustup component add llvm-tools-preview
 
-$ cargo install cargo-binutils --vers 0.3.0
+$ cargo install cargo-binutils --vers 0.3.1
 
 $ cargo size -- -version
 LLVM (http://llvm.org/):
-  LLVM version 8.0.0svn
+  LLVM version 10.0.1-rust-1.45.2-stable
   Optimized build.
   Default target: x86_64-unknown-linux-gnu
   Host CPU: skylake
+```
+
+### `cargo-embed`
+
+```console
+$ cargo install cargo-embed --vers 0.9.0
+
+$ cargo embed --version
+cargo-embed 0.9.0
 ```
 
 ### OS specific instructions

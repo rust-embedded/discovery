@@ -9,8 +9,8 @@ $ # Arm GCC toolchain
 $ brew tap ArmMbed/homebrew-formulae
 $ brew install arm-none-eabi-gcc
 
-$ # Minicom and OpenOCD
-$ brew install minicom openocd
+$ # Minicom
+$ brew install minicom
 ```
 
 That's all! Go to the [next section].
