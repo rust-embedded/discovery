@@ -1,0 +1,11 @@
+[package]
+name = "rtt-check"
+version = "0.1.0"
+authors = ["Henrik Böving <hargonix@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+cortex-m = "0.6.0"
+cortex-m-rt = "0.6.10"
+panic-rtt-target = { version =  "0.1.1", features = ["cortex-m"] }
+rtt-target = { version =  "0.2.2", features = ["cortex-m"] }

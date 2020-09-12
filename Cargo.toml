@@ -1,5 +1,6 @@
 [workspace]
 members = [
+  "src/03-setup",
   "src/05-led-roulette",
   "src/06-hello-world",
   "src/07-registers",
