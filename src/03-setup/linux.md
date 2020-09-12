@@ -2,42 +2,19 @@
 
 Here are the installation commands for a few Linux distributions.
 
-## Ubuntu 18.04 or newer / Debian stretch or newer
+## Ubuntu 20.04 or newer / Debian 10 or newer
 
-> **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
+> **NOTE** `gdb-multiarch` is the GDB command you'll use to debug your ARM
 > Cortex-M programs
-
-<!-- Debian stretch -->
-<!-- GDB 7.12 -->
-<!-- OpenOCD 0.9.0 -->
-
-<!-- Ubuntu 18.04 -->
-<!-- GDB 8.1 -->
-<!-- OpenOCD 0.10.0 -->
-
 ``` console
 $ sudo apt-get install \
-  arm-none-eabi-gdb \
+  gdb-multiarch \
   minicom
 ```
 
-## Ubuntu 14.04 and 16.04
-
-> **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
+## Fedora 32 or newer
+> **NOTE** `gdb` is the GDB command you'll use to debug your ARM
 > Cortex-M programs
-
-<!-- Ubuntu 14.04 -->
-<!-- GDB 7.6 -->
-<!-- OpenOCD 0.7.0 -->
-
-``` console
-$ sudo apt-get install \
-  gdb-arm-none-eabi \
-  minicom
-```
-
-## Fedora 23 or newer
-
 ``` console
 $ sudo dnf install \
   gdb \
@@ -48,7 +25,6 @@ $ sudo dnf install \
 
 > **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
 > Cortex-M programs
-
 ``` console
 $ sudo pacman -S \
   arm-none-eabi-gdb \
@@ -67,14 +43,14 @@ Here's one way to do it:
 
 ``` console
 $ mkdir -p ~/local && cd ~/local
-$ tar xjf /path/to/downloaded/file/gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2.tbz
+$ tar xjf /path/to/downloaded/file/gcc-arm-none-eabi-9-2020-q2-update-x86_64-linux.tar.bz2
 ```
 
 Then, use your editor of choice to append to your `PATH` in the appropriate
 shell init file (e.g. `~/.zshrc` or `~/.bashrc`):
 
 ```
-PATH=$PATH:$HOME/local/gcc-arm-none-eabi-7-2017-q4-major/bin
+PATH=$PATH:$HOME/local/gcc-arm-none-eabi-9-2020-q2-update/bin
 ```
 
 ## udev rules
