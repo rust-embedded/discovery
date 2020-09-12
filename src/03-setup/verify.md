@@ -47,7 +47,7 @@ can ignore them.
 Next run this command:
 
 ```
-$ # make sure you are in src/03-setup
+$ # make sure you are in src/03-setup of the books source code
 $ cargo-embed
 ```
 
