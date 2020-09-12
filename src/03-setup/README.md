@@ -72,7 +72,7 @@ LLVM (http://llvm.org/):
 ```console
 $ cargo install cargo-embed --vers 0.9.0
 
-$ cargo embed --version
+$ cargo-embed --version
 cargo-embed 0.9.0
 ```
 

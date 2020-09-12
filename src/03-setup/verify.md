@@ -33,3 +33,31 @@ rules] and try re-loading them with:
 ``` console
 $ sudo udevadm control --reload-rules
 ```
+
+# All
+
+## Verifying cargo-embed
+First, connect the micro:bit to your Computer using an USB cable.
+
+At least an orange LED right next to the USB port of the micro:bit should light up.
+Furthermore, if you have never flashed another program on to your micro:bit, the default
+program the micro:bit ships with should start blinking the red LEDs on its back, you
+can ignore them.
+
+Next run this command:
+
+```
+$ # make sure you are in src/03-setup
+$ cargo-embed
+```
+
+If everything works correctly cargo-embed should first compile the small example program
+in this directory, then flash it and finally open a nice text based user interface that
+prints Hello World.
+
+(If you don't check out [general troubleshooting] instructions.)
+
+[general troubleshooting]: ../appendix/1-general-troubleshooting/index.html
+
+This output is coming from a small Rust program you just flashed on to your micro:bit
+so everything is working properly and you can continue with the next chapters.
