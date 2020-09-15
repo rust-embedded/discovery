@@ -23,11 +23,11 @@ Also, to follow this material you'll need the following hardware:
 <img title="micro:bit" src="../assets/microbit.jpg">
 </p>
 
-- One micro-B USB cable. One is required to make the micro:bit board work.
+- One micro-B USB cable, required to make the micro:bit board work.
   Make sure that the cable supports data transfer as some cables only support charging devices.
 
 <p align="center">
-<img title="mini-B USB cable" src="../assets/usb-cable.jpg">
+<img title="micro-B USB cable" src="../assets/usb-cable.jpg">
 </p>
 
 > **NOTE** Some of the micro:bit kits already do ship with such cables. Furthermore lots of USB
@@ -44,7 +44,7 @@ Trust me on this one.
 > **FAQ**: Can I follow this material with a different development board?
 
 Maybe? It depends mainly on two things: your previous experience with microcontrollers and/or
-whether there already exists a high level crate, like the [nrf51-hal], for your development board
+whether a high level crate already exists, like the [nrf51-hal], for your development board
 somewhere.
 
 [nrf51-hal]: https://docs.rs/nrf51-hal

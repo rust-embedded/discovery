@@ -55,9 +55,9 @@ If everything works correctly cargo-embed should first compile the small example
 in this directory, then flash it and finally open a nice text based user interface that
 prints Hello World.
 
-(If you don't check out [general troubleshooting] instructions.)
+(If it does not, check out [general troubleshooting] instructions.)
 
 [general troubleshooting]: ../appendix/1-general-troubleshooting/index.html
 
-This output is coming from a small Rust program you just flashed on to your micro:bit
-so everything is working properly and you can continue with the next chapters.
+This output is coming from the small Rust program you just flashed on to your micro:bit.
+Everything is working properly and you can continue with the next chapters!
