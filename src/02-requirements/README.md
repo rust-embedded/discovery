@@ -30,9 +30,9 @@ Also, to follow this material you'll need the following hardware:
 <img title="micro-B USB cable" src="../assets/usb-cable.jpg">
 </p>
 
-> **NOTE** Some of the micro:bit kits already do ship with such cables. Furthermore lots of USB
-> cables used to charge your mobile are also micro-B ones, these cables *might* however be missing
-> the capability to transmit data.
+> **NOTE** You may already have a cable like this, as some micro:bit kits ship with such cables.
+> Some USB cables used to charge mobile devices may also work, if they are micro-B and have the
+> capability to transmit data.
 
 > **FAQ**: Wait, why do I need this specific hardware?
 
