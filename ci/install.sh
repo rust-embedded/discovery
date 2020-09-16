@@ -15,6 +15,7 @@ main() {
            --tag $tag
 
     rustup target add thumbv7em-none-eabihf
+    rustup target add thumbv6m-none-eabi
 
     pip install linkchecker --user
 }
