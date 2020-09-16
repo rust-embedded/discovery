@@ -46,7 +46,7 @@ What's out of scope for this book:
   to help get your code onto your board, but not go into detail about how those tools work.
 
 Also I don't intend to port this material to other development boards; this book will make exclusive
-use of the STM32F3DISCOVERY development board.
+use of the micro:bit development board.
 
 ## Reporting problems
 

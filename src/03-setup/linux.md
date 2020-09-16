@@ -2,69 +2,36 @@
 
 Here are the installation commands for a few Linux distributions.
 
-## REQUIRED packages
-
-### Ubuntu 18.04 or newer / Debian stretch or newer
+## Ubuntu 20.04 or newer / Debian 10 or newer
 
 > **NOTE** `gdb-multiarch` is the GDB command you'll use to debug your ARM
 > Cortex-M programs
-
-<!-- Debian stretch -->
-<!-- GDB 7.12 -->
-<!-- OpenOCD 0.9.0 -->
-
-<!-- Ubuntu 18.04 -->
-<!-- GDB 8.1 -->
-<!-- OpenOCD 0.10.0 -->
-
 ``` console
 $ sudo apt-get install \
   gdb-multiarch \
-  minicom \
-  openocd
+  minicom
 ```
 
-### Ubuntu 14.04 and 16.04
-
-> **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
+## Fedora 32 or newer
+> **NOTE** `gdb` is the GDB command you'll use to debug your ARM
 > Cortex-M programs
-
-<!-- Ubuntu 14.04 -->
-<!-- GDB 7.6 -->
-<!-- OpenOCD 0.7.0 -->
-
-``` console
-$ sudo apt-get install \
-  gdb-arm-none-eabi \
-  minicom \
-  openocd
-```
-
-### Fedora 23 or newer
-
-> **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
-> Cortex-M programs
-
 ``` console
 $ sudo dnf install \
-  arm-none-eabi-gdb \
-  minicom \
-  openocd
+  gdb \
+  minicom
 ```
 
-### Arch Linux
+## Arch Linux
 
 > **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
 > Cortex-M programs
-
 ``` console
 $ sudo pacman -S \
   arm-none-eabi-gdb \
-  minicom \
-  openocd
+  minicom
 ```
 
-### Other distros
+## Other distros
 
 > **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
 > Cortex-M programs
@@ -76,71 +43,29 @@ Here's one way to do it:
 
 ``` console
 $ mkdir -p ~/local && cd ~/local
-$ tar xjf /path/to/downloaded/file/gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2.tbz
+$ tar xjf /path/to/downloaded/file/gcc-arm-none-eabi-9-2020-q2-update-x86_64-linux.tar.bz2
 ```
 
 Then, use your editor of choice to append to your `PATH` in the appropriate
 shell init file (e.g. `~/.zshrc` or `~/.bashrc`):
 
 ```
-PATH=$PATH:$HOME/local/gcc-arm-none-eabi-7-2017-q4-major/bin
-```
-
-## Optional packages
-
-### Ubuntu / Debian
-
-``` console
-$ sudo apt-get install \
-  bluez \
-  rfkill
-```
-
-### Fedora
-
-``` console
-$ sudo dnf install \
-  bluez \
-  rfkill
-```
-
-### Arch Linux
-
-``` console
-$ sudo pacman -S \
-  bluez \
-  bluez-utils \
-  rfkill
+PATH=$PATH:$HOME/local/gcc-arm-none-eabi-9-2020-q2-update/bin
 ```
 
 ## udev rules
 
-These rules let you use USB devices like the F3 and the Serial module without root privilege, i.e.
-`sudo`.
+These rules let you use USB devices like the micro:bit without root privilege, i.e. `sudo`.
 
-Create these two files in `/etc/udev/rules.d` with the contents shown below.
+Create this file in `/etc/udev/rules.d` with the content shown below.
 
 ``` console
-$ cat /etc/udev/rules.d/99-ftdi.rules
+$ cat /etc/udev/rules.d/99-microbit.rules
 ```
 
 ``` text
-# FT232 - USB <-> Serial Converter
-ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", MODE:="0666"
-```
-
-If you have a different USB <-> Serial converter, get its vendor and product ids from `lsusb` output.
-
-``` console
-$ cat /etc/udev/rules.d/99-openocd.rules
-```
-
-``` text
-# STM32F3DISCOVERY rev A/B - ST-LINK/V2
-ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", MODE:="0666"
-
-# STM32F3DISCOVERY rev C+ - ST-LINK/V2-1
-ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE:="0666"
+# CMSIS-DAP for microbit
+SUBSYSTEM=="usb", ATTR{idVendor}=="0d28", ATTR{idProduct}=="0204", MODE:="666"
 ```
 
 Then reload the udev rules with:
