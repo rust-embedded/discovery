@@ -1,0 +1,9 @@
+[default.general]
+chip = "nrf51822"
+
+[default.rtt]
+enabled = false
+
+[default.gdb]
+enabled = true
+

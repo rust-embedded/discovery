@@ -2,6 +2,7 @@
 
 Alright, let's start by building the following application:
 
+# TODO REPLACE THIS
 <p align="center">
 <img src="https://i.imgur.com/0k1r2Lc.gif">
 </p>
@@ -10,14 +11,9 @@ I'm going to give you a high level API to implement this app but don't worry we'
 stuff later on. The main goal of this chapter is to get familiar with the *flashing* and debugging
 process.
 
-Throughout this text we'll be using the starter code that's in the [discovery] repository. Make sure
-you always have the latest version of the master branch because this website tracks that branch.
-
 The starter code is in the `src` directory of that repository. Inside that directory there are more
 directories named after each chapter of this book. Most of those directories are starter Cargo
 projects.
-
-[discovery]: https://github.com/rust-embedded/discovery
 
 Now, jump into the `src/05-led-roulette` directory. Check the `src/main.rs` file:
 
@@ -45,5 +41,18 @@ If you are a careful observer, you'll also notice there is a `.cargo` directory 
 as well. This directory contains a Cargo configuration file (`.cargo/config`) that tweaks the
 linking process to tailor the memory layout of the program to the requirements of the target device.
 This modified linking process is a requirement of the `cortex-m-rt` crate.
+
+Furthermore there is also an `Embed.toml` file
+
+```toml
+{{#include Embed.toml}}
+```
+
+This file tells `cargo-embed` that:
+
+* we are working with a nrf51822,
+* we want to disable RTT, RTT being a protocol that allows the chip to send text to a debugger.
+  You have in fact already seen RTT in action, it was the protocol that sent "Hello World" in chapter 3.
+* we want to enable GDB, this will be required for the debugging procedure
 
 Alright, let's start by building this program.

@@ -2,7 +2,9 @@
 #![no_main]
 #![no_std]
 
-use aux5::entry;
+use cortex_m_rt::entry;
+use panic_halt as _;
+use nrf51_hal as _;
 
 #[entry]
 fn main() -> ! {
