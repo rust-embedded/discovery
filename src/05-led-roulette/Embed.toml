@@ -1,9 +1,8 @@
 [default.general]
-chip = "nrf51822"
+chip = "nrf51822_xxAA"
 
 [default.rtt]
 enabled = false
 
 [default.gdb]
 enabled = true
-

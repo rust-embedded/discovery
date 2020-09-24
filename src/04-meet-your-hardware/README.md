@@ -46,11 +46,11 @@ see it with your bare eye, but it is on the chip), the `n` at the
 front hints to us that this is a part manufactured by [Nordic Semiconductor].
 Looking up the part number on their website we quickly find the [product page].
 There we learn that our chip's main marketing point is that it is a
-"Bluetooth Low Energy and 2.4 GHz SoC" (SoC being short for System on a Chip),
+"Bluetooth Low Energy and 2.4 GHz SoC" (SoC being short for "System on a Chip"),
 which explains the RF in the product name since RF is short for radio frequency.
 If we search through the documentation of the chip linked on the [product page]
-for a bit we find the [product specification] which has chapter 10 Ordering Infomration
-dedicated to explaining the weird chip naming, here we learn that:
+for a bit we find the [product specification] which contains chapter 10 "Ordering Information"
+dedicated to explaining the weird chip naming. Here we learn that:
 
 [QFN48]: https://en.wikipedia.org/wiki/Flat_no-leads_package
 [Nordic Semiconductor]: https://www.nordicsemi.com/
