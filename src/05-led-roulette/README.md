@@ -51,6 +51,7 @@ Furthermore there is also an `Embed.toml` file
 This file tells `cargo-embed` that:
 
 * we are working with a nrf51822,
+* we want to halt the chip after we flashed it so our program does not instantly jump to the loop
 * we want to disable RTT, RTT being a protocol that allows the chip to send text to a debugger.
   You have in fact already seen RTT in action, it was the protocol that sent "Hello World" in chapter 3.
 * we want to enable GDB, this will be required for the debugging procedure
