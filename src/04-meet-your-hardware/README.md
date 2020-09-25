@@ -27,6 +27,9 @@ black squares sitting on the side of the board with the USB port. The MCU is
 what runs your code. You might sometimes read about "programming a board", when
 in reality what we are doing is programming the MCU that is installed on the board.
 
+If you happen to be interested in a more in detail description of the board you
+can checkout the [micro:bit website](https://tech.microbit.org/hardware/).
+
 ## Nordic nRF51822 (the "nRF51")
 
 Since the MCU is so important, let's take a closer look at the one sitting on our board.
