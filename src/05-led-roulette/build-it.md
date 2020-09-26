@@ -46,7 +46,8 @@ $ cargo build --target thumbv6m-none-eabi
     Finished dev [unoptimized + debuginfo] target(s) in 18.69s
 ```
 
-> **NOTE** Be sure to compile this crate *without* optimizations.
+> **NOTE** Be sure to compile this crate *without* optimizations. The provided Cargo.toml
+> file and build command above will ensure optimizations are off.
 
 > **NOTE** If you have looked into `.cargo/config` you will have noticed that the target
   is actually always set to "thumbv6m-none-eabi" so the --target flag to `cargo` can in
