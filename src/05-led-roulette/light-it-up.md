@@ -14,7 +14,7 @@ the `embedded-hal` traits.
 For example, a person working on an embedded project might need to read temperature data from a sensor. In
 order to achieve this they can write a driver library that doesn't do anything MCU specific but instead just relies on
 `embedded-hal`. This will allow anyone with an MCU that implements the `embedded-hal` traits to easily plug and play
-their driver crate, despite having an MCU made by a completely different manufacturer or even with a different architecture etc.
+their driver crate, despite having an MCU made by a completely different manufacturer or even with a different architecture, etc.
 
 [OutputPin trait]: https://docs.rs/embedded-hal/0.2.4/embedded_hal/digital/v2/trait.OutputPin.html
 [nrf51-hal]: https://crates.io/crates/nrf51-hal
