@@ -30,15 +30,15 @@ Remote debugging using :1337
 > **NOTE** Depending on which GDB you installed you will have to use a different command to launch it,
 > check out chapter 3 if you forgot which one it was.
 
-> **NOTE** If `cargo-embed` prints a lot of warnings here don't worry about it, as of now it does not fully
+> **NOTE**: If `cargo-embed` prints a lot of warnings here don't worry about it. As of now it does not fully
 > implement the GDB protocol and thus might not recognize all of the commands your GDB is sending to it,
-> as long as it does not crash you are fine.
+> as long as it does not crash, you are fine.
 
-Right now we are inside the `Reset()` function, this is (surprisingly) the function that is run after a reset
+Right now we are inside the `Reset()` function. This is (surprisingly) the function that is run after a reset
 of the chip, since we did tell cargo-embed to halt the chip after we flashed it this is where we start.
 
 This `Reset()` function is part of a small piece of setup code that initializes some things for our Rust program
-before moving on to the `main()` function so lets set a breakpoint there and jump to it:
+before moving on to the `main()` function. Let's set a breakpoint there and jump to it:
 
 ```
 (gdb) break main
@@ -58,7 +58,7 @@ function because there's a breakpoint there.
 
 Note that GDB output says "Breakpoint 1". Remember that our processor can only use a limited amount of these
 breakpoints so it's a good idea to pay attention to these messages. If you happen to run out of breakpoints,
-you can list all the current ones with `info break` and delete desired ones with `delete <breakpoint-num`.
+you can list all the current ones with `info break` and delete desired ones with `delete <breakpoint-num>`.
 
 For a nicer debugging experience, we'll be using GDB's Text User Interface (TUI). To enter into that
 mode, on the GDB shell enter the following command:
@@ -72,8 +72,8 @@ mode, on the GDB shell enter the following command:
 
 ![GDB session](../assets/gdb-layout-src.png "GDB TUI")
 
-GDB's break command does not only work for function names, it can also break at certain line numbers,
-if we wanted to break in line 13 we can simply do:
+GDB's break command does not only work for function names, it can also break at certain line numbers.
+If we wanted to break in line 13 we can simply do:
 
 ```
 (gdb) break 13
@@ -142,7 +142,7 @@ never pass that statement. Instead, we'll switch to the disassemble view with th
 command and advance one instruction at a time using `stepi`. You can always switch back into Rust
 source code view later by issuing the `layout src` command again.
 
-> **NOTE** If you used the `next` or `continue` command by mistake and GDB got stuck, you can get unstuck by hitting `Ctrl+C`.
+> **NOTE**: If you used the `next` or `continue` command by mistake and GDB got stuck, you can get unstuck by hitting `Ctrl+C`.
 
 ```
 (gdb) layout asm
@@ -224,7 +224,7 @@ A debugging session is active.
         Inferior 1 [Remote target] will be detached.
 
 Quit anyway? (y or n) y
-Detaching from program: $PWD/target/thumbv6m-none-eabi/debug/led-roulette, Remotetarget
+Detaching from program: $PWD/target/thumbv6m-none-eabi/debug/led-roulette, Remote target
 Ending remote debugging.
 [Inferior 1 (Remote target) detached]
 ```
