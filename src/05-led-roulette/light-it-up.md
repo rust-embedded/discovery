@@ -1,7 +1,7 @@
 # Light it up
 ## embedded-hal
 
-In this chapter we are going to make one of the many LEDs on the back of the micro:bit blink since this is
+In this chapter we are going to make one of the many LEDs on the back of the micro:bit light up since this is
 basically the "Hello World" of embedded programming. In order to get this task done we will use a set of
 abstractions provided by the crate `embedded-hal`. `embedded-hal` is a crate which provides a set of traits
 that describe behaviour of hardware, for example the [OutputPin trait] which allows us to turn a pin on or off.
@@ -11,14 +11,10 @@ in our case in the [nrf51-hal]. Crates like this are commonly referred to as HAL
 and allow us to use the same API to blink an LED and of course many more complex things accross all chips that implement
 the `embedded-hal` traits.
 
-This also enables people to write crates that only rely on the `embedded-hal` traits being implemented for certain
-objects which in turn enables anyone with a chip that implements `embedded-hal` to use this library for themselves, despite
-the other possibly not even knowing about the existence of the MCU the consumer of the library is using.
-
-For example, a
-person working on an embedded project might decide to implement a driver to show characters on a screen and writes a
-library based on `embedded-hal` for the screen, once this library is published every chip that has a HAL library can be
-made to control said screen easily since the HALs all expose the same API.
+For example, a person working on an embedded project might need to read temperature data from a sensor. In
+order to achieve this they can write a driver library that doesn't do anything MCU specific but instead just relies on
+`embedded-hal`. This will allow anyone with an MCU that implements the `embedded-hal` traits to easily plug and play
+their driver crate, despite having an MCU made by a completely different manufacturer or even with a different architecture etc.
 
 [OutputPin trait]: https://docs.rs/embedded-hal/0.2.4/embedded_hal/digital/v2/trait.OutputPin.html
 [nrf51-hal]: https://crates.io/crates/nrf51-hal
