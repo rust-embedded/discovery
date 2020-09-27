@@ -35,7 +35,7 @@ Remote debugging using :1337
 > as long as it does not crash, you are fine.
 
 Right now we are inside the `Reset()` function. This is (surprisingly) the function that is run after a reset
-of the chip, since we did tell cargo-embed to halt the chip after we flashed it this is where we start.
+of the chip. Since we did tell cargo-embed to halt the chip after we flashed it, this is where we start.
 
 This `Reset()` function is part of a small piece of setup code that initializes some things for our Rust program
 before moving on to the `main()` function. Let's set a breakpoint there and jump to it:
