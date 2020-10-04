@@ -60,7 +60,7 @@ fn main() -> ! {
 
     let p0 = hal::gpio::p0::Parts::new(p.GPIO);
     let mut row1 = p0.p0_13.into_push_pull_output(hal::gpio::Level::Low);
-    let mut col1 = p0.p0_04.into_push_pull_output(hal::gpio::Level::Low);
+    let _col1 = p0.p0_04.into_push_pull_output(hal::gpio::Level::Low);
 
     row1.set_high().unwrap();
 
