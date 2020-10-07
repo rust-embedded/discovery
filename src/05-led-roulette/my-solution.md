@@ -72,7 +72,7 @@ fn main() -> ! {
 One more thing! Check that your solution also works when compiled in "release" mode:
 
 ``` console
-$ cargo-embed --release
+$ cargo embed --release
 ```
 
 If you want to debug your "release" mode binary you'll have to use a different GDB command:
