@@ -97,8 +97,8 @@ that is highly unlikely in our case, we can just `unwrap()` the result.
 
 ## Testing it
 
-Testing our little program is quite simple. We simply have to run `cargo-embed` again, let it flash and just like before,
-open our GDB and connect to the GDB stub:
+Testing our little program is quite simple. First put it into `src/mains.rs`. Afterwards we simply have to run `cargo-embed`
+again, let it flash and just like before, open our GDB and connect to the GDB stub:
 
 ```
 $ gdb target/thumbv6m-none-eabi/debug/led-roulette

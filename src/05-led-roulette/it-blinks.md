@@ -55,8 +55,8 @@ enabled = true
 enabled = false
 ```
 
-And now after a quick `cargo embed` you should see "`1000 ms passed`" being sent to your console
-every second from your MCU.
+And now after putting the code into `src/main.rs` and another quick `cargo embed` you should see
+"`1000 ms passed`" being sent to your console every second from your MCU.
 
 ## Blinking
 
@@ -98,5 +98,5 @@ fn main() -> ! {
 }
 ```
 
-And after another `cargo embed` you should see the LED we light up before blinking as well as a print, every
-time the LED changes from off to on and vice versa.
+And after putting the code into `src/main.rs` and a final `cargo embed` you should see the LED we light up before
+blinking as well as a print, every time the LED changes from off to on and vice versa.
