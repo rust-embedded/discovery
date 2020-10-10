@@ -89,11 +89,10 @@ proceed to construct the `ROW1` and `COL1` pin using the two lines below, initia
 > want to figure it out, have a look [here](https://en.wikipedia.org/wiki/Push%E2%80%93pull_output).
 
 Now we can finally light the LED connected to `ROW1`, `COL1` up by setting the `ROW1` pin to high (i.e. switching it on).
-The reason we can leave `COL1` set to low is because of how the LED [matrix circuit works]. Furthermore, `embedded-hal` is
+The reason we can leave `COL1` set to low is because of how the LED matrix circuit works. Furthermore, `embedded-hal` is
 designed in a way that every operation on hardware can possibly return an error, even just toggling a pin on or off. Since
 that is highly unlikely in our case, we can just `unwrap()` the result.
 
-[matrix circuit works]: TODO ADD LINK, suggestion? @code reviewers
 
 ## Testing it
 
