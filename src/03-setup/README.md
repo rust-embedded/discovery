@@ -29,7 +29,7 @@ should work but we have listed the version we have tested.
 
 [`cargo-binutils`]: https://github.com/rust-embedded/cargo-binutils
 
-- [`cargo-embed`]. Version 0.9.0 or newer.
+- [`cargo-embed`]. Version 0.9.1 or newer.
 
 [`cargo-embed`]: https://github.com/probe-rs/cargo-embed
 

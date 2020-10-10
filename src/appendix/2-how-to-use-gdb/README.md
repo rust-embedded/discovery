@@ -83,7 +83,4 @@ Below are some useful GDB commands that can help us debug our programs. This ass
 
 ### Controlling OpenOCD Remotely
 
-* `monitor reset run`: Reset the CPU, starting execution over again
-    * `monitor reset`: Same as above
-* `monitor reset init`: Reset the CPU, halting execution at the start
-* `monitor targets`: Display information and state of current target
+* `monitor reset`: Reset the CPU, starting execution over again

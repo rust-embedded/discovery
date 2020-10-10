@@ -1,33 +1,64 @@
 # Debug it
+## How does this even work?
+Before we debug our little program let's take a moment to quickly understand what is actually
+happening here. In the previous chapter we already discussed the purpose of the second chip
+on the board as well as how it talks to our computer, but how can we actually use it?
 
-We are already inside a debugging session so let's debug our program.
+As you can see from the output of `cargo-embed` it opened a "GDB stub", this is a server that our GDB
+can connect to and send commands like "set a breakpoint at address X" to, the server can then decide
+on its own how to handle this command. In the case of the `cargo-embed` GDB stub it will forward the
+command to the debugging probe on the board via USB which then does the job of actually talking to the
+MCU for us.
 
-After the `load` command, our program is stopped at its *entry point*. This is indicated by the
-"Start address 0x8000XXX" part of GDB's output. The entry point is the part of a program that a
-processor / CPU will execute first.
+## Let's debug!
 
-The starter project I've provided to you has some extra code that runs *before* the `main` function.
-At this time, we are not interested in that "pre-main" part so let's skip right to the beginning of
-the `main` function. We'll do that using a breakpoint:
+Since `cargo-embed` is blocking our current shell we can simply open a new one and cd back into our project
+directory. Once we are there we can connect to the GDB server like this:
+
+```shell
+$ gdb target/thumbv6m-none-eabi/debug/led-roulette
+(gdb) target remote :1337
+Remote debugging using :1337
+<cortex_m_rt::ExceptionFrame as core::fmt::Debug>::fmt (
+    self=<error reading variable: Cannot access memory at address 0x20004058>,
+    f=<error reading variable: Cannot access memory at address 0x2000405c>)
+    at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-rt-0.6.12/src/lib.rs:489
+489     pub unsafe extern "C" fn Reset() -> ! {
+(gdb)
+```
+
+> **NOTE** Depending on which GDB you installed you will have to use a different command to launch it,
+> check out chapter 3 if you forgot which one it was.
+
+> **NOTE**: If `cargo-embed` prints a lot of warnings here don't worry about it. As of now it does not fully
+> implement the GDB protocol and thus might not recognize all of the commands your GDB is sending to it,
+> as long as it does not crash, you are fine.
+
+Right now we are inside the `Reset()` function. This is (surprisingly) the function that is run after a reset
+of the chip. Since we did tell cargo-embed to halt the chip after we flashed it, this is where we start.
+
+This `Reset()` function is part of a small piece of setup code that initializes some things for our Rust program
+before moving on to the `main()` function. Let's set a breakpoint there and jump to it:
 
 ```
 (gdb) break main
-Breakpoint 1 at 0x800018c: file src/05-led-roulette/src/main.rs, line 10.
-
+Breakpoint 1 at 0xac: file src/05-led-roulette/src/main.rs, line 9.
 (gdb) continue
 Continuing.
 Note: automatically using hardware breakpoints for read-only addresses.
 
-Breakpoint 1, main () at src/05-led-roulette/src/main.rs:10
-10          let x = 42;
+Breakpoint 1, main () at src/05-led-roulette/src/main.rs:9
+9       #[entry]
+(gdb)
 ```
 
 Breakpoints can be used to stop the normal flow of a program. The `continue` command will let the
 program run freely *until* it reaches a breakpoint. In this case, until it reaches the `main`
 function because there's a breakpoint there.
 
-Note that GDB output says "Breakpoint 1". Remember that our processor can only use six of these
-breakpoints so it's a good idea to pay attention to these messages.
+Note that GDB output says "Breakpoint 1". Remember that our processor can only use a limited amount of these
+breakpoints so it's a good idea to pay attention to these messages. If you happen to run out of breakpoints,
+you can list all the current ones with `info break` and delete desired ones with `delete <breakpoint-num>`.
 
 For a nicer debugging experience, we'll be using GDB's Text User Interface (TUI). To enter into that
 mode, on the GDB shell enter the following command:
@@ -41,24 +72,23 @@ mode, on the GDB shell enter the following command:
 
 ![GDB session](../assets/gdb-layout-src.png "GDB TUI")
 
+GDB's break command does not only work for function names, it can also break at certain line numbers.
+If we wanted to break in line 13 we can simply do:
+
+```
+(gdb) break 13
+Breakpoint 2 at 0xb8: file src/05-led-roulette/src/main.rs, line 13.
+(gdb) continue
+Continuing.
+
+Breakpoint 2, led_roulette::__cortex_m_rt_main () at src/05-led-roulette/src/main.rs:13
+(gdb)
+```
 At any point you can leave the TUI mode using the following command:
 
 ```
 (gdb) tui disable
 ```
-
-OK. We are now at the beginning of `main`. We can advance the program statement by statement using
-the `step` command. So let's use that twice to reach the `_y = x` statement. Once you've typed `step`
-once you can just hit enter to run it
-again.
-
-```
-(gdb) step
-14           _y = x;
-```
-
-If you are not using the TUI mode, on each `step` call GDB will print back the current statement
-along with its line number.
 
 We are now "on" the `_y = x` statement; that statement hasn't been executed yet. This means that `x`
 is initialized but `_y` is not. Let's inspect those stack/local variables using the `print` command:
@@ -66,18 +96,16 @@ is initialized but `_y` is not. Let's inspect those stack/local variables using 
 ```
 (gdb) print x
 $1 = 42
-
 (gdb) print &x
-$2 = (i32 *) 0x10001ff4
-
+$2 = (*mut i32) 0x20003fe8
 (gdb) print _y
-$3 = -536810104
-
+$3 = 536870912
 (gdb) print &_y
-$4 = (i32 *) 0x10001ff0
+$4 = (*mut i32) 0x20003fec
+(gdb)
 ```
 
-As expected, `x` contains the value `42`. `_y`, however, contains the value `-536810104` (?). Because
+As expected, `x` contains the value `42`. `_y`, however, contains the value `536870912` (?). Because
 `_y` has not been initialized yet, it contains some garbage value.
 
 The command `print &x` prints the address of the variable `x`. The interesting bit here is that GDB
@@ -90,14 +118,16 @@ Instead of printing the local variables one by one, you can also use the `info l
 ```
 (gdb) info locals
 x = 42
-_y = -536810104
+_y = 536870912
+(gdb)
 ```
 
-OK. With another `step`, we'll be on top of the `loop {}` statement:
+If we want to continue the program execution line by line we can do that using the `next` command
+so let's proceed to the `loop {}` statement:
 
 ```
-(gdb) step
-17          loop {}
+(gdb) next
+16          loop {}
 ```
 
 And `_y` should now be initialized.
@@ -107,12 +137,12 @@ And `_y` should now be initialized.
 $5 = 42
 ```
 
-If we use `step` again on top of the `loop {}` statement, we'll get stuck because the program will
+If we use `next` again on top of the `loop {}` statement, we'll get stuck because the program will
 never pass that statement. Instead, we'll switch to the disassemble view with the `layout asm`
 command and advance one instruction at a time using `stepi`. You can always switch back into Rust
 source code view later by issuing the `layout src` command again.
 
-> **NOTE** If you used the `step` command by mistake and GDB got stuck, you can get unstuck by hitting `Ctrl+C`.
+> **NOTE**: If you used the `next` or `continue` command by mistake and GDB got stuck, you can get unstuck by hitting `Ctrl+C`.
 
 ```
 (gdb) layout asm
@@ -125,62 +155,54 @@ program around the line you are currently at.
 
 ```
 (gdb) disassemble /m
-Dump of assembler code for function main:
-7       #[entry]
-   0x08000188 <+0>:     sub     sp, #8
-   0x0800018a <+2>:     movs    r0, #42 ; 0x2a
+Dump of assembler code for function led_roulette::__cortex_m_rt_main:
+10      fn main() -> ! {
+   0x000000b2 <+0>:     sub     sp, #8
+   0x000000b4 <+2>:     movs    r0, #42 ; 0x2a
 
-8       fn main() -> ! {
-9           let _y;
-10          let x = 42;
-   0x0800018c <+4>:     str     r0, [sp, #4]
+11          let _y;
+12          let x = 42;
+   0x000000b6 <+4>:     str     r0, [sp, #0]
 
-11          _y = x;
-   0x0800018e <+6>:     ldr     r0, [sp, #4]
-   0x08000190 <+8>:     str     r0, [sp, #0]
+13          _y = x;
+   0x000000b8 <+6>:     str     r0, [sp, #4]
 
-12
-13          // infinite loop; just so we don't leave this stack frame
-14          loop {}
-=> 0x08000192 <+10>:    b.n     0x8000194 <main+12>
-   0x08000194 <+12>:    b.n     0x8000194 <main+12>
+14
+15          // infinite loop; just so we don't leave this stack frame
+16          loop {}
+=> 0x000000ba <+8>:     b.n     0xbc <led_roulette::__cortex_m_rt_main+10>
+   0x000000bc <+10>:    b.n     0xbc <led_roulette::__cortex_m_rt_main+10>
 
 End of assembler dump.
 ```
 
 See the fat arrow `=>` on the left side? It shows the instruction the processor will execute next.
 
-If not inside the TUI mode on each `stepi` command GDB will print the statement, the line number
-*and* the address of the instruction the processor will execute next.
+If not inside the TUI mode on each `stepi` command GDB will print the statement and the line number
+of the instruction the processor will execute next.
 
 ```
 (gdb) stepi
-0x08000194      14          loop {}
-
+16          loop {}
 (gdb) stepi
-0x08000194      14          loop {}
+16          loop {}
 ```
 
 One last trick before we move to something more interesting. Enter the following commands into GDB:
 
 ```
-(gdb) monitor reset halt
-Unable to match requested speed 1000 kHz, using 950 kHz
-Unable to match requested speed 1000 kHz, using 950 kHz
-adapter speed: 950 kHz
-target halted due to debug-request, current mode: Thread
-xPSR: 0x01000000 pc: 0x08000196 msp: 0x10002000
-
-(gdb) continue
+(gdb) monitor reset
+(gdb) c
 Continuing.
 
-Breakpoint 1, main () at src/05-led-roulette/src/main.rs:10
-10          let x = 42;
+Breakpoint 1, main () at src/05-led-roulette/src/main.rs:9
+9       #[entry]
+(gdb)
 ```
 
 We are now back at the beginning of `main`!
 
-`monitor reset halt` will reset the microcontroller and stop it right at the program entry point.
+`monitor reset` will reset the microcontroller and stop it right at the program entry point.
 The following `continue` command will let the program run freely until it reaches the `main`
 function that has a breakpoint on it.
 
@@ -202,8 +224,9 @@ A debugging session is active.
         Inferior 1 [Remote target] will be detached.
 
 Quit anyway? (y or n) y
-Detaching from program: $PWD/target/thumbv7em-none-eabihf/debug/led-roulette, Remote target
+Detaching from program: $PWD/target/thumbv6m-none-eabi/debug/led-roulette, Remote target
 Ending remote debugging.
+[Inferior 1 (Remote target) detached]
 ```
 
 > **NOTE** If the default GDB CLI is not to your liking check out [gdb-dashboard]. It uses Python to
@@ -212,8 +235,6 @@ Ending remote debugging.
 
 [gdb-dashboard]: https://github.com/cyrus-and/gdb-dashboard#gdb-dashboard
 
-Don't close OpenOCD though! We'll use it again and again later on. It's better
-just to leave it running. If you want to learn more about what GDB can do, check out the section [How to use GDB](../appendix/2-how-to-use-gdb).
-
+If you want to learn more about what GDB can do, check out the section [How to use GDB](../appendix/2-how-to-use-gdb).
 
 What's next? The high level API I promised.
