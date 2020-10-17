@@ -17,17 +17,29 @@ in procedure 'init'
 in procedure 'ocd_bouncer'
 ```
 
-#### Cause + Fix
+#### Cause
 
-- All: The device is not (properly) connected. Check the USB connection using
-  `lsusb` or the Device Manager.
-- Linux: You may not have enough permission to open the device. Try again with
-  `sudo`. If that works, you can use [these instructions] to make OpenOCD work
-  without root privilege.
-- Windows: You are probably missing the ST-LINK USB driver. Installation
-  instructions [here].
+The device is not (properly) connected or not the correct ST-LINK interface
+configuration is used.
+
+#### Fix
+
+Linux:
+
+- Check the USB connection using `lsusb`.
+- You may not have enough permission to open the device. Try again with `sudo`.
+  If that works, you can use [these instructions] to make OpenOCD work without
+  root privilege.
+- You might be using the wrong interface configuration for your ST-LINK.
+  Try `interface/stlink-v2.cfg` instead of `interface/stlink-v2-1.cfg`.
 
 [these instructions]: ../../03-setup/linux.md#udev-rules
+
+Windows:
+
+- You are probably missing the ST-LINK USB driver. Installation instructions
+  [here].
+
 [here]: ../../03-setup/windows.md#st-link-usb-driver
 
 ### can't connect to OpenOCD - "Polling again in X00ms"
