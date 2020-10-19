@@ -42,11 +42,13 @@ This makes Printed Circuit Boards (PCB) smaller and cheaper to design and manufa
 **Power consumption.** Most microcontrollers consume a fraction of the power of a full blown
 processor. For applications which run on batteries, that makes a huge difference.
 
-**Responsiveness.** To accomplish their purpose reliably, some embedded systems must always react
-within a limited time interval (e.g. the "anti-lock" breaking system of a car). If the system misses
-a *deadline*, a catastrophic failure might occur. A general purpose computer and OS usually has many
-software components which share the computer's processing resources. This makes it harder to
-guarantee execution of a program within tight time constraints.
+**Responsiveness.** To accomplish their purpose, some embedded systems must always react within a
+limited time interval (e.g. the "anti-lock" breaking system of a car). If the system misses this
+type of *deadline*, a catastrophic failure might occur. Such a deadline is called a "hard real time"
+requirement. An embedded system which is bound by such a deadline is referred to as a "hard
+real-time system". A general purpose computer and OS usually has many software components which
+share the computer's processing resources. This makes it harder to guarantee execution of a program
+within tight time constraints.
 
 **Reliability.** In systems with fewer components (both hardware and software), there is less to go
 wrong!
