@@ -3,43 +3,55 @@
 ## What's a microcontroller?
 
 A microcontroller is a *system* on a chip. Whereas your computer is made up of several discrete
-components: a processor, RAM sticks, a hard drive, an ethernet port, etc.; a microcontroller has all
-those components built into a single "chip" or package. This makes it possible to build systems with
-minimal part count.
+components: a processor, RAM, storage, an Ethernet port, etc.; a microcontroller has all those types
+of components built into a single "chip" or package. This makes it possible to build systems with
+fewer parts.
 
 ## What can you do with a microcontroller?
 
-Lots of things! Microcontrollers are the central part of systems known as *embedded* systems. These
-systems are everywhere but you don't usually notice them. These systems control the brakes of your
-car, wash your clothes, print your documents, keep you warm, keep you cool, optimize the fuel
-consumption of your car, etc.
+Lots of things! Microcontrollers are the central part of what are known as "*embedded* systems".
+Embedded systems are everywhere, but you don't usually notice them. They control the machines that
+wash your clothes, print your documents, and cook your food. Embedded systems keep the buildings
+that you live and work in at a comfortable temperature, and control the components that make the
+vehicles you travel in stop and go.
 
-The main trait of these systems is that they operate without user intervention even if they expose a
-user interface like a washing machine does; most of their operation is done on their own.
+Most embedded systems operate without user intervention. Even if they expose a user interface like a
+washing machine does; most of their operation is done on their own.
 
-The other common trait of these systems is that they *control* a process. And for that these systems
-usually have one or more sensors and one or more actuators. For example, an HVAC system has several
-sensors, thermometers and humidity sensors spread across some area, and several actuators as well,
-heating elements and fans connected to ducts.
+Embedded systems are often used to *control* a physical process. To make this possible, they have
+one or more devices to tell them about the state of the world ("sensors"), and one or more
+devices which allow them to change things ("actuators"). For example, a building climate control
+system might have:
+
+- Sensors which measure temperature and humidity in various locations.
+- Actuators which control the speed of fans.
+- Actuators which cause heat to be added or removed from the building.
 
 ## When should I use a microcontroller?
 
-All these application I've mentioned, you can probably implement with a Raspberry Pi, a computer
-that runs Linux. Why should I bother with a microcontroller that operates without an OS? Sounds like
-it would be harder to develop a program.
+Many of the embedded systems listed above could be implemented with a computer running Linux (for
+example a "Raspberry Pi"). Why use a microcontroller instead? Sounds like it might be harder to
+develop a program.
 
-The main reason is cost. A microcontroller is much cheaper than a general purpose computer. Not only
-the microcontroller is cheaper; it also requires many fewer external electrical components to
-operate. This makes Printed Circuit Boards (PCB) smaller and cheaper to design and manufacture.
+Some reasons might include:
 
-The other big reason is power consumption. A microcontroller consumes orders of magnitude less power
-than a full blown processor. If your application will run on batteries that makes a huge difference.
+**Cost.** A microcontroller is much cheaper than a general purpose computer. Not only is the
+microcontroller cheaper; it also requires many fewer external electrical components to operate.
+This makes Printed Circuit Boards (PCB) smaller and cheaper to design and manufacture.
 
-And last but not least: (hard) *real time* constraints. Some processes require their controllers to
-respond to some events within some time interval (e.g. a quadcopter/drone hit by a wind gust). If
-this *deadline* is not met, the process could end in catastrophic failure (e.g. the drone crashes to
-the ground). A general purpose computer  running a general purpose OS has many services running in
-the background. This makes it hard to guarantee execution of a program within tight time constraints.
+**Power consumption.** Most microcontrollers consume a fraction of the power of a full blown
+processor. For applications which run on batteries, that makes a huge difference.
+
+**Responsiveness.** To accomplish their purpose, some embedded systems must always react within a
+limited time interval (e.g. the "anti-lock" breaking system of a car). If the system misses this
+type of *deadline*, a catastrophic failure might occur. Such a deadline is called a "hard real time"
+requirement. An embedded system which is bound by such a deadline is referred to as a "hard
+real-time system". A general purpose computer and OS usually has many software components which
+share the computer's processing resources. This makes it harder to guarantee execution of a program
+within tight time constraints.
+
+**Reliability.** In systems with fewer components (both hardware and software), there is less to go
+wrong!
 
 ## When should I *not* use a microcontroller?
 
