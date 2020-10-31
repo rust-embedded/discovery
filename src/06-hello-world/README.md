@@ -1,8 +1,8 @@
 # Hello, world!
 
-> **HEADS UP** Several readers have reported that the "solder bridge" SB10 (see back of the board)
-> on the STM32F3DISCOVERY, which is required to use the ITM and the `iprint!` macros shown below, is
-> **not** soldered even though the [User Manual][] (page 21) says that it **should be**.
+> **HEADS UP** The "solder bridge" SB10 (see back of the board) on the STM32F3DISCOVERY, which is
+> required to use the ITM and the `iprint!` macros shown below, is **not** soldered by default
+> (see page 21 of the [User Manual][]).
 
 > **TL;DR** You have two options to fix this: Either **solder** the solder bridge SB10 or connect a
 > female to female jumper wire between SWO and PB3 as shown in the picture below.
