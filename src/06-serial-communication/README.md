@@ -21,9 +21,11 @@ signal. Instead both parties must agree on how fast data will be sent along the 
 communication occurs. This protocol allows *duplex* communication as data can be sent from A to B
 and from B to A simultaneously.
 
-We'll be using this protocol to exchange data between the microcontroller and your computer. In
-contrast to the ITM protocol we have used before, with the serial communication protocol you can
-send data from your computer to the microcontroller.
+We'll be using this protocol to exchange data between the microcontroller and your computer. Now you might
+asking yourself why exactly we aren't using RTT for this like we did before. RTT is a protocol that is meant
+to be used soley for debugging. You will most definitely not be able to find a device that actually uses RTT
+to communicate with some other device in production. However serial communication is used quite often, for
+example some GPS receivers send the positioning information they receive to your via serial communication.
 
 The next practical question you probably want to ask is: How fast can we send data through this
 protocol?
@@ -39,10 +41,10 @@ rate will probably be lower because of processing times on the slower side of th
 microcontroller).
 
 Today's computers don't support the serial communication protocol. So you can't directly connect
-your computer to the microcontroller. But that's where the serial module comes in. This module will
-sit between the two and expose a serial interface to the microcontroller and an USB interface to
-your computer. The microcontroller will see your computer as another serial device and your computer
-will see the microcontroller as a virtual serial device.
+your computer to the microcontroller. Luckily for us thought the debug probe on the micro:bit has a so called
+USB to serial converter. What this means is that it will sit between the two and expose a serial interface to
+the microcontroller and an USB interface to your computer. The microcontroller will see your computer as
+another serial device and your computer will see the microcontroller as a virtual serial device.
 
 Now, let's get familiar with the serial module and the serial communication tools that your OS
 offers. Pick a route:
