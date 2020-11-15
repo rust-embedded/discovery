@@ -30,7 +30,7 @@ the data they received was corrupted on the line or not but we don't want to use
 
 Last but not least we send our `X` via the newly created uart instance. The `block!` macro here is the `nb::block!`
 macro. `nb` is a (quoting from its description) "Minimal and reusable non-blocking I/O layer". It allows us to write
-code code that can conduct hardware operations in the background while we go and do other work (non-blocking). However
+code that can conduct hardware operations in the background while we go and do other work (non-blocking). However
 in this and many other cases we have no interest in doing some other work so we just call `block!` which will wait until
 the I/O operation is done and has either succeeded or failed and then continue execution normally.
 
