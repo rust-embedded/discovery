@@ -64,7 +64,7 @@ baud rate to 115200. A text-based user interface (TUI) will pop out.
 </p>
 
 You can now send data using the keyboard! Go ahead and type something. Note that
-the TUI will *not* echo back what you type. If you pay attention to the yellow LED
+the text UI will *not* echo back what you type. If you pay attention to the yellow LED
 on top of the micro:bit though, you will notice that it blinks whenever you type something.
 
 ## `minicom` commands

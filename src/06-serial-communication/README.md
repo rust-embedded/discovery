@@ -25,7 +25,7 @@ We'll be using this protocol to exchange data between the microcontroller and yo
 asking yourself why exactly we aren't using RTT for this like we did before. RTT is a protocol that is meant
 to be used soley for debugging. You will most definitely not be able to find a device that actually uses RTT
 to communicate with some other device in production. However serial communication is used quite often, for
-example some GPS receivers send the positioning information they receive to your via serial communication.
+example some GPS receivers send the positioning information they receive via serial communication.
 
 The next practical question you probably want to ask is: How fast can we send data through this
 protocol?
@@ -41,8 +41,8 @@ rate will probably be lower because of processing times on the slower side of th
 microcontroller).
 
 Today's computers don't support the serial communication protocol. So you can't directly connect
-your computer to the microcontroller. Luckily for us thought the debug probe on the micro:bit has a so called
-USB to serial converter. What this means is that it will sit between the two and expose a serial interface to
+your computer to the microcontroller. Luckily for us though, the debug probe on the micro:bit has a so-called
+USB to serial converter. What this means is that the converter will sit between the two and expose a serial interface to
 the microcontroller and an USB interface to your computer. The microcontroller will see your computer as
 another serial device and your computer will see the microcontroller as a virtual serial device.
 
