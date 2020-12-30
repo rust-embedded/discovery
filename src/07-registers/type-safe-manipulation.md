@@ -176,7 +176,7 @@ did!
 [LTO]: https://en.wikipedia.org/wiki/Interprocedural_optimization
 
 ``` console
-$ cargo objdump --bin registers --release -- -d -no-show-raw-insn -print-imm-hex
+$ cargo objdump --bin registers --release -- -d --no-show-raw-insn --print-imm-hex
 registers:      file format ELF32-arm-little
 
 Disassembly of section .text:
