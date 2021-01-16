@@ -137,6 +137,42 @@ Or, `itmdump` was called **after** the `monitor tpiu` was issued thus making
 - Then, launch `itmdump`
 - Then, launch the GDB session that executes the `monitor tpiu` command.
 
+
+### can't connect to OpenOCD - "Error: couldn't bind [telnet] to socket: Address already in use"
+
+#### Symptoms
+
+Upon trying to establish a *new connection* with the device you get an error
+that looks something like this:
+
+```
+$ openocd -f (..)
+(..)
+Error: couldn't bind telnet to socket: Address already in use
+```
+
+#### Cause
+
+One or more of the ports OpenOCD requires access to, 3333, 4444, or 6666, is in use by another process. Each of these ports is used for another aspect: 3333 for gdb, 4444 for telnet, 6666 for remote procedure call (RPC) commands to TCL
+
+#### Fix
+
+You can go two routes for fixing this. A) Kill any process that's using one of those ports. B) Specify different ports you know to be free for OpenOCD to use.
+
+Solution A
+
+Mac:
+- Get a list of processes using ports by running `sudo lsof -PiTCP -sTCP:LISTEN`
+- Kill the process(es) blocking the key ports by noting their pid(s) and running `kill [pid]` for each. (Assuming you can confirm they're not running anything mission-critical on your machine!)
+
+Solution B
+
+All:
+- Send configuration details to OpenOCD when starting it up so that it uses a different port from the default for any of the processes.
+- For example, to do its telnet features on 4441 instead of the default 4444, you would run `openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg -c "telnet_port 4441"`
+- More details on OpenOCD's Configuration Stage can be found in their [official docs online]: http://openocd.org/doc/html/Server-Configuration.html
+
+
 ## Cargo problems
 
 ### "can't find crate for `core`"
