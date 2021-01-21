@@ -1,1 +1,0 @@
-# Type safe manipulation

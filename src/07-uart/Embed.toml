@@ -2,7 +2,7 @@
 chip = "nrf51822_xxAA"
 
 [default.reset]
-halt_afterwards = true
+halt_afterwards = false
 
 [default.rtt]
 enabled = true

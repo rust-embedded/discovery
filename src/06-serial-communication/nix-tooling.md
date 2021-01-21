@@ -12,7 +12,7 @@ $ dmesg | tail | grep -i tty
 ```
 
 This is the USB <-> Serial device. On Linux, it's named `tty*` (usually
-`ttyACM*` or `ttyUSB*`). But what exactly `ttyACM0`? It's a file of course!
+`ttyACM*` or `ttyUSB*`). But what exactly is `ttyACM0`? It's a file of course!
 Everything is a file in \*nix:
 
 ```

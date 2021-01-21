@@ -9,6 +9,7 @@ In order to do that we will use the following snippet (this one is already in `0
 {{#include src/main.rs}}
 ```
 
+
 There is some parts we have already seen before but also lots of new stuff so lets focus on those.
 First things first, how do we know that we have to interact with P0_24 and P0_25 here? If you take a look
 at the micro:bit schematics page 5 again, you will notice that those two pins are also referred to as TGT_RX

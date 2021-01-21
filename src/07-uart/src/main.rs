@@ -1,4 +1,3 @@
-#![deny(unsafe_code)]
 #![no_main]
 #![no_std]
 
@@ -7,7 +6,9 @@ use rtt_target::rtt_init_print;
 use panic_rtt_target as _;
 use nrf51_hal as hal;
 use hal::prelude::*;
+use heapless::{consts, Vec};
 use nb::block;
+use core::fmt::Write;
 
 #[entry]
 fn main() -> ! {
@@ -27,7 +28,27 @@ fn main() -> ! {
 
     let mut uart = hal::Uart::new(p.UART0, pins, hal::uart::Parity::EXCLUDED, hal::uart::Baudrate::BAUD115200);
 
-    block!(uart.write(b'X')).ok();
+    // A buffer with 32 bytes of capacity
+    let mut buffer: Vec<u8, consts::U32> = Vec::new();
 
-    loop {}
+    loop {
+        buffer.clear();
+
+        loop {
+            // We assume that the receiving cannot fail for now
+            let byte = block!(uart.read()).unwrap();
+
+            if buffer.push(byte).is_err() {
+                writeln!(&mut uart, "error: buffer full").unwrap();
+                break;
+            }
+
+            if byte == 13 {
+                for byte in buffer.iter().rev().chain(&[b'\n', b'\r']) {
+                    block!(uart.write(*byte)).ok();
+                }
+                break;
+            }
+        }
+    }
 }

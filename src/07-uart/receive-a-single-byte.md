@@ -1,52 +1,52 @@
 # Receive a single byte
 
 So far we have sending data from the microcontroller to your computer. It's time to try the opposite: receiving
-data from your computer.
-
-There's a `RDR` register that will be filled with the data that comes from the RX line. If we read
-that register, we'll retrieve the data that the other side of the channel sent. The question is: How
-do we know that we have received (new) data? The status register, `ISR`, has a bit for that purpose:
-`RXNE`. We can just busy wait on that flag.
+data from your computer. Luckily `embedded-hal` again got us covered with this one:
 
 ``` rust
-#![deny(unsafe_code)]
 #![no_main]
 #![no_std]
 
-#[allow(unused_imports)]
-use aux11::{entry, iprint, iprintln};
+use cortex_m_rt::entry;
+use rtt_target::rtt_init_print;
+use panic_rtt_target as _;
+use rtt_target::rprintln;
+use nrf51_hal as hal;
+use hal::prelude::*;
+use nb::block;
 
 #[entry]
 fn main() -> ! {
-    let (usart1, mono_timer, itm) = aux11::init();
+    rtt_init_print!();
+    let p = hal::pac::Peripherals::take().unwrap();
+
+    let p0 = hal::gpio::p0::Parts::new(p.GPIO);
+    let rxd = p0.p0_25.into_floating_input().degrade();
+    let txd = p0.p0_24.into_push_pull_output(hal::gpio::Level::Low).degrade();
+
+    let pins = hal::uart::Pins {
+        rxd,
+        txd,
+        cts: None,
+        rts: None
+    };
+
+    let mut uart = hal::Uart::new(p.UART0, pins, hal::uart::Parity::EXCLUDED, hal::uart::Baudrate::BAUD115200);
 
     loop {
-        // Wait until there's data available
-        while usart1.isr.read().rxne().bit_is_clear() {}
-
-        // Retrieve the data
-        let _byte = usart1.rdr.read().rdr().bits() as u8;
-
-        aux11::bkpt();
+        let byte = block!(uart.read()).unwrap();
+        rprintln!("{}", byte);
     }
 }
 ```
 
-Let's try this program! Let it run free using `continue` and then type a single character in
-minicom/PuTTY's console. What happens? What are the contents of the `_byte` variable?
+The only part that changed, compared to our send byte program, is the loop
+at the end of main. Here we use the `read()` function, provided by `embedded-hal`,
+in order to wait until a byte is available and read. Then we print that byte
+into our RTT debugging console to see whether stuff is actually arriving.
 
-```
-(gdb) continue
-Continuing.
-
-Program received signal SIGTRAP, Trace/breakpoint trap.
-0x8003d48 in __bkpt ()
-
-(gdb) finish
-Run till exit from #0  0x8003d48 in __bkpt ()
-usart::main () at src/11-usart/src/main.rs:19
-19              aux11::bkpt();
-
-(gdb) p/c _byte
-$1 = 97 'a'
-```
+Note that if you flash this program and start typing characters inside `minicom` to
+send them to your microcontroller you'll only be able to see numbers inside your
+RTT console since we are not converting the `u8` we received into an actual `char`.
+Since the conversion from `u8` to `char` is quite simple I'll leave this task to
+you if you really do want to see the characters inside the RTT console.

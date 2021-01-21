@@ -1,17 +1,35 @@
 # My solution
 
 ```rust
-#![deny(unsafe_code)]
 #![no_main]
 #![no_std]
 
-#[allow(unused_imports)]
-use aux11::{entry, iprint, iprintln};
+use cortex_m_rt::entry;
+use rtt_target::rtt_init_print;
+use panic_rtt_target as _;
+use nrf51_hal as hal;
+use hal::prelude::*;
 use heapless::{consts, Vec};
+use nb::block;
+use core::fmt::Write;
 
 #[entry]
 fn main() -> ! {
-    let (usart1, mono_timer, itm) = aux11::init();
+    rtt_init_print!();
+    let p = hal::pac::Peripherals::take().unwrap();
+
+    let p0 = hal::gpio::p0::Parts::new(p.GPIO);
+    let rxd = p0.p0_25.into_floating_input().degrade();
+    let txd = p0.p0_24.into_push_pull_output(hal::gpio::Level::Low).degrade();
+
+    let pins = hal::uart::Pins {
+        rxd,
+        txd,
+        cts: None,
+        rts: None
+    };
+
+    let mut uart = hal::Uart::new(p.UART0, pins, hal::uart::Parity::EXCLUDED, hal::uart::Baudrate::BAUD115200);
 
     // A buffer with 32 bytes of capacity
     let mut buffer: Vec<u8, consts::U32> = Vec::new();
@@ -20,27 +38,18 @@ fn main() -> ! {
         buffer.clear();
 
         loop {
-            while usart1.isr.read().rxne().bit_is_clear() {}
-            let byte = usart1.rdr.read().rdr().bits() as u8;
+            // We assume that the receiving cannot fail
+            let byte = block!(uart.read()).unwrap();
 
             if buffer.push(byte).is_err() {
-                // buffer full
-                for byte in b"error: buffer full\n\r" {
-                    while usart1.isr.read().txe().bit_is_clear() {}
-                    usart1.tdr.write(|w| w.tdr().bits(u16::from(*byte)));
-                }
-
+                writeln!(&mut uart, "error: buffer full").unwrap();
                 break;
             }
 
-            // Carriage return
             if byte == 13 {
-                // Respond
                 for byte in buffer.iter().rev().chain(&[b'\n', b'\r']) {
-                    while usart1.isr.read().txe().bit_is_clear() {}
-                    usart1.tdr.write(|w| w.tdr().bits(u16::from(*byte)));
+                    block!(uart.write(*byte)).ok();
                 }
-
                 break;
             }
         }
