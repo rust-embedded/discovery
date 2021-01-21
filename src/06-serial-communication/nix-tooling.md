@@ -12,12 +12,22 @@ $ dmesg | tail | grep -i tty
 ```
 
 This is the USB <-> Serial device. On Linux, it's named `tty*` (usually
-`ttyACM*` or `ttyUSB*`).
+`ttyACM*` or `ttyUSB*`). But what exactly `ttyACM0`? It's a file of course!
+Everything is a file in \*nix:
 
-If you don't see the device appear then you probably have an older revision of
-the board; check the next section, which contains instructions for older
-revisions. If you do have a newer revision skip the next section and move to the
-"minicom" section.
+```
+$ ls -l /dev/ttyACM0
+crw-rw----. 1 root plugdev 166, 0 Jan 21 11:56 /dev/ttyACM0
+```
+
+You can send out data by simply writing to this file:
+
+``` console
+$ echo 'Hello, world!' > /dev/ttyACM0
+```
+
+You should see the orange LED on the micro:bit, right next to the USB port, blink for a moment,
+whenever you enter this command.
 
 ## minicom
 

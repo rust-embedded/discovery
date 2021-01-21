@@ -1,6 +1,6 @@
 # UART
 
-The microcontroller has a peripheral called USART, which stands for Universal
+The microcontroller has a peripheral called UART, which stands for Universal
 Asynchronous Receiver/Transmitter. This peripheral can be configured to work with
 several communication protocols like the serial communication protocol.
 
