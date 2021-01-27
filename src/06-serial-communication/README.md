@@ -24,7 +24,7 @@ and from B to A simultaneously.
 We'll be using this protocol to exchange data between the microcontroller and your computer. Now you might
 asking yourself why exactly we aren't using RTT for this like we did before. RTT is a protocol that is meant
 to be used soley for debugging. You will most definitely not be able to find a device that actually uses RTT
-to communicate with some other device in production. However serial communication is used quite often, for
+to communicate with some other device in production. However, serial communication is used quite often. For
 example some GPS receivers send the positioning information they receive via serial communication.
 
 The next practical question you probably want to ask is: How fast can we send data through this
