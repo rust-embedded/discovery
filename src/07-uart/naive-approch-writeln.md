@@ -41,15 +41,15 @@ fn main() -> ! {
 }
 ```
 
-and while this is a perfectly valid implementation at some point
+While this is a perfectly valid implementation, at some point
 you might want to have all the nice perks of `println!` such
-as argument formatting etc., introducing: `core::fmt::Write`.
+as argument formatting and so on. If you are wondering how to do that, read on.
 
 ## `writeln!` and `core::fmt::Write`
 The `core::fmt::Write` trait allows us to use any struct that implements
 it in basically the same way as we use `println!` in the `std` world.
-In this case the `Uart` struct from the nrf hal does implement `core::fmt::Write`
-so we can refactor the above program into this:
+In this case the `Uart` struct from the `nrf` HAL does implement `core::fmt::Write`
+so we can refactor our previous program into this:
 
 ```rs
 #![no_main]
@@ -85,5 +85,5 @@ fn main() -> ! {
 ```
 
 If you were to flash this program onto your micro:bit, you'll
-see that it is functionally equivalent to the iterator based
+see that it is functionally equivalent to the iterator-based
 program you came up with.

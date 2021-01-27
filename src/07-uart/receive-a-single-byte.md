@@ -1,6 +1,6 @@
 # Receive a single byte
 
-So far we have sending data from the microcontroller to your computer. It's time to try the opposite: receiving
+So far we have sending of data from the microcontroller to your computer working. It's time to try the opposite: receiving
 data from your computer. Luckily `embedded-hal` again got us covered with this one:
 
 ``` rust
@@ -41,12 +41,12 @@ fn main() -> ! {
 ```
 
 The only part that changed, compared to our send byte program, is the loop
-at the end of main. Here we use the `read()` function, provided by `embedded-hal`,
-in order to wait until a byte is available and read. Then we print that byte
+at the end of `main()`. Here we use the `read()` function, provided by `embedded-hal`,
+in order to wait until a byte is available and read it. Then we print that byte
 into our RTT debugging console to see whether stuff is actually arriving.
 
 Note that if you flash this program and start typing characters inside `minicom` to
 send them to your microcontroller you'll only be able to see numbers inside your
 RTT console since we are not converting the `u8` we received into an actual `char`.
-Since the conversion from `u8` to `char` is quite simple I'll leave this task to
+Since the conversion from `u8` to `char` is quite simple, I'll leave this task to
 you if you really do want to see the characters inside the RTT console.

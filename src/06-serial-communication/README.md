@@ -42,7 +42,7 @@ microcontroller).
 
 Today's computers don't support the serial communication protocol. So you can't directly connect
 your computer to the microcontroller. Luckily for us though, the debug probe on the micro:bit has a so-called
-USB to serial converter. What this means is that the converter will sit between the two and expose a serial interface to
+USB-to-serial converter. This means that the converter will sit between the two and expose a serial interface to
 the microcontroller and an USB interface to your computer. The microcontroller will see your computer as
 another serial device and your computer will see the microcontroller as a virtual serial device.
 
