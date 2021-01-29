@@ -1,8 +1,8 @@
 # \*nix tooling
 
-## Newer revisions of the micro:bit board
+## Connecting the micro:bit board
 
-With newer revisions, if you connect the micro:bit board to your computer you
+If you connect the micro:bit board to your computer you
 should see a new TTY device appear in `/dev`.
 
 ``` console
