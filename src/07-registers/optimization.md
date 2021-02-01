@@ -61,8 +61,8 @@ register, but the *release* (optimized) program only has one.
 We can check that using `objdump`:
 
 ``` console
-$ # same as cargo objdump -- -d -no-show-raw-insn -print-imm-hex -source target/thumbv7em-none-eabihf/debug/registers
-$ cargo objdump --bin registers -- -d -no-show-raw-insn -print-imm-hex -source
+$ # same as cargo objdump -- -d --no-show-raw-insn --print-imm-hex --source target/thumbv7em-none-eabihf/debug/registers
+$ cargo objdump --bin registers -- -d --no-show-raw-insn --print-imm-hex --source
 registers:      file format ELF32-arm-little
 
 Disassembly of section .text:
@@ -188,7 +188,7 @@ fn main() -> ! {
 If we look at the disassembly of this new program compiled in release mode:
 
 ``` console
-$ cargo objdump --bin registers --release -- -d -no-show-raw-insn -print-imm-hex -source
+$ cargo objdump --bin registers --release -- -d --no-show-raw-insn --print-imm-hex --source
 registers:      file format ELF32-arm-little
 
 Disassembly of section .text:
