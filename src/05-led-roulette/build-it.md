@@ -31,18 +31,19 @@ With the `rust-std` component in place you can now cross compile the program usi
 $ # make sure you are in the `src/05-led-roulette` directory
 
 $ cargo build --target thumbv7em-none-eabihf
+   Compiling typenum v1.12.0
    Compiling semver-parser v0.7.0
-   Compiling aligned v0.1.1
-   Compiling libc v0.2.35
-   Compiling bare-metal v0.1.1
-   Compiling cast v0.2.2
-   Compiling cortex-m v0.4.3
-   (..)
-   Compiling stm32f30x v0.6.0
-   Compiling stm32f30x-hal v0.1.2
-   Compiling aux5 v0.1.0 (file://$PWD/aux)
-   Compiling led-roulette v0.1.0 (file://$PWD)
-    Finished dev [unoptimized + debuginfo] target(s) in 35.84 secs
+   Compiling version_check v0.9.2
+   Compiling cortex-m v0.6.4
+   Compiling cortex-m-rt v0.6.13
+   Compiling stm32f3-discovery v0.5.0
+   ...
+   Compiling panic-itm v0.4.2
+   Compiling cortex-m-rt-macros v0.1.8
+   Compiling stm32f3xx-hal v0.5.0
+   Compiling aux5 v0.2.0 (file://$PWD/auxiliary)
+   Compiling led-roulette v0.2.0 (file://$PWD/)
+    Finished dev [unoptimized + debuginfo] target(s) in 19.45s
 ```
 
 > **NOTE** Be sure to compile this crate *without* optimizations. The provided Cargo.toml file and build command above will ensure optimizations are off. 
@@ -52,26 +53,27 @@ OK, now we have produced an executable. This executable won't blink any leds, it
 ``` console
 $ # equivalent to `readelf -h target/thumbv7em-none-eabihf/debug/led-roulette`
 $ cargo readobj --target thumbv7em-none-eabihf --bin led-roulette -- -file-headers
+    Finished dev [unoptimized + debuginfo] target(s) in 0.03s
 ELF Header:
   Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00
   Class:                             ELF32
   Data:                              2's complement, little endian
   Version:                           1 (current)
   OS/ABI:                            UNIX - System V
-  ABI Version:                       0x0
+  ABI Version:                       0
   Type:                              EXEC (Executable file)
   Machine:                           ARM
   Version:                           0x1
-  Entry point address:               0x8000197
+  Entry point address:               0x8000195
   Start of program headers:          52 (bytes into file)
-  Start of section headers:          740788 (bytes into file)
+  Start of section headers:          797192 (bytes into file)
   Flags:                             0x5000400
   Size of this header:               52 (bytes)
   Size of program headers:           32 (bytes)
-  Number of program headers:         2
+  Number of program headers:         4
   Size of section headers:           40 (bytes)
-  Number of section headers:         20
-  Section header string table index: 18
-```
+  Number of section headers:         22
+  Section header string table index: 20
+  ```
 
 Next, we'll flash the program into our microcontroller.

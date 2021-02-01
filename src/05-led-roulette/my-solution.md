@@ -9,20 +9,20 @@ Here's mine:
 #![no_main]
 #![no_std]
 
-use aux5::{entry, prelude::*, Delay, Leds};
+use aux5::{Delay, DelayMs, LedArray, OutputSwitch, entry};
 
 #[entry]
 fn main() -> ! {
-    let (mut delay, mut leds): (Delay, Leds) = aux5::init();
+    let (mut delay, mut leds): (Delay, LedArray) = aux5::init();
 
     let ms = 50_u8;
     loop {
         for curr in 0..8 {
             let next = (curr + 1) % 8;
 
-            leds[next].on();
+            leds[next].on().ok();
             delay.delay_ms(ms);
-            leds[curr].off();
+            leds[curr].off().ok();
             delay.delay_ms(ms);
         }
     }
@@ -50,58 +50,63 @@ that using the `size` command on the release binary:
 ``` console
 $ # equivalent to size target/thumbv7em-none-eabihf/debug/led-roulette
 $ cargo size --target thumbv7em-none-eabihf --bin led-roulette -- -A
+    Finished dev [unoptimized + debuginfo] target(s) in 0.02s
 led-roulette  :
 section               size        addr
-.vector_table          392   0x8000000
-.text                16404   0x8000188
-.rodata               2924   0x80041a0
+.vector_table          404   0x8000000
+.text                21144   0x8000194
+.rodata               3144   0x800542c
 .data                    0  0x20000000
 .bss                     4  0x20000000
-.debug_str          602185         0x0
-.debug_abbrev        24134         0x0
-.debug_info         553143         0x0
-.debug_ranges       112744         0x0
-.debug_macinfo          86         0x0
-.debug_pubnames      56467         0x0
-.debug_pubtypes      94866         0x0
+.uninit                  0  0x20000004
+.debug_abbrev        19160         0x0
+.debug_info         471239         0x0
+.debug_aranges       18376         0x0
+.debug_ranges       102536         0x0
+.debug_str          508618         0x0
+.debug_pubnames      76975         0x0
+.debug_pubtypes     112797         0x0
 .ARM.attributes         58         0x0
-.debug_frame        174812         0x0
-.debug_line         354866         0x0
-.debug_loc             534         0x0
-.comment                75         0x0
-Total              1993694
+.debug_frame         55848         0x0
+.debug_line         282067         0x0
+.debug_loc             845         0x0
+.comment               147         0x0
+Total              1673362
+
 
 $ cargo size --target thumbv7em-none-eabihf --bin led-roulette --release -- -A
+    Finished release [optimized + debuginfo] target(s) in 0.03s
 led-roulette  :
 section              size        addr
-.vector_table         392   0x8000000
-.text                1826   0x8000188
-.rodata                84   0x80008ac
+.vector_table         404   0x8000000
+.text                5380   0x8000194
+.rodata               564   0x8001698
 .data                   0  0x20000000
 .bss                    4  0x20000000
-.debug_str          23334         0x0
-.debug_loc           6964         0x0
-.debug_abbrev        1337         0x0
-.debug_info         40582         0x0
-.debug_ranges        2936         0x0
-.debug_macinfo          1         0x0
-.debug_pubnames      5470         0x0
-.debug_pubtypes     10016         0x0
+.uninit                 0  0x20000004
+.debug_loc           9994         0x0
+.debug_abbrev        1821         0x0
+.debug_info         74974         0x0
+.debug_aranges        600         0x0
+.debug_ranges        6848         0x0
+.debug_str          52828         0x0
+.debug_pubnames     20821         0x0
+.debug_pubtypes     18891         0x0
 .ARM.attributes        58         0x0
-.debug_frame          164         0x0
-.debug_line          9081         0x0
-.comment               18         0x0
-Total              102267
+.debug_frame         1088         0x0
+.debug_line         15307         0x0
+.comment               19         0x0
+Total              209601
 ```
 
 > **NOTE** The Cargo project is already configured to build the release binary using LTO.
 
-Know how to read this output? The `text` section contains the program instructions. It's around 2KB
+Know how to read this output? The `text` section contains the program instructions. It's around 5.25KB
 in my case. On the other hand, the `data` and `bss` sections contain variables statically allocated
 in RAM (`static` variables). A `static` variable is being used in `aux5::init`; that's why it shows 4
 bytes of `bss`.
 
-One final thing! We have been running our programs from within GDB but our programs don't depend on
+One final thing! We have been running our programs from within GDB but our programs doesn't depend on
 GDB at all. You can confirm this be closing both GDB and OpenOCD and then resetting the board by
 pressing the black button on the board. The LED roulette application will run without intervention
 of GDB.
