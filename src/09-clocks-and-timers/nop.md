@@ -25,7 +25,7 @@ fn delay(_tim6: &tim6::RegisterBlock, ms: u16) {
 And this time `delay` won't be compiled away by LLVM when you compile your program in release mode:
 
 ``` console
-$ cargo objdump --bin clocks-and-timers --release -- -d -no-show-raw-insn
+$ cargo objdump --bin clocks-and-timers --release -- -d --no-show-raw-insn
 clocks-and-timers:      file format ELF32-arm-little
 
 Disassembly of section .text:
