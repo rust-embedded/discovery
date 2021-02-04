@@ -2,7 +2,7 @@
 
 #![no_std]
 
-extern crate panic_itm; // panic handler
+pub use panic_itm; // panic handler
 
 pub use cortex_m_rt::entry;
 
