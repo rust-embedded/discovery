@@ -59,8 +59,8 @@ the program and jump to the beginning of `main`:
 ``` console
 $ cargo run --target thumbv7em-none-eabihf
     Finished dev [unoptimized + debuginfo] target(s) in 0.01s
-     Running `arm-none-eabi-gdb -q -x openocd.gdb /home/wink/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
-Reading symbols from /home/wink/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
+     Running `arm-none-eabi-gdb -q -x openocd.gdb ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
+Reading symbols from ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
 led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roulette/src/main.rs:8
 8       #[entry]
 Loading section .vector_table, size 0x194 lma 0x8000000

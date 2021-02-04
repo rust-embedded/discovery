@@ -53,8 +53,8 @@ Now, we'll repeat the flashing procedure that we did in the previous section:
 ``` console
 $ cargo run --target thumbv7em-none-eabihf
     Finished dev [unoptimized + debuginfo] target(s) in 0.01s
-     Running `arm-none-eabi-gdb -q /home/wink/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
-Reading symbols from /home/wink/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
+     Running `arm-none-eabi-gdb -q ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
+Reading symbols from ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
 (gdb) target remote :3333
 Remote debugging using :3333
 led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roulette/src/main.rs:7
@@ -133,7 +133,7 @@ First, let's stop the infinite loop by hitting `Ctrl+C`. You'll probably end up 
 ^C
 Program received signal SIGINT, Interrupt.
 0x08003434 in core::ptr::read_volatile<u32> (src=0xe000e010)
-    at /home/wink/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1053
+    at ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1053
 ```
 
 In my case, the program stopped its execution inside a `read_volatile` function. GDB output shows
@@ -155,17 +155,17 @@ Regardless of where your program may have stopped you can always look at the out
 ```
 (gdb) backtrace
 #0  0x08003434 in core::ptr::read_volatile<u32> (src=0xe000e010)
-    at /home/wink/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1053
-#1  0x08002d66 in vcell::VolatileCell<u32>::get<u32> (self=0xe000e010) at /home/wink/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.3/src/lib.rs:33
-#2  volatile_register::RW<u32>::read<u32> (self=0xe000e010) at /home/wink/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:75
+    at ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1053
+#1  0x08002d66 in vcell::VolatileCell<u32>::get<u32> (self=0xe000e010) at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/vcell-0.1.3/src/lib.rs:33
+#2  volatile_register::RW<u32>::read<u32> (self=0xe000e010) at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/volatile-register-0.2.0/src/lib.rs:75
 #3  cortex_m::peripheral::SYST::has_wrapped (self=0x20009fa4)
-    at /home/wink/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.4/src/peripheral/syst.rs:136
+    at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.4/src/peripheral/syst.rs:136
 #4  0x08003004 in stm32f3xx_hal::delay::{{impl}}::delay_us (self=0x20009fa4, us=500000)
-    at /home/wink/.cargo/registry/src/github.com-1ecc6299db9ec823/stm32f3xx-hal-0.5.0/src/delay.rs:58
+    at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/stm32f3xx-hal-0.5.0/src/delay.rs:58
 #5  0x08002f3e in stm32f3xx_hal::delay::{{impl}}::delay_ms (self=0x20009fa4, ms=500)
-    at /home/wink/.cargo/registry/src/github.com-1ecc6299db9ec823/stm32f3xx-hal-0.5.0/src/delay.rs:32
+    at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/stm32f3xx-hal-0.5.0/src/delay.rs:32
 #6  0x08002f80 in stm32f3xx_hal::delay::{{impl}}::delay_ms (self=0x20009fa4, ms=500)
-    at /home/wink/.cargo/registry/src/github.com-1ecc6299db9ec823/stm32f3xx-hal-0.5.0/src/delay.rs:38
+    at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/stm32f3xx-hal-0.5.0/src/delay.rs:38
 #7  0x0800024c in led_roulette::__cortex_m_rt_main () at src/05-led-roulette/src/main.rs:15
 #8  0x08000206 in led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roulette/src/main.rs:7
 ```
@@ -179,9 +179,9 @@ right after the program returns from the current function. We'll have to call it
 ```
 (gdb) finish
 Run till exit from #0  0x08003434 in core::ptr::read_volatile<u32> (src=0xe000e010)
-    at /home/wink/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1053
+    at ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1053
 cortex_m::peripheral::SYST::has_wrapped (self=0x20009fa4)
-    at /home/wink/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.4/src/peripheral/syst.rs:136
+    at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.4/src/peripheral/syst.rs:136
 136             self.csr.read() & SYST_CSR_COUNTFLAG != 0
 Value returned is $1 = 5
 
@@ -189,14 +189,14 @@ Value returned is $1 = 5
 
 (gdb) finish
 Run till exit from #0  0x08002f3e in stm32f3xx_hal::delay::{{impl}}::delay_ms (self=0x20009fa4, ms=500)
-    at /home/wink/.cargo/registry/src/github.com-1ecc6299db9ec823/stm32f3xx-hal-0.5.0/src/delay.rs:32
+    at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/stm32f3xx-hal-0.5.0/src/delay.rs:32
 0x08002f80 in stm32f3xx_hal::delay::{{impl}}::delay_ms (self=0x20009fa4, ms=500)
-    at /home/wink/.cargo/registry/src/github.com-1ecc6299db9ec823/stm32f3xx-hal-0.5.0/src/delay.rs:38
+    at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/stm32f3xx-hal-0.5.0/src/delay.rs:38
 38              self.delay_ms(u32(ms));
 
 (gdb) finish
 Run till exit from #0  0x08002f80 in stm32f3xx_hal::delay::{{impl}}::delay_ms (self=0x20009fa4, ms=500)
-    at /home/wink/.cargo/registry/src/github.com-1ecc6299db9ec823/stm32f3xx-hal-0.5.0/src/delay.rs:38
+    at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/stm32f3xx-hal-0.5.0/src/delay.rs:38
 0x0800024c in led_roulette::__cortex_m_rt_main () at src/05-led-roulette/src/main.rs:15
 15              delay.delay_ms(half_period);
 ```
@@ -227,7 +227,7 @@ Continuing.
 ^C
 Program received signal SIGINT, Interrupt.
 core::cell::UnsafeCell<u32>::get<u32> (self=0x20009fa4)
-    at /home/wink/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cell.rs:1711
+    at ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cell.rs:1711
 1711        pub const fn get(&self) -> *mut T {
 ```
 
@@ -365,7 +365,7 @@ aux5 = { path = "auxiliary" }
 volatile = "0.4.3"
 ```
 
-With the above code using Volatile you can now change `half_period` and
+With the above code using `Volatile` you can now change `half_period` and
 you'll be able to experiment with different values. Here is the list of
 commands followed by an explanation; `# xxxx` to demonstrate.
 
@@ -398,10 +398,10 @@ the led will now be on for 2 seconds then off for 2 seconds.
 
 ``` console
 $ cargo run --target thumbv7em-none-eabihf
-   Compiling led-roulette v0.2.0 (/home/wink/prgs/rust/tutorial/embedded-discovery/src/05-led-roulette)
+   Compiling led-roulette v0.2.0 (~/prgs/rust/tutorial/embedded-discovery/src/05-led-roulette)
     Finished dev [unoptimized + debuginfo] target(s) in 0.18s
-     Running `arm-none-eabi-gdb -q /home/wink/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
-Reading symbols from /home/wink/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
+     Running `arm-none-eabi-gdb -q ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
+Reading symbols from ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
 
 (gdb) target remote :3333
 Remote debugging using :3333
@@ -506,7 +506,7 @@ End of assembler dump.
 Continuing.
 ^C
 Program received signal SIGINT, Interrupt.
-0x080037b2 in core::cell::UnsafeCell<u32>::get<u32> (self=0x20009fa0) at /home/wink/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cell.rs:1716
+0x080037b2 in core::cell::UnsafeCell<u32>::get<u32> (self=0x20009fa0) at ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cell.rs:1716
 1716        }
 
 (gdb) enable 1
@@ -526,7 +526,7 @@ $2 = 500
 Continuing.
 ^C
 Program received signal SIGINT, Interrupt.
-0x08003498 in core::ptr::read_volatile<u32> (src=0xe000e010) at /home/wink/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1052
+0x08003498 in core::ptr::read_volatile<u32> (src=0xe000e010) at ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1052
 1052        unsafe { intrinsics::volatile_load(src) }
 
 (gdb) enable 1
@@ -551,11 +551,11 @@ $4 = 2000
 Continuing.
 ^C
 Program received signal SIGINT, Interrupt.
-0x0800348e in core::ptr::read_volatile<u32> (src=0xe000e010) at /home/wink/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1046
+0x0800348e in core::ptr::read_volatile<u32> (src=0xe000e010) at ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1046
 1046    pub unsafe fn read_volatile<T>(src: *const T) -> T {
 
 (gdb) q
-Detaching from program: /home/wink/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette, Remote target
+Detaching from program: ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette, Remote target
 Ending remote debugging.
 [Inferior 1 (Remote target) detached]
 ```
