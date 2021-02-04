@@ -210,9 +210,38 @@ mode enter one of the following commands in the GDB shell:
 > **NOTE** Apologies to Windows users, the GDB shipped with the GNU ARM Embedded Toolchain
 > may not support this TUI mode `:-(`.
 
-Here is an example of using layout split
+Below is an example of setting up for a layout split by executing the follow commands:
 
-![GDB session layout split](../assets/gdb-layout-split.gif "GDB TUI")
+``` console
+$ cargo run --target thumbv7em-none-eabihf
+<gdb> target remote :3333
+<gdb> load
+<gdb> set print asm-demangle on
+<gdb> set style sources off
+<gdb> break main
+<gdb> continue
+<gdb> layout split
+```
+
+And below the result after `layout split` command is executed:
+
+![GDB session layout split](../assets/gdb-layout-split-1.png "GDB TUI layout split 1")
+
+Now we'll scroll the top source window down so we see the entire file and execute `step`:
+
+![GDB session layout split](../assets/gdb-layout-split-2.png "GDB TUI layout split 2")
+
+Then we'll execute a few `info locals` and `step`'s:
+
+``` console
+<gdb> info locals
+<gdb> step
+<gdb> info locals
+<gdb> step
+<gdb> info locals
+```
+
+![GDB session layout split](../assets/gdb-layout-split-3.png "GDB TUI layout split 3")
 
 At any point you can leave the TUI mode using the following command:
 
@@ -220,6 +249,7 @@ At any point you can leave the TUI mode using the following command:
 (gdb) tui disable
 ```
 
+![GDB session layout split](../assets/gdb-layout-split-4.png "GDB TUI layout split 4")
 
 > **NOTE** If the default GDB CLI is not to your liking check out [gdb-dashboard]. It uses Python to
 > turn the default GDB CLI into a dashboard that shows registers, the source view, the assembly view
