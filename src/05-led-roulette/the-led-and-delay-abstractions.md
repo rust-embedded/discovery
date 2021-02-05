@@ -344,7 +344,7 @@ fn main() -> ! {
     let (mut delay, mut leds): (Delay, LedArray) = aux5::init();
 
     let mut half_period = 500_u16;
-    let v_half_period= Volatile::new(&mut half_period);
+    let v_half_period = Volatile::new(&mut half_period);
 
     loop {
         leds[0].on().ok();
@@ -455,7 +455,7 @@ Dump of assembler code for function _ZN12led_roulette18__cortex_m_rt_main17he1f2
    0x08000234 <+38>:    strh.w  r0, [r7, #-6]
    0x08000238 <+42>:    subs    r0, r7, #6
 
-13          let v_half_period= Volatile::new(&mut half_period);
+13          let v_half_period = Volatile::new(&mut half_period);
    0x0800023a <+44>:    bl      0x800033e <volatile::Volatile<&mut u16, volatile::access::ReadWrite>::new<&mut u16>>
    0x0800023e <+48>:    str     r0, [sp, #68]   ; 0x44
    0x08000240 <+50>:    b.n     0x8000242 <led_roulette::__cortex_m_rt_main+52>
