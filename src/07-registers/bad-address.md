@@ -36,9 +36,9 @@ Breakpoint 3, main () at src/07-registers/src/main.rs:9
 (gdb) continue
 Continuing.
 
-Breakpoint 2, UserHardFault_ (ef=0x10001fc0)
-    at $REGISTRY/cortex-m-rt-0.6.3/src/lib.rs:535
-535         loop {
+Breakpoint 2, cortex_m_rt::HardFault_ (ef=0x10001fb0)
+    at $REGISTRY/cortex-m-rt-0.6.13/src/lib.rs:560
+560         loop {
 ```
 
 We tried to do an invalid operation, reading memory that doesn't exist, so the processor raised an
@@ -52,23 +52,23 @@ There are different kind of exceptions. Each kind of exception is raised by diff
 each one is handled by a different exception handler.
 
 The `aux7` crate depends on the `cortex-m-rt` crate which defines a default
-*hard fault* handler, named `UserHardFault`, that handles the "invalid memory
+*hard fault* handler, named `HardFault`, that handles the "invalid memory
 address" exception. `openocd.gdb` placed a breakpoint on `HardFault`; that's why
 the debugger halted your program while it was executing the exception handler.
 We can get more information about the exception from the debugger. Let's see:
 
 ```
 (gdb) list
-530
-531     #[allow(unused_variables)]
-532     #[doc(hidden)]
-533     #[no_mangle]
-534     pub unsafe extern "C" fn UserHardFault_(ef: &ExceptionFrame) -> ! {
-535         loop {
-536             // add some side effect to prevent this from turning into a UDF instruction
-537             // see rust-lang/rust#28728 for details
-538             atomic::compiler_fence(Ordering::SeqCst);
-539         }
+555     #[allow(unused_variables)]
+556     #[doc(hidden)]
+557     #[link_section = ".HardFault.default"]
+558     #[no_mangle]
+559     pub unsafe extern "C" fn HardFault_(ef: &ExceptionFrame) -> ! {
+560         loop {
+561             // add some side effect to prevent this from turning into a UDF instruction
+562             // see rust-lang/rust#28728 for details
+563             atomic::compiler_fence(Ordering::SeqCst);
+564         }
 ```
 
 `ef` is a snapshot of the program state right before the exception occurred. Let's inspect it:
