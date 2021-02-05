@@ -12,49 +12,38 @@ the `main` function. We'll do that using a breakpoint:
 
 ```
 (gdb) break main
-Breakpoint 1 at 0x800018c: file src/05-led-roulette/src/main.rs, line 10.
+Breakpoint 1 at 0x80001f0: file src/05-led-roulette/src/main.rs, line 7.
+Note: automatically using hardware breakpoints for read-only addresses.
 
 (gdb) continue
 Continuing.
-Note: automatically using hardware breakpoints for read-only addresses.
 
-Breakpoint 1, main () at src/05-led-roulette/src/main.rs:10
+Breakpoint 1, led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roulette/src/main.rs:7
+7       #[entry]
+
+(gdb) step
+led_roulette::__cortex_m_rt_main () at src/05-led-roulette/src/main.rs:10
 10          let x = 42;
 ```
 
 Breakpoints can be used to stop the normal flow of a program. The `continue` command will let the
-program run freely *until* it reaches a breakpoint. In this case, until it reaches the `main`
-function because there's a breakpoint there.
+program run freely *until* it reaches a breakpoint. In this case, until it reaches `#[entry]`
+which is a trampoline to to the main function and where `break main` set the breakpoint.
 
 Note that GDB output says "Breakpoint 1". Remember that our processor can only use six of these
 breakpoints so it's a good idea to pay attention to these messages.
 
-For a nicer debugging experience, we'll be using GDB's Text User Interface (TUI). To enter into that
-mode, on the GDB shell enter the following command:
 
-```
-(gdb) layout src
-```
-
-> **NOTE** Apologies Windows users. The GDB shipped with the GNU ARM Embedded Toolchain doesn't
-> support this TUI mode `:-(`.
-
-![GDB session](../assets/gdb-layout-src.png "GDB TUI")
-
-At any point you can leave the TUI mode using the following command:
-
-```
-(gdb) tui disable
-```
-
-OK. We are now at the beginning of `main`. We can advance the program statement by statement using
-the `step` command. So let's use that twice to reach the `_y = x` statement. Once you've typed `step`
-once you can just hit enter to run it
-again.
+OK. Since we are stopped at `#[entry]`. We can advance the program statement by statement using
+the `step` command. So let's use that twice times to reach the `_y = x` statement. Once you've typed `step`
+once you can just hit enter to run it again, but below we type step twice.
 
 ```
 (gdb) step
-14           _y = x;
+led_roulette::__cortex_m_rt_main () at src/05-led-roulette/src/main.rs:10
+10          let x = 42;
+(gdb) step
+11          _y = x;
 ```
 
 If you are not using the TUI mode, on each `step` call GDB will print back the current statement
@@ -66,22 +55,19 @@ is initialized but `_y` is not. Let's inspect those stack/local variables using 
 ```
 (gdb) print x
 $1 = 42
-
 (gdb) print &x
-$2 = (i32 *) 0x10001ff4
-
+$2 = (*mut i32) 0x20009fe0
 (gdb) print _y
-$3 = -536810104
-
+$3 = 536870912
 (gdb) print &_y
-$4 = (i32 *) 0x10001ff0
+$4 = (*mut i32) 0x20009fe4
 ```
 
-As expected, `x` contains the value `42`. `_y`, however, contains the value `-536810104` (?). Because
+As expected, `x` contains the value `42`. `_y`, however, contains the value `536870912` (?). Because
 `_y` has not been initialized yet, it contains some garbage value.
 
 The command `print &x` prints the address of the variable `x`. The interesting bit here is that GDB
-output shows the type of the reference: `i32*`, a pointer to an `i32` value. Another interesting
+output shows the type of the reference: `*mut i32`, a mutable pointer to an `i32` value. Another interesting
 thing is that the addresses of `x` and `_y` are very close to each other: their addresses are just
 `4` bytes apart.
 
@@ -90,14 +76,14 @@ Instead of printing the local variables one by one, you can also use the `info l
 ```
 (gdb) info locals
 x = 42
-_y = -536810104
+_y = 536870912
 ```
 
 OK. With another `step`, we'll be on top of the `loop {}` statement:
 
 ```
 (gdb) step
-17          loop {}
+14          loop {}
 ```
 
 And `_y` should now be initialized.
@@ -108,50 +94,48 @@ $5 = 42
 ```
 
 If we use `step` again on top of the `loop {}` statement, we'll get stuck because the program will
-never pass that statement. Instead, we'll switch to the disassemble view with the `layout asm`
-command and advance one instruction at a time using `stepi`. You can always switch back into Rust
-source code view later by issuing the `layout src` command again.
+never pass that statement.
 
-> **NOTE** If you used the `step` command by mistake and GDB got stuck, you can get unstuck by hitting `Ctrl+C`.
+> **NOTE** If you used the `step` or any other command by mistake and GDB gets stuck, you can get
+it unstuck by hitting `Ctrl+C`.
 
-```
-(gdb) layout asm
-```
-
-![GDB session](../assets/gdb-layout-asm.png "GDB disassemble")
-
-If you are not using the TUI mode, you can use the `disassemble /m` command to disassemble the
-program around the line you are currently at.
+You can also use the `disassemble /m` command to disassemble the program around the
+line you are currently at. You might also want to `set print asm-demangle on`
+so the names are demangled, this only needs to be done once a debug session. Later
+this and other commands will be placed in an initialization file which will simplify
+starting a debug session.
 
 ```
+(gdb) set print asm-demangle on
 (gdb) disassemble /m
-Dump of assembler code for function main:
-7       #[entry]
-   0x08000188 <+0>:     sub     sp, #8
-   0x0800018a <+2>:     movs    r0, #42 ; 0x2a
-
+Dump of assembler code for function _ZN12led_roulette18__cortex_m_rt_main17h51e7c3daad2af251E:
 8       fn main() -> ! {
+   0x080001f6 <+0>:     sub     sp, #8
+   0x080001f8 <+2>:     movs    r0, #42 ; 0x2a
+
 9           let _y;
 10          let x = 42;
-   0x0800018c <+4>:     str     r0, [sp, #4]
+   0x080001fa <+4>:     str     r0, [sp, #0]
 
 11          _y = x;
-   0x0800018e <+6>:     ldr     r0, [sp, #4]
-   0x08000190 <+8>:     str     r0, [sp, #0]
+   0x080001fc <+6>:     str     r0, [sp, #4]
 
 12
 13          // infinite loop; just so we don't leave this stack frame
 14          loop {}
-=> 0x08000192 <+10>:    b.n     0x8000194 <main+12>
-   0x08000194 <+12>:    b.n     0x8000194 <main+12>
+=> 0x080001fe <+8>:     b.n     0x8000200 <led_roulette::__cortex_m_rt_main+10>
+   0x08000200 <+10>:    b.n     0x8000200 <led_roulette::__cortex_m_rt_main+10>
 
 End of assembler dump.
 ```
 
 See the fat arrow `=>` on the left side? It shows the instruction the processor will execute next.
 
-If not inside the TUI mode on each `stepi` command GDB will print the statement, the line number
-*and* the address of the instruction the processor will execute next.
+As mentioned above if you were to execute the `step` command GDB gets stuck because it
+is executing a branch instruction to itself and never gets past it. So you need to use
+`Ctrl+C`. But you can use the `stepi` GDB command, which steps one instruction, and GDB will print
+the address **and** line number of the statement the processor will execute next and
+it won't get stuck.
 
 ```
 (gdb) stepi
@@ -169,13 +153,21 @@ Unable to match requested speed 1000 kHz, using 950 kHz
 Unable to match requested speed 1000 kHz, using 950 kHz
 adapter speed: 950 kHz
 target halted due to debug-request, current mode: Thread
-xPSR: 0x01000000 pc: 0x08000196 msp: 0x10002000
-
+xPSR: 0x01000000 pc: 0x08000194 msp: 0x2000a000
 (gdb) continue
 Continuing.
 
-Breakpoint 1, main () at src/05-led-roulette/src/main.rs:10
-10          let x = 42;
+Breakpoint 1, led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roulette/src/main.rs:7
+7       #[entry]
+(gdb) disassemble /m
+Dump of assembler code for function main:
+7       #[entry]
+   0x080001ec <+0>:     push    {r7, lr}
+   0x080001ee <+2>:     mov     r7, sp
+=> 0x080001f0 <+4>:     bl      0x80001f6 <led_roulette::__cortex_m_rt_main>
+   0x080001f4 <+8>:     udf     #254    ; 0xfe
+
+End of assembler dump.
 ```
 
 We are now back at the beginning of `main`!
@@ -205,6 +197,59 @@ Quit anyway? (y or n) y
 Detaching from program: $PWD/target/thumbv7em-none-eabihf/debug/led-roulette, Remote target
 Ending remote debugging.
 ```
+
+For a nicer debugging experience, you can use GDB's Text User Interface (TUI). To enter into that
+mode enter one of the following commands in the GDB shell:
+
+```
+(gdb) layout src
+(gdb) layout asm
+(gdb) layout split
+```
+
+> **NOTE** Apologies to Windows users, the GDB shipped with the GNU ARM Embedded Toolchain
+> may not support this TUI mode `:-(`.
+
+Below is an example of setting up for a layout split by executing the follow commands:
+
+``` console
+$ cargo run --target thumbv7em-none-eabihf
+<gdb> target remote :3333
+<gdb> load
+<gdb> set print asm-demangle on
+<gdb> set style sources off
+<gdb> break main
+<gdb> continue
+<gdb> layout split
+```
+
+And below the result after `layout split` command is executed:
+
+![GDB session layout split](../assets/gdb-layout-split-1.png "GDB TUI layout split 1")
+
+Now we'll scroll the top source window down so we see the entire file and execute `step`:
+
+![GDB session layout split](../assets/gdb-layout-split-2.png "GDB TUI layout split 2")
+
+Then we'll execute a few `info locals` and `step`'s:
+
+``` console
+<gdb> info locals
+<gdb> step
+<gdb> info locals
+<gdb> step
+<gdb> info locals
+```
+
+![GDB session layout split](../assets/gdb-layout-split-3.png "GDB TUI layout split 3")
+
+At any point you can leave the TUI mode using the following command:
+
+```
+(gdb) tui disable
+```
+
+![GDB session layout split](../assets/gdb-layout-split-4.png "GDB TUI layout split 4")
 
 > **NOTE** If the default GDB CLI is not to your liking check out [gdb-dashboard]. It uses Python to
 > turn the default GDB CLI into a dashboard that shows registers, the source view, the assembly view

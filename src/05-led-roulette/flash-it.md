@@ -85,7 +85,7 @@ I mentioned that OpenOCD provides a GDB server so let's connect to that right no
 
 ``` console
 $ <gdb> -q target/thumbv7em-none-eabihf/debug/led-roulette
-Reading symbols from target/thumbv7em-none-eabihf/debug/led-roulette...done.
+Reading symbols from target/thumbv7em-none-eabihf/debug/led-roulette...
 (gdb)
 ```
 
@@ -122,11 +122,11 @@ Almost there. To flash the device, we'll use the `load` command inside the GDB s
 
 ```
 (gdb) load
-Loading section .vector_table, size 0x188 lma 0x8000000
-Loading section .text, size 0x38a lma 0x8000188
-Loading section .rodata, size 0x8 lma 0x8000514
-Start address 0x8000188, load size 1306
-Transfer rate: 6 KB/sec, 435 bytes/write.
+Loading section .vector_table, size 0x194 lma 0x8000000
+Loading section .text, size 0x21cc lma 0x8000194
+Loading section .rodata, size 0x594 lma 0x8002360
+Start address 0x08000194, load size 10484
+Transfer rate: 16 KB/sec, 3494 bytes/write.
 ```
 
 And that's it. You'll also see new output in the OpenOCD terminal.
@@ -136,19 +136,16 @@ And that's it. You'll also see new output in the OpenOCD terminal.
 +Info : Unable to match requested speed 1000 kHz, using 950 kHz
 +Info : Unable to match requested speed 1000 kHz, using 950 kHz
 +adapter speed: 950 kHz
-+target state: halted
 +target halted due to debug-request, current mode: Thread
 +xPSR: 0x01000000 pc: 0x08000194 msp: 0x2000a000
 +Info : Unable to match requested speed 8000 kHz, using 4000 kHz
 +Info : Unable to match requested speed 8000 kHz, using 4000 kHz
 +adapter speed: 4000 kHz
-+target state: halted
 +target halted due to breakpoint, current mode: Thread
 +xPSR: 0x61000000 pc: 0x2000003a msp: 0x2000a000
 +Info : Unable to match requested speed 1000 kHz, using 950 kHz
 +Info : Unable to match requested speed 1000 kHz, using 950 kHz
 +adapter speed: 950 kHz
-+target state: halted
 +target halted due to debug-request, current mode: Thread
 +xPSR: 0x01000000 pc: 0x08000194 msp: 0x2000a000
 ```

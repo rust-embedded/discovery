@@ -58,18 +58,20 @@ the program and jump to the beginning of `main`:
 
 ``` console
 $ cargo run --target thumbv7em-none-eabihf
-     Running `arm-none-eabi-gdb -q -x openocd.gdb target/thumbv7em-none-eabihf/debug/led-roulette`
-Reading symbols from target/thumbv7em-none-eabihf/debug/led-roulette...done.
-(..)
-Loading section .vector_table, size 0x188 lma 0x8000000
-Loading section .text, size 0x3b20 lma 0x8000188
-Loading section .rodata, size 0xb0c lma 0x8003cc0
-Start address 0x8003b1c, load size 18356
-Transfer rate: 20 KB/sec, 6118 bytes/write.
-Breakpoint 1 at 0x800018c: file src/05-led-roulette/src/main.rs, line 9.
+    Finished dev [unoptimized + debuginfo] target(s) in 0.01s
+     Running `arm-none-eabi-gdb -q -x openocd.gdb ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
+Reading symbols from ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
+led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roulette/src/main.rs:8
+8       #[entry]
+Loading section .vector_table, size 0x194 lma 0x8000000
+Loading section .text, size 0x5258 lma 0x8000194
+Loading section .rodata, size 0xbd8 lma 0x80053ec
+Start address 0x08000194, load size 24516
+Transfer rate: 21 KB/sec, 6129 bytes/write.
+Breakpoint 1 at 0x8000208: file src/05-led-roulette/src/main.rs, line 8.
 Note: automatically using hardware breakpoints for read-only addresses.
 
-Breakpoint 1, main () at src/05-led-roulette/src/main.rs:9
-9           let (mut delay, mut leds): (Delay, Leds) = aux5::init();
+Breakpoint 1, led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roulette/src/main.rs:8
+8       #[entry]
 (gdb)
 ```
