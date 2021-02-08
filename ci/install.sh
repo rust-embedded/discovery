@@ -16,6 +16,7 @@ main() {
 
     rustup target add thumbv7em-none-eabihf
 
+    pip install python-dateutil --user
     pip install linkchecker --user
 }
 
