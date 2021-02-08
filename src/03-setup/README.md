@@ -90,13 +90,24 @@ itmdump 0.3.1
 ``` console
 $ rustup component add llvm-tools-preview
 
-$ cargo install cargo-binutils --vers 0.3.0
+$ cargo install cargo-binutils
+
+$ cargo new test-size
+     Created binary (application) `test-size` package
+
+$ cd test-size
+
+$ cargo run
+    Finished dev [unoptimized + debuginfo] target(s) in 0.01s
+     Running `target\debug\test-size.exe`
+Hello, world!
 
 $ cargo size -- -version
+    Finished dev [unoptimized + debuginfo] target(s) in 0.50s
 LLVM (http://llvm.org/):
-  LLVM version 8.0.0svn
+  LLVM version 11.0.0-rust-1.49.0-stable
   Optimized build.
-  Default target: x86_64-unknown-linux-gnu
+  Default target: x86_64-pc-windows-msvc
   Host CPU: skylake
 ```
 
