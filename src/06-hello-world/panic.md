@@ -13,7 +13,7 @@ fn main() -> ! {
 
 Before running one other suggestion, I find it inconvenient to have to
 confirm when quitting gdb. Add the following file in your home
-directory ~/.gdbinit so that it quits immediately:
+directory `~/.gdbinit` so that it quits immediately:
 
 ``` console
 $ cat ~/.gdbinit
