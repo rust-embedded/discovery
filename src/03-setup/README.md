@@ -16,14 +16,20 @@ several MBs in size.
 - [STM32F3DISCOVERY User Manual][um]
 - [STM32F303VC Datasheet][ds]
 - [STM32F303VC Reference Manual][rm]
-- [LSM303DLHC]
-- [L3GD20]
+- [LSM303DLHC] \* 
+- [L3GD20] \* 
 
 [L3GD20]: https://www.st.com/content/ccc/resource/technical/document/application_note/2c/d9/a7/f8/43/48/48/64/DM00119036.pdf/files/DM00119036.pdf/jcr:content/translations/en.DM00119036.pdf
 [LSM303DLHC]: http://www.st.com/resource/en/datasheet/lsm303dlhc.pdf
 [ds]: http://www.st.com/resource/en/datasheet/stm32f303vc.pdf
 [rm]: http://www.st.com/resource/en/reference_manual/dm00043574.pdf
 [um]: http://www.st.com/resource/en/user_manual/dm00063382.pdf
+
+\* **NOTE**: Newer (from around 2020/09) Discovery boards may have a different e-compass and gyroscope (see the user manual). 
+As such, much in chapters 14-16 will not work as is. 
+Checkout the github issues like [this][gh-issue-274]. 
+
+[gh-issue-274]: https://github.com/rust-embedded/discovery/issues/274
 
 ## Tools
 
