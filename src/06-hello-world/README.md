@@ -71,8 +71,9 @@ $ itmdump -F -f itm.txt
 This command will block as `itmdump` is now watching the `itm.txt` file. Leave this terminal open.
 
 Make sure that the STM32F3DISCOVERY board is connected to your computer. Open another terminal
-from `/tmp` directory (on Windows `%TEMP%`) to launch OpenOCD similar as described in chapter
-[First OpenOCD connection]: ../03-setup/verify.html#first-openocd-connection
+from `/tmp` directory (on Windows `%TEMP%`) to launch OpenOCD similar as described in [chapter 3].
+
+[chapter 3]: ../03-setup/verify.html#first-openocd-connection
 
 Alright. Now, let's build the starter code and flash it into the microcontroller.
 
@@ -103,7 +104,7 @@ target remote :3333
 # Load will flash the code
 load
 
-# Eanble demangling asm names on disassembly
+# Enable demangling asm names on disassembly
 set print asm-demangle on
 
 # Enable pretty printing
