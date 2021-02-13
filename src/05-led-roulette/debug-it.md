@@ -20,34 +20,55 @@ Continuing.
 
 Breakpoint 1, led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roulette/src/main.rs:7
 7       #[entry]
-
-(gdb) step
-led_roulette::__cortex_m_rt_main () at src/05-led-roulette/src/main.rs:10
-10          let x = 42;
 ```
 
 Breakpoints can be used to stop the normal flow of a program. The `continue` command will let the
 program run freely *until* it reaches a breakpoint. In this case, until it reaches `#[entry]`
-which is a trampoline to to the main function and where `break main` set the breakpoint.
+which is a trampoline to the main function and where `break main` sets the breakpoint.
 
-Note that GDB output says "Breakpoint 1". Remember that our processor can only use six of these
-breakpoints so it's a good idea to pay attention to these messages.
+> **Note** that GDB output says "Breakpoint 1". Remember that our processor can only use six of these
+> breakpoints so it's a good idea to pay attention to these messages.
 
+OK. Since we are stopped at `#[entry]` and using the `disassemble /m` we see the code
+for entry, which is a trampoline to main. What that means it sets up the stack and then
+invokes a subroutine call to the `main` function using an ARM branch and link instruction, `bl`.
+```
+(gdb) disassemble /m
+Dump of assembler code for function main:
+8       #[entry]
+   0x080001ec <+0>:     push    {r7, lr}
+   0x080001ee <+2>:     mov     r7, sp
+=> 0x080001f0 <+4>:     bl      0x80001f6 <hello_world::__cortex_m_rt_main>
+   0x080001f4 <+8>:     udf     #254    ; 0xfe
 
-OK. Since we are stopped at `#[entry]`. We can advance the program statement by statement using
-the `step` command. So let's use that twice times to reach the `_y = x` statement. Once you've typed `step`
-once you can just hit enter to run it again, but below we type step twice.
+End of assembler dump.
+```
 
+Next we need to issue a `step` gdb command which will advance the program statement
+by statement stepping into functions/procedures. So after this first `step` command we're
+inside `main` and are positioned at the first executable `rust` statement, line 10, but it is
+**not** executed:
 ```
 (gdb) step
 led_roulette::__cortex_m_rt_main () at src/05-led-roulette/src/main.rs:10
 10          let x = 42;
+```
+
+Next we'll issue a second `step` which executes line 10 and stops at
+line `11    _y = x;`, again line 11 is **not** executed.
+
+> **Note** we could have pressed enter at the second `<gdb> ` prompt and
+> it would have reissued the previous statement, `step`, but for clarity in this tutorial
+> we'll generally retype the command.
+
+```
 (gdb) step
 11          _y = x;
 ```
 
-If you are not using the TUI mode, on each `step` call GDB will print back the current statement
-along with its line number.
+As you can see, in this mode, on each `step` command GDB will print the current statement along
+along with its line number. As you'll see later in the TUI mode you'll not the see the statement
+in the command area.
 
 We are now "on" the `_y = x` statement; that statement hasn't been executed yet. This means that `x`
 is initialized but `_y` is not. Let's inspect those stack/local variables using the `print` command:
@@ -63,13 +84,13 @@ $3 = 536870912
 $4 = (*mut i32) 0x20009fe4
 ```
 
-As expected, `x` contains the value `42`. `_y`, however, contains the value `536870912` (?). Because
-`_y` has not been initialized yet, it contains some garbage value.
+As expected, `x` contains the value `42`. `_y`, however, contains the value `536870912` (?). This
+is because `_y` has not been initialized yet, it contains some garbage value.
 
 The command `print &x` prints the address of the variable `x`. The interesting bit here is that GDB
-output shows the type of the reference: `*mut i32`, a mutable pointer to an `i32` value. Another interesting
-thing is that the addresses of `x` and `_y` are very close to each other: their addresses are just
-`4` bytes apart.
+output shows the type of the reference: `*mut i32`, a mutable pointer to an `i32` value. Another
+interesting thing is that the addresses of `x` and `_y` are very close to each other: their
+addresses are just `4` bytes apart.
 
 Instead of printing the local variables one by one, you can also use the `info locals` command:
 
@@ -97,9 +118,9 @@ If we use `step` again on top of the `loop {}` statement, we'll get stuck becaus
 never pass that statement.
 
 > **NOTE** If you used the `step` or any other command by mistake and GDB gets stuck, you can get
-it unstuck by hitting `Ctrl+C`.
+> it unstuck by hitting `Ctrl+C`.
 
-You can also use the `disassemble /m` command to disassemble the program around the
+As introduced above the `disassemble /m` command can be used to disassemble the program around the
 line you are currently at. You might also want to `set print asm-demangle on`
 so the names are demangled, this only needs to be done once a debug session. Later
 this and other commands will be placed in an initialization file which will simplify
@@ -131,11 +152,11 @@ End of assembler dump.
 
 See the fat arrow `=>` on the left side? It shows the instruction the processor will execute next.
 
-As mentioned above if you were to execute the `step` command GDB gets stuck because it
+Also, as mentioned above if you were to execute the `step` command GDB gets stuck because it
 is executing a branch instruction to itself and never gets past it. So you need to use
-`Ctrl+C`. But you can use the `stepi` GDB command, which steps one instruction, and GDB will print
-the address **and** line number of the statement the processor will execute next and
-it won't get stuck.
+`Ctrl+C` to regain control. An alternative is to use the `stepi` GDB command, which steps
+one asm instruction, and GDB will print the address **and** line number of the statement
+the processor will execute next and it won't get stuck.
 
 ```
 (gdb) stepi
@@ -154,11 +175,13 @@ Unable to match requested speed 1000 kHz, using 950 kHz
 adapter speed: 950 kHz
 target halted due to debug-request, current mode: Thread
 xPSR: 0x01000000 pc: 0x08000194 msp: 0x2000a000
+
 (gdb) continue
 Continuing.
 
 Breakpoint 1, led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roulette/src/main.rs:7
 7       #[entry]
+
 (gdb) disassemble /m
 Dump of assembler code for function main:
 7       #[entry]
@@ -170,11 +193,11 @@ Dump of assembler code for function main:
 End of assembler dump.
 ```
 
-We are now back at the beginning of `main`!
+We are now back at the beginning of `#[entry]`!
 
-`monitor reset halt` will reset the microcontroller and stop it right at the program entry point.
-The following `continue` command will let the program run freely until it reaches the `main`
-function that has a breakpoint on it.
+`monitor reset halt` will reset the microcontroller and stop it right at the beginning of the program.
+The `continue` command will then let the program run freely until it reaches a breakpoint, in
+this case it is the breakpoint at `#[entry]`.
 
 This combo is handy when you, by mistake, skipped over a part of the program that you were
 interested in inspecting. You can easily roll back the state of your program back to its very
