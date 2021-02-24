@@ -11,22 +11,27 @@ will merge the writes thus changing the behavior of our program. Let's check tha
 ``` console
 $ cargo run --release
 (..)
-Breakpoint 1, main () at src/07-registers/src/main.rs:9
+Breakpoint 1, registers::__cortex_m_rt_main_trampoline () at src/07-registers/src/main.rs:7
+7       #[entry]
+
+(gdb) step
+registers::__cortex_m_rt_main () at src/07-registers/src/main.rs:9
 9           aux7::init();
 
 (gdb) next
 25              *(GPIOE_BSRR as *mut u32) = 1 << (11 + 16);
 
 (gdb) disassemble /m
-Dump of assembler code for function main:
-7       #[entry]
-
+Dump of assembler code for function _ZN9registers18__cortex_m_rt_main17h45b1ef53e18aa8d0E:
 8       fn main() -> ! {
+   0x08000248 <+0>:     push    {r7, lr}
+   0x0800024a <+2>:     mov     r7, sp
+
 9           aux7::init();
-   0x08000188 <+0>:     bl      0x800019c <aux7::init>
-   0x0800018c <+4>:     movw    r0, #4120       ; 0x1018
-   0x08000190 <+8>:     mov.w   r1, #134217728  ; 0x8000000
-   0x08000194 <+12>:    movt    r0, #18432      ; 0x4800
+   0x0800024c <+4>:     bl      0x8000260 <aux7::init>
+   0x08000250 <+8>:     movw    r0, #4120       ; 0x1018
+   0x08000254 <+12>:    mov.w   r1, #134217728  ; 0x8000000
+   0x08000258 <+16>:    movt    r0, #18432      ; 0x4800
 
 10
 11          unsafe {
@@ -44,12 +49,8 @@ Dump of assembler code for function main:
 23
 24              // Turn off the "East" LED
 25              *(GPIOE_BSRR as *mut u32) = 1 << (11 + 16);
-=> 0x08000198 <+16>:    str     r1, [r0, #0]
-
-26          }
-27
-28          loop {}
-   0x0800019a <+18>:    b.n     0x800019a <main+18>
+=> 0x0800025c <+20>:    str     r1, [r0, #0]
+   0x0800025e <+22>:    b.n     0x800025e <registers::__cortex_m_rt_main+22>
 
 End of assembler dump.
 ```
@@ -58,94 +59,55 @@ The state of the LEDs didn't change this time! The `str` instruction is the one 
 to the register. Our *debug* (unoptimized) program had four of them, one for each write to the
 register, but the *release* (optimized) program only has one.
 
-We can check that using `objdump`:
+We can check that using `objdump` and capture the output to `out.asm`:
 
 ``` console
-$ # same as cargo objdump -- -d --no-show-raw-insn --print-imm-hex --source target/thumbv7em-none-eabihf/debug/registers
-$ cargo objdump --bin registers -- -d --no-show-raw-insn --print-imm-hex --source
-registers:      file format ELF32-arm-little
+# same as cargo objdump -- -d --no-show-raw-insn --print-imm-hex --source target/thumbv7em-none-eabihf/debug/registers
+cargo objdump --bin registers -- -d --no-show-raw-insn --print-imm-hex --source > debug.txt
+```
 
-Disassembly of section .text:
-main:
+Then examine `debug.txt` looking for `main` and we see the 4 `str` instructions:
+```
+080001ec <main>:
 ; #[entry]
- 8000188:       sub     sp, #0x18
-; aux7::init();
- 800018a:       bl      #0xbc
- 800018e:       str     r0, [sp, #0x14]
- 8000190:       b       #-0x2 <main+0xa>
-; *(GPIOE_BSRR as *mut u32) = 1 << 9;
- 8000192:       b       #-0x2 <main+0xc>
- 8000194:       movw    r0, #0x1018
- 8000198:       movt    r0, #0x4800
- 800019c:       mov.w   r1, #0x200
- 80001a0:       str     r1, [r0]
-; *(GPIOE_BSRR as *mut u32) = 1 << 11;
- 80001a2:       b       #-0x2 <main+0x1c>
- 80001a4:       movw    r0, #0x1018
- 80001a8:       movt    r0, #0x4800
- 80001ac:       mov.w   r1, #0x800
- 80001b0:       str     r1, [r0]
- 80001b2:       movs    r0, #0x19
-; *(GPIOE_BSRR as *mut u32) = 1 << (9 + 16);
- 80001b4:       mov     r1, r0
- 80001b6:       cmp     r0, #0x9
- 80001b8:       str     r1, [sp, #0x10]
- 80001ba:       bvs     #0x54 <main+0x8a>
- 80001bc:       b       #-0x2 <main+0x36>
- 80001be:       ldr     r0, [sp, #0x10]
- 80001c0:       and     r1, r0, #0x1f
- 80001c4:       movs    r2, #0x1
- 80001c6:       lsl.w   r1, r2, r1
- 80001ca:       lsrs    r2, r0, #0x5
- 80001cc:       cmp     r2, #0x0
- 80001ce:       str     r1, [sp, #0xc]
- 80001d0:       bne     #0x4c <main+0x98>
- 80001d2:       b       #-0x2 <main+0x4c>
- 80001d4:       movw    r0, #0x1018
- 80001d8:       movt    r0, #0x4800
- 80001dc:       ldr     r1, [sp, #0xc]
- 80001de:       str     r1, [r0]
- 80001e0:       movs    r0, #0x1b
-; *(GPIOE_BSRR as *mut u32) = 1 << (11 + 16);
- 80001e2:       mov     r2, r0
- 80001e4:       cmp     r0, #0xb
- 80001e6:       str     r2, [sp, #0x8]
- 80001e8:       bvs     #0x42 <main+0xa6>
- 80001ea:       b       #-0x2 <main+0x64>
- 80001ec:       ldr     r0, [sp, #0x8]
- 80001ee:       and     r1, r0, #0x1f
- 80001f2:       movs    r2, #0x1
- 80001f4:       lsl.w   r1, r2, r1
- 80001f8:       lsrs    r2, r0, #0x5
- 80001fa:       cmp     r2, #0x0
- 80001fc:       str     r1, [sp, #0x4]
- 80001fe:       bne     #0x3a <main+0xb4>
- 8000200:       b       #-0x2 <main+0x7a>
- 8000202:       movw    r0, #0x1018
- 8000206:       movt    r0, #0x4800
- 800020a:       ldr     r1, [sp, #0x4]
- 800020c:       str     r1, [r0]
-; loop {}
- 800020e:       b       #-0x2 <main+0x88>
- 8000210:       b       #-0x4 <main+0x88>
-; *(GPIOE_BSRR as *mut u32) = 1 << (9 + 16);
- 8000212:       movw    r0, #0x41bc
- 8000216:       movt    r0, #0x800
- 800021a:       bl      #0x3b28
- 800021e:       trap
- 8000220:       movw    r0, #0x4204
+ 80001ec:       push    {r7, lr}
+ 80001ee:       mov     r7, sp
+ 80001f0:       bl      #0x2
+ 80001f4:       trap
+
+080001f6 <registers::__cortex_m_rt_main::hc2e3436fa38cd6f2>:
+; fn main() -> ! {
+ 80001f6:       push    {r7, lr}
+ 80001f8:       mov     r7, sp
+;     aux7::init();
+ 80001fa:       bl      #0x3e
+ 80001fe:       b       #-0x2 <registers::__cortex_m_rt_main::hc2e3436fa38cd6f2+0xa>
+;         *(GPIOE_BSRR as *mut u32) = 1 << 9;
+ 8000200:       movw    r0, #0x2640
+ 8000204:       movt    r0, #0x800
+ 8000208:       ldr     r0, [r0]
+ 800020a:       movw    r1, #0x1018
+ 800020e:       movt    r1, #0x4800
+ 8000212:       str     r0, [r1]
+;         *(GPIOE_BSRR as *mut u32) = 1 << 11;
+ 8000214:       movw    r0, #0x2648
+ 8000218:       movt    r0, #0x800
+ 800021c:       ldr     r0, [r0]
+ 800021e:       str     r0, [r1]
+;         *(GPIOE_BSRR as *mut u32) = 1 << (9 + 16);
+ 8000220:       movw    r0, #0x2650
  8000224:       movt    r0, #0x800
- 8000228:       bl      #0x3b1a
- 800022c:       trap
-; *(GPIOE_BSRR as *mut u32) = 1 << (11 + 16);
- 800022e:       movw    r0, #0x421c
- 8000232:       movt    r0, #0x800
- 8000236:       bl      #0x3b0c
- 800023a:       trap
- 800023c:       movw    r0, #0x4234
- 8000240:       movt    r0, #0x800
- 8000244:       bl      #0x3afe
- 8000248:       trap
+ 8000228:       ldr     r0, [r0]
+ 800022a:       str     r0, [r1]
+;         *(GPIOE_BSRR as *mut u32) = 1 << (11 + 16);
+ 800022c:       movw    r0, #0x2638
+ 8000230:       movt    r0, #0x800
+ 8000234:       ldr     r0, [r0]
+ 8000236:       str     r0, [r1]
+;     loop {}
+ 8000238:       b       #-0x2 <registers::__cortex_m_rt_main::hc2e3436fa38cd6f2+0x44>
+ 800023a:       b       #-0x4 <registers::__cortex_m_rt_main::hc2e3436fa38cd6f2+0x44>
+ (..)
 ```
 
 How do we prevent LLVM from misoptimizing our program? We use *volatile* operations instead of plain
@@ -158,7 +120,7 @@ reads/writes:
 use core::ptr;
 
 #[allow(unused_imports)]
-use aux7::{entry, iprint, iprintln};
+use aux7::entry;
 
 #[entry]
 fn main() -> ! {
@@ -183,32 +145,77 @@ fn main() -> ! {
 
     loop {}
 }
+
 ```
 
-If we look at the disassembly of this new program compiled in release mode:
+Generate `release.txt` using with `--release` mode.
 
 ``` console
-$ cargo objdump --bin registers --release -- -d --no-show-raw-insn --print-imm-hex --source
-registers:      file format ELF32-arm-little
-
-Disassembly of section .text:
-main:
-; #[entry]
- 8000188:       bl      #0x22
-; aux7::init();
- 800018c:       movw    r0, #0x1018
- 8000190:       mov.w   r1, #0x200
- 8000194:       movt    r0, #0x4800
- 8000198:       str     r1, [r0]
- 800019a:       mov.w   r1, #0x800
- 800019e:       str     r1, [r0]
- 80001a0:       mov.w   r1, #0x2000000
- 80001a4:       str     r1, [r0]
- 80001a6:       mov.w   r1, #0x8000000
- 80001aa:       str     r1, [r0]
-; loop {}
- 80001ac:       b       #-0x4 <main+0x24>
+cargo objdump --release --bin registers -- -d --no-show-raw-insn --print-imm-hex --source > release.txt
 ```
 
-We see that the four writes (`str` instructions) are preserved. If you run it (use `stepi`), you'll
-also see that behavior of the program is preserved.
+Now find the `main` routine in `release.txt` and we see the 4 `str` instructions.
+```
+0800023e <main>:
+; #[entry]
+ 800023e:       push    {r7, lr}
+ 8000240:       mov     r7, sp
+ 8000242:       bl      #0x2
+ 8000246:       trap
+
+08000248 <registers::__cortex_m_rt_main::h45b1ef53e18aa8d0>:
+; fn main() -> ! {
+ 8000248:       push    {r7, lr}
+ 800024a:       mov     r7, sp
+;     aux7::init();
+ 800024c:       bl      #0x22
+ 8000250:       movw    r0, #0x1018
+ 8000254:       mov.w   r1, #0x200
+ 8000258:       movt    r0, #0x4800
+;         intrinsics::volatile_store(dst, src);
+ 800025c:       str     r1, [r0]
+ 800025e:       mov.w   r1, #0x800
+ 8000262:       str     r1, [r0]
+ 8000264:       mov.w   r1, #0x2000000
+ 8000268:       str     r1, [r0]
+ 800026a:       mov.w   r1, #0x8000000
+ 800026e:       str     r1, [r0]
+ 8000270:       b       #-0x4 <registers::__cortex_m_rt_main::h45b1ef53e18aa8d0+0x28>
+ (..)
+ ```
+
+We see that the four writes (`str` instructions) are preserved. If you run it using
+`gdb` you'll also see that we get the expected behavior.
+> NB: The last `next` will endlessly execute `loop {}`, use `Ctrl-c` to get
+> back to the `(gdb)` prompt.
+```
+$ cargo run --release
+(..)
+
+Breakpoint 1, registers::__cortex_m_rt_main_trampoline () at src/07-registers/src/main.rs:9
+9       #[entry]
+
+(gdb) step
+registers::__cortex_m_rt_main () at src/07-registers/src/main.rs:11
+11          aux7::init();
+
+(gdb) next
+18              ptr::write_volatile(GPIOE_BSRR as *mut u32, 1 << 9);
+
+(gdb) next
+21              ptr::write_volatile(GPIOE_BSRR as *mut u32, 1 << 11);
+
+(gdb) next
+24              ptr::write_volatile(GPIOE_BSRR as *mut u32, 1 << (9 + 16));
+
+(gdb) next
+27              ptr::write_volatile(GPIOE_BSRR as *mut u32, 1 << (11 + 16));
+
+(gdb) next
+^C
+Program received signal SIGINT, Interrupt.
+0x08000270 in registers::__cortex_m_rt_main ()
+    at ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1124
+1124            intrinsics::volatile_store(dst, src);
+(gdb) 
+```
