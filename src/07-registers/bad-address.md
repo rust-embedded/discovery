@@ -29,7 +29,6 @@ Invalid in the sense that there's no register at this address.
 Now, let's try it.
 
 ``` console
- cargo run
 $ cargo run
 (..)
 Breakpoint 1, registers::__cortex_m_rt_main_trampoline () at src/07-registers/src/main.rs:9
@@ -39,7 +38,7 @@ Breakpoint 1, registers::__cortex_m_rt_main_trampoline () at src/07-registers/sr
 Continuing.
 
 Breakpoint 3, cortex_m_rt::HardFault_ (ef=0x20009fb0)
-    at /home/wink/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-rt-0.6.13/src/lib.rs:560
+    at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-rt-0.6.13/src/lib.rs:560
 560         loop {
 
 (gdb)
