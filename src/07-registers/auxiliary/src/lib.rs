@@ -3,7 +3,7 @@
 #![deny(warnings)]
 #![no_std]
 
-extern crate panic_itm; // panic handler
+use panic_itm as _; // panic handler
 
 pub use cortex_m::{asm::bkpt, iprint, iprintln, peripheral::ITM};
 pub use cortex_m_rt::entry;
