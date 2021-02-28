@@ -30,15 +30,18 @@ Now, let's try it.
 
 ``` console
 $ cargo run
-Breakpoint 3, main () at src/07-registers/src/main.rs:9
-9           aux7::init();
+(..)
+Breakpoint 1, registers::__cortex_m_rt_main_trampoline () at src/07-registers/src/main.rs:9
+9       #[entry]
 
 (gdb) continue
 Continuing.
 
-Breakpoint 2, cortex_m_rt::HardFault_ (ef=0x10001fb0)
-    at $REGISTRY/cortex-m-rt-0.6.13/src/lib.rs:560
+Breakpoint 3, cortex_m_rt::HardFault_ (ef=0x20009fb0)
+    at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-rt-0.6.13/src/lib.rs:560
 560         loop {
+
+(gdb)
 ```
 
 We tried to do an invalid operation, reading memory that doesn't exist, so the processor raised an
@@ -77,13 +80,13 @@ We can get more information about the exception from the debugger. Let's see:
 (gdb) print/x *ef
 $1 = cortex_m_rt::ExceptionFrame {
   r0: 0x48001800,
-  r1: 0x48001800,
-  r2: 0xb,
-  r3: 0xc,
-  r12: 0xd,
-  lr: 0x800019f,
-  pc: 0x80028d6,
-  xpsr: 0x1000000
+  r1: 0x80036b0,
+  r2: 0x1,
+  r3: 0x80000000,
+  r12: 0xb,
+  lr: 0x800020d,
+  pc: 0x8001750,
+  xpsr: 0xa1000200
 }
 ```
 
@@ -93,25 +96,27 @@ disassemble the program around the bad instruction.
 
 ```
 (gdb) disassemble /m ef.pc
-Dump of assembler code for function core::ptr::read_volatile:
-471     /checkout/src/libcore/ptr.rs: No such file or directory.
-   0x080028ce <+0>:     sub     sp, #16
-   0x080028d0 <+2>:     mov     r1, r0
-   0x080028d2 <+4>:     str     r0, [sp, #8]
+Dump of assembler code for function core::ptr::read_volatile<u32>:
+1046    pub unsafe fn read_volatile<T>(src: *const T) -> T {
+   0x0800174c <+0>:     sub     sp, #12
+   0x0800174e <+2>:     str     r0, [sp, #4]
 
-472     in /checkout/src/libcore/ptr.rs
-   0x080028d4 <+6>:     ldr     r0, [sp, #8]
-   0x080028d6 <+8>:     ldr     r0, [r0, #0]
-   0x080028d8 <+10>:    str     r0, [sp, #12]
-   0x080028da <+12>:    ldr     r0, [sp, #12]
-   0x080028dc <+14>:    str     r1, [sp, #4]
-   0x080028de <+16>:    str     r0, [sp, #0]
-   0x080028e0 <+18>:    b.n     0x80028e2 <core::ptr::read_volatile+20>
+1047        if cfg!(debug_assertions) && !is_aligned_and_not_null(src) {
+1048            // Not panicking to keep codegen impact smaller.
+1049            abort();
+1050        }
+1051        // SAFETY: the caller must uphold the safety contract for `volatile_load`.
+1052        unsafe { intrinsics::volatile_load(src) }
+   0x08001750 <+4>:     ldr     r0, [r0, #0]
+   0x08001752 <+6>:     str     r0, [sp, #8]
+   0x08001754 <+8>:     ldr     r0, [sp, #8]
+   0x08001756 <+10>:    str     r0, [sp, #0]
+   0x08001758 <+12>:    b.n     0x800175a <core::ptr::read_volatile<u32>+14>
 
-473     in /checkout/src/libcore/ptr.rs
-   0x080028e2 <+20>:    ldr     r0, [sp, #0]
-   0x080028e4 <+22>:    add     sp, #16
-   0x080028e6 <+24>:    bx      lr
+1053    }
+   0x0800175a <+14>:    ldr     r0, [sp, #0]
+   0x0800175c <+16>:    add     sp, #12
+   0x0800175e <+18>:    bx      lr
 
 End of assembler dump.
 ```
@@ -126,16 +131,16 @@ when the exception was raised? Well, we already did! The `r0` field in the `ef` 
 before is the value of `r0` register had when the exception was raised. Here it is again:
 
 ```
-(gdb) p/x *ef
+(gdb) print/x *ef
 $1 = cortex_m_rt::ExceptionFrame {
   r0: 0x48001800,
-  r1: 0x48001800,
-  r2: 0xb,
-  r3: 0xc,
-  r12: 0xd,
-  lr: 0x800019f,
-  pc: 0x80028d6,
-  xpsr: 0x1000000
+  r1: 0x80036b0,
+  r2: 0x1,
+  r3: 0x80000000,
+  r12: 0xb,
+  lr: 0x800020d,
+  pc: 0x8001750,
+  xpsr: 0xa1000200
 }
 ```
 

@@ -34,7 +34,7 @@ The best way to get familiar with this API is to port our running example to it.
 #![no_std]
 
 #[allow(unused_imports)]
-use aux7::{entry, iprint, iprintln};
+use aux7::{entry, iprintln, ITM, RegisterBlock};
 
 #[entry]
 fn main() -> ! {
@@ -72,14 +72,20 @@ the register block.
 
 ```
 $ cargo run
-Breakpoint 3, main () at src/07-registers/src/main.rs:9
+(..)
+
+Breakpoint 1, registers::__cortex_m_rt_main_trampoline () at src/07-registers/src/main.rs:7
+7       #[entry]
+
+(gdb) step
+registers::__cortex_m_rt_main () at src/07-registers/src/main.rs:9
 9           let gpioe = aux7::init().1;
 
 (gdb) next
 12          gpioe.bsrr.write(|w| w.bs9().set_bit());
 
 (gdb) print gpioe
-$1 = (stm32f30x::gpioc::RegisterBlock *) 0x48001000
+$1 = (*mut stm32f3::stm32f303::gpioc::RegisterBlock) 0x48001000
 ```
 
 But if we instead `print *gpioe`, we'll get a *full view* of the register block: the value of each
@@ -87,83 +93,94 @@ of its registers will be printed.
 
 ```
 (gdb) print *gpioe
-$2 = stm32f30x::gpioc::RegisterBlock {
-  moder: stm32f30x::gpioc::MODER {
+$2 = stm32f3::stm32f303::gpioc::RegisterBlock {
+  moder: stm32f3::generic::Reg<u32, stm32f3::stm32f303::gpioc::_MODER> {
     register: vcell::VolatileCell<u32> {
       value: core::cell::UnsafeCell<u32> {
-        value: 0x55550000
+        value: 1431633920
       }
-    }
+    },
+    _marker: core::marker::PhantomData<stm32f3::stm32f303::gpioc::_MODER>
   },
-  otyper: stm32f30x::gpioc::OTYPER {
+  otyper: stm32f3::generic::Reg<u32, stm32f3::stm32f303::gpioc::_OTYPER> {
     register: vcell::VolatileCell<u32> {
       value: core::cell::UnsafeCell<u32> {
-        value: 0x0
+        value: 0
       }
-    }
+    },
+    _marker: core::marker::PhantomData<stm32f3::stm32f303::gpioc::_OTYPER>
   },
-  ospeedr: stm32f30x::gpioc::OSPEEDR {
+  ospeedr: stm32f3::generic::Reg<u32, stm32f3::stm32f303::gpioc::_OSPEEDR> {
     register: vcell::VolatileCell<u32> {
       value: core::cell::UnsafeCell<u32> {
-        value: 0x0
+        value: 0
       }
-    }
+    },
+    _marker: core::marker::PhantomData<stm32f3::stm32f303::gpioc::_OSPEEDR>
   },
-  pupdr: stm32f30x::gpioc::PUPDR {
+  pupdr: stm32f3::generic::Reg<u32, stm32f3::stm32f303::gpioc::_PUPDR> {
     register: vcell::VolatileCell<u32> {
       value: core::cell::UnsafeCell<u32> {
-        value: 0x0
+        value: 0
       }
-    }
+    },
+    _marker: core::marker::PhantomData<stm32f3::stm32f303::gpioc::_PUPDR>
   },
-  idr: stm32f30x::gpioc::IDR {
+  idr: stm32f3::generic::Reg<u32, stm32f3::stm32f303::gpioc::_IDR> {
     register: vcell::VolatileCell<u32> {
       value: core::cell::UnsafeCell<u32> {
-        value: 0xcc
+        value: 204
       }
-    }
+    },
+    _marker: core::marker::PhantomData<stm32f3::stm32f303::gpioc::_IDR>
   },
-  odr: stm32f30x::gpioc::ODR {
+  odr: stm32f3::generic::Reg<u32, stm32f3::stm32f303::gpioc::_ODR> {
     register: vcell::VolatileCell<u32> {
       value: core::cell::UnsafeCell<u32> {
-        value: 0x0
+        value: 0
       }
-    }
+    },
+    _marker: core::marker::PhantomData<stm32f3::stm32f303::gpioc::_ODR>
   },
-  bsrr: stm32f30x::gpioc::BSRR {
+  bsrr: stm32f3::generic::Reg<u32, stm32f3::stm32f303::gpioc::_BSRR> {
     register: vcell::VolatileCell<u32> {
       value: core::cell::UnsafeCell<u32> {
-        value: 0x0
+        value: 0
       }
-    }
+    },
+    _marker: core::marker::PhantomData<stm32f3::stm32f303::gpioc::_BSRR>
   },
-  lckr: stm32f30x::gpioc::LCKR {
+  lckr: stm32f3::generic::Reg<u32, stm32f3::stm32f303::gpioc::_LCKR> {
     register: vcell::VolatileCell<u32> {
       value: core::cell::UnsafeCell<u32> {
-        value: 0x0
+        value: 0
       }
-    }
+    },
+    _marker: core::marker::PhantomData<stm32f3::stm32f303::gpioc::_LCKR>
   },
-  afrl: stm32f30x::gpioc::AFRL {
+  afrl: stm32f3::generic::Reg<u32, stm32f3::stm32f303::gpioc::_AFRL> {
     register: vcell::VolatileCell<u32> {
       value: core::cell::UnsafeCell<u32> {
-        value: 0x0
+        value: 0
       }
-    }
+    },
+    _marker: core::marker::PhantomData<stm32f3::stm32f303::gpioc::_AFRL>
   },
-  afrh: stm32f30x::gpioc::AFRH {
+  afrh: stm32f3::generic::Reg<u32, stm32f3::stm32f303::gpioc::_AFRH> {
     register: vcell::VolatileCell<u32> {
       value: core::cell::UnsafeCell<u32> {
-        value: 0x0
+        value: 0
       }
-    }
+    },
+    _marker: core::marker::PhantomData<stm32f3::stm32f303::gpioc::_AFRH>
   },
-  brr: stm32f30x::gpioc::BRR {
+  brr: stm32f3::generic::Reg<u32, stm32f3::stm32f303::gpioc::_BRR> {
     register: vcell::VolatileCell<u32> {
       value: core::cell::UnsafeCell<u32> {
-        value: 0x0
+        value: 0
       }
-    }
+    },
+    _marker: core::marker::PhantomData<stm32f3::stm32f303::gpioc::_BRR>
   }
 }
 ```
@@ -175,28 +192,38 @@ did!
 
 [LTO]: https://en.wikipedia.org/wiki/Interprocedural_optimization
 
+Use `cargo objdump` to grab the assembler code to `release.txt`:
 ``` console
-$ cargo objdump --bin registers --release -- -d --no-show-raw-insn --print-imm-hex
-registers:      file format ELF32-arm-little
-
-Disassembly of section .text:
-main:
- 8000188:       bl      #0x22
- 800018c:       movw    r0, #0x1018
- 8000190:       mov.w   r1, #0x200
- 8000194:       movt    r0, #0x4800
- 8000198:       str     r1, [r0]
- 800019a:       mov.w   r1, #0x800
- 800019e:       str     r1, [r0]
- 80001a0:       mov.w   r1, #0x2000000
- 80001a4:       str     r1, [r0]
- 80001a6:       mov.w   r1, #0x8000000
- 80001aa:       str     r1, [r0]
- 80001ac:       b       #-0x4 <main+0x24>
+cargo objdump --bin registers --release -- -d --no-show-raw-insn --print-imm-hex > release.txt
 ```
 
-The best part of all this is that I didn't have to write a single line of code to implement the
-GPIOE API. All was automatically generated from a System View Description (SVD) file using the
+Then search for `main` in `release.txt`
+```
+0800023e <main>:
+ 800023e:      	push	{r7, lr}
+ 8000240:      	mov	r7, sp
+ 8000242:      	bl	#0x2
+ 8000246:      	trap
+
+08000248 <registers::__cortex_m_rt_main::h199f1359501d5c71>:
+ 8000248:      	push	{r7, lr}
+ 800024a:      	mov	r7, sp
+ 800024c:      	bl	#0x22
+ 8000250:      	movw	r0, #0x1018
+ 8000254:      	mov.w	r1, #0x200
+ 8000258:      	movt	r0, #0x4800
+ 800025c:      	str	r1, [r0]
+ 800025e:      	mov.w	r1, #0x800
+ 8000262:      	str	r1, [r0]
+ 8000264:      	mov.w	r1, #0x2000000
+ 8000268:      	str	r1, [r0]
+ 800026a:      	mov.w	r1, #0x8000000
+ 800026e:      	str	r1, [r0]
+ 8000270:      	b	#-0x4 <registers::__cortex_m_rt_main::h199f1359501d5c71+0x28>
+```
+
+The best part of all this is that nobody had to write a single line of code to implement the
+GPIOE API. All the code was automatically generated from a System View Description (SVD) file using the
 [svd2rust] tool. This SVD file is actually an XML file that microcontroller vendors provide and that
 contains the register maps of their microcontrollers. The file contains the layout of register
 blocks, the base addresses, the read/write permissions of each register, the layout of the
