@@ -6,24 +6,27 @@ Let's verify that all the tools were installed correctly.
 
 ### Verify permissions
 
-Connect the F3 to your computer using an USB cable. Be sure to connect the cable to the "USB ST-LINK"
+Connect the STM32F3DISCOVERY to your computer using an USB cable. Be sure to connect the cable to the "USB ST-LINK"
 port, the USB port in the center of the edge of the board.
 
-The F3 should now appear as a USB device (file) in `/dev/bus/usb`. Let's find out how it got
+The STM32F3DISCOVERY should now appear as a USB device (file) in `/dev/bus/usb`. Let's find out how it got
 enumerated:
 
+``` console
+lsusb | grep -i stm
+```
+This should result in:
 ``` console
 $ lsusb | grep -i stm
 Bus 003 Device 004: ID 0483:374b STMicroelectronics ST-LINK/V2.1
 $ # ^^^        ^^^
 ```
 
-In my case, the F3 got connected to the bus #3 and got enumerated as the device #4. This means the
-file `/dev/bus/usb/003/004` *is* the F3. Let's check its permissions:
-
+In my case, the STM32F3DISCOVERY got connected to the bus #3 and got enumerated as the device #4. This means the
+file `/dev/bus/usb/003/004` *is* the STM32F3DISCOVERY. Let's check its permissions:
 ``` console
-$ ls -l /dev/bus/usb/003/004
-crw-rw-rw- 1 root root 189, 20 Sep 13 00:00 /dev/bus/usb/003/004
+$ ls -la /dev/bus/usb/003/004
+crw-rw-rw-+ 1 root root 189, 259 Feb 28 13:32 /dev/bus/usb/003/00
 ```
 
 The permissions should be `crw-rw-rw-`. If it's not ... then check your [udev
@@ -32,12 +35,12 @@ rules] and try re-loading them with:
 [udev rules]: linux.md#udev-rules
 
 ``` console
-$ sudo udevadm control --reload-rules
+sudo udevadm control --reload-rules
 ```
 
-Now let's repeat the procedure for the Serial module.
+#### For older devices with OPTIONAL USB <-> FT232 based Serial Module
 
-Unplug the F3 and plug the Serial module. Now, figure out what's its associated file:
+Unplug the STM32F3DISCOVERY and plug the Serial module. Now, figure out what's its associated file:
 
 ``` console
 $ lsusb | grep -i ft232
@@ -53,36 +56,51 @@ crw-rw-rw- 1 root root 189, 21 Sep 13 00:00 /dev/bus/usb/003/005
 
 As before, the permissions should be `crw-rw-rw-`.
 
-## All
+## Verify OpenOCD connection
 
-### First OpenOCD connection
-
-First, connect the F3 to your computer using an USB cable. Connect the cable to the USB port in the
+Connect the STM32F3DISCOVERY using the USB cable to the USB port in the
 center of edge of the board, the one that's labeled "USB ST-LINK".
 
 Two *red* LEDs should turn on right after connecting the USB cable to the board.
-
-Next, run this command:
-
-``` console
-$ # *nix
-$ openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
-
-$ # Windows
-$ # NOTE cygwin users have reported problems with the -s flag. If you run into
-$ # that you can call openocd from the `C:\OpenOCD\share\scripts` directory
-$ openocd -s C:\OpenOCD\share\scripts -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
-```
-
-> **NOTE** Windows users: `C:\OpenOCD` is the directory where you installed OpenOCD to.
 
 > **IMPORTANT** There is more than one hardware revision of the STM32F3DISCOVERY board. For older
 > revisions, you'll need to change the "interface" argument to `-f interface/stlink-v2.cfg` (note:
 > no `-1` at the end). Alternatively, older revisions can use `-f board/stm32f3discovery.cfg`
 > instead of `-f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg`.
 
-You should see output like this:
+### *Nix
 
+> **FYI:** The `interface` directory is typically located in `/usr/share/openocd/scripts/`,
+> which is the default location OpenOCD expects these files. If you've installed them
+> somewhere else use the `-s /path/to/scripts/` option to specify your install directory.
+
+``` console
+openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
+```
+
+### Windows
+
+Below the references to `C:\OpenOCD` is the directory where OpenOCD is installed.
+
+``` console
+openocd -s C:\OpenOCD\share\scripts -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
+```
+
+> **NOTE** cygwin users have reported problems with the -s flag. If you run into
+> that problem you can add `C:\OpenOCD\share\scripts\` directory to the parameters.
+
+cygwin users:
+``` console
+openocd -f C:\OpenOCD\share\scripts\interface\stlink-v2-1.cfg -f C:\OpenOCD\share\scripts\target\stm32f3x.cfg
+```
+
+### All
+
+OpenOCD is a service which forwards debug information from the ITM channel
+to a file, `itm.txt`, as such it runs forever and does **not** return to the
+terminal prompt.
+
+The initial output of OpenOCD is something like:
 ``` console
 Open On-Chip Debugger 0.10.0
 Licensed under GNU GPL v2
@@ -106,9 +124,7 @@ Info : stm32f3x.cpu: hardware has 6 breakpoints, 4 watchpoints
 
 [general troubleshooting]: ../appendix/1-general-troubleshooting/index.html
 
-`openocd` will block the terminal. That's fine.
-
 Also, one of the red LEDs, the one closest to the USB port, should start oscillating between red
 light and green light.
 
-That's it! It works. You can now close/kill `openocd`.
+That's it! It works. You can now use `Ctrl-c` to stop OpenOCD or close/kill the terminal.

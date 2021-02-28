@@ -38,7 +38,7 @@ should work but we have listed the version we have tested.
 
 - Rust 1.31 or a newer toolchain.
 
-- [`itmdump`] v0.3.1 (`cargo install itm`)
+- [`itmdump`] >=0.3.1 (`cargo install itm`). Tested versions: 0.3.1.
 
 - OpenOCD >=0.8. Tested versions: v0.9.0 and v0.10.0
 
@@ -84,37 +84,70 @@ rustc 1.31.0 (abe02cefd 2018-12-04)
 
 ### `itmdump`
 
-``` console
-$ cargo install itm --vers 0.3.1
 
+``` console
+cargo install itm
+```
+
+Verify the version is >=0.3.1
+```
 $ itmdump -V
 itmdump 0.3.1
 ```
 
 ### `cargo-binutils`
 
+Install `llvm-tools-preview`
+
 ``` console
-$ rustup component add llvm-tools-preview
+rustup component add llvm-tools-preview
+```
 
-$ cargo install cargo-binutils
+Install `cargo-binutils`
+```
+cargo install cargo-binutils
+```
 
+#### Verify tools are installed
+
+Run the following commands at your terminal
+``` console
+cargo new test-size
+```
+```
+cd test-size
+```
+```
+cargo run
+```
+```
+cargo size -- -version
+```
+
+The results should be something like:
+```
+~
 $ cargo new test-size
      Created binary (application) `test-size` package
 
+~
 $ cd test-size
 
+~/test-size (main)
 $ cargo run
-    Finished dev [unoptimized + debuginfo] target(s) in 0.01s
-     Running `target\debug\test-size.exe`
+   Compiling test-size v0.1.0 (~/test-size)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.26s
+     Running `target/debug/test-size`
 Hello, world!
 
+~/test-size (main)
 $ cargo size -- -version
-    Finished dev [unoptimized + debuginfo] target(s) in 0.50s
+    Finished dev [unoptimized + debuginfo] target(s) in 0.00s
 LLVM (http://llvm.org/):
-  LLVM version 11.0.0-rust-1.49.0-stable
+  LLVM version 11.0.0-rust-1.50.0-stable
   Optimized build.
-  Default target: x86_64-pc-windows-msvc
-  Host CPU: skylake
+  Default target: x86_64-unknown-linux-gnu
+  Host CPU: znver2
 ```
 
 ### OS specific instructions
