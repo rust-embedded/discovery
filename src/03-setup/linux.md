@@ -18,7 +18,7 @@ Here are the installation commands for a few Linux distributions.
 <!-- OpenOCD 0.10.0 -->
 
 ``` console
-$ sudo apt-get install \
+sudo apt-get install \
   gdb-multiarch \
   minicom \
   openocd
@@ -34,7 +34,7 @@ $ sudo apt-get install \
 <!-- OpenOCD 0.7.0 -->
 
 ``` console
-$ sudo apt-get install \
+sudo apt-get install \
   gdb-arm-none-eabi \
   minicom \
   openocd
@@ -46,7 +46,7 @@ $ sudo apt-get install \
 > Cortex-M programs
 
 ``` console
-$ sudo dnf install \
+sudo dnf install \
   arm-none-eabi-gdb \
   minicom \
   openocd
@@ -58,7 +58,7 @@ $ sudo dnf install \
 > Cortex-M programs
 
 ``` console
-$ sudo pacman -S \
+sudo pacman -S \
   arm-none-eabi-gdb \
   minicom \
   openocd
@@ -75,15 +75,17 @@ download the "Linux 64-bit" file and put its `bin` directory on your path.
 Here's one way to do it:
 
 ``` console
-$ mkdir -p ~/local && cd ~/local
-$ tar xjf /path/to/downloaded/file/gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2.tbz
+mkdir -p ~/local && cd ~/local
+```
+``` console
+tar xjf /path/to/downloaded/file/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2
 ```
 
 Then, use your editor of choice to append to your `PATH` in the appropriate
 shell init file (e.g. `~/.zshrc` or `~/.bashrc`):
 
 ```
-PATH=$PATH:$HOME/local/gcc-arm-none-eabi-7-2017-q4-major/bin
+PATH=$PATH:$HOME/local/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux/bin
 ```
 
 ## Optional packages
@@ -91,7 +93,7 @@ PATH=$PATH:$HOME/local/gcc-arm-none-eabi-7-2017-q4-major/bin
 ### Ubuntu / Debian
 
 ``` console
-$ sudo apt-get install \
+sudo apt-get install \
   bluez \
   rfkill
 ```
@@ -99,7 +101,7 @@ $ sudo apt-get install \
 ### Fedora
 
 ``` console
-$ sudo dnf install \
+sudo dnf install \
   bluez \
   rfkill
 ```
@@ -107,7 +109,7 @@ $ sudo dnf install \
 ### Arch Linux
 
 ``` console
-$ sudo pacman -S \
+sudo pacman -S \
   bluez \
   bluez-utils \
   rfkill
@@ -118,35 +120,49 @@ $ sudo pacman -S \
 These rules let you use USB devices like the F3 and the Serial module without root privilege, i.e.
 `sudo`.
 
-Create these two files in `/etc/udev/rules.d` with the contents shown below.
+Create `99-openocd.rules` in `/etc/udev/rules.d` using the `idVendor` and `idProduct`
+from the `lsusb` output.
 
+For example, connect the STM32F3DISCOVERY to your computer using a USB cable.
+Be sure to connect the cable to the "USB ST-LINK" port, the USB port in the
+center of the edge of the board.
+
+Execute `lsusb`:
 ``` console
-$ cat /etc/udev/rules.d/99-ftdi.rules
+lsusb | grep ST-LINK
 ```
+It should result in something like:
+```
+$ lsusb | grep ST-LINK
+Bus 003 Device 003: ID 0483:374b STMicroelectronics ST-LINK/V2.1
+```
+So the `idProduct` is `0483` and `idVendor` is `374b`.
 
+### Create `/etc/udev/rules.d/99-openocd.rules`:
+``` console
+sudo vi /etc/udev/rules.d/99-openocd.rules
+```
+With the contents:
+``` text
+# STM32F3DISCOVERY - ST-LINK/V2.1
+ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE:="0666"
+```
+#### For older devices with OPTIONAL USB <-> FT232 based Serial Module
+
+Create `/etc/udev/rules.d/99-ftdi.rules`:
+``` console
+sudo vi /etc/udev/rules.d/99-openocd.rules
+```
+With the contents:
 ``` text
 # FT232 - USB <-> Serial Converter
 ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", MODE:="0666"
 ```
 
-If you have a different USB <-> Serial converter, get its vendor and product ids from `lsusb` output.
+### Reload the udev rules with:
 
 ``` console
-$ cat /etc/udev/rules.d/99-openocd.rules
-```
-
-``` text
-# STM32F3DISCOVERY rev A/B - ST-LINK/V2
-ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", MODE:="0666"
-
-# STM32F3DISCOVERY rev C+ - ST-LINK/V2-1
-ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE:="0666"
-```
-
-Then reload the udev rules with:
-
-``` console
-$ sudo udevadm control --reload-rules
+sudo udevadm control --reload-rules
 ```
 
 If you had any board plugged to your computer, unplug them and then plug them in again.

@@ -6,9 +6,14 @@ ARM provides `.exe` installers for Windows. Grab one from [here][gcc], and follo
 Just before the installation process finishes tick/select the "Add path to environment variable"
 option. Then verify that the tools are in your `%PATH%`:
 
+Verify gcc is installed:
 ``` console
-$ arm-none-eabi-gcc -v
+arm-none-eabi-gcc -v
+```
+The results should be something like:
+```
 (..)
+$ arm-none-eabi-gcc -v
 gcc version 5.4.1 20160919 (release) (..)
 ```
 
@@ -24,8 +29,11 @@ before).
 
 [openocd]: https://github.com/xpack-dev-tools/openocd-xpack/releases
 
-Verify that OpenOCD is in yout `%PATH%` with:
-
+Verify OpenOCD is installed and in your `%PATH%` with:
+``` console
+openocd -v
+```
+The results should be something like:
 ``` console
 $ openocd -v
 Open On-Chip Debugger 0.10.0
