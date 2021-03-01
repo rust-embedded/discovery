@@ -21,57 +21,77 @@ single period. This pattern will repeat itself every 800 ms. The Y axis labels e
 cardinal point: North, East, etc. As part of the challenge you'll have to figure out how each
 element in the `Leds` array maps to these cardinal points (hint: `cargo doc --open` `;-)`).
 
-Before you attempt this challenge, let me give you one last tip. Our GDB sessions always involve
+Before you attempt this challenge, let me give you one additonal tip. Our GDB sessions always involve
 entering the same commands at the beginning. We can use a `.gdb` file to execute some commands
 right after GDB is started. This way you can save yourself the effort of having to enter them
 manually on each GDB session.
 
-Place this `openocd.gdb` file in the root of the Cargo project, right next to the `Cargo.toml`:
+Using an editor create `openocd.gdb` in the root of the Cargo project, right next to the `Cargo.toml`:
 
 ``` console
-$ cat openocd.gdb
+vi openocd.gdb
 ```
+
+And add the following text:
 
 ``` text
 target remote :3333
 load
 break main
 continue
+step
+
 ```
 
-Then modify the second line of the `.cargo/config` file:
+Next modify the `.cargo/config` file to execute openocd.gdb and we'll
+also add a `[build]` section with `thumbv7em-none-eabihf` so we don't
+have to specify the `--target` when using `cargo build` or `cargo run`:
 
 ``` console
-$ cat .cargo/config
+vi .cargo/config
 ```
 
+Replacing the contents with the text below. This adds `-x openocd.gdb` to
+the `runner =` line and appends `[build]` and `target = "thumbv7em-none-eabihf` lines:
 ``` toml
 [target.thumbv7em-none-eabihf]
-runner = "arm-none-eabi-gdb -q -x openocd.gdb" # <-
+runner = "arm-none-eabi-gdb -q -x openocd.gdb"
 rustflags = [
   "-C", "link-arg=-Tlink.x",
 ]
+
+[build]
+target = "thumbv7em-none-eabihf"
 ```
 
-With that in place, you should now be able to start a `gdb` session that will automatically flash
-the program and jump to the beginning of `main`:
+With that in place, you can now use a simple `cargo run` command which will build
+the ARM version of the code and run the `gdb` session. The `gdb` session will
+automatically flash the program and jump to the beginning of `main` as it `step`'s
+through the entry trampoline:
 
 ``` console
-$ cargo run --target thumbv7em-none-eabihf
+cargo run
+```
+
+``` console
+~/embedded-discovery/src/05-led-roulette (Update-05-led-roulette-WIP)
+$ cargo run
     Finished dev [unoptimized + debuginfo] target(s) in 0.01s
-     Running `arm-none-eabi-gdb -q -x openocd.gdb ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
-Reading symbols from ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
-led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roulette/src/main.rs:8
-8       #[entry]
+     Running `arm-none-eabi-gdb -q -x openocd.gdb ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
+Reading symbols from ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
+led_roulette::__cortex_m_rt_main_trampoline () at ~/embedded-discovery/src/05-led-roulette/src/main.rs:7
+7       #[entry]
 Loading section .vector_table, size 0x194 lma 0x8000000
-Loading section .text, size 0x5258 lma 0x8000194
-Loading section .rodata, size 0xbd8 lma 0x80053ec
-Start address 0x08000194, load size 24516
-Transfer rate: 21 KB/sec, 6129 bytes/write.
-Breakpoint 1 at 0x8000208: file src/05-led-roulette/src/main.rs, line 8.
+Loading section .text, size 0x52c0 lma 0x8000194
+Loading section .rodata, size 0xb50 lma 0x8005454
+Start address 0x08000194, load size 24484
+Transfer rate: 21 KB/sec, 6121 bytes/write.
+Breakpoint 1 at 0x8000202: file ~/embedded-discovery/src/05-led-roulette/src/main.rs, line 7.
 Note: automatically using hardware breakpoints for read-only addresses.
 
-Breakpoint 1, led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roulette/src/main.rs:8
-8       #[entry]
-(gdb)
+Breakpoint 1, led_roulette::__cortex_m_rt_main_trampoline ()
+    at ~/embedded-discovery/src/05-led-roulette/src/main.rs:7
+7       #[entry]
+led_roulette::__cortex_m_rt_main () at ~/embedded-discovery/src/05-led-roulette/src/main.rs:9
+9           let (mut delay, mut leds): (Delay, LedArray) = aux5::init();
 ```

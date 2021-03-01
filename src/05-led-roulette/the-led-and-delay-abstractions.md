@@ -40,46 +40,55 @@ fn main() -> ! {
 Now build it:
 
 ``` console
-$ cargo build --target thumbv7em-none-eabihf
+cargo build --target thumbv7em-none-eabihf
 ```
 
 > **NOTE** It's possible to forget to rebuild the program *before* starting a GDB session; this
-> omission can lead to very confusing debug sessions. To avoid this problem you can call `cargo run`
-> instead of `cargo build`; `cargo run` will build *and* start a debug session ensuring you never
-> forget to recompile your program.
+> omission can lead to very confusing debug sessions. To avoid this problem you can call just `cargo run`
+> instead of `cargo build`; `cargo run`. The `cargo run` command will build *and* start a debug
+> session ensuring you never forget to recompile your program.
 
 Now, we'll repeat the flashing procedure that we did in the previous section:
 
 ``` console
+cargo run --target thumbv7em-none-eabihf
+```
+
+Which results in something like:
+``` console
 $ cargo run --target thumbv7em-none-eabihf
     Finished dev [unoptimized + debuginfo] target(s) in 0.01s
-     Running `arm-none-eabi-gdb -q ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
-Reading symbols from ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
+     Running `arm-none-eabi-gdb -q ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
+Reading symbols from ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
+
 (gdb) target remote :3333
 Remote debugging using :3333
-led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roulette/src/main.rs:7
+led_roulette::__cortex_m_rt_main_trampoline () at ~/embedded-discovery/src/05-led-roulette/src/main.rs:7
 7       #[entry]
 
 (gdb) load
 Loading section .vector_table, size 0x194 lma 0x8000000
-Loading section .text, size 0x51f0 lma 0x8000194
-Loading section .rodata, size 0xbd0 lma 0x8005384
-Start address 0x08000194, load size 24404
-Transfer rate: 21 KB/sec, 6101 bytes/write.
+Loading section .text, size 0x52c0 lma 0x8000194
+Loading section .rodata, size 0xb50 lma 0x8005454
+Start address 0x08000194, load size 24484
+Transfer rate: 21 KB/sec, 6121 bytes/write.
 
 (gdb) break main
-Breakpoint 1 at 0x8000202: file src/05-led-roulette/src/main.rs, line 7.
+Breakpoint 1 at 0x8000202: file ~/embedded-discovery/src/05-led-roulette/src/main.rs, line 7.
 Note: automatically using hardware breakpoints for read-only addresses.
 
 (gdb) continue
 Continuing.
 
-Breakpoint 1, led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roulette/src/main.rs:7
+Breakpoint 1, led_roulette::__cortex_m_rt_main_trampoline ()
+    at ~/embedded-discovery/src/05-led-roulette/src/main.rs:7
 7       #[entry]
 
 (gdb) step
-led_roulette::__cortex_m_rt_main () at src/05-led-roulette/src/main.rs:9
+led_roulette::__cortex_m_rt_main () at ~/embedded-discovery/src/05-led-roulette/src/main.rs:9
 9           let (mut delay, mut leds): (Delay, LedArray) = aux5::init();
+
+(gdb) 
 ```
 
 OK. Let's step through the code. This time, we'll use the `next` command instead of `step`. The
@@ -398,10 +407,10 @@ the led will now be on for 2 seconds then off for 2 seconds.
 
 ``` console
 $ cargo run --target thumbv7em-none-eabihf
-   Compiling led-roulette v0.2.0 (~/prgs/rust/tutorial/embedded-discovery/src/05-led-roulette)
+   Compiling led-roulette v0.2.0 (~/embedded-discovery/src/05-led-roulette)
     Finished dev [unoptimized + debuginfo] target(s) in 0.18s
-     Running `arm-none-eabi-gdb -q ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
-Reading symbols from ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
+     Running `arm-none-eabi-gdb -q ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
+Reading symbols from ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
 
 (gdb) target remote :3333
 Remote debugging using :3333
@@ -555,7 +564,7 @@ Program received signal SIGINT, Interrupt.
 1046    pub unsafe fn read_volatile<T>(src: *const T) -> T {
 
 (gdb) q
-Detaching from program: ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette, Remote target
+Detaching from program: ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette, Remote target
 Ending remote debugging.
 [Inferior 1 (Remote target) detached]
 ```
