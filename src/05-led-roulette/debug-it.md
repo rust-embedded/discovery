@@ -8,13 +8,32 @@ processor / CPU will execute first.
 
 The starter project I've provided to you has some extra code that runs *before* the `main` function.
 At this time, we are not interested in that "pre-main" part so let's skip right to the beginning of
-the `main` function. We'll do that using a breakpoint:
+the `main` function. We'll do that using a breakpoint. Issue `break main` at the `(gdb)` prompt:
 
+> **Note** for these gdb commands I generally won't provide a copyable code block
+> as these are short and it's faster just to type them yourself. In addition most
+> can be shortend. For instance `b` for `break` or `s` for `step`, see [gdb quick ref]
+> for more info or use Google to find your others. In addition, you can use tab completion
+> by typing the first few letters than one tab to complete or two tabs to
+> see all possible commands.
+>
+>> Finally, `help xxxx` where xxxx is the comand will provide short names and other info:
+>> ```
+>> (gdb) help s
+>> step, s
+>> Step program until it reaches a different source line.
+>> Usage: step [N]
+>> Argument N means step N times (or till program stops for another reason).
+>> ```
+
+[gdb quick ref]: https://users.ece.utexas.edu/~adnan/gdb-refcard.pdf
 ```
 (gdb) break main
 Breakpoint 1 at 0x80001f0: file src/05-led-roulette/src/main.rs, line 7.
 Note: automatically using hardware breakpoints for read-only addresses.
-
+```
+Next issue a `continue` command:
+```
 (gdb) continue
 Continuing.
 
@@ -57,9 +76,9 @@ led_roulette::__cortex_m_rt_main () at src/05-led-roulette/src/main.rs:10
 Next we'll issue a second `step` which executes line 10 and stops at
 line `11    _y = x;`, again line 11 is **not** executed.
 
-> **Note** we could have pressed enter at the second `<gdb> ` prompt and
-> it would have reissued the previous statement, `step`, but for clarity in this tutorial
-> we'll generally retype the command.
+> **Note** we could have pressed enter at the second `(gdb) ` prompt and
+> it would have reissued the previous statement, `step`, but for clarity
+> in this tutorial we'll generally retype the command.
 
 ```
 (gdb) step
@@ -71,16 +90,17 @@ along with its line number. As you'll see later in the TUI mode you'll not the s
 in the command area.
 
 We are now "on" the `_y = x` statement; that statement hasn't been executed yet. This means that `x`
-is initialized but `_y` is not. Let's inspect those stack/local variables using the `print` command:
+is initialized but `_y` is not. Let's inspect those stack/local variables using the `print`
+command, `p` for short:
 
 ```
 (gdb) print x
 $1 = 42
-(gdb) print &x
+(gdb) p &x
 $2 = (*mut i32) 0x20009fe0
-(gdb) print _y
+(gdb) p _y
 $3 = 536870912
-(gdb) print &_y
+(gdb) p &_y
 $4 = (*mut i32) 0x20009fe4
 ```
 
@@ -154,7 +174,7 @@ See the fat arrow `=>` on the left side? It shows the instruction the processor 
 
 Also, as mentioned above if you were to execute the `step` command GDB gets stuck because it
 is executing a branch instruction to itself and never gets past it. So you need to use
-`Ctrl+C` to regain control. An alternative is to use the `stepi` GDB command, which steps
+`Ctrl+C` to regain control. An alternative is to use the `stepi`(`si`) GDB command, which steps
 one asm instruction, and GDB will print the address **and** line number of the statement
 the processor will execute next and it won't get stuck.
 
@@ -162,7 +182,7 @@ the processor will execute next and it won't get stuck.
 (gdb) stepi
 0x08000194      14          loop {}
 
-(gdb) stepi
+(gdb) si
 0x08000194      14          loop {}
 ```
 
@@ -233,35 +253,40 @@ mode enter one of the following commands in the GDB shell:
 > **NOTE** Apologies to Windows users, the GDB shipped with the GNU ARM Embedded Toolchain
 > may not support this TUI mode `:-(`.
 
-Below is an example of setting up for a layout split by executing the follow commands:
+Below is an example of setting up for a `layout split` by executing the follow commands:
 
 ``` console
 $ cargo run --target thumbv7em-none-eabihf
-<gdb> target remote :3333
-<gdb> load
-<gdb> set print asm-demangle on
-<gdb> set style sources off
-<gdb> break main
-<gdb> continue
-<gdb> layout split
+(gdb) target remote :3333
+(gdb) load
+(gdb) set print asm-demangle on
+(gdb) set style sources off
+(gdb) break main
+(gdb) continue
 ```
 
-And below the result after `layout split` command is executed:
+Here is a command line with the above commands as `-ex` parameters to save you some typing:
+
+```
+cargo run --target thumbv7em-none-eabihf -- -q -ex 'target remote :3333' -ex 'load' -ex 'set print asm-demangle on' -ex 'set style sources off' -ex 'b main' -ex 'c' target/thumbv7em-none-eabihf/debug/led-roulette
+```
+
+And below is the result:
 
 ![GDB session layout split](../assets/gdb-layout-split-1.png "GDB TUI layout split 1")
 
-Now we'll scroll the top source window down so we see the entire file and execute `step`:
+Now we'll scroll the top source window down so we see the entire file and execute `layout split` and then `step`:
 
 ![GDB session layout split](../assets/gdb-layout-split-2.png "GDB TUI layout split 2")
 
 Then we'll execute a few `info locals` and `step`'s:
 
 ``` console
-<gdb> info locals
-<gdb> step
-<gdb> info locals
-<gdb> step
-<gdb> info locals
+(gdb) info locals
+(gdb) step
+(gdb) info locals
+(gdb) step
+(gdb) info locals
 ```
 
 ![GDB session layout split](../assets/gdb-layout-split-3.png "GDB TUI layout split 3")

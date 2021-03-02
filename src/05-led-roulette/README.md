@@ -44,6 +44,7 @@ point function must have signature `fn() -> !`; this type indicates that the fun
 If you are a careful observer, you'll also notice there is a `.cargo` directory in the Cargo project
 as well. This directory contains a Cargo configuration file (`.cargo/config`) that tweaks the
 linking process to tailor the memory layout of the program to the requirements of the target device.
-This modified linking process is a requirement of the `cortex-m-rt` crate.
+This modified linking process is a requirement of the `cortex-m-rt` crate. You'll also be making
+further tweaks to `.cargo/config` in future sections to make building and debugging easier.
 
 Alright, let's start by building this program.
