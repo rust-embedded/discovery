@@ -29,7 +29,7 @@ manually on each GDB session.
 Using an editor create `openocd.gdb` in the root of the Cargo project, right next to the `Cargo.toml`:
 
 ``` console
-vi openocd.gdb
+nano openocd.gdb
 ```
 
 And add the following text:
@@ -48,7 +48,7 @@ also add a `[build]` section with `thumbv7em-none-eabihf` so we don't
 have to specify the `--target` when using `cargo build` or `cargo run`:
 
 ``` console
-vi .cargo/config
+nano .cargo/config
 ```
 
 Replacing the contents with the text below. This adds `-x openocd.gdb` to
