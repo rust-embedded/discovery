@@ -140,10 +140,80 @@ In both failing and successful cases you should see new output in the **OpenOCD 
 By default OpenOCD's GDB server listens on TCP port 3333 (localhost). This command is connecting to
 that port.
 
+## Update .cargo/config
+
+Now that you've successfully determined which debugger you need to use
+we need to change `.cargo/config` so that `cargo run` command can succeed.
+
+Get back to the terminal prompt and looking at `.cargo/config`:
+``` console
+$ cat .cargo/config
+[target.thumbv7em-none-eabihf]
+runner = "arm-none-eabi-gdb -q"
+rustflags = [
+  "-C", "link-arg=-Tlink.x",
+]
+
+```
+Use your favorite editor to edit `.cargo/config` so that the
+runner line contains the name of that debugger:
+``` console
+nano .cargo/config
+```
+For example, if your debugger was `gdb-multiarch` then after
+editing you should have:
+``` console
+$ cat .cargo/config
+[target.thumbv7em-none-eabihf]
+runner = "gdb-mulitarch -q"
+rustflags = [
+  "-C", "link-arg=-Tlink.x",
+]
+```
+And `git diff` should be:
+``` diff
+$ git diff .cargo/config
+diff --git a/src/05-led-roulette/.cargo/config b/src/05-led-roulette/.cargo/config
+index 01d25c8..c23dc80 100644
+--- a/src/05-led-roulette/.cargo/config
++++ b/src/05-led-roulette/.cargo/config
+@@ -1,5 +1,5 @@
+ [target.thumbv7em-none-eabihf]
+-runner = "arm-none-eabi-gdb -q"
++runner = "gdb-multiarch -q"
+ rustflags = [
+   "-C", "link-arg=-Tlink.x",
+ ]
+```
+
+Now that you have `.cargo/config` setup to let's test it and use `cargo run` to
+start the debug session:
+```
+~/embedded-discovery/src/05-led-roulette
+$ cargo run --target thumbv7em-none-eabihf
+    Finished dev [unoptimized + debuginfo] target(s) in 0.01s
+     Running `arm-none-eabi-gdb -q ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
+Reading symbols from ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
+
+(gdb) target remote :3333
+Remote debugging using :3333
+0x00000000 in ?? ()
+
+(gdb)
+```
+
+Bravo, you'll be making additional changes to `.cargo/config` in future
+sections to make building and debugging easier.
+
+> **Note** the default `.cargo/config` in every chapter assumes
+> the debugger is `arm-none-eabi-gdb`. So the first thing you should
+> do when you start a new chapter is edit `.cargo/config`!
+
 ## Flash the device
 
-Almost there. To flash the device, we'll use the `load` command inside the GDB shell:
+Assuming you have gdb running, if not start it as suggested in the previous section.
 
+Now use the `load` command in `gdb` to actually flash the program into the device:
 ```
 (gdb) load
 Loading section .vector_table, size 0x194 lma 0x8000000
