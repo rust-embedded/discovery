@@ -13,14 +13,21 @@ set print pretty on
 # Disable style sources as the default colors can be hard to read
 set style sources off
 
-# Have the tpiu send the data to a file tim.txt
+# Initialize monitoring so iprintln! macro output
+# is sent from the itm port to itm.txt
 monitor tpiu config internal itm.txt uart off 8000000
 
 # Turn on the itm port
 monitor itm port 0 on
 
-# Set a breakpoint at main
+# Set a breakpoint at main, aka entry
 break main
+
+# Set a breakpiont at DefaultHandler
+break DefaultHandler
+
+# Set a breakpiont at HardFault
+break HardFault
 
 # Continue running and unill we hit the main breakpoint
 continue
