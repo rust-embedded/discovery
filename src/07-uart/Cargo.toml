@@ -1,0 +1,15 @@
+[package]
+name = "uart"
+version = "0.1.0"
+authors = ["Henrik Böving <hargonix@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+cortex-m = "0.6.0"
+cortex-m-rt = "0.6.10"
+panic-halt = "0.2.0"
+nrf51-hal = "0.11.0"
+rtt-target = { version = "0.2.2", features = ["cortex-m"] }
+panic-rtt-target = { version = "0.1.1", features = ["cortex-m"] }
+nb = "1.0.0"
+heapless = "0.5.6"

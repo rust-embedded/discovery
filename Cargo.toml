@@ -2,11 +2,9 @@
 members = [
   "src/03-setup",
   "src/05-led-roulette",
-  "src/06-hello-world",
-  "src/07-registers",
+  "src/07-uart",
   "src/08-leds-again",
   "src/09-clocks-and-timers",
-  "src/11-usart",
   "src/14-i2c",
   "src/15-led-compass",
   "src/16-punch-o-meter",
