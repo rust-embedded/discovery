@@ -253,10 +253,11 @@ mode enter one of the following commands in the GDB shell:
 > **NOTE** Apologies to Windows users, the GDB shipped with the GNU ARM Embedded Toolchain
 > may not support this TUI mode `:-(`.
 
-Below is an example of setting up for a `layout split` by executing the follow commands:
+Below is an example of setting up for a `layout split` by executing the follow commands.
+As you can see we've dropped passing the `--target` parameter:
 
 ``` console
-$ cargo run --target thumbv7em-none-eabihf
+$ cargo run
 (gdb) target remote :3333
 (gdb) load
 (gdb) set print asm-demangle on
@@ -265,10 +266,10 @@ $ cargo run --target thumbv7em-none-eabihf
 (gdb) continue
 ```
 
-Here is a command line with the above commands as `-ex` parameters to save you some typing:
-
+Here is a command line with the above commands as `-ex` parameters to save you some typing,
+shortly we'll be providing an easier way to execute the initial set of commands:
 ```
-cargo run --target thumbv7em-none-eabihf -- -q -ex 'target remote :3333' -ex 'load' -ex 'set print asm-demangle on' -ex 'set style sources off' -ex 'b main' -ex 'c' target/thumbv7em-none-eabihf/debug/led-roulette
+cargo run -- -q -ex 'target remote :3333' -ex 'load' -ex 'set print asm-demangle on' -ex 'set style sources off' -ex 'b main' -ex 'c' target/thumbv7em-none-eabihf/debug/led-roulette
 ```
 
 And below is the result:

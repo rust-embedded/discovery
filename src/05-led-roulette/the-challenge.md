@@ -26,42 +26,88 @@ entering the same commands at the beginning. We can use a `.gdb` file to execute
 right after GDB is started. This way you can save yourself the effort of having to enter them
 manually on each GDB session.
 
-Using an editor create `openocd.gdb` in the root of the Cargo project, right next to the `Cargo.toml`:
+As it turns out we've already created `../openocd.gdb` and you can see it's doing 
+pretty much what we did in the previous section plus a few other commands. Look at
+the comments for additional information:
 
 ``` console
-nano openocd.gdb
-```
-
-And add the following text:
-
-``` text
+$ cat ../openocd.gdb
+# Connect to gdb remote server
 target remote :3333
+
+# Load will flash the code
 load
+
+# Eanble demangling asm names on disassembly
+set print asm-demangle on
+
+# Enable pretty printing
+set print pretty on
+
+# Disable style sources as the default colors can be hard to read
+set style sources off
+
+# Initialize monitoring so iprintln! macro output
+# is sent from the itm port to itm.txt
+monitor tpiu config internal itm.txt uart off 8000000
+
+# Turn on the itm port
+monitor itm port 0 on
+
+# Set a breakpoint at main, aka entry
 break main
+
+# Set a breakpiont at DefaultHandler
+break DefaultHandler
+
+# Set a breakpiont at HardFault
+break HardFault
+
+# Continue running and unill we hit the main breakpoint
 continue
+
+# Step from the trampoline code in entry into main
 step
 
 ```
 
-Next modify the `.cargo/config` file to execute openocd.gdb and we'll
-also add a `[build]` section with `thumbv7em-none-eabihf` so we don't
-have to specify the `--target` when using `cargo build` or `cargo run`:
-
+Now we need to modify the `../.cargo/config.toml` file to execute `../openocd.gdb`
 ``` console
-nano .cargo/config
+nano ../openocd.gdb
 ```
 
-Replacing the contents with the text below. This adds `-x openocd.gdb` to
-the `runner =` line and appends `[build]` and `target = "thumbv7em-none-eabihf` lines:
+Edit your `runner` command ` -x ../openocd.gdb`.
+Assuming you're using `arm-none-eabi-gdb` the diff is:
+``` diff
+~/embedded-discovery/src/05-led-roulette
+$ git diff ../.cargo/config.toml
+diff --git a/src/.cargo/config.toml b/src/.cargo/config.toml
+index ddff17f..02ac952 100644
+--- a/src/.cargo/config.toml
++++ b/src/.cargo/config.toml
+@@ -1,5 +1,5 @@
+ [target.thumbv7em-none-eabihf]
+-runner = "arm-none-eabi-gdb -q"
++runner = "arm-none-eabi-gdb -q -x ../openocd.gdb"
+ # runner = "gdb-multiarch -q"
+ # runner = "gdb -q"
+ rustflags = [
+```
+
+And the full contents of `../.cargo/config.toml`, again
+assuming `arm-none-eabi-gdb`, is:
 ``` toml
 [target.thumbv7em-none-eabihf]
-runner = "arm-none-eabi-gdb -q -x openocd.gdb"
+runner = "arm-none-eabi-gdb -q -x ../openocd.gdb"
+# runner = "gdb-multiarch -q"
+# runner = "gdb -q"
 rustflags = [
   "-C", "link-arg=-Tlink.x",
 ]
 
 [build]
 target = "thumbv7em-none-eabihf"
+
 ```
 
 With that in place, you can now use a simple `cargo run` command which will build
@@ -95,3 +141,12 @@ Breakpoint 1, led_roulette::__cortex_m_rt_main_trampoline ()
 led_roulette::__cortex_m_rt_main () at ~/embedded-discovery/src/05-led-roulette/src/main.rs:9
 9           let (mut delay, mut leds): (Delay, LedArray) = aux5::init();
 ```
+
+## Fork the discovery book
+
+If you haven't already ready, it's probably a good idea to fork
+the [embedded discovery book](https://github.com/rust-embedded/discovery) so you
+can save your changes in your own branch of your fork. We suggest creating
+your own branch and leaving the `master` branch alone so the `master` branch
+of your fork can stay in sync with the upstream repo. Also, it allows you to
+more easily create PR's and improve this book, **thank you in advance**!

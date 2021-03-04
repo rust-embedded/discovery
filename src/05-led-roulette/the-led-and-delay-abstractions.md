@@ -38,9 +38,8 @@ fn main() -> ! {
 ```
 
 Now build it:
-
 ``` console
-cargo build --target thumbv7em-none-eabihf
+cargo build
 ```
 
 > **NOTE** It's possible to forget to rebuild the program *before* starting a GDB session; this
@@ -48,15 +47,10 @@ cargo build --target thumbv7em-none-eabihf
 > instead of `cargo build`; `cargo run`. The `cargo run` command will build *and* start a debug
 > session ensuring you never forget to recompile your program.
 
-Now, we'll repeat the flashing procedure that we did in the previous section:
-
+Now we'll run and repeat the flashing procedure as we did in the previous section
+but with the new program. I'll let you type in the `cargo run`, *this will get easier shortly* :)
 ``` console
-cargo run --target thumbv7em-none-eabihf
-```
-
-Which results in something like:
-``` console
-$ cargo run --target thumbv7em-none-eabihf
+$ cargo run
     Finished dev [unoptimized + debuginfo] target(s) in 0.01s
      Running `arm-none-eabi-gdb -q ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
 Reading symbols from ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
@@ -93,7 +87,6 @@ led_roulette::__cortex_m_rt_main () at ~/embedded-discovery/src/05-led-roulette/
 
 OK. Let's step through the code. This time, we'll use the `next` command instead of `step`. The
 difference is that the `next` command will step *over* function calls instead of going inside them.
-
 ```
 (gdb) next
 11          let half_period = 500_u16;
