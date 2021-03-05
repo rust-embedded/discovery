@@ -77,95 +77,36 @@ from `/tmp` directory (on Windows `%TEMP%`) to launch OpenOCD similar as describ
 
 Alright. Now, let's build the starter code and flash it into the microcontroller.
 
-To avoid passing the `--target thumbv7em-none-eabihf` flag to every Cargo invocation we
-have added `[build]` with a default target, `target = "thumbv7em-none-eabihf"`, to .cargo/config.
-Now if `--target` is not specified `cargo` will assume that the target is `thumbv7em-none-eabihf`.
-
-```
-[target.thumbv7em-none-eabihf]
-runner = "arm-none-eabi-gdb -q -x openocd.gdb"
-rustflags = [
-  "-C", "link-arg=-Tlink.x",
-]
-
-[build]
-target = "thumbv7em-none-eabihf"
-```
-
-In addition, our `opendocd.gdb` has some additional lines. Compared to the previous
-section `set`'s and initialize `monitor`ing so `iprint!` and `iprintln!`
-macros work and output is visible on a console. Below the contents with comments:
+We will now build and run the application, `cargo run`. And step through it using `next`.
+Since `openocd.gdb` contains the `monitor` commands in `openocd.gdb` OpenOCD will redirect
+the ITM output to itm.txt and `itmdump` will write it to its terminal window. Also, it setup
+break points and stepped through the trampoline we are at the first executable
+statement in `fn main()`:
 
 ``` console
-$ cat openocd.gdb
-# Connect to gdb remote server
-target remote :3333
-
-# Load will flash the code
-load
-
-# Enable demangling asm names on disassembly
-set print asm-demangle on
-
-# Enable pretty printing
-set print pretty on
-
-# Disable style sources as the default colors can be hard to read
-set style sources off
-
-# Have the tpiu send the data to a file itm.txt
-monitor tpiu config internal itm.txt uart off 8000000
-
-# Turn on the itm port
-monitor itm port 0 on
-
-# Set a breakpoint at main
-break main
-
-# Continue running and we'll hit the main breakpoint
-continue
-```
-
-We will now run the application and single step through it. Since we've added
-the `monitor` commands in `openocd.gdb` OpenOCD will redirect the ITM output to
-itm.txt and `itmdump` will write it to its terminal window.
-
-``` console
+~/embedded-discovery/src/06-hello-world
 $ cargo run
     Finished dev [unoptimized + debuginfo] target(s) in 0.01s
-     Running `arm-none-eabi-gdb -q -x openocd.gdb ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/hello-world`
-Reading symbols from ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/hello-world...
-0x00000000 in ?? ()
+     Running `arm-none-eabi-gdb -q -x ../openocd.gdb ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/hello-world`
+Reading symbols from ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/hello-world...
+hello_world::__cortex_m_rt_main () at ~/embedded-discovery/src/06-hello-world/src/main.rs:14
+14          loop {}
 Loading section .vector_table, size 0x194 lma 0x8000000
-Loading section .text, size 0x28d8 lma 0x8000194
-Loading section .rodata, size 0x6b8 lma 0x8002a6c
-Start address 0x08000194, load size 12580
-Transfer rate: 18 KB/sec, 4193 bytes/write.
-Breakpoint 1 at 0x80001f0: file src/06-hello-world/src/main.rs, line 8.
+Loading section .text, size 0x2828 lma 0x8000194
+Loading section .rodata, size 0x638 lma 0x80029bc
+Start address 0x08000194, load size 12276
+Transfer rate: 18 KB/sec, 4092 bytes/write.
+Breakpoint 1 at 0x80001f0: file ~/embedded-discovery/src/06-hello-world/src/main.rs, line 8.
 Note: automatically using hardware breakpoints for read-only addresses.
+Breakpoint 2 at 0x800092a: file /home/wink/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-rt-0.6.13/src/lib.rs, line 570.
+Breakpoint 3 at 0x80029a8: file /home/wink/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-rt-0.6.13/src/lib.rs, line 560.
 
-Breakpoint 1, hello_world::__cortex_m_rt_main_trampoline () at src/06-hello-world/src/main.rs:8
+Breakpoint 1, hello_world::__cortex_m_rt_main_trampoline () at ~/embedded-discovery/src/06-hello-world/src/main.rs:8
 8       #[entry]
-```
+hello_world::__cortex_m_rt_main () at ~/embedded-discovery/src/06-hello-world/src/main.rs:10
+10          let mut itm = aux6::init();
 
-We are now stopped at `#[entry]` and since, as before, it's a trampoline:
-
-``` console
-(gdb) disassemble /m
-Dump of assembler code for function main:
-8	#[entry]
-   0x080001ec <+0>:	push	{r7, lr}
-   0x080001ee <+2>:	mov	r7, sp
-=> 0x080001f0 <+4>:	bl	0x80001f6 <hello_world::__cortex_m_rt_main>
-   0x080001f4 <+8>:	udf	#254	; 0xfe
-```
-
-We need to initially `step` into the main function which will position us at line 10:
-
-``` text
-(gdb) step
-hello_world::__cortex_m_rt_main () at src/06-hello-world/src/main.rs:10
-10	    let mut itm = aux6::init();
+(gdb)
 ```
 
 Now issue a `next` command which will exectue `aux6::init()` and

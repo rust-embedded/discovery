@@ -22,25 +22,31 @@ define hook-quit
 end
 ```
 
-OK, now use `cargo run` and it stops at `#[entry]`:
+OK, now use `cargo run` and it stops at the first line of `fn main()`:
 
 ``` console
 $ cargo run
-    Finished dev [unoptimized + debuginfo] target(s) in 0.01s
-     Running `arm-none-eabi-gdb -q -x openocd.gdb ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/hello-world`
-Reading symbols from ~/prgs/rust/tutorial/embedded-discovery/target/thumbv7em-none-eabihf/debug/hello-world...
-panic_itm::panic (info=0x20009fa0) at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/panic-itm-0.4.2/src/lib.rs:57
-57	        atomic::compiler_fence(Ordering::SeqCst);
+   Compiling hello-world v0.2.0 (~/embedded-discovery/src/06-hello-world)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.11s
+     Running `arm-none-eabi-gdb -q -x ../openocd.gdb ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/hello-world`
+Reading symbols from ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/hello-world...
+hello_world::__cortex_m_rt_main () at ~/embedded-discovery/src/06-hello-world/src/main.rs:10
+10          panic!("Hello, world!");
 Loading section .vector_table, size 0x194 lma 0x8000000
-Loading section .text, size 0x2198 lma 0x8000194
-Loading section .rodata, size 0x5d8 lma 0x800232c
-Start address 0x08000194, load size 10500
-Transfer rate: 17 KB/sec, 3500 bytes/write.
-Breakpoint 1 at 0x80001f0: file src/06-hello-world/src/main.rs, line 8.
+Loading section .text, size 0x20fc lma 0x8000194
+Loading section .rodata, size 0x554 lma 0x8002290
+Start address 0x08000194, load size 10212
+Transfer rate: 17 KB/sec, 3404 bytes/write.
+Breakpoint 1 at 0x80001f0: file ~/embedded-discovery/src/06-hello-world/src/main.rs, line 8.
 Note: automatically using hardware breakpoints for read-only addresses.
+Breakpoint 2 at 0x8000222: file ~/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-rt-0.6.13/src/lib.rs, line 570.
+Breakpoint 3 at 0x800227a: file ~/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-rt-0.6.13/src/lib.rs, line 560.
 
-Breakpoint 1, hello_world::__cortex_m_rt_main_trampoline () at src/06-hello-world/src/main.rs:8
-8	#[entry]
+Breakpoint 1, hello_world::__cortex_m_rt_main_trampoline () at ~/embedded-discovery/src/06-hello-world/src/main.rs:8
+8       #[entry]
+hello_world::__cortex_m_rt_main () at ~/embedded-discovery/src/06-hello-world/src/main.rs:10
+10          panic!("Hello, world!");
+(gdb)
 ```
 
 We'll use short command names to save typing, enter `c` then the `Enter` or `Return` key:
@@ -93,19 +99,24 @@ xPSR: 0x01000000 pc: 0x08000194 msp: 0x2000a000
 (gdb) disable 1
 
 (gdb) break rust_begin_unwind 
-Breakpoint 2 at 0x80010f0: file ~/.cargo/registry/src/github.com-1ecc6299db9ec823/panic-itm-0.4.2/src/lib.rs, line 47.
+Breakpoint 4 at 0x800106c: file ~/.cargo/registry/src/github.com-1ecc6299db9ec823/panic-itm-0.4.2/src/lib.rs, line 47.
 
 (gdb) info break
 Num     Type           Disp Enb Address    What
-1       breakpoint     keep n   0x080001f0 in hello_world::__cortex_m_rt_main_trampoline at src/06-hello-world/src/main.rs:8
+1       breakpoint     keep n   0x080001f0 in hello_world::__cortex_m_rt_main_trampoline 
+                                           at ~/prgs/rust/tutorial/embedded-discovery/src/06-hello-world/src/main.rs:8
         breakpoint already hit 1 time
-2       breakpoint     keep y   0x080010f0 in panic_itm::panic 
+2       breakpoint     keep y   0x08000222 in cortex_m_rt::DefaultHandler_ 
+                                           at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-rt-0.6.13/src/lib.rs:570
+3       breakpoint     keep y   0x0800227a in cortex_m_rt::HardFault_ 
+                                           at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-rt-0.6.13/src/lib.rs:560
+4       breakpoint     keep y   0x0800106c in panic_itm::panic 
                                            at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/panic-itm-0.4.2/src/lib.rs:47
 
 (gdb) c
 Continuing.
 
-Breakpoint 2, panic_itm::panic (info=0x20009fa0) at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/panic-itm-0.4.2/src/lib.rs:47
+Breakpoint 4, panic_itm::panic (info=0x20009fa0) at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/panic-itm-0.4.2/src/lib.rs:47
 47          interrupt::disable();
 ```
 
