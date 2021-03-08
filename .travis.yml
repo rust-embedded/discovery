@@ -5,7 +5,7 @@ install:
   - export PATH="$PATH:$PWD/gcc/bin"
 
 script:
-  - bash ci/script.sh
+  - travis_wait 30 bash ci/script.sh
 
 after_success:
   - bash ci/after-success.sh
