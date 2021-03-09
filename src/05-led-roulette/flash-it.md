@@ -11,7 +11,7 @@ Onto the actual flashing. First thing we need is to do is launch OpenOCD. We did
 previous section but this time we'll run the command inside a temporary directory (`/tmp` on \*nix;
 `%TEMP%` on Windows).
 
-Make sure the F3 is connected to your computer and run the following commands on a **new terminal**.
+Make sure the F3 is connected to your computer and run the following commands in a **new terminal**.
 
 ## For *nix & MacOS:
 ``` console
@@ -85,7 +85,7 @@ I mentioned that OpenOCD provides a GDB server so let's connect to that right no
 
 ## Execute GDB
 
-First we need to determine what version of GDB you have that is capable of debugging ARM binaries.
+First, we need to determine what version of `gdb` you have that is capable of debugging ARM binaries.
 
 This could be any one of the commands below, try each one:
 ``` console
@@ -140,74 +140,87 @@ In both failing and successful cases you should see new output in the **OpenOCD 
 By default OpenOCD's GDB server listens on TCP port 3333 (localhost). This command is connecting to
 that port.
 
-## Update .cargo/config
+## Update ../.cargo/config.toml
 
 Now that you've successfully determined which debugger you need to use
-we need to change `.cargo/config` so that `cargo run` command can succeed.
+we need to change `../cargo/config.toml` so that `cargo run` command will succeed.
+Note: `cargo` is the rust package manager and you can read about it
+[here](https://doc.rust-lang.org/cargo/).
 
-Get back to the terminal prompt and looking at `.cargo/config`:
+Get back to the terminal prompt and look at `../cargo/config.toml`:
 ``` console
-$ cat .cargo/config
+~/embedded-discovery/src/05-led-roulette
+$ cat ../.cargo/config.toml
 [target.thumbv7em-none-eabihf]
 runner = "arm-none-eabi-gdb -q"
+# runner = "gdb-multiarch -q"
+# runner = "gdb -q"
 rustflags = [
   "-C", "link-arg=-Tlink.x",
 ]
 
+[build]
+target = "thumbv7em-none-eabihf"
+
 ```
-Use your favorite editor to edit `.cargo/config` so that the
-runner line contains the name of that debugger:
+Use your favorite editor to edit `../.cargo/config.toml` so that the
+`runner` line contains the correct name of that debugger:
 ``` console
-nano .cargo/config
+nano ../.cargo/config.toml
 ```
 For example, if your debugger was `gdb-multiarch` then after
-editing you should have:
-``` console
-$ cat .cargo/config
-[target.thumbv7em-none-eabihf]
-runner = "gdb-mulitarch -q"
-rustflags = [
-  "-C", "link-arg=-Tlink.x",
-]
-```
-And `git diff` should be:
+editing the `git diff` should be:
 ``` diff
-$ git diff .cargo/config
-diff --git a/src/05-led-roulette/.cargo/config b/src/05-led-roulette/.cargo/config
-index 01d25c8..c23dc80 100644
---- a/src/05-led-roulette/.cargo/config
-+++ b/src/05-led-roulette/.cargo/config
-@@ -1,5 +1,5 @@
+$ git diff ../.cargo/config.toml
+diff --git a/src/.cargo/config.toml b/src/.cargo/config.toml
+index ddff17f..8512cfe 100644
+--- a/src/.cargo/config.toml
++++ b/src/.cargo/config.toml
+@@ -1,6 +1,6 @@
  [target.thumbv7em-none-eabihf]
 -runner = "arm-none-eabi-gdb -q"
+-# runner = "gdb-multiarch -q"
++# runner = "arm-none-eabi-gdb -q"
 +runner = "gdb-multiarch -q"
+ # runner = "gdb -q"
  rustflags = [
    "-C", "link-arg=-Tlink.x",
- ]
 ```
 
-Now that you have `.cargo/config` setup to let's test it and use `cargo run` to
-start the debug session:
+Now that you have `../.cargo/config.toml` setup let's test it using `cargo run` to
+start the debug session.
+
+> Note the `--target thumbv7em-none-eabihf` defines which architecture
+> to build and run. In our `../.cargo/config.toml` file we have
+> `target = "thumbv7em-none-eabihf"` so it is actually not necessary
+> to specify `--target` we do it here just so you know that parameters on
+> the command line can be used and they override those in `config.toml` files
+
+```
+cargo run --target thumbv7em-none-eabihf
+```
+Results in:
 ```
 ~/embedded-discovery/src/05-led-roulette
 $ cargo run --target thumbv7em-none-eabihf
     Finished dev [unoptimized + debuginfo] target(s) in 0.01s
      Running `arm-none-eabi-gdb -q ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
 Reading symbols from ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
+```
 
+Now issue the `target remote :3333` to connect to the OpenOCD server
+and connect to the F3:
+```
 (gdb) target remote :3333
 Remote debugging using :3333
 0x00000000 in ?? ()
-
-(gdb)
 ```
 
-Bravo, you'll be making additional changes to `.cargo/config` in future
-sections to make building and debugging easier.
-
-> **Note** the default `.cargo/config` in every chapter assumes
-> the debugger is `arm-none-eabi-gdb`. So the first thing you should
-> do when you start a new chapter is edit `.cargo/config`!
+Bravo, we will be modifying `../.cargo/config.toml` in future. **But**, since
+this file is shared with all of the chapters those changes should be made with
+that in mind. If you want or we need to make changes that only pertain to
+a particular chapter then create a `.cargo/config.toml` local to that chapter
+directory.
 
 ## Flash the device
 
