@@ -13,17 +13,20 @@ jobs:
       matrix:
         chapter:
           - 05-led-roulette
-          - 06-hello-world
-          - 07-registers
+          - 07-uart
           - 08-leds-again
           - 09-clocks-and-timers
-          - 11-usart
           - 14-i2c
           - 15-led-compass
           - 16-punch-o-meter
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: thumbv6m-none-eabi
+      - uses: actions-rs/toolchain@v1 # Until everything has been rewritten
         with:
           profile: minimal
           toolchain: stable
@@ -38,6 +41,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: thumbv6m-none-eabi
+      - uses: actions-rs/toolchain@v1 # Until everything has been rewritten
         with:
           profile: minimal
           toolchain: stable
