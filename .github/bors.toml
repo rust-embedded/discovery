@@ -1,4 +1,13 @@
 block_labels = ["needs-decision"]
 delete_merged_branches = true
 required_approvals = 1
-status = ["continuous-integration/travis-ci/push"]
+status = [
+    "build-book",
+    "build-chapter (05-led-roulette)",
+    "build-chapter (07-uart)",
+    "build-chapter (08-leds-again)",
+    "build-chapter (09-clocks-and-timers)",
+    "build-chapter (14-i2c)",
+    "build-chapter (15-led-compass)",
+    "build-chapter (16-punch-o-meter)",
+]
