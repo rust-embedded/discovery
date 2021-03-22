@@ -11,4 +11,4 @@ Execute your program inside the debugger, statement by statement. What do you se
 
 Then execute the program again but in *one go* using the `continue` command. What happens this time?
 
-Finally, build the program in *release* mode and, again, run it one go. What happens this time?
+Finally, build the program in *release* mode and, again, run it in one go. What happens this time?
