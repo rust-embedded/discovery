@@ -3,7 +3,7 @@ members = [
   "src/03-setup",
   "src/05-led-roulette",
   "src/07-uart",
-  "src/14-i2c",
+  "src/08-i2c",
   "src/15-led-compass",
   "src/16-punch-o-meter",
 ]
