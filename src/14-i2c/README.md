@@ -10,9 +10,8 @@ sensor, would require the sensor vendor to come up with another protocol on top 
 (Un)Luckily for us, there are *plenty* of other communication protocols in the embedded space. Some
 of them are widely used in digital sensors.
 
-The F3 board we are using has three motion sensors in it: an accelerometer, a magnetometer and
-gyroscope. The accelerometer and magnetometer are packaged in a single component and can be accessed
-via an I2C bus.
+The micro:bit board we are using has two motion sensors in it: an accelerometer and a magnetometer.
+Both of these sensors are packaged into a single component and can be accessed via an I2C bus.
 
 I2C stands for Inter-Integrated Circuit and is a *synchronous* *serial* communication protocol. It
 uses two lines to exchange data: a data line (SDA) and a clock line (SCL). Because a clock line is
