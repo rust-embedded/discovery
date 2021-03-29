@@ -7,7 +7,7 @@ In this case, our `led-roulette` program will be the *only* program in the micro
 By this I mean that there's nothing else running on the microcontroller: no OS, no "daemon",
 nothing. `led-roulette` has full control over the device.
 
-Onto the actual flashing. First thing we need is to do is launch OpenOCD. We did that in the
+Onto the actual flashing. First thing we need to do is launch OpenOCD. We did that in the
 previous section but this time we'll run the command inside a temporary directory (`/tmp` on \*nix;
 `%TEMP%` on Windows).
 
