@@ -136,7 +136,7 @@ It should result in something like:
 $ lsusb | grep ST-LINK
 Bus 003 Device 003: ID 0483:374b STMicroelectronics ST-LINK/V2.1
 ```
-So the `idProduct` is `0483` and `idVendor` is `374b`.
+So the `idVendor` is `0483` and `idProduct` is `374b`.
 
 ### Create `/etc/udev/rules.d/99-openocd.rules`:
 ``` console
