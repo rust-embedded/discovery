@@ -2,44 +2,43 @@
 #![no_main]
 #![no_std]
 
-#[allow(unused_imports)]
-use aux14::{entry, iprint, iprintln, prelude::*};
+use cortex_m_rt::entry;
+use rtt_target::{rtt_init_print, rprintln};
+use panic_rtt_target as _;
+use nrf51_hal as hal;
+use hal::prelude::*;
 
-// Slave address
-const MAGNETOMETER: u8 = 0b001_1110;
+const ACCELEROMETER_ADDR: u8 = 0b0011001;
+const MAGNETOMETER_ADDR: u8 = 0b0011110;
 
-// Addresses of the magnetometer's registers
-const OUT_X_H_M: u8 = 0x03;
-const IRA_REG_M: u8 = 0x0A;
+const ACCELEROMETER_ID_REG: u8 = 0x0f;
+const MAGNETOMETER_ID_REG: u8 = 0x4f;
 
 #[entry]
 fn main() -> ! {
-    let (i2c1, _delay, mut itm) = aux14::init();
+    rtt_init_print!();
+    let p = hal::pac::Peripherals::take().unwrap();
 
-    // Stage 1: Send the address of the register we want to read to the
-    // magnetometer
-    {
-        // TODO Broadcast START
+    let p0 = hal::gpio::p0::Parts::new(p.GPIO);
+    let scl = p0.p0_00.into_floating_input().degrade();
+    let sda = p0.p0_30.into_floating_input().degrade();
 
-        // TODO Broadcast the MAGNETOMETER address with the R/W bit set to Write
-
-        // TODO Send the address of the register that we want to read: IRA_REG_M
-    }
-
-    // Stage 2: Receive the contents of the register we asked for
-    let byte = {
-        // TODO Broadcast RESTART
-
-        // TODO Broadcast the MAGNETOMETER address with the R/W bit set to Read
-
-        // TODO Receive the contents of the register
-
-        // TODO Broadcast STOP
-        0
+    let pins = hal::twi::Pins {
+        scl,
+        sda,
     };
 
-    // Expected output: 0x0A - 0b01001000
-    iprintln!(&mut itm.stim[0], "0x{:02X} - 0b{:08b}", IRA_REG_M, byte);
+    // Use a frequency of 100 khz for the bus
+    let mut i2c = hal::twi::Twi::new(p.TWI1, pins, hal::pac::twi0::frequency::FREQUENCY_A::K100);
+    let mut ac_data = [0];
+    let mut ma_data = [0];
+
+    // First write the address + register onto the bus, then read the chip's responses
+    i2c.write_read(ACCELEROMETER_ADDR, &[ACCELEROMETER_ID_REG], &mut ac_data).unwrap();
+    i2c.write_read(MAGNETOMETER_ADDR, &[MAGNETOMETER_ID_REG], &mut ma_data).unwrap();
+
+    rprintln!("The accelerometer chip's id is: {:#b}", ac_data[0]);
+    rprintln!("The magnetometer chip's id is: {:#b}", ma_data[0]);
 
     loop {}
 }
