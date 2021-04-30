@@ -15,7 +15,7 @@ families within that architecture:
 - `thumbv7em-none-eabihf`, for the Cortex-M4**F** and Cortex-M7**F** processors
 
 For the F3, we'll use the `thumbv7em-none-eabihf` target. Before cross compiling you have to
-download pre-compiled version of the standard library (a reduced version of it actually) for your
+download a pre-compiled version of the standard library (a reduced version of it actually) for your
 target. That's done using `rustup`:
 
 ``` console
@@ -27,7 +27,7 @@ You only need to do the above step once; `rustup` will re-install a new standard
 
 With the `rust-std` component in place you can now cross compile the program using Cargo.
 
-> Note: make sure you are in the `src/05-led-roulette` directory
+> **NOTE** Make sure you are in the `src/05-led-roulette` directory
 > and run `cargo build` command below to create the executable:
 ``` console
 cargo build --target thumbv7em-none-eabihf
@@ -88,9 +88,9 @@ $ cargo build --target thumbv7em-none-eabihf
     Finished dev [unoptimized + debuginfo] target(s) in 17.91s
 ```
 
-> **NOTE** Be sure to compile this crate *without* optimizations. The provided Cargo.toml file and build command above will ensure optimizations are off. 
+> **NOTE** Be sure to compile this crate *without* optimizations. The provided Cargo.toml file and build command above will ensure optimizations are off.
 
-OK, now we have produced an executable. This executable won't blink any leds, it's just a simplified version that we will build upon later in the chapter. As a sanity check, let's verify that the produced executable is actually an ARM binary:
+OK, now we have produced an executable. This executable won't blink any LEDs, it's just a simplified version that we will build upon later in the chapter. As a sanity check, let's verify that the produced executable is actually an ARM binary:
 
 ``` console
 cargo readobj --target thumbv7em-none-eabihf --bin led-roulette -- --file-header

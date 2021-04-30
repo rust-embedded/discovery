@@ -36,8 +36,8 @@ The `no_main` attribute says that this program won't use the standard `main` int
 tailored for command line applications that receive arguments. Instead of the standard `main` we'll
 use the `entry` attribute from the [`cortex-m-rt`] crate to define a custom entry point. In this
 program we have named the entry point "main", but any other name could have been used. The entry
-point function must have signature `fn() -> !`; this type indicates that the function can't return
--- this means that the program never terminates.
+point function must have the signature `fn() -> !`; this type indicates that the function can't
+return - this means that the program never terminates.
 
 [`cortex-m-rt`]: https://crates.io/crates/cortex-m-rt
 

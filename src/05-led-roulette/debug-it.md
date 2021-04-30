@@ -10,9 +10,9 @@ The starter project I've provided to you has some extra code that runs *before* 
 At this time, we are not interested in that "pre-main" part so let's skip right to the beginning of
 the `main` function. We'll do that using a breakpoint. Issue `break main` at the `(gdb)` prompt:
 
-> **Note** for these gdb commands I generally won't provide a copyable code block
+> **NOTE** For these GDB commands I generally won't provide a copyable code block
 > as these are short and it's faster just to type them yourself. In addition most
-> can be shortend. For instance `b` for `break` or `s` for `step`, see [gdb quick ref]
+> can be shortend. For instance `b` for `break` or `s` for `step`, see [GDB Quick Reference]
 > for more info or use Google to find your others. In addition, you can use tab completion
 > by typing the first few letters than one tab to complete or two tabs to
 > see all possible commands.
@@ -26,7 +26,7 @@ the `main` function. We'll do that using a breakpoint. Issue `break main` at the
 >> Argument N means step N times (or till program stops for another reason).
 >> ```
 
-[gdb quick ref]: https://users.ece.utexas.edu/~adnan/gdb-refcard.pdf
+[GDB Quick Reference]: https://users.ece.utexas.edu/~adnan/gdb-refcard.pdf
 ```
 (gdb) break main
 Breakpoint 1 at 0x80001f0: file src/05-led-roulette/src/main.rs, line 7.
@@ -49,7 +49,7 @@ which is a trampoline to the main function and where `break main` sets the break
 > breakpoints so it's a good idea to pay attention to these messages.
 
 OK. Since we are stopped at `#[entry]` and using the `disassemble /m` we see the code
-for entry, which is a trampoline to main. What that means it sets up the stack and then
+for entry, which is a trampoline to main. That means it sets up the stack and then
 invokes a subroutine call to the `main` function using an ARM branch and link instruction, `bl`.
 ```
 (gdb) disassemble /m
@@ -63,7 +63,7 @@ Dump of assembler code for function main:
 End of assembler dump.
 ```
 
-Next we need to issue a `step` gdb command which will advance the program statement
+Next we need to issue a `step` GDB command which will advance the program statement
 by statement stepping into functions/procedures. So after this first `step` command we're
 inside `main` and are positioned at the first executable `rust` statement, line 10, but it is
 **not** executed:
@@ -76,7 +76,7 @@ led_roulette::__cortex_m_rt_main () at src/05-led-roulette/src/main.rs:10
 Next we'll issue a second `step` which executes line 10 and stops at
 line `11    _y = x;`, again line 11 is **not** executed.
 
-> **Note** we could have pressed enter at the second `(gdb) ` prompt and
+> **NOTE** We could have pressed enter at the second `(gdb) ` prompt and
 > it would have reissued the previous statement, `step`, but for clarity
 > in this tutorial we'll generally retype the command.
 
@@ -86,7 +86,7 @@ line `11    _y = x;`, again line 11 is **not** executed.
 ```
 
 As you can see, in this mode, on each `step` command GDB will print the current statement along
-along with its line number. As you'll see later in the TUI mode you'll not the see the statement
+with its line number. As you'll see later in the TUI mode you'll not see the statement
 in the command area.
 
 We are now "on" the `_y = x` statement; that statement hasn't been executed yet. This means that `x`
