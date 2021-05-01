@@ -37,7 +37,7 @@ tailored for command line applications that receive arguments. Instead of the st
 use the `entry` attribute from the [`cortex-m-rt`] crate to define a custom entry point. In this
 program we have named the entry point "main", but any other name could have been used. The entry
 point function must have the signature `fn() -> !`; this type indicates that the function can't
-return - this means that the program never terminates.
+return – this means that the program never terminates.
 
 [`cortex-m-rt`]: https://crates.io/crates/cortex-m-rt
 
