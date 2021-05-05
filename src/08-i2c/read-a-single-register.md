@@ -35,11 +35,11 @@ to P0.00 and SDA is connected to P0.30.
 
 [schematic]: https://github.com/bbcmicrobit/hardware/blob/master/V1.5/SCH_BBC-Microbit_V1.5.PDF
 
-The only thing missing now is the software part, i.e. which API of the nrf51-hal
+The only thing missing now is the software part, i.e. which API of the `nrf51-hal`
 we should use for this. However if you take a look at the index of the
 [HAL's documentation] you'll notice that nothing named I2C is actually noted
 there. This is because some manufacturers don't name their I2C peripheral
-I2C but instead TWI (as in Two Wire Interface), meaning that the twi module
+"I2C" but instead "TWI" (as in Two Wire Interface), meaning that the TWI module
 is the one we are interested in.
 
 [HAL's documentation]: https://docs.rs/nrf51-hal/0.12.1/nrf51_hal/index.html
@@ -55,6 +55,6 @@ print the two device IDs:
 ## Testing it
 As always you can just use
 ```
-$ carg-embed
+$ cargo embed
 ```
 in order to test our little example program.

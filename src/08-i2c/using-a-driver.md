@@ -12,7 +12,7 @@ that simply consume generic types that implement `embedded-hal` traits in order 
 a platform agnostic version of a driver. Luckily for us this has already been done in the
 [lsm303agr] crate. Hence reading the actual accelerometer and magnetometer values will now
 be basically a plug and play experience + reading a bit of documentation. In fact the crates.io
-page already provides us with everything we need to know in order to read accelerometer data, we'll
+page already provides us with everything we need to know in order to read accelerometer data but using a Raspberry Pi. We'll
 just have to adapt it to our chip:
 
 [lsm303agr]: https://crates.io/crates/lsm303agr
