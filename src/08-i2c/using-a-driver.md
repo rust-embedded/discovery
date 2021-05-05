@@ -11,7 +11,7 @@ embedded Rust supports (and new ones that might eventually pop up) one can write
 that simply consume generic types that implement `embedded-hal` traits in order to provide
 a platform agnostic version of a driver. Luckily for us this has already been done in the
 [lsm303agr] crate. Hence reading the actual accelerometer and magnetometer values will now
-be basically a plug and play experience + reading a bit of documentation. In fact the crates.io
+be basically a plug and play experience + reading a bit of documentation. In fact the `crates.io`
 page already provides us with everything we need to know in order to read accelerometer data but using a Raspberry Pi. We'll
 just have to adapt it to our chip:
 
