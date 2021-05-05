@@ -5,5 +5,8 @@ communicates with the outside world via the serial interface introduced
 in the last chapter. It should be able to receive the commands "magnetometer"
 as well as "accelerometer" and then print the corresponding sensor data
 in response. This time no template code will be provided since all you need
-(apart from the magnetometer API which you will have to look up in the documentation)
-is already provided in the UART and this chapter.
+is already provided in the [UART](../07-uart/index.md) and this chapter. However here are a few clues:
+
+- You might be interested in `heapless::String` since we are working with strings now
+- You will (obviously) have to read the documentation of the magnetometer API, however
+  it's more or less equivalent to the accelerometer one

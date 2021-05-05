@@ -36,7 +36,7 @@ fn main() {
 ```
 
 Because we already know how to create an instance of an object that implements
-the `embedded-hal` I2C traits from the last page this is quite trivial:
+the `embedded-hal` I2C traits from the [last page](read-a-single-register.md) this is quite trivial:
 
 ```rust
 #![deny(unsafe_code)]
@@ -65,16 +65,16 @@ fn main() -> ! {
     };
 
     // Use a frequency of 100 khz for the bus
-    let i2c = hal::twi::Twi::new(p.TWI1, pins, hal::pac::twi0::frequency::FREQUENCY_A::K100);
+    let i2c = hal::twi::Twi::new(p.TWI0, pins, hal::pac::twi0::frequency::FREQUENCY_A::K100);
 
-	// Code from documentation
+    // Code from documentation
     let mut sensor = Lsm303agr::new_with_i2c(i2c);
     sensor.init().unwrap();
     sensor.set_accel_odr(AccelOutputDataRate::Hz50).unwrap();
     loop {
         if sensor.accel_status().unwrap().xyz_new_data {
             let data = sensor.accel_data().unwrap();
-			// RTT instead of normal print
+            // RTT instead of normal print
             rprintln!("Acceleration: x {} y {} z {}", data.x, data.y, data.z);
         }
     }
