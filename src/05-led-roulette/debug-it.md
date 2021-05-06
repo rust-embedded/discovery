@@ -235,6 +235,6 @@ Ending remote debugging.
 
 [gdb-dashboard]: https://github.com/cyrus-and/gdb-dashboard#gdb-dashboard
 
-If you want to learn more about what GDB can do, check out the section [How to use GDB](../appendix/2-how-to-use-gdb).
+If you want to learn more about what GDB can do, check out the section [How to use GDB](../appendix/2-how-to-use-gdb/).
 
 What's next? The high level API I promised.
