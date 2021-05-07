@@ -14,9 +14,7 @@ jobs:
         chapter:
           - 05-led-roulette
           - 07-uart
-          - 08-leds-again
-          - 09-clocks-and-timers
-          - 14-i2c
+          - 08-i2c
           - 15-led-compass
           - 16-punch-o-meter
     steps:
