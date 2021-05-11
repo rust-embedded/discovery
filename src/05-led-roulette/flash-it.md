@@ -143,11 +143,11 @@ that port.
 ## Update ../.cargo/config.toml
 
 Now that you've successfully determined which debugger you need to use
-we need to change `../cargo/config.toml` so that `cargo run` command will succeed.
+we need to change `../.cargo/config.toml` so that `cargo run` command will succeed.
 Note: `cargo` is the rust package manager and you can read about it
 [here](https://doc.rust-lang.org/cargo/).
 
-Get back to the terminal prompt and look at `../cargo/config.toml`:
+Get back to the terminal prompt and look at `../.cargo/config.toml`:
 ``` console
 ~/embedded-discovery/src/05-led-roulette
 $ cat ../.cargo/config.toml
