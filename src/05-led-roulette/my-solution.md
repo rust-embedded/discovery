@@ -16,6 +16,8 @@ fn main() -> ! {
     let (mut delay, mut leds): (Delay, LedArray) = aux5::init();
 
     let ms = 50_u8;
+
+    leds[0].on().ok();
     loop {
         for curr in 0..8 {
             let next = (curr + 1) % 8;
