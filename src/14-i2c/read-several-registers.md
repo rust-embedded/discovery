@@ -53,7 +53,7 @@ Putting it all together inside a loop alongside a delay to reduce the data throu
 use aux14::{entry, iprint, iprintln, prelude::*};
 
 // Slave address
-const MAGNETOMETER: u8 = 0b001_1110;
+const MAGNETOMETER: u16 = 0b0011_1100;
 
 // Addresses of the magnetometer's registers
 const OUT_X_H_M: u8 = 0x03;
@@ -68,7 +68,7 @@ fn main() -> ! {
         // Broadcast the MAGNETOMETER address with the R/W bit set to Write
         i2c1.cr2.write(|w| {
             w.start().set_bit();
-            w.sadd1().bits(MAGNETOMETER);
+            w.sadd().bits(MAGNETOMETER);
             w.rd_wrn().clear_bit();
             w.nbytes().bits(1);
             w.autoend().clear_bit()

@@ -6,7 +6,7 @@
 use aux14::{entry, iprint, iprintln, prelude::*};
 
 // Slave address
-const MAGNETOMETER: u8 = 0b001_1110;
+const MAGNETOMETER: u16 = 0b0011_1100;
 
 // Addresses of the magnetometer's registers
 const OUT_X_H_M: u8 = 0x03;

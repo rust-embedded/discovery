@@ -7,14 +7,12 @@ extern crate panic_itm; // panic handler
 
 pub use cortex_m::asm::{bkpt, nop};
 pub use cortex_m_rt::entry;
-pub use f3::{
-    hal::stm32f30x::{rcc, tim6},
-    led::Leds,
-};
+pub use stm32f3::stm32f303::{rcc, tim6, RCC, TIM6};
+pub use stm32f3_discovery::switch_hal;
 
-use f3::hal::{
-    prelude::*,
-    stm32f30x::{self, RCC, TIM6},
+use stm32f3_discovery::{
+    leds::Leds,
+    stm32f3xx_hal::{prelude::*, stm32},
 };
 
 pub fn init() -> (
@@ -22,11 +20,24 @@ pub fn init() -> (
     &'static rcc::RegisterBlock,
     &'static tim6::RegisterBlock,
 ) {
-    let p = stm32f30x::Peripherals::take().unwrap();
+    let p = stm32::Peripherals::take().unwrap();
 
     let mut rcc = p.RCC.constrain();
 
-    let leds = Leds::new(p.GPIOE.split(&mut rcc.ahb));
+    let mut gpioe = p.GPIOE.split(&mut rcc.ahb);
+
+    let leds = Leds::new(
+        gpioe.pe8,
+        gpioe.pe9,
+        gpioe.pe10,
+        gpioe.pe11,
+        gpioe.pe12,
+        gpioe.pe13,
+        gpioe.pe14,
+        gpioe.pe15,
+        &mut gpioe.moder,
+        &mut gpioe.otyper,
+    );
 
     (leds, unsafe { &*RCC::ptr() }, unsafe { &*TIM6::ptr() })
 }

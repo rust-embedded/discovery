@@ -36,11 +36,12 @@ Let's try that logic. Here's the starter code:
 #![no_std]
 
 #[allow(unused_imports)]
-use aux15::{entry, iprint, iprintln, prelude::*, Direction, I16x3};
+use aux15::{entry, iprint, iprintln, prelude::*, switch_hal::OutputSwitch, Direction, I16x3};
 
 #[entry]
 fn main() -> ! {
-    let (mut leds, mut lsm303dlhc, mut delay, _itm) = aux15::init();
+    let (leds, mut lsm303dlhc, mut delay, _itm) = aux15::init();
+    let mut leds = leds.into_array();
 
     loop {
         let I16x3 { x, y, .. } = lsm303dlhc.mag().unwrap();
@@ -58,8 +59,8 @@ fn main() -> ! {
             (true, false) => panic!("TODO"),
         };
 
-        leds.iter_mut().for_each(|led| led.off());
-        leds[dir].on();
+        leds.iter_mut().for_each(|led| led.off().unwrap());
+        leds[dir as usize].on().unwrap();
 
         delay.delay_ms(1_000_u16);
     }

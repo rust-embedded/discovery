@@ -1,7 +1,6 @@
 # My solution
 
 ```rust
-#![deny(unsafe_code)]
 #![no_main]
 #![no_std]
 
@@ -27,7 +26,9 @@ fn main() -> ! {
                 // buffer full
                 for byte in b"error: buffer full\n\r" {
                     while usart1.isr.read().txe().bit_is_clear() {}
-                    usart1.tdr.write(|w| w.tdr().bits(u16::from(*byte)));
+                    usart1
+                        .tdr
+                        .write(|w| unsafe { w.tdr().bits(u16::from(*byte)) });
                 }
 
                 break;
@@ -38,7 +39,9 @@ fn main() -> ! {
                 // Respond
                 for byte in buffer.iter().rev().chain(&[b'\n', b'\r']) {
                     while usart1.isr.read().txe().bit_is_clear() {}
-                    usart1.tdr.write(|w| w.tdr().bits(u16::from(*byte)));
+                    usart1
+                        .tdr
+                        .write(|w| unsafe { w.tdr().bits(u16::from(*byte)) });
                 }
 
                 break;
