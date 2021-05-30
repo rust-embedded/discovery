@@ -35,7 +35,7 @@ pub fn init() -> (Lsm303dlhc, Delay, MonoTimer, ITM) {
     let mut nss = gpioe
         .pe3
         .into_push_pull_output(&mut gpioe.moder, &mut gpioe.otyper);
-    nss.set_high();
+    nss.set_high().unwrap();
 
     let mut gpiob = dp.GPIOB.split(&mut rcc.ahb);
     let scl = gpiob.pb6.into_af4(&mut gpiob.moder, &mut gpiob.afrl);
