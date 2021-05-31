@@ -32,6 +32,19 @@ jobs:
         working-directory: src/${{ matrix.chapter }}
         run: cargo build
 
+  # Check a build succeeds for docs.
+  build-doc:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: thumbv7em-none-eabihf
+      - name: Build docs
+        run: cargo doc
+
   # Build the book HTML itself and optionally publish it.
   build-book:
     runs-on: ubuntu-20.04
