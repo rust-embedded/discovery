@@ -73,7 +73,7 @@ step
 
 Now we need to modify the `../.cargo/config.toml` file to execute `../openocd.gdb`
 ``` console
-nano ../openocd.gdb
+nano ../.cargo/config.toml
 ```
 
 Edit your `runner` command ` -x ../openocd.gdb`.
