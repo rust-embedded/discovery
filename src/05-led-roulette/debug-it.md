@@ -307,7 +307,7 @@ At any point you can leave the TUI mode using the following command:
 [gdb-dashboard]: https://github.com/cyrus-and/gdb-dashboard#gdb-dashboard
 
 Don't close OpenOCD though! We'll use it again and again later on. It's better
-just to leave it running. If you want to learn more about what GDB can do, check out the section [How to use GDB](../appendix/2-how-to-use-gdb).
+just to leave it running. If you want to learn more about what GDB can do, check out the section [How to use GDB](../appendix/2-how-to-use-gdb/).
 
 
 What's next? The high level API I promised.
