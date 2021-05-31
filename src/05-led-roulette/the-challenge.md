@@ -63,7 +63,7 @@ break DefaultHandler
 # Set a breakpiont at HardFault
 break HardFault
 
-# Continue running and unill we hit the main breakpoint
+# Continue running and until we hit the main breakpoint
 continue
 
 # Step from the trampoline code in entry into main
