@@ -7,16 +7,18 @@ extern crate panic_itm; // panic handler
 
 pub use cortex_m::{asm::bkpt, iprint, iprintln, peripheral::ITM};
 pub use cortex_m_rt::entry;
-pub use f3::hal::{prelude, serial::Serial, stm32f30x::usart1, time::MonoTimer};
+pub use stm32f3_discovery::stm32f3xx_hal::stm32::usart1;
 
-use f3::hal::{
+use stm32f3_discovery::stm32f3xx_hal::{
     prelude::*,
-    stm32f30x::{self, USART1},
+    serial::Serial,
+    stm32::{self, USART1},
+    time::MonoTimer,
 };
 
 pub fn init() -> (&'static mut usart1::RegisterBlock, MonoTimer, ITM) {
     let cp = cortex_m::Peripherals::take().unwrap();
-    let dp = stm32f30x::Peripherals::take().unwrap();
+    let dp = stm32::Peripherals::take().unwrap();
 
     let mut flash = dp.FLASH.constrain();
     let mut rcc = dp.RCC.constrain();

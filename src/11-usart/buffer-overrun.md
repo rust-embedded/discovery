@@ -3,7 +3,6 @@
 If you wrote your program like this:
 
 ``` rust
-#![deny(unsafe_code)]
 #![no_main]
 #![no_std]
 
@@ -16,7 +15,9 @@ fn main() -> ! {
 
     // Send a string
     for byte in b"The quick brown fox jumps over the lazy dog.".iter() {
-        usart1.tdr.write(|w| w.tdr().bits(u16::from(*byte)));
+        usart1
+            .tdr
+            .write(|w| unsafe { w.tdr().bits(u16::from(*byte)) });
     }
 
     loop {}
@@ -108,7 +109,6 @@ to write to the `TDR` register without incurring in data loss.
 Let's use that to slowdown the processor.
 
 ``` rust
-#![deny(unsafe_code)]
 #![no_main]
 #![no_std]
 
@@ -125,7 +125,9 @@ fn main() -> ! {
         // wait until it's safe to write to TDR
         while usart1.isr.read().txe().bit_is_clear() {} // <- NEW!
 
-        usart1.tdr.write(|w| w.tdr().bits(u16::from(*byte)));
+        usart1
+            .tdr
+            .write(|w| unsafe { w.tdr().bits(u16::from(*byte)) });
     }
     let elapsed = instant.elapsed(); // in ticks
 
