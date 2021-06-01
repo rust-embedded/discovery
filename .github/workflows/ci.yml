@@ -85,7 +85,7 @@ jobs:
       - name: Build book
         run: mkdir target && mdbook build
       - name: Check links
-        run: linkchecker --ignore-url "print.html" book
+        run: linkchecker book
 
       - name: Deploy book
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
