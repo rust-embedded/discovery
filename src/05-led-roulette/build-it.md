@@ -57,7 +57,6 @@ $ cargo build --target thumbv7em-none-eabihf
    Compiling cfg-if v1.0.0
    Compiling paste v1.0.4
    Compiling stm32f3-discovery v0.6.0
-   Compiling panic-halt v0.2.0
    Compiling embedded-dma v0.1.2
    Compiling volatile-register v0.2.0
    Compiling nb v0.1.3
