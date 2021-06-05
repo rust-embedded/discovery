@@ -11,7 +11,7 @@ fn main() -> ! {
     // Send a single character
     usart1
         .tdr
-        .write(|w| unsafe { w.tdr().bits(u16::from(b'X')) });
+        .write(|w| w.tdr().bits(u16::from(b'X')) );
 
     loop {}
 }
