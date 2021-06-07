@@ -46,7 +46,7 @@ pub fn init() -> (&'static mut usart1::RegisterBlock, MonoTimer, ITM) {
         }
     };
 
-    Serial::usart1(dp.USART1, (tx, rx), 115_200.Bd(), clocks, &mut rcc.apb2);
+    Serial::new(dp.USART1, (tx, rx), 115_200.Bd(), clocks, &mut rcc.apb2);
     // If you are having trouble sending/receiving data to/from the
     // HC-05 bluetooth module, try this configuration instead:
     // Serial::usart1(dp.USART1, (tx, rx), 9600.bps(), clocks, &mut rcc.apb2);
