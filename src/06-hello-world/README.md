@@ -4,8 +4,8 @@
 > required to use the ITM and the `iprint!` macros shown below, is **not** soldered by default
 > (see page 21 of the [User Manual][]).
 > (To be more accurate: this actually depends on the board revision. If you have an old version of
-> the board as the old [User Manual][User Manual v3] said, the SB10 was soldered. Check your board
-> to decide where you need to fix it.)
+> the board as the [old User Manual][User Manual v3] said, the SB10 was soldered. Check your board
+> to decide whether you need to fix it.)
 
 > **TL;DR** You have two options to fix this: Either **solder** the solder bridge SB10 or connect a
 > female to female jumper wire between SWO and PB3 as shown in the picture below.
