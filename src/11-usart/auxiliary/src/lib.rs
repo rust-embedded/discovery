@@ -9,12 +9,14 @@ pub use cortex_m::{asm::bkpt, iprint, iprintln, peripheral::ITM};
 pub use cortex_m_rt::entry;
 pub use stm32f3_discovery::stm32f3xx_hal::pac::usart1;
 
+pub mod monotimer;
+
 use stm32f3_discovery::stm32f3xx_hal::{
     prelude::*,
     serial::Serial,
     pac::{self, USART1},
-    time::MonoTimer,
 };
+use monotimer::MonoTimer;
 
 pub fn init() -> (&'static mut usart1::RegisterBlock, MonoTimer, ITM) {
     let cp = cortex_m::Peripherals::take().unwrap();
