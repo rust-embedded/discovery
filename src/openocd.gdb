@@ -4,7 +4,7 @@ target remote :3333
 # Load will flash the code
 load
 
-# Eanble demangling asm names on disassembly
+# Enable demangling asm names on disassembly
 set print asm-demangle on
 
 # Enable pretty printing
@@ -29,9 +29,8 @@ break DefaultHandler
 # Set a breakpiont at HardFault
 break HardFault
 
-# Continue running and unill we hit the main breakpoint
+# Continue running until we hit the main breakpoint
 continue
 
 # Step from the trampoline code in entry into main
 step
-
