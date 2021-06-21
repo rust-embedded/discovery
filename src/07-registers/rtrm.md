@@ -37,8 +37,9 @@ peripheral, that table is in:
 
 > Section 11.4.12 GPIO register map - Page 243
 
-We are interested in the register that's at an offset of `0x18` from the base address of the `GPIOE`
-peripheral. According to the table, that would be the register `BSRR`.
+'BSRR' is the register which we will be using to set/reset. It's offset value is '0x18' from the base address 
+of the 'GPIOE'. We can look up BSRR in the reference manual. 
+GPIO Registers -> GPIO port bit set/reset register (GPIOx_BSRR).
 
 Now we need to jump to the documentation of that particular register. It's a few pages above in:
 
