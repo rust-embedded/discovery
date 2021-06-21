@@ -36,7 +36,7 @@ impl fmt::Write for SerialPort {
 
 #[entry]
 fn main() -> ! {
-    let (usart1, mono_timer, itm) = aux11::init();
+    let (usart1, _mono_timer, _itm) = aux11::init();
 
     let mut serial = SerialPort { usart1 };
 

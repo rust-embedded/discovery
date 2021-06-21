@@ -7,7 +7,7 @@ use heapless::{consts, Vec};
 
 #[entry]
 fn main() -> ! {
-    let (usart1, mono_timer, itm) = aux11::init();
+    let (usart1, _mono_timer, _itm) = aux11::init();
 
     // A buffer with 32 bytes of capacity
     let mut buffer: Vec<u8, consts::U32> = Vec::new();

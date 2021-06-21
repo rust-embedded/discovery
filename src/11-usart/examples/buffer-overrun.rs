@@ -6,7 +6,7 @@ use aux11::{entry, iprint, iprintln};
 
 #[entry]
 fn main() -> ! {
-    let (usart1, mono_timer, itm) = aux11::init();
+    let (usart1, _mono_timer, _itm) = aux11::init();
 
     // Send a string
     for byte in b"The quick brown fox jumps over the lazy dog.".iter() {
