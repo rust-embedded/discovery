@@ -6,12 +6,12 @@ use aux11::{entry, iprint, iprintln};
 
 #[entry]
 fn main() -> ! {
-    let (usart1, mono_timer, itm) = aux11::init();
+    let (usart1, _mono_timer, _itm) = aux11::init();
 
     // Send a single character
     usart1
         .tdr
-        .write(|w| unsafe { w.tdr().bits(u16::from(b'X')) });
+        .write(|w| w.tdr().bits(u16::from(b'X')) );
 
     loop {}
 }

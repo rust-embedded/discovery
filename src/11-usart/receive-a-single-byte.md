@@ -9,27 +9,7 @@ do we know that we have received (new) data? The status register, `ISR`, has a b
 `RXNE`. We can just busy wait on that flag.
 
 ``` rust
-#![deny(unsafe_code)]
-#![no_main]
-#![no_std]
-
-#[allow(unused_imports)]
-use aux11::{entry, iprint, iprintln};
-
-#[entry]
-fn main() -> ! {
-    let (usart1, mono_timer, itm) = aux11::init();
-
-    loop {
-        // Wait until there's data available
-        while usart1.isr.read().rxne().bit_is_clear() {}
-
-        // Retrieve the data
-        let _byte = usart1.rdr.read().rdr().bits() as u8;
-
-        aux11::bkpt();
-    }
-}
+{{#include examples/receive-a-single-byte.rs}}
 ```
 
 Let's try this program! Let it run free using `continue` and then type a single character in
