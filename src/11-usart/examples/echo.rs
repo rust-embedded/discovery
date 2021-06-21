@@ -25,7 +25,7 @@ fn main() -> ! {
                     while usart1.isr.read().txe().bit_is_clear() {}
                     usart1
                         .tdr
-                        .write(|w| unsafe { w.tdr().bits(u16::from(*byte)) });
+                        .write(|w| w.tdr().bits(u16::from(*byte)));
                 }
 
                 break;
@@ -38,7 +38,7 @@ fn main() -> ! {
                     while usart1.isr.read().txe().bit_is_clear() {}
                     usart1
                         .tdr
-                        .write(|w| unsafe { w.tdr().bits(u16::from(*byte)) });
+                        .write(|w| w.tdr().bits(u16::from(*byte)));
                 }
 
                 break;

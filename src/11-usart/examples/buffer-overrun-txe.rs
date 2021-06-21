@@ -16,7 +16,7 @@ fn main() -> ! {
 
         usart1
             .tdr
-            .write(|w| unsafe { w.tdr().bits(u16::from(*byte)) });
+            .write(|w| w.tdr().bits(u16::from(*byte)));
     }
     let elapsed = instant.elapsed(); // in ticks
 

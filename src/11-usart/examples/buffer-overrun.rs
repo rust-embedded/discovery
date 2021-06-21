@@ -12,7 +12,7 @@ fn main() -> ! {
     for byte in b"The quick brown fox jumps over the lazy dog.".iter() {
         usart1
             .tdr
-            .write(|w| unsafe { w.tdr().bits(u16::from(*byte)) });
+            .write(|w| w.tdr().bits(u16::from(*byte)));
     }
 
     loop {}
