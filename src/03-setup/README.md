@@ -36,7 +36,8 @@ Checkout the github issues like [this][gh-issue-274].
 We'll use all the tools listed below. Where a minimum version is not specified, any recent version
 should work but we have listed the version we have tested.
 
-- Rust 1.31 or a newer toolchain.
+- Rust 1.31 or a newer toolchain. Chapter [USART](../11-usart/index.html)
+  requires 1.51 or newer.
 
 - [`itmdump`] >=0.3.1 (`cargo install itm`). Tested versions: 0.3.1.
 
