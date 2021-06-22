@@ -55,6 +55,9 @@ Dump of assembler code for function _ZN9registers18__cortex_m_rt_main17h45b1ef53
 End of assembler dump.
 ```
 
+NOTE: If you get any error while running command _cargo run --release_, you can try to update your debugger in
+registers/.cargo/config.
+
 The state of the LEDs didn't change this time! The `str` instruction is the one that writes a value
 to the register. Our *debug* (unoptimized) program had four of them, one for each write to the
 register, but the *release* (optimized) program only has one.
