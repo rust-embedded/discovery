@@ -30,7 +30,10 @@ jobs:
           target: thumbv7em-none-eabihf
       - name: Build chapter
         working-directory: src/${{ matrix.chapter }}
-        run: cargo build
+        run: cargo build --target thumbv7em-none-eabihf
+      - name: Build chapter examples
+        working-directory: src/${{ matrix.chapter }}
+        run: cargo build --target thumbv7em-none-eabihf --examples
 
   # Check a build succeeds for docs.
   build-doc:
