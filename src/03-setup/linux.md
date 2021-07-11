@@ -42,12 +42,10 @@ sudo apt-get install \
 
 ### Fedora 23 or newer
 
-> **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
-> Cortex-M programs
+Install GDB as described in [Other distros](#other-distros) and the following packages:
 
 ``` console
 sudo dnf install \
-  arm-none-eabi-gdb \
   minicom \
   openocd
 ```
