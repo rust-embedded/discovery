@@ -1,6 +1,23 @@
 # `Discovery`
 
-> Discover the world of microcontrollers through Rust
+Discover the world of microcontrollers through
+[Rust](https://www.rust-lang.org/):
+
+- Read this book on-line at https://docs.rust-embedded.org/discovery/
+- Start working on the examples from this repository
+- You've got questions?
+    - Have a look at our [discussions section on
+      GitHub](https://github.com/rust-embedded/discovery/discussions)
+    - May be it got already answered there
+    - If not, start a new discussion
+- You've found an issue?
+    - Have a look at our [issues on
+      GitHub](https://github.com/rust-embedded/discovery/issues)
+    - May be there is already a workaround
+    - If not, please open a new one - or even better - a [pull
+      request](https://github.com/rust-embedded/discovery/pulls) for solving
+      it
+- Have fun and enjoy!
 
 This project is developed and maintained by the [Resources team][team].
 
