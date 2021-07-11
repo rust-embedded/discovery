@@ -14,27 +14,7 @@ and exposes two methods: `on` and `off` which can be used to turn the LED on or 
 Let's try out these two abstractions by modifying the starter code to look like this:
 
 ``` rust
-#![deny(unsafe_code)]
-#![no_main]
-#![no_std]
-
-use aux5::{entry, Delay, DelayMs, LedArray, OutputSwitch};
-
-#[entry]
-fn main() -> ! {
-    let (mut delay, mut leds): (Delay, LedArray) = aux5::init();
-
-    let half_period = 500_u16;
-
-    loop {
-        leds[0].on().ok();
-        delay.delay_ms(half_period);
-
-        leds[0].off().ok();
-        delay.delay_ms(half_period);
-    }
-}
-
+{{#include examples/the-led-and-delay-abstractions.rs}}
 ```
 
 Now build it:

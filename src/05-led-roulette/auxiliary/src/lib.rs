@@ -14,13 +14,13 @@ pub use stm32f3xx_hal::{
     delay::Delay,
     gpio::{gpioe, Output, PushPull},
     hal::blocking::delay::DelayMs,
-    stm32,
+    pac,
 };
 
 pub type LedArray = [Switch<gpioe::PEx<Output<PushPull>>, ActiveHigh>; 8];
 
 pub fn init() -> (Delay, LedArray) {
-    let device_periphs = stm32::Peripherals::take().unwrap();
+    let device_periphs = pac::Peripherals::take().unwrap();
     let mut reset_and_clock_control = device_periphs.RCC.constrain();
 
     let core_periphs = cortex_m::Peripherals::take().unwrap();
