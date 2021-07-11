@@ -8,12 +8,12 @@ Discover the world of microcontrollers through
 - You've got questions?
     - Have a look at our [discussions section on
       GitHub](https://github.com/rust-embedded/discovery/discussions)
-    - May be it got already answered there
+    - Maybe it has already been answered
     - If not, start a new discussion
 - You've found an issue?
     - Have a look at our [issues on
       GitHub](https://github.com/rust-embedded/discovery/issues)
-    - May be there is already a workaround
+    - Maybe there is already a workaround
     - If not, please open a new one - or even better - a [pull
       request](https://github.com/rust-embedded/discovery/pulls) for solving
       it
