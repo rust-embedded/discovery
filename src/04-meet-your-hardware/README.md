@@ -5,7 +5,7 @@ Let's get familiar with the hardware we'll be working with.
 ## micro:bit
 
 <p align="center">
-<img title="micro:bit" src="../assets/microbit.jpg">
+<img title="micro:bit" src="../assets/microbit-v2.jpg">
 </p>
 
 Here are some of the many components on the board:
