@@ -2,7 +2,10 @@
 protocol = "Swd"
 
 [default.general]
-chip = "nrf51822"
+# v2
+# chip = "nrf52833"
+# v1
+# chip = "nrf51822"
 
 [default.rtt]
 enabled = true

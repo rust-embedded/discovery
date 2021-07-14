@@ -19,17 +19,18 @@ We'll be referring to all these documents throughout this book:
 We'll use all the tools listed below. Where a minimum version is not specified, any recent version
 should work but we have listed the version we have tested.
 
-- Rust 1.45.2 or a newer toolchain.
+- Rust 1.53.0 or a newer toolchain.
 
-- `gdb-multiarch`. Tested version: 9.1. Other versions will most likely work as well though
+- `gdb-multiarch`. Tested version: 10.2. Other versions will most likely work as well though
   If your distribution/platform does not have `gdb-multiarch` available `arm-none-eabi-gdb`
-  will do the trick as well.
+  will do the trick as well. Furthermore some normal `gdb` binaries are built with multiarch
+  capabilities as well, you can find further information about this in the sub chapters.
 
-- [`cargo-binutils`]. Version 0.1.4 or newer.
+- [`cargo-binutils`]. Version 0.3.3 or newer.
 
 [`cargo-binutils`]: https://github.com/rust-embedded/cargo-binutils
 
-- [`cargo-embed`]. Version 0.9.1 or newer.
+- [`cargo-embed`]. Version 0.11.0 or newer.
 
 [`cargo-embed`]: https://github.com/probe-rs/cargo-embed
 
@@ -49,7 +50,7 @@ newer than the one shown below:
 
 ``` console
 $ rustc -V
-rustc 1.45.2 (d3fb005a3 2020-07-31)
+rustc 1.53.0 (53cb7b09b 2021-06-17)
 ```
 
 ### `cargo-binutils`
@@ -57,23 +58,20 @@ rustc 1.45.2 (d3fb005a3 2020-07-31)
 ``` console
 $ rustup component add llvm-tools-preview
 
-$ cargo install cargo-binutils --vers 0.3.1
+$ cargo install cargo-binutils --vers 0.3.3
 
-$ cargo size -- -version
-LLVM (http://llvm.org/):
-  LLVM version 10.0.1-rust-1.45.2-stable
-  Optimized build.
-  Default target: x86_64-unknown-linux-gnu
-  Host CPU: skylake
+$ cargo size --version
+cargo-size 0.3.3
 ```
 
 ### `cargo-embed`
 
 ```console
-$ cargo install cargo-embed --vers 0.9.0
+$ cargo install cargo-embed --vers 0.11.0
 
-$ cargo-embed --version
-cargo-embed 0.9.0
+$ cargo embed --version
+cargo-embed 0.11.0
+git commit: crates.io
 ```
 
 ### This repository
