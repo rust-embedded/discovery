@@ -10,9 +10,10 @@ the fact that `extern crate` is not necessary in the 2018 edition.
 
 Also, to follow this material you'll need the following hardware:
 
-- A [micro:bit] board.
+- A [micro:bit v2] board, alternatively a [micro:bit v1] board.
 
-[micro:bit]: https://microbit.org/
+[micro:bit v2]: https://tech.microbit.org/hardware/
+[micro:bit v1]: https://tech.microbit.org/hardware/1-5-revision/
 
 (You can purchase this board from several [electronics][0] [suppliers][1])
 
@@ -20,8 +21,10 @@ Also, to follow this material you'll need the following hardware:
 [1]: https://www.mouser.com/microbit/_/N-aez3t?P=1y8um0l
 
 <p align="center">
-<img title="micro:bit" src="../assets/microbit.jpg">
+<img title="micro:bit" src="../assets/microbit-v2.jpg">
 </p>
+
+> **NOTE** This is an image of a micro:bit v2, the front of the v1 looks slightly different
 
 - One micro-B USB cable, required to make the micro:bit board work.
   Make sure that the cable supports data transfer as some cables only support charging devices.
@@ -44,10 +47,10 @@ Trust me on this one.
 > **FAQ**: Can I follow this material with a different development board?
 
 Maybe? It depends mainly on two things: your previous experience with microcontrollers and/or
-whether a high level crate already exists, like the [nrf51-hal], for your development board
+whether a high level crate already exists, like the [nrf52-hal], for your development board
 somewhere.
 
-[nrf51-hal]: https://docs.rs/nrf51-hal
+[nrf52-hal]: https://docs.rs/nrf52-hal
 
 With a different development board, this text would lose most if not all its beginner friendliness
 and "easy to follow"-ness, IMO.
