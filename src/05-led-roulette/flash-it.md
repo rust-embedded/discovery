@@ -81,6 +81,8 @@ available.
 Leave that `openocd` process running, and in the previous terminal or a new terminal
 **make sure that you are inside the project's `src/05-led-roulette/` directory**.
 
+**NOTE** if your target/ folder was created underneath the main project, you will have to have a terminal open underneath the main folder.
+
 I mentioned that OpenOCD provides a GDB server so let's connect to that right now:
 
 ## Execute GDB
