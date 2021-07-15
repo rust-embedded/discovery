@@ -68,6 +68,10 @@ Two *red* LEDs should turn on right after connecting the USB cable to the board.
 > no `-1` at the end). Alternatively, older revisions can use `-f board/stm32f3discovery.cfg`
 > instead of `-f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg`.
 
+> **NOTE** OpenOCD v0.11.0 has deprecated `interface/stlink-v2.cfg` in favor of
+> `interface/stlink.cfg` which supports ST-LINK/V1, ST-LINK/V2, ST-LINK/V2-1, and
+> ST-LINK/V3.
+
 ### *Nix
 
 > **FYI:** The `interface` directory is typically located in `/usr/share/openocd/scripts/`,
@@ -77,6 +81,13 @@ Two *red* LEDs should turn on right after connecting the USB cable to the board.
 ``` console
 openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
 ```
+
+or
+
+``` console
+openocd -f interface/stlink.cfg -f target/stm32f3x.cfg
+```
+
 
 ### Windows
 

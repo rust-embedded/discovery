@@ -42,12 +42,11 @@ sudo apt-get install \
 
 ### Fedora 23 or newer
 
-Install GDB as described in [Other distros](#other-distros) and the following packages:
-
 ``` console
 sudo dnf install \
   minicom \
-  openocd
+  openocd \
+  gdb
 ```
 
 ### Arch Linux
