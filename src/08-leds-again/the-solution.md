@@ -12,10 +12,10 @@ fn main() -> ! {
     let (gpioe, rcc) = aux8::init();
 
     // enable the GPIOE peripheral
-    rcc.ahbenr.modify(|_, w| w.iopeen().set_bit());
+    rcc.ahbenr.write(|w| w.iopeen().set_bit());
 
     // configure the pins as outputs
-    gpioe.moder.modify(|_, w| {
+    gpioe.moder.write(|w| {
         w.moder8().output();
         w.moder9().output();
         w.moder10().output();
