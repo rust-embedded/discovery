@@ -44,11 +44,30 @@ Furthermore, if you have never flashed another program on to your micro:bit, the
 program the micro:bit ships with should start blinking the red LEDs on its back, you
 can ignore them.
 
-Next run this command:
+Next up you will have to modify `Embed.toml` in the `src/03-setup` directory of the
+book's source code. In the `default.general` section you will find two commented out
+chip variants:
+
+```toml
+[default.general]
+# v2
+# chip = "nrf52833"
+# v1
+# chip = "nrf51822"
+```
+
+If you are working with the micro:bit v2 board uncomment the first , for the v1
+uncomment the second variant.
+
+Next run one of these commands:
 
 ```
 $ # make sure you are in src/03-setup of the books source code
-$ cargo-embed
+$ # If you are working with micro:bit v2
+$ cargo-embed --target thumbv7em-none-eabihf
+
+$ # If you are working with micro:bit v1
+$ cargo-embed --target thumbv6m-none-eabi
 ```
 
 If everything works correctly cargo-embed should first compile the small example program
