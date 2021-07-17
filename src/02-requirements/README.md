@@ -10,10 +10,11 @@ the fact that `extern crate` is not necessary in the 2018 edition.
 
 Also, to follow this material you'll need the following hardware:
 
-- A [micro:bit v2] board, alternatively a [micro:bit v1] board.
+- A [micro:bit v2] board, alternatively a [micro:bit v1.5] board, the book
+  will refer to the v1.5 as just v1.
 
 [micro:bit v2]: https://tech.microbit.org/hardware/
-[micro:bit v1]: https://tech.microbit.org/hardware/1-5-revision/
+[micro:bit v1.5]: https://tech.microbit.org/hardware/1-5-revision/
 
 (You can purchase this board from several [electronics][0] [suppliers][1])
 
