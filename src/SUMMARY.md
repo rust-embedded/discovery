@@ -7,6 +7,8 @@
     - [macOS](03-setup/macos.md)
     - [Verify the installation](03-setup/verify.md)
 - [Meet your hardware](04-meet-your-hardware/README.md)
+    - [micro:bit v2](04-meet-your-hardware/microbit-v2.md)
+    - [micro:bit v1](04-meet-your-hardware/microbit-v1.md)
 - [LED roulette](05-led-roulette/README.md)
     - [Build it](05-led-roulette/build-it.md)
     - [Flash it](05-led-roulette/flash-it.md)
