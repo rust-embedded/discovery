@@ -21,13 +21,13 @@ of abstraction:
    away into just a few structs or traits with some functions on them you
    can use to send data around etc. We are going to use the [nRF52-hal]
    or the [nRF51-hal] respectively.
-3. The Board Support Crate (BSP), its job is to abstract a whole board
+3. The Board Support Crate (historically called Board Support Package, or BSP), its job is to abstract a whole board
    (such as the micro:bit) away at once. That means it has to provide
    abstractions to use both the microcontroller as well als the sensors,
    LEDs etc. that might be present on the board. Quite often (especially
    with custom made boards) you will just be working with a HAL for the
    chip and build the drivers for the sensors either yourself or
-   search for them on crates.io, luckily for us though the micro:bit
+   search for them on crates.io. Luckily for us though, the micro:bit
    does actually have a [BSP] so we are going to use that on top of our
    HAL as well.
 
@@ -40,17 +40,17 @@ of abstraction:
 ## Unifying the layers
 
 Next we are going to have a look at a very central piece of software
-in the Rust Embedded world, [embedded-hal]. As it name suggests it
-relates to the 2nd level of abstraction we got to know, the HALs.
-The idea behind [embedded-hal] is to provide a set of traits that
+in the Rust Embedded world: `[embedded-hal]`. As its name suggests it
+relates to the 2nd level of abstraction we got to know: the HALs.
+The idea behind `[embedded-hal]` is to provide a set of traits that
 describe behaviour which is usually shared across all implementations
 of a specific peripheral in all the HALs. For example one would always
 expect to have functions that are capable of turning the power on a pin
-either on or off, for example to switch an LED on and off on the board.
+either on or off. For example to switch an LED on and off on the board.
 This allows us to write a driver for, say a temperature sensor, that
-can be used on any chip which implements the [embedded-hal] traits,
+can be used on any chip for which an implementation of the `[embedded-hal]` traits exists,
 simply by writing the driver in such a way that it only relies on the
-[embedded-hal] traits. Drivers that are written in such a way are called
+`[embedded-hal]` traits. Drivers that are written in such a way are called
 platform agnostic and luckily for us most of the drivers on crates.io
 are actually platform agnostic.
 
@@ -59,8 +59,8 @@ are actually platform agnostic.
 
 ## Further reading
 
-If you want to learn more about these levels of abstraction Franz Skarman,
-aka. [TheZoq2], held a talk about this topic during Oxidize 2020, called
+If you want to learn more about these levels of abstraction, Franz Skarman,
+a.k.a. [TheZoq2], held a talk about this topic during Oxidize 2020, called
 [An Overview of the Embedded Rust Ecosystem].
 
 [TheZoq2]: https://github.com/TheZoq2/
