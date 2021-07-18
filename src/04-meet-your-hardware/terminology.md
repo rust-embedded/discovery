@@ -17,10 +17,9 @@ of abstraction:
 2. The Hardware Abstraction Layer (HAL), its job is to build up on top of
    the chip's PAC and provide an abstraction that is actually usable for
    someone who does not know about all the special behaviour of this chip.
-   Usually they abstract a whole peripheral, e.g. a USB interface,
-   away into just a few structs or traits with some functions on them you
-   can use to send data around etc. We are going to use the [nRF52-hal]
-   or the [nRF51-hal] respectively.
+   Usually they abstract whole peripherals away into single structs that can
+   for example be used to send data around via the peripheral. We are
+   going to use the [nRF52-hal] or the [nRF51-hal] respectively.
 3. The Board Support Crate (historically called Board Support Package, or BSP), its job is to abstract a whole board
    (such as the micro:bit) away at once. That means it has to provide
    abstractions to use both the microcontroller as well als the sensors,
