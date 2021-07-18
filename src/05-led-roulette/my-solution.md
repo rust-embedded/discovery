@@ -2,7 +2,8 @@
 
 What solution did you come up with?
 
-Here's mine:
+Here's mine, it's probably one of the simplest (but of course not most
+beautiful) way to generate the required matrix:
 
 ``` rust
 #![deny(unsafe_code)]
@@ -12,58 +13,40 @@ Here's mine:
 use cortex_m_rt::entry;
 use rtt_target::rtt_init_print;
 use panic_rtt_target as _;
-use nrf51_hal as hal;
-use hal::prelude::*;
+use microbit::{
+    board::Board,
+    display::blocking::Display,
+    hal::Timer,
+};
 
-// All border LEDs in order with the exception of the very first LED which is set
-// at the last spot
-const COMBINATIONS: [(usize, usize); 16] = [
-    (2, 4), (1, 2), (2, 5), (1, 3), (3, 8), (2, 1), (1, 4), (3, 2), (2,6),
-    (3, 1), (2, 7), (3, 3), (1, 8), (2, 2), (3, 4), (1, 1)
+const PIXELS: [(usize, usize); 16] = [
+    (0,0), (0,1), (0,2), (0,3), (0,4), (1,4), (2,4), (3,4), (4,4),
+    (4,3), (4,2), (4,1), (4,0), (3,0), (2,0), (1,0)
 ];
 
 #[entry]
 fn main() -> ! {
     rtt_init_print!();
-    let p = hal::pac::Peripherals::take().unwrap();
 
-    let mut delay = hal::Timer::new(p.TIMER0);
+    let board = Board::take().unwrap();
+    let mut timer = Timer::new(board.TIMER0);
+    let mut display = Display::new(board.display_pins);
+    let mut leds = [
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+    ];
 
-    let p0 = hal::gpio::p0::Parts::new(p.GPIO);
-
-    // Initialize all rows and cols to off
-    let mut row1 = p0.p0_13.into_push_pull_output(hal::gpio::Level::Low).degrade();
-    let row2 = p0.p0_14.into_push_pull_output(hal::gpio::Level::Low).degrade();
-    let row3 = p0.p0_15.into_push_pull_output(hal::gpio::Level::Low).degrade();
-    let mut col1 = p0.p0_04.into_push_pull_output(hal::gpio::Level::High).degrade();
-    let col2 = p0.p0_05.into_push_pull_output(hal::gpio::Level::High).degrade();
-    let col3 = p0.p0_06.into_push_pull_output(hal::gpio::Level::High).degrade();
-    let col4 = p0.p0_07.into_push_pull_output(hal::gpio::Level::High).degrade();
-    let col5 = p0.p0_08.into_push_pull_output(hal::gpio::Level::High).degrade();
-    let col6 = p0.p0_09.into_push_pull_output(hal::gpio::Level::High).degrade();
-    let col7 = p0.p0_10.into_push_pull_output(hal::gpio::Level::High).degrade();
-    let col8 = p0.p0_11.into_push_pull_output(hal::gpio::Level::High).degrade();
-    let col9 = p0.p0_12.into_push_pull_output(hal::gpio::Level::High).degrade();
-
-    // bring up the very first LED
-    row1.set_high().unwrap();
-    col1.set_low().unwrap();
-
-    let mut cols = [col1, col2, col3, col4, col5, col6, col7, col8, col9];
-    let mut rows = [row1, row2, row3];
+    let mut last_led = (0,0);
 
     loop {
-        let mut previous_pair = (1, 1);
-        for current_pair in COMBINATIONS.iter() {
-            delay.delay_ms(30u32);
-
-            rows[current_pair.0 - 1].set_high().unwrap();
-            cols[current_pair.1 - 1].set_low().unwrap();
-
-            rows[previous_pair.0 - 1].set_low().unwrap();
-            cols[previous_pair.1 - 1].set_high().unwrap();
-
-            previous_pair = *current_pair;
+        for current_led in PIXELS.iter() {
+            leds[last_led.0][last_led.1] = 0;
+            leds[current_led.0][current_led.1] = 1;
+            display.show(&mut timer, leds, 30);
+            last_led = *current_led;
         }
     }
 }
@@ -72,12 +55,22 @@ fn main() -> ! {
 One more thing! Check that your solution also works when compiled in "release" mode:
 
 ``` console
-$ cargo embed --release
+# For micro:bit v2
+$ cargo embed --features v2 --target thumbv7em-none-eabihf --release
+  (...)
+
+# For micro:bit v1
+$ cargo embed --features v1 --target thumbv6m-none-eabi --release
+  (...)
 ```
 
 If you want to debug your "release" mode binary you'll have to use a different GDB command:
 
 ``` console
+# For micro:bit v2
+$ gdb target/thumbv7em-none-eabihf/release/led-roulette
+
+# For micro:bit v1
 $ gdb target/thumbv6m-none-eabi/release/led-roulette
 ```
 
@@ -85,58 +78,113 @@ Binary size is something we should always keep an eye on! How big is your soluti
 that using the `size` command on the release binary:
 
 ``` console
-$ cargo size --bin led-roulette -- -A
-    Finished dev [unoptimized + debuginfo] target(s) in 0.03s
+# For micro:bit v2
+$ cargo size --features v2 --target thumbv7em-none-eabihf -- -A
+    Finished dev [unoptimized + debuginfo] target(s) in 0.02s
+led-roulette  :
+section               size        addr
+.vector_table          256         0x0
+.text                26984       0x100
+.rodata               2732      0x6a68
+.data                    0  0x20000000
+.bss                  1092  0x20000000
+.uninit                  0  0x20000444
+.debug_abbrev        33941         0x0
+.debug_info         494113         0x0
+.debug_aranges       23528         0x0
+.debug_ranges       130824         0x0
+.debug_str          498781         0x0
+.debug_pubnames     143351         0x0
+.debug_pubtypes     124464         0x0
+.ARM.attributes         58         0x0
+.debug_frame         69128         0x0
+.debug_line         290580         0x0
+.debug_loc            1449         0x0
+.comment               109         0x0
+Total              1841390
+
+
+$ cargo size --features v2 --target thumbv7em-none-eabihf --release -- -A
+    Finished release [optimized + debuginfo] target(s) in 0.02s
+led-roulette  :
+section              size        addr
+.vector_table         256         0x0
+.text                6332       0x100
+.rodata               648      0x19bc
+.data                   0  0x20000000
+.bss                 1076  0x20000000
+.uninit                 0  0x20000434
+.debug_loc           9036         0x0
+.debug_abbrev        2754         0x0
+.debug_info         96460         0x0
+.debug_aranges       1120         0x0
+.debug_ranges       11520         0x0
+.debug_str          71325         0x0
+.debug_pubnames     32316         0x0
+.debug_pubtypes     29294         0x0
+.ARM.attributes        58         0x0
+.debug_frame         2108         0x0
+.debug_line         19303         0x0
+.comment              109         0x0
+Total              283715
+
+# micro:bit v1
+$ cargo size --features v1 --target thumbv6m-none-eabi -- -A
+    Finished dev [unoptimized + debuginfo] target(s) in 0.02s
 led-roulette  :
 section               size        addr
 .vector_table          168         0x0
-.text                20996        0xa8
-.rodata               2956      0x52ac
+.text                28584        0xa8
+.rodata               2948      0x7050
 .data                    0  0x20000000
-.bss                  1088  0x20000000
-.uninit                  0  0x20000440
-.debug_abbrev        21988         0x0
-.debug_info         283389         0x0
-.debug_aranges       15832         0x0
-.debug_str          307609         0x0
-.debug_pubnames      68859         0x0
-.debug_pubtypes      55406         0x0
+.bss                  1092  0x20000000
+.uninit                  0  0x20000444
+.debug_abbrev        30020         0x0
+.debug_info         373392         0x0
+.debug_aranges       18344         0x0
+.debug_ranges        89656         0x0
+.debug_str          375887         0x0
+.debug_pubnames     115633         0x0
+.debug_pubtypes      86658         0x0
 .ARM.attributes         50         0x0
-.debug_frame         47732         0x0
-.debug_line         199401         0x0
-.debug_ranges        68936         0x0
-.debug_loc             976         0x0
-.comment               147         0x0
-Total              1095533
+.debug_frame         54144         0x0
+.debug_line         237714         0x0
+.debug_loc            1499         0x0
+.comment               109         0x0
+Total              1415898
 
-
-$ cargo size --bin led-roulette --release -- -A
+$ cargo size --features v1 --target thumbv6m-none-eabi --release -- -A
     Finished release [optimized + debuginfo] target(s) in 0.02s
 led-roulette  :
 section              size        addr
 .vector_table         168         0x0
-.text                4044        0xa8
-.rodata               692      0x1074
+.text                4848        0xa8
+.rodata               648      0x1398
 .data                   0  0x20000000
 .bss                 1076  0x20000000
 .uninit                 0  0x20000434
-.debug_loc           7520         0x0
-.debug_abbrev        3444         0x0
-.debug_info         55229         0x0
-.debug_aranges       1144         0x0
-.debug_ranges        3608         0x0
-.debug_str          48267         0x0
-.debug_pubnames     15435         0x0
-.debug_pubtypes     15970         0x0
+.debug_loc           9705         0x0
+.debug_abbrev        3235         0x0
+.debug_info         61908         0x0
+.debug_aranges       1208         0x0
+.debug_ranges        5784         0x0
+.debug_str          57358         0x0
+.debug_pubnames     22959         0x0
+.debug_pubtypes     18891         0x0
 .ARM.attributes        50         0x0
-.debug_frame         2152         0x0
-.debug_line         17050         0x0
-.comment              147         0x0
-Total              175996
+.debug_frame         2316         0x0
+.debug_line         18444         0x0
+.comment               19         0x0
+Total              208617
+
 ```
 
 > **NOTE** The Cargo project is already configured to build the release binary using LTO.
 
-Know how to read this output? The `text` section contains the program instructions. It's around 4KB
-in my case. On the other hand, the `data` and `bss` sections contain variables statically allocated
-in RAM (`static` variables).
+Know how to read this output? The `text` section contains the program instructions. On the other hand,
+the `data` and `bss` sections contain variables statically allocated in RAM (`static` variables).
+If you remember back to the specification of the microcontroller on your micro:bit, you should
+notice that its flash memory is actually far too small to contain this binary, so how is this possible?
+As we can see from the size statistics most of the binary is actually made up of debugging related
+sections , those are however not flashed to the microcontroller at any time, after all they aren't
+relevant for the execution.

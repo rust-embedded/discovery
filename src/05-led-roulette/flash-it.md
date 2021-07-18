@@ -7,10 +7,11 @@ In this case, our `led-roulette` program will be the *only* program in the micro
 By this I mean that there's nothing else running on the microcontroller: no OS, no "daemon",
 nothing. `led-roulette` has full control over the device.
 
-Flashing the binary itself is quite simple thanks to `cargo-embed`, you only have to type `cargo embed`.
+Flashing the binary itself is quite simple thanks to `cargo-embed`.
 
 Before executing that command though, lets look into what it actually does. If you look at the side of your micro:bit
-with the USB connector facing upwards you will notice, that there are actually 2 black squares on there, one is our MCU
+with the USB connector facing upwards you will notice, that there are actually 2 black squares on there
+(on the micro:bit v2 is a third and biggest one, its a speaker), one is our MCU
 we already talked about but what purpose does the other one serve? The other chip has 3 main purposes:
 
 1. Provide power from the USB connector to our MCU
@@ -24,15 +25,24 @@ the MCU, inspect its state via a debugger and other things.
 So lets flash it!
 
 ```console
-$ cargo embed
+# For micro:bit v2
+$ cargo embed --features v2 --target thumbv7em-none-eabihf
   (...)
-     Erasing sectors ✔ [00:00:00] [##################################################################################################################################################################]   2.00KB/  2.00KB @   4.57KB/s (eta 0s )
- Programming pages   ✔ [00:00:00] [##################################################################################################################################################################]   2.00KB/  2.00KB @   1.93KB/s (eta 0s )
-    Finished flashing in 0.764s
-Firing up GDB stub at localhost:1337.
-GDB stub listening on localhost:1337
+     Erasing sectors ✔ [00:00:00] [####################################################################################################################################################]  2.00KiB/ 2.00KiB @  4.21KiB/s (eta 0s )
+ Programming pages   ✔ [00:00:00] [####################################################################################################################################################]  2.00KiB/ 2.00KiB @  2.71KiB/s (eta 0s )
+    Finished flashing in 0.608s
+
+# For micro:bit v1
+$ cargo embed --features v1 --target thumbv6m-none-eabi
+  (...)
+     Erasing sectors ✔ [00:00:00] [####################################################################################################################################################]  2.00KiB/ 2.00KiB @  4.14KiB/s (eta 0s )
+ Programming pages   ✔ [00:00:00] [####################################################################################################################################################]  2.00KiB/ 2.00KiB @  2.69KiB/s (eta 0s )
+    Finished flashing in 0.614s
 ```
 
 
 You will notice that `cargo-embed` blocks after outputting the last line, this is inteded and you should not close it
-since we need it in this state for the next step, debugging it!
+since we need it in this state for the next step, debugging it! Furthermore you will have noticed that the `cargo build`
+and `cargo embed` are actually passed the same flags, this is because `cargo embed` actually executes the build and then
+flashes the resulting binary on to the chip, hence you can leave out the `cargo build` step in the future if you
+want to flash your code right away.

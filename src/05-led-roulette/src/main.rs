@@ -4,7 +4,7 @@
 
 use cortex_m_rt::entry;
 use panic_halt as _;
-use nrf51_hal as _;
+use microbit as _;
 
 #[entry]
 fn main() -> ! {

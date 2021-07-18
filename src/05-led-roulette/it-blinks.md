@@ -24,17 +24,19 @@ simple delay-based program that prints something every second might for example 
 use cortex_m_rt::entry;
 use rtt_target::{rtt_init_print, rprintln};
 use panic_rtt_target as _;
-use nrf51_hal as hal;
-use hal::prelude::*;
+use microbit::board::Board;
+use microbit::hal::timer::Timer;
+use microbit::hal::prelude::*;
 
 #[entry]
 fn main() -> ! {
     rtt_init_print!();
-    let p = hal::pac::Peripherals::take().unwrap();
+    let mut board = Board::take().unwrap();
 
-    let mut delay = hal::Timer::new(p.TIMER0);
+    let mut timer = Timer::new(board.TIMER0);
+
     loop {
-        delay.delay_ms(1000u32);
+        timer.delay_ms(1000u32);
         rprintln!("1000 ms passed");
     }
 }
@@ -43,7 +45,10 @@ fn main() -> ! {
 In order to actually see the prints we have to change `Embed.toml` like this:
 ```
 [default.general]
-chip = "nrf51822_xxAA"
+# v2
+# chip = "nrf52833"
+# v1
+# chip = "nrf51822"
 
 [default.reset]
 halt_afterwards = false
@@ -55,14 +60,14 @@ enabled = true
 enabled = false
 ```
 
-And now after putting the code into `src/main.rs` and another quick `cargo embed` you should see
-"`1000 ms passed`" being sent to your console every second from your MCU.
+And now after putting the code into `src/main.rs` and another quick `cargo embed` (again with the same flags you used before)
+you should see "`1000 ms passed`" being sent to your console every second from your MCU.
 
 ## Blinking
 
 Now we've arrived at the point where we can combine our new knowledge about GPIO and delay abstractions
 in order to actually make an LED on the back of the micro:bit blink. The resulting program is really just
-a mash-up of the one above and the one that turned an LED on in the last chapter and looks like this:
+a mash-up of the one above and the one that turned an LED on in the last section and looks like this:
 
 ```rs
 #![deny(unsafe_code)]
@@ -72,31 +77,30 @@ a mash-up of the one above and the one that turned an LED on in the last chapter
 use cortex_m_rt::entry;
 use rtt_target::{rtt_init_print, rprintln};
 use panic_rtt_target as _;
-use nrf51_hal as hal;
-use hal::prelude::*;
+use microbit::board::Board;
+use microbit::hal::timer::Timer;
+use microbit::hal::prelude::*;
 
 #[entry]
 fn main() -> ! {
     rtt_init_print!();
-    let p = hal::pac::Peripherals::take().unwrap();
+    let mut board = Board::take().unwrap();
 
-    let mut delay = hal::Timer::new(p.TIMER0);
+    let mut timer = Timer::new(board.TIMER0);
 
-    let p0 = hal::gpio::p0::Parts::new(p.GPIO);
-    let mut row1 = p0.p0_13.into_push_pull_output(hal::gpio::Level::Low);
-    let _col1 = p0.p0_04.into_push_pull_output(hal::gpio::Level::Low);
+    board.display_pins.col1.set_low().unwrap();
+    let mut row1 = board.display_pins.row1;
 
     loop {
-      row1.set_high().unwrap();
-      rprintln!("Light!");
-      delay.delay_ms(500u32);
-
-      row1.set_low().unwrap();
-      rprintln!("Dark!");
-      delay.delay_ms(500u32);
+        row1.set_low().unwrap();
+        rprintln!("Dark!");
+        timer.delay_ms(1_000_u16);
+        row1.set_high().unwrap();
+        rprintln!("Light!");
+        timer.delay_ms(1_000_u16);
     }
 }
 ```
 
-And after putting the code into `src/main.rs` and a final `cargo embed` you should see the LED we light up before
-blinking as well as a print, every time the LED changes from off to on and vice versa.
+And after putting the code into `src/main.rs` and a final `cargo embed` (with the proper flags)
+you should see the LED we light up before blinking as well as a print, every time the LED changes from off to on and vice versa.

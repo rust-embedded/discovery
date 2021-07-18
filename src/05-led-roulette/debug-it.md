@@ -4,8 +4,8 @@ Before we debug our little program let's take a moment to quickly understand wha
 happening here. In the previous chapter we already discussed the purpose of the second chip
 on the board as well as how it talks to our computer, but how can we actually use it?
 
-As you can see from the output of `cargo-embed` it opened a "GDB stub", this is a server that our GDB
-can connect to and send commands like "set a breakpoint at address X" to, the server can then decide
+The little option `default.gb.enabled = true` in `Embed.toml` made `cargo-embed` open a so called "GDB stub" after flashing,
+this is a server that our GDB can connect to and send commands like "set a breakpoint at address X" to, the server can then decide
 on its own how to handle this command. In the case of the `cargo-embed` GDB stub it will forward the
 command to the debugging probe on the board via USB which then does the job of actually talking to the
 MCU for us.
@@ -13,18 +13,14 @@ MCU for us.
 ## Let's debug!
 
 Since `cargo-embed` is blocking our current shell we can simply open a new one and cd back into our project
-directory. Once we are there we can connect to the GDB server like this:
+directory. Once we are there we first have to open the binary in gdb like this:
 
 ```shell
+# For micro:bit v2
+$ gdb target/thumbv7em-none-eabihf/debug/led-roulette
+
+# For micro:bit v1
 $ gdb target/thumbv6m-none-eabi/debug/led-roulette
-(gdb) target remote :1337
-Remote debugging using :1337
-<cortex_m_rt::ExceptionFrame as core::fmt::Debug>::fmt (
-    self=<error reading variable: Cannot access memory at address 0x20004058>,
-    f=<error reading variable: Cannot access memory at address 0x2000405c>)
-    at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-rt-0.6.12/src/lib.rs:489
-489     pub unsafe extern "C" fn Reset() -> ! {
-(gdb)
 ```
 
 > **NOTE** Depending on which GDB you installed you will have to use a different command to launch it,
@@ -34,22 +30,29 @@ Remote debugging using :1337
 > implement the GDB protocol and thus might not recognize all of the commands your GDB is sending to it,
 > as long as it does not crash, you are fine.
 
-Right now we are inside the `Reset()` function. This is (surprisingly) the function that is run after a reset
-of the chip. Since we did tell cargo-embed to halt the chip after we flashed it, this is where we start.
+Next we will have to connect to the GDB stub, it runs on `localhost:1337` per default so in order to
+connect to it run the following:
 
-This `Reset()` function is part of a small piece of setup code that initializes some things for our Rust program
-before moving on to the `main()` function. Let's set a breakpoint there and jump to it:
+```shell
+(gdb) target remote :1337
+Remote debugging using :1337
+0x00000116 in nrf52833_pac::{{impl}}::fmt (self=0xd472e165, f=0x3c195ff7) at /home/nix/.cargo/registry/src/github.com-1ecc6299db9ec823/nrf52833-pac-0.9.0/src/lib.rs:157
+157     #[derive(Copy, Clone, Debug)]
+```
+
+Next what we want to do is get to the main function of our program,
+we will do this by first setting a breakpoint there and the continuing
+program execution until we hit the breakpoint:
 
 ```
 (gdb) break main
-Breakpoint 1 at 0xac: file src/05-led-roulette/src/main.rs, line 9.
+Breakpoint 1 at 0x104: file src/05-led-roulette/src/main.rs, line 9.
+Note: automatically using hardware breakpoints for read-only addresses.
 (gdb) continue
 Continuing.
-Note: automatically using hardware breakpoints for read-only addresses.
 
-Breakpoint 1, main () at src/05-led-roulette/src/main.rs:9
+Breakpoint 1, led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roulette/src/main.rs:9
 9       #[entry]
-(gdb)
 ```
 
 Breakpoints can be used to stop the normal flow of a program. The `continue` command will let the
@@ -77,7 +80,7 @@ If we wanted to break in line 13 we can simply do:
 
 ```
 (gdb) break 13
-Breakpoint 2 at 0xb8: file src/05-led-roulette/src/main.rs, line 13.
+Breakpoint 2 at 0x110: file src/05-led-roulette/src/main.rs, line 13.
 (gdb) continue
 Continuing.
 
@@ -98,29 +101,11 @@ is initialized but `_y` is not. Let's inspect those stack/local variables using 
 $1 = 42
 (gdb) print &x
 $2 = (*mut i32) 0x20003fe8
-(gdb) print _y
-$3 = 536870912
-(gdb) print &_y
-$4 = (*mut i32) 0x20003fec
 (gdb)
 ```
 
-As expected, `x` contains the value `42`. `_y`, however, contains the value `536870912` (?). Because
-`_y` has not been initialized yet, it contains some garbage value.
-
-The command `print &x` prints the address of the variable `x`. The interesting bit here is that GDB
-output shows the type of the reference: `i32*`, a pointer to an `i32` value. Another interesting
-thing is that the addresses of `x` and `_y` are very close to each other: their addresses are just
-`4` bytes apart.
-
-Instead of printing the local variables one by one, you can also use the `info locals` command:
-
-```
-(gdb) info locals
-x = 42
-_y = 536870912
-(gdb)
-```
+As expected, `x` contains the value `42`. The command `print &x` prints the address of the variable `x`.
+The interesting bit here is that GDB output shows the type of the reference: `i32*`, a pointer to an `i32` value.
 
 If we want to continue the program execution line by line we can do that using the `next` command
 so let's proceed to the `loop {}` statement:
@@ -135,6 +120,15 @@ And `_y` should now be initialized.
 ```
 (gdb) print _y
 $5 = 42
+```
+
+Instead of printing the local variables one by one, you can also use the `info locals` command:
+
+```
+(gdb) info locals
+x = 42
+_y = 42
+(gdb)
 ```
 
 If we use `next` again on top of the `loop {}` statement, we'll get stuck because the program will
@@ -155,23 +149,23 @@ program around the line you are currently at.
 
 ```
 (gdb) disassemble /m
-Dump of assembler code for function led_roulette::__cortex_m_rt_main:
+Dump of assembler code for function _ZN12led_roulette18__cortex_m_rt_main17h3e25e3afbec4e196E:
 10      fn main() -> ! {
-   0x000000b2 <+0>:     sub     sp, #8
-   0x000000b4 <+2>:     movs    r0, #42 ; 0x2a
+   0x0000010a <+0>:     sub     sp, #8
+   0x0000010c <+2>:     movs    r0, #42 ; 0x2a
 
 11          let _y;
 12          let x = 42;
-   0x000000b6 <+4>:     str     r0, [sp, #0]
+   0x0000010e <+4>:     str     r0, [sp, #0]
 
 13          _y = x;
-   0x000000b8 <+6>:     str     r0, [sp, #4]
+   0x00000110 <+6>:     str     r0, [sp, #4]
 
 14
 15          // infinite loop; just so we don't leave this stack frame
 16          loop {}
-=> 0x000000ba <+8>:     b.n     0xbc <led_roulette::__cortex_m_rt_main+10>
-   0x000000bc <+10>:    b.n     0xbc <led_roulette::__cortex_m_rt_main+10>
+=> 0x00000112 <+8>:     b.n     0x114 <_ZN12led_roulette18__cortex_m_rt_main17h3e25e3afbec4e196E+10>
+   0x00000114 <+10>:    b.n     0x114 <_ZN12led_roulette18__cortex_m_rt_main17h3e25e3afbec4e196E+10>
 
 End of assembler dump.
 ```
@@ -195,7 +189,7 @@ One last trick before we move to something more interesting. Enter the following
 (gdb) c
 Continuing.
 
-Breakpoint 1, main () at src/05-led-roulette/src/main.rs:9
+Breakpoint 1, led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roulette/src/main.rs:9
 9       #[entry]
 (gdb)
 ```
@@ -224,7 +218,7 @@ A debugging session is active.
         Inferior 1 [Remote target] will be detached.
 
 Quit anyway? (y or n) y
-Detaching from program: $PWD/target/thumbv6m-none-eabi/debug/led-roulette, Remote target
+Detaching from program: $PWD/target/thumbv7em-none-eabihf/debug/led-roulette, Remote target
 Ending remote debugging.
 [Inferior 1 (Remote target) detached]
 ```

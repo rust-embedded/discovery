@@ -10,7 +10,7 @@ I'm going to give you a high level API to implement this app but don't worry we'
 stuff later on. The main goal of this chapter is to get familiar with the *flashing* and debugging
 process.
 
-The starter code is in the `src` directory of that repository. Inside that directory there are more
+The starter code is in the `src` directory of the book repository. Inside that directory there are more
 directories named after each chapter of this book. Most of those directories are starter Cargo
 projects.
 
@@ -49,7 +49,8 @@ Furthermore there is also an `Embed.toml` file
 
 This file tells `cargo-embed` that:
 
-* we are working with a nrf51822,
+* we are working with either an nrf52833 or nrf51822, you will again have to remove the comments from the
+  chip you are using, just like you did in chapter 3.
 * we want to halt the chip after we flashed it so our program does not instantly jump to the loop
 * we want to disable RTT, RTT being a protocol that allows the chip to send text to a debugger.
   You have in fact already seen RTT in action, it was the protocol that sent "Hello World" in chapter 3.

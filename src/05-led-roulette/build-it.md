@@ -5,8 +5,8 @@ architecture than your computer we'll have to cross compile. Cross compiling in 
 as passing an extra `--target` flag to `rustc`or Cargo. The complicated part is figuring out the
 argument of that flag: the *name* of the target.
 
-The microcontroller in the micro:bit has a Cortex-M0 processor in it. `rustc` knows how to cross compile
-to the Cortex-M architecture and provides several different targets that cover the different processor
+As we already know the microcontroller on the micro:bit v2 has a Cortex-M4F processor in it, the one on v1 a Cortex-M0.
+`rustc` knows how to cross compile to the Cortex-M architecture and provides several different targets that cover the different processor
 families within that architecture:
 
 - `thumbv6m-none-eabi`, for the Cortex-M0 and Cortex-M1 processors
@@ -16,11 +16,14 @@ families within that architecture:
 - `thumbv8m.main-none-eabi`, for the Cortex-M33 and Cortex-M35P processors
 - `thumbv8m.main-none-eabihf`, for the Cortex-M33**F** and Cortex-M35P**F** processors
 
-For the micro:bit, we'll use the `thumbv6m-none-eabi` target. Before cross compiling you have to
-download pre-compiled version of the standard library (a reduced version of it actually) for your
-target. That's done using `rustup`:
+For the micro:bit v2, we'll use the `thumbv7em-none-eabihf` target, for v1 the `thumbv6m-none-eabi` one.
+Before cross compiling you have to download pre-compiled version of the standard library
+(a reduced version of it actually) for your target. That's done using `rustup`:
 
 ``` console
+# For micro:bit v2
+$ rustup target add thumbv7em-none-eabihf
+# For micro:bit v1
 $ rustup target add thumbv6m-none-eabi
 ```
 
@@ -30,36 +33,64 @@ You only need to do the above step once; `rustup` will re-install a new standard
 With the `rust-std` component in place you can now cross compile the program using Cargo:
 
 ``` console
-$ # make sure you are in the `src/05-led-roulette` directory
+# make sure you are in the `src/05-led-roulette` directory
 
-$ cargo build --target thumbv6m-none-eabi
+# For micro:bit v2
+$ cargo build --features v2 --target thumbv7em-none-eabihf
    Compiling semver-parser v0.7.0
    Compiling typenum v1.12.0
-   Compiling proc-macro2 v1.0.19
-   Compiling unicode-xid v0.2.1
    Compiling cortex-m v0.6.3
    (...)
-   Compiling as-slice v0.1.3
-   Compiling aligned v0.3.4
-   Compiling cortex-m-rt-macros v0.1.8
-   Compiling nrf-hal-common v0.11.1
-    Finished dev [unoptimized + debuginfo] target(s) in 18.69s
+   Compiling microbit-v2 v0.10.1
+    Finished dev [unoptimized + debuginfo] target(s) in 33.67s
+
+# For micro:bit v1
+$ cargo build --features v1 --target thumbv6m-none-eabi
+   Compiling fixed v1.2.0
+   Compiling syn v1.0.39
+   Compiling cortex-m v0.6.3
+   (...)
+   Compiling microbit v0.10.1
+	Finished dev [unoptimized + debuginfo] target(s) in 22.73s
 ```
 
 > **NOTE** Be sure to compile this crate *without* optimizations. The provided Cargo.toml
 > file and build command above will ensure optimizations are off.
-
-> **NOTE** If you have looked into `.cargo/config` you will have noticed that the target
-  is actually always set to "thumbv6m-none-eabi" so the --target flag to `cargo` can in
-  fact be omitted here.
 
 OK, now we have produced an executable. This executable won't blink any leds,
 it's just a simplified version that we will build upon later in the chapter.
 As a sanity check, let's verify that the produced executable is actually an ARM binary:
 
 ``` console
-$ # equivalent to `readelf -h target/thumbv6m-none-eabi/debug/led-roulette`
- cargo readobj --target thumbv6m-none-eabi --bin led-roulette -- -file-headers
+# For micro:bit v2
+# equivalent to `readelf -h target/thumbv7em-none-eabihf/debug/led-roulette`
+$ cargo readobj --features v2 --target thumbv7em-none-eabihf --bin led-roulette -- -file-headers
+    Finished dev [unoptimized + debuginfo] target(s) in 0.01s
+ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           ARM
+  Version:                           0x1
+  Entry point address:               0x117
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          793112 (bytes into file)
+  Flags:                             0x5000400
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         4
+  Size of section headers:           40 (bytes)
+  Number of section headers:         21
+  Section header string table index: 19
+
+# For micro:bit v1
+# equivalent to `readelf -h target/thumbv6m-none-eabi/debug/led-roulette`
+$ cargo readobj --features v1 --target thumbv6m-none-eabi --bin led-roulette -- -file-headers
+    Finished dev [unoptimized + debuginfo] target(s) in 0.01s
 ELF Header:
   Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00
   Class:                             ELF32
@@ -72,11 +103,11 @@ ELF Header:
   Version:                           0x1
   Entry point address:               0xC1
   Start of program headers:          52 (bytes into file)
-  Start of section headers:          599484 (bytes into file)
+  Start of section headers:          693196 (bytes into file)
   Flags:                             0x5000200
   Size of this header:               52 (bytes)
   Size of program headers:           32 (bytes)
-  Number of program headers:         2
+  Number of program headers:         4
   Size of section headers:           40 (bytes)
   Number of section headers:         22
   Section header string table index: 20
