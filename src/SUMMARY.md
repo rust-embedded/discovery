@@ -9,6 +9,7 @@
 - [Meet your hardware](04-meet-your-hardware/README.md)
     - [micro:bit v2](04-meet-your-hardware/microbit-v2.md)
     - [micro:bit v1](04-meet-your-hardware/microbit-v1.md)
+    - [Rust Embedded terminology](04-meet-your-hardware/terminology.md)
 - [LED roulette](05-led-roulette/README.md)
     - [Build it](05-led-roulette/build-it.md)
     - [Flash it](05-led-roulette/flash-it.md)
