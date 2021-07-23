@@ -6,7 +6,7 @@ as passing an extra `--target` flag to `rustc`or Cargo. The complicated part is 
 argument of that flag: the *name* of the target.
 
 As we already know the microcontroller on the micro:bit v2 has a Cortex-M4F processor in it, the one on v1 a Cortex-M0.
-`rustc` knows how to cross compile to the Cortex-M architecture and provides several different targets that cover the different processor
+`rustc` knows how to cross-compile to the Cortex-M architecture and provides several different targets that cover the different processors
 families within that architecture:
 
 - `thumbv6m-none-eabi`, for the Cortex-M0 and Cortex-M1 processors
@@ -17,8 +17,8 @@ families within that architecture:
 - `thumbv8m.main-none-eabihf`, for the Cortex-M33**F** and Cortex-M35P**F** processors
 
 For the micro:bit v2, we'll use the `thumbv7em-none-eabihf` target, for v1 the `thumbv6m-none-eabi` one.
-Before cross compiling you have to download pre-compiled version of the standard library
-(a reduced version of it actually) for your target. That's done using `rustup`:
+Before cross-compiling you have to download a pre-compiled version of the standard library
+(a reduced version of it, actually) for your target. That's done using `rustup`:
 
 ``` console
 # For micro:bit v2

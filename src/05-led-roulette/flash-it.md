@@ -11,7 +11,7 @@ Flashing the binary itself is quite simple thanks to `cargo-embed`.
 
 Before executing that command though, lets look into what it actually does. If you look at the side of your micro:bit
 with the USB connector facing upwards you will notice, that there are actually 2 black squares on there
-(on the micro:bit v2 is a third and biggest one, its a speaker), one is our MCU
+(on the micro:bit v2 there is a third and biggest one, which is a speaker), one is our MCU
 we already talked about but what purpose does the other one serve? The other chip has 3 main purposes:
 
 1. Provide power from the USB connector to our MCU
@@ -42,7 +42,7 @@ $ cargo embed --features v1 --target thumbv6m-none-eabi
 
 
 You will notice that `cargo-embed` blocks after outputting the last line, this is inteded and you should not close it
-since we need it in this state for the next step, debugging it! Furthermore you will have noticed that the `cargo build`
+since we need it in this state for the next step: debugging it! Furthermore, you will have noticed that the `cargo build`
 and `cargo embed` are actually passed the same flags, this is because `cargo embed` actually executes the build and then
 flashes the resulting binary on to the chip, hence you can leave out the `cargo build` step in the future if you
 want to flash your code right away.
