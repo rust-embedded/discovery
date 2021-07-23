@@ -7,12 +7,36 @@ on:
 
 jobs:
   # Check a build succeeds for each chapter that contains example code.
-  build-chapter:
+  build-chapter-microbit:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
         chapter:
           - 05-led-roulette
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: thumbv6m-none-eabi
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: thumbv7em-none-eabihf
+      - name: Build chapter micro:bit v1
+        working-directory: src/${{ matrix.chapter }}
+        run: cargo build --features v1 --target thumbv6m-none-eabi
+      - name: Build chapter micro:bit v2
+        working-directory: src/${{ matrix.chapter }}
+        run: cargo build --features v2 --target thumbv7em-none-eabihf
+  # Until everything is microbit
+  build-chapter-old:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        chapter:
           - 07-uart
           - 08-i2c
           - 15-led-compass
@@ -24,7 +48,7 @@ jobs:
           profile: minimal
           toolchain: stable
           target: thumbv6m-none-eabi
-      - uses: actions-rs/toolchain@v1 # Until everything has been rewritten
+      - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
           toolchain: stable

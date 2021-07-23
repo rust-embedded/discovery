@@ -13,14 +13,48 @@ If you can't exactly see what's happening here it is in a much slower version:
 <video src="../assets/roulette_slow.mp4" loop autoplay>
 </p>
 
-2 hints before you start:
+Since working with the LED pins separately is quite annoying
+(especially if you have to use basically all of them like here)
+you can use the display API provided by the BSP. It works like this:
 
-1. As we learned before the LED matrix of the micro:bit is actually a 3x9 while being exposed as a 5x5. Furthermore,
-   it seems like the 9 columns and 3 rows are more or less randomly mapped to the visual 5x5 matrix. If you don't want
-   to go through the effort of figuring out the pins you have to set high/low in order to blink the border of the
-   matrix, here is the list: `(R1, C1) (R2, C4) (R1, C2), (R2, C5) (R1, C3) (R3, C8) (R2, C1) (R1, C4) (R3, C2) (R2,
-   C6) (R3, C1) (R2, C7) (R3, C3) (R1, C8) (R2, C2) (R3, C4)`
+```rust
+#![deny(unsafe_code)]
+#![no_main]
+#![no_std]
 
-2. If you are thinking about storing columns and rows in arrays you will quickly notice they are of different types since
-   all GPIO pins are represented as their own type. However, you can call `.degrade()` on the individual GPIO objects in
-   order to "degrade" them all into the same type and then store them in an array.
+use cortex_m_rt::entry;
+use rtt_target::rtt_init_print;
+use panic_rtt_target as _;
+use microbit::{
+    board::Board,
+    display::blocking::Display,
+    hal::{prelude::*, Timer},
+};
+
+#[entry]
+fn main() -> ! {
+    rtt_init_print!();
+
+    let board = Board::take().unwrap();
+    let mut timer = Timer::new(board.TIMER0);
+    let mut display = Display::new(board.display_pins);
+    let light_it_all = [
+        [1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1],
+    ];
+
+    loop {
+        // Show light_it_all for 1000ms
+        display.show(&mut timer, light_it_all, 1000);
+        // clear the display again
+        display.clear();
+        timer.delay_ms(1000_u32);
+    }
+}
+```
+
+Equipped with this API your task basically boils down to just having
+to calculate the proper image matrix and passing it into the BSP.
