@@ -4,8 +4,8 @@ Before we debug our little program let's take a moment to quickly understand wha
 happening here. In the previous chapter we already discussed the purpose of the second chip
 on the board as well as how it talks to our computer, but how can we actually use it?
 
-The little option `default.gb.enabled = true` in `Embed.toml` made `cargo-embed` open a so called "GDB stub" after flashing,
-this is a server that our GDB can connect to and send commands like "set a breakpoint at address X" to, the server can then decide
+The little option `default.gb.enabled = true` in `Embed.toml` made `cargo-embed` open a so-called "GDB stub" after flashing,
+this is a server that our GDB can connect to and send commands like "set a breakpoint at address X" to. The server can then decide
 on its own how to handle this command. In the case of the `cargo-embed` GDB stub it will forward the
 command to the debugging probe on the board via USB which then does the job of actually talking to the
 MCU for us.
@@ -30,7 +30,7 @@ $ gdb target/thumbv6m-none-eabi/debug/led-roulette
 > implement the GDB protocol and thus might not recognize all of the commands your GDB is sending to it,
 > as long as it does not crash, you are fine.
 
-Next we will have to connect to the GDB stub, it runs on `localhost:1337` per default so in order to
+Next we will have to connect to the GDB stub. It runs on `localhost:1337` per default so in order to
 connect to it run the following:
 
 ```shell
@@ -40,8 +40,8 @@ Remote debugging using :1337
 157     #[derive(Copy, Clone, Debug)]
 ```
 
-Next what we want to do is get to the main function of our program,
-we will do this by first setting a breakpoint there and the continuing
+Next what we want to do is get to the main function of our program.
+We will do this by first setting a breakpoint there and the continuing
 program execution until we hit the breakpoint:
 
 ```

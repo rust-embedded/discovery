@@ -5,7 +5,7 @@ In this chapter we are going to make one of the many LEDs on the back of the mic
 basically the "Hello World" of embedded programming. In order to get this task done we will use one of the traits
 provided by `embedded-hal`, specifically the [OutputPin trait] which allows us to turn a pin on or off.
 
-[OutputPin trait]: https://docs.rs/embedded-hal/0.2.4/embedded_hal/digital/v2/trait.OutputPin.html
+[OutputPin trait]: https://docs.rs/embedded-hal/0.2.5/embedded_hal/digital/v2/trait.OutputPin.html
 
 ## The micro:bit LEDs
 
@@ -75,7 +75,7 @@ that is highly unlikely in our case, we can just `unwrap()` the result.
 ## Testing it
 
 Testing our little program is quite simple. First put it into `src/mains.rs`. Afterwards we simply have to run the
-`cargo-embed` command from the last section again, let it flash and just like before, open our GDB and connect
+`cargo embed` command from the last section again, let it flash and just like before. Then open our GDB and connect
 to the GDB stub:
 
 ```

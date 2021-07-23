@@ -183,7 +183,7 @@ Total              208617
 
 Know how to read this output? The `text` section contains the program instructions. On the other hand,
 the `data` and `bss` sections contain variables statically allocated in RAM (`static` variables).
-If you remember back to the specification of the microcontroller on your micro:bit, you should
+If you remember back in the specification of the microcontroller on your micro:bit, you should
 notice that its flash memory is actually far too small to contain this binary, so how is this possible?
 As we can see from the size statistics most of the binary is actually made up of debugging related
 sections , those are however not flashed to the microcontroller at any time, after all they aren't
