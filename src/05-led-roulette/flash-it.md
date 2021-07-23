@@ -7,7 +7,7 @@ In this case, our `led-roulette` program will be the *only* program in the micro
 By this I mean that there's nothing else running on the microcontroller: no OS, no "daemon",
 nothing. `led-roulette` has full control over the device.
 
-Flashing the binary itself is quite simple thanks to `cargo-embed`.
+Flashing the binary itself is quite simple thanks to `cargo embed`.
 
 Before executing that command though, lets look into what it actually does. If you look at the side of your micro:bit
 with the USB connector facing upwards you will notice, that there are actually 2 black squares on there
