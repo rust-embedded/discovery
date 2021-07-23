@@ -31,6 +31,7 @@ jobs:
       - name: Build chapter micro:bit v2
         working-directory: src/${{ matrix.chapter }}
         run: cargo build --features v2 --target thumbv7em-none-eabihf
+  # Until everything is microbit
   build-chapter-old:
     runs-on: ubuntu-20.04
     strategy:
@@ -42,11 +43,11 @@ jobs:
           - 16-punch-o-meter
     steps:
       - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1 # Until everything has been rewritten
+      - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
           toolchain: stable
-          target: thumbv7em-none-eabihf
+          target: thumbv6m-none-eabi
       - name: Build chapter
         working-directory: src/${{ matrix.chapter }}
         run: cargo build
