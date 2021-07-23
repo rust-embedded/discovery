@@ -3,9 +3,9 @@ delete_merged_branches = true
 required_approvals = 1
 status = [
     "build-book",
-    "build-chapter (05-led-roulette)",
-    "build-chapter (07-uart)",
-    "build-chapter (08-i2c)",
-    "build-chapter (15-led-compass)",
-    "build-chapter (16-punch-o-meter)",
+    "build-chapter-microbit (05-led-roulette)",
+    "build-chapter-old (07-uart)",
+    "build-chapter-old (08-i2c)",
+    "build-chapter-old (15-led-compass)",
+    "build-chapter-old (16-punch-o-meter)",
 ]
