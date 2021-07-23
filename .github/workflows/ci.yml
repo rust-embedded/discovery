@@ -48,6 +48,11 @@ jobs:
           profile: minimal
           toolchain: stable
           target: thumbv6m-none-eabi
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: thumbv7em-none-eabihf
       - name: Build chapter
         working-directory: src/${{ matrix.chapter }}
         run: cargo build
