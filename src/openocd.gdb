@@ -23,10 +23,10 @@ monitor itm port 0 on
 # Set a breakpoint at main, aka entry
 break main
 
-# Set a breakpiont at DefaultHandler
+# Set a breakpoint at DefaultHandler
 break DefaultHandler
 
-# Set a breakpiont at HardFault
+# Set a breakpoint at HardFault
 break HardFault
 
 # Continue running until we hit the main breakpoint
