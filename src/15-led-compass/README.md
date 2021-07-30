@@ -22,9 +22,9 @@ Let's get familiar with the readings of the magnetometer by running the followin
 {{#include src/main.rs}}
 ```
 
-This `lsm303dlhc` module provides high level API over the LSM303DLHC. Under the hood it does the
+This `lsm303agr` module provides high level API over the LSM303AGR. Under the hood it does the
 same I2C routine that you implemented in the last section but it reports the X, Y and Z values in a
-`I16x3` struct instead of a tuple.
+`UnscaledMeasurement` struct instead of a tuple.
 
 Locate where north is at your current location. Then rotate the board such that it's aligned
 "towards north": the North LED (LD3) should be pointing towards north.
@@ -34,9 +34,12 @@ Now run the starter code and observe the output. What X, Y and Z values do you s
 ``` console
 $ # itmdump terminal
 (..)
-I16x3 { x: 45, y: 194, z: -3 }
-I16x3 { x: 46, y: 195, z: -8 }
-I16x3 { x: 47, y: 197, z: -2 }
+UnscaledMeasurement { x: 263, y: 250, z: -361 }
+UnscaledMeasurement { x: 261, y: 247, z: -364 }
+UnscaledMeasurement { x: 257, y: 250, z: -360 }
+UnscaledMeasurement { x: 256, y: 244, z: -367 }
+
+
 ```
 
 Now rotate the board 90 degrees while keeping it parallel to the ground. What X, Y and Z values do

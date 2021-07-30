@@ -4,18 +4,15 @@
 
 #[allow(unused_extern_crates)] // NOTE(allow) bug rust-lang/rust#53964
 extern crate panic_itm; // panic handler
-
 pub use cortex_m::{asm::bkpt, iprint, iprintln, peripheral::ITM};
 pub use cortex_m_rt::entry;
 pub use stm32f3_discovery::{
     leds::Leds,
-    lsm303dlhc::I16x3,
     stm32f3xx_hal::{delay::Delay, prelude, stm32::i2c1},
     switch_hal,
 };
 
 use stm32f3_discovery::{
-    lsm303dlhc,
     stm32f3xx_hal::{
         gpio::gpiob::{PB6, PB7},
         gpio::AF4,
@@ -25,7 +22,7 @@ use stm32f3_discovery::{
     },
 };
 
-pub type Lsm303dlhc = lsm303dlhc::Lsm303dlhc<I2c<I2C1, (PB6<AF4>, PB7<AF4>)>>;
+pub use lsm303agr::{interface::I2cInterface,mode,MagOutputDataRate,Lsm303agr};
 
 /// Cardinal directions. Each one matches one of the user LEDs.
 pub enum Direction {
@@ -47,7 +44,7 @@ pub enum Direction {
     Northwest,
 }
 
-pub fn init() -> (Leds, Lsm303dlhc, Delay, ITM) {
+pub fn init() -> (Leds, Lsm303agr<I2cInterface<I2c<I2C1, (PB6<AF4>, PB7<AF4>)>>, mode::MagContinuous>, Delay, ITM) {
     let cp = cortex_m::Peripherals::take().unwrap();
     let dp = stm32::Peripherals::take().unwrap();
 
@@ -75,10 +72,12 @@ pub fn init() -> (Leds, Lsm303dlhc, Delay, ITM) {
     let sda = gpiob.pb7.into_af4(&mut gpiob.moder, &mut gpiob.afrl);
 
     let i2c = I2c::new(dp.I2C1, (scl, sda), 400.khz(), clocks, &mut rcc.apb1);
+    let mut lsm = Lsm303agr::new_with_i2c(i2c);
+    lsm.init().unwrap();
 
-    let lsm303dlhc = Lsm303dlhc::new(i2c).unwrap();
+    lsm.set_mag_odr(MagOutputDataRate::Hz10).unwrap();
+    let lsm303agr = lsm.into_mag_continuous().ok().unwrap();
 
     let delay = Delay::new(cp.SYST, clocks);
-
-    (leds, lsm303dlhc, delay, cp.ITM)
+    (leds, lsm303agr, delay, cp.ITM)
 }
