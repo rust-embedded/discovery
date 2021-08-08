@@ -135,7 +135,7 @@ In both failing and successful cases you should see new output in the **OpenOCD 
 +Info : flash size = 256kbytes
 ```
 
-**NOTE**: If you are getting an error like `undefined debug reason 7 - target needs reset`, you can try running `monitor reset halt` as described [here](https://stackoverflow.com/questions/38994596/reason-7-target-needs-reset-unreliable-debugging-setup).
+> **NOTE** If you are getting an error like `undefined debug reason 7 - target needs reset`, you can try running `monitor reset halt` as described [here](https://stackoverflow.com/questions/38994596/reason-7-target-needs-reset-unreliable-debugging-setup).
 
 By default OpenOCD's GDB server listens on TCP port 3333 (localhost). This command is connecting to
 that port.
@@ -143,8 +143,9 @@ that port.
 ## Update ../.cargo/config.toml
 
 Now that you've successfully determined which debugger you need to use
-we need to change `../.cargo/config.toml` so that `cargo run` command will succeed.
-Note: `cargo` is the rust package manager and you can read about it
+we need to change `../.cargo/config.toml` so that the `cargo run` command will succeed.
+
+> **NOTE** `cargo` is the Rust package manager and you can read about it
 [here](https://doc.rust-lang.org/cargo/).
 
 Get back to the terminal prompt and look at `../.cargo/config.toml`:
@@ -190,11 +191,11 @@ index ddff17f..8512cfe 100644
 Now that you have `../.cargo/config.toml` setup let's test it using `cargo run` to
 start the debug session.
 
-> Note the `--target thumbv7em-none-eabihf` defines which architecture
+> **NOTE** The `--target thumbv7em-none-eabihf` defines which architecture
 > to build and run. In our `../.cargo/config.toml` file we have
 > `target = "thumbv7em-none-eabihf"` so it is actually not necessary
 > to specify `--target` we do it here just so you know that parameters on
-> the command line can be used and they override those in `config.toml` files
+> the command line can be used and they override those in `config.toml` files.
 
 ```
 cargo run --target thumbv7em-none-eabihf
@@ -224,7 +225,7 @@ directory.
 
 ## Flash the device
 
-Assuming you have gdb running, if not start it as suggested in the previous section.
+Assuming you have GDB running, if not start it as suggested in the previous section.
 
 Now use the `load` command in `gdb` to actually flash the program into the device:
 ```

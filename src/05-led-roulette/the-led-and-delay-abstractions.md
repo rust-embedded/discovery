@@ -28,7 +28,7 @@ cargo build
 > session ensuring you never forget to recompile your program.
 
 Now we'll run and repeat the flashing procedure as we did in the previous section
-but with the new program. I'll let you type in the `cargo run`, *this will get easier shortly* :)
+but with the new program. I'll let you type in the `cargo run`, *this will get easier shortly*. :)
 ``` console
 $ cargo run
     Finished dev [unoptimized + debuginfo] target(s) in 0.01s
@@ -62,7 +62,7 @@ Breakpoint 1, led_roulette::__cortex_m_rt_main_trampoline ()
 led_roulette::__cortex_m_rt_main () at ~/embedded-discovery/src/05-led-roulette/src/main.rs:9
 9           let (mut delay, mut leds): (Delay, LedArray) = aux5::init();
 
-(gdb) 
+(gdb)
 ```
 
 OK. Let's step through the code. This time, we'll use the `next` command instead of `step`. The
@@ -186,7 +186,7 @@ Run till exit from #0  0x08002f80 in stm32f3xx_hal::delay::{{impl}}::delay_ms (s
 We are back in `main`. We have a local variable in here: `half_period`
 
 ```
-(gdb) print half_period 
+(gdb) print half_period
 $3 = 500
 ```
 
@@ -195,14 +195,14 @@ Now, we are going to modify this variable using the `set` command:
 ```
 (gdb) set half_period = 100
 
-(gdb) print half_period 
+(gdb) print half_period
 $5 = 100
 ```
 
 If you let program run free again using the `continue` command, you **might** see that the LED will
 blink at a much faster rate now, but more likely the blink rate didn't change. **What happened?**
 
-Let's stop the program with `Ctrl+C` and then set a break point at `main:14`. 
+Let's stop the program with `Ctrl+C` and then set a break point at `main:14`.
 ``` console
 (gdb) continue
 Continuing.

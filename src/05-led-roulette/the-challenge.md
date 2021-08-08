@@ -26,7 +26,7 @@ entering the same commands at the beginning. We can use a `.gdb` file to execute
 right after GDB is started. This way you can save yourself the effort of having to enter them
 manually on each GDB session.
 
-As it turns out we've already created `../openocd.gdb` and you can see it's doing 
+As it turns out we've already created `../openocd.gdb` and you can see it's doing
 pretty much what we did in the previous section plus a few other commands. Look at
 the comments for additional information:
 
