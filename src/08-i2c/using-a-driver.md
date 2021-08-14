@@ -36,7 +36,9 @@ fn main() {
 ```
 
 Because we already know how to create an instance of an object that implements
-the `embedded-hal` I2C traits from the [last page](read-a-single-register.md) this is quite trivial:
+the [embedded_hal::blocking::i2c] traits from the [last page](read-a-single-register.md) this is quite trivial:
+
+[embedded_hal::blocking::i2c]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/blocking/i2c/index.html
 
 ```rust
 #![deny(unsafe_code)]
@@ -46,26 +48,34 @@ the `embedded-hal` I2C traits from the [last page](read-a-single-register.md) th
 use cortex_m_rt::entry;
 use rtt_target::{rtt_init_print, rprintln};
 use panic_rtt_target as _;
-use nrf51_hal as hal;
-use hal::prelude::*;
-use lsm303agr::{AccelOutputDataRate, Lsm303agr};
+
+#[cfg(feature = "v1")]
+use microbit::{
+    hal::twi,
+    pac::twi0::frequency::FREQUENCY_A,
+};
+
+#[cfg(feature = "v2")]
+use microbit::{
+    hal::twim,
+    pac::twim0::frequency::FREQUENCY_A,
+};
+
+use lsm303agr::{
+    AccelOutputDataRate, Lsm303agr,
+};
 
 #[entry]
 fn main() -> ! {
     rtt_init_print!();
-    let p = hal::pac::Peripherals::take().unwrap();
+    let board = microbit::Board::take().unwrap();
 
-    let p0 = hal::gpio::p0::Parts::new(p.GPIO);
-    let scl = p0.p0_00.into_floating_input().degrade();
-    let sda = p0.p0_30.into_floating_input().degrade();
 
-    let pins = hal::twi::Pins {
-        scl,
-        sda,
-    };
+    #[cfg(feature = "v1")]
+    let i2c = { twi::Twi::new(board.TWI0, board.i2c.into(), FREQUENCY_A::K100) };
 
-    // Use a frequency of 100 khz for the bus
-    let i2c = hal::twi::Twi::new(p.TWI0, pins, hal::pac::twi0::frequency::FREQUENCY_A::K100);
+    #[cfg(feature = "v2")]
+    let i2c = { twim::Twim::new(board.TWIM0, board.i2c_internal.into(), FREQUENCY_A::K100) };
 
     // Code from documentation
     let mut sensor = Lsm303agr::new_with_i2c(i2c);
@@ -81,6 +91,14 @@ fn main() -> ! {
 }
 ```
 
-Just like the last snippet you should just be able to try this out with `cargo-embed`.
+Just like the last snippet you should just be able to try this out like this:
+```console
+# For micro:bit v2
+$ cargo embed --features v2 --target thumbv7em-none-eabihf
+
+# For micro:bit v1
+$ cargo embed --features v1 --target thumbv6m-none-eabi
+```
+
 Furthermore if you (physically) move around your micro:bit a little bit you should see the
 acceleration numbers that are being printed change.

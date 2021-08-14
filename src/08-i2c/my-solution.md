@@ -6,41 +6,67 @@
 #![no_std]
 
 use cortex_m_rt::entry;
-use rtt_target::rtt_init_print;
+use rtt_target::{rtt_init_print, rprintln};
 use panic_rtt_target as _;
-use nrf51_hal as hal;
-use hal::prelude::*;
+
+#[cfg(feature = "v1")]
+use microbit::{
+    hal::twi,
+    pac::twi0::frequency::FREQUENCY_A,
+    hal::uart,
+    hal::uart::{Baudrate, Parity},
+};
+
+#[cfg(feature = "v2")]
+use microbit::{
+    hal::twim,
+    pac::twim0::frequency::FREQUENCY_A,
+    hal::uarte,
+    hal::uarte::{Baudrate, Parity},
+};
+
+use microbit::hal::prelude::*;
 use lsm303agr::{AccelOutputDataRate, MagOutputDataRate, Lsm303agr};
 use heapless::{consts, Vec, String};
 use nb::block;
 use core::fmt::Write;
 
+#[cfg(feature = "v2")]
+mod serial_setup;
+#[cfg(feature = "v2")]
+use serial_setup::UartePort;
+
 #[entry]
 fn main() -> ! {
     rtt_init_print!();
-    let p = hal::pac::Peripherals::take().unwrap();
+    let board = microbit::Board::take().unwrap();
 
-    let p0 = hal::gpio::p0::Parts::new(p.GPIO);
-    let scl = p0.p0_00.into_floating_input().degrade();
-    let sda = p0.p0_30.into_floating_input().degrade();
-    let rxd = p0.p0_25.into_floating_input().degrade();
-    let txd = p0.p0_24.into_push_pull_output(hal::gpio::Level::Low).degrade();
-
-    let i2c_pins = hal::twi::Pins {
-        scl,
-        sda,
+    #[cfg(feature = "v1")]
+    let mut serial = {
+        uart::Uart::new(
+            board.UART0,
+            board.uart.into(),
+            Parity::EXCLUDED,
+            Baudrate::BAUD115200,
+        )
     };
 
-    let uart_pins = hal::uart::Pins {
-        rxd,
-        txd,
-        cts: None,
-        rts: None
+    #[cfg(feature = "v2")]
+    let mut serial = {
+        let serial = uarte::Uarte::new(
+            board.UARTE0,
+            board.uart.into(),
+            Parity::EXCLUDED,
+            Baudrate::BAUD115200,
+        );
+        UartePort::new(serial)
     };
 
-    // Use a frequency of 100 khz for the bus
-    let i2c = hal::twi::Twi::new(p.TWI0, i2c_pins, hal::pac::twi0::frequency::FREQUENCY_A::K100);
-    let mut uart = hal::Uart::new(p.UART0, uart_pins, hal::uart::Parity::EXCLUDED, hal::uart::Baudrate::BAUD115200);
+    #[cfg(feature = "v1")]
+    let i2c = { twi::Twi::new(board.TWI0, board.i2c.into(), FREQUENCY_A::K100) };
+
+    #[cfg(feature = "v2")]
+    let i2c = { twim::Twim::new(board.TWIM0, board.i2c_internal.into(), FREQUENCY_A::K100) };
 
     let mut sensor = Lsm303agr::new_with_i2c(i2c);
     sensor.init().unwrap();
@@ -52,10 +78,10 @@ fn main() -> ! {
         let mut buffer: Vec<u8, consts::U32> = Vec::new();
 
         loop {
-            let byte = block!(uart.read()).unwrap();
+            let byte = block!(serial.read()).unwrap();
 
             if buffer.push(byte).is_err() {
-                write!(&mut uart, "error: buffer full\r\n").unwrap();
+                write!(serial, "error: buffer full\r\n").unwrap();
                 break;
             }
 
@@ -70,15 +96,15 @@ fn main() -> ! {
             }
 
             let data = sensor.accel_data().unwrap();
-            write!(&mut uart, "Accelerometer: x {} y {} z {}\r\n", data.x, data.y, data.z).unwrap();
+            write!(serial, "Accelerometer: x {} y {} z {}\r\n", data.x, data.y, data.z).unwrap();
         } else if command_string.as_str().trim() == "magnetometer" {
             while !sensor.mag_status().unwrap().xyz_new_data  {
             }
 
             let data = sensor.mag_data().unwrap();
-            write!(&mut uart, "Magnetometer: x {} y {} z {}\r\n", data.x, data.y, data.z).unwrap();
+            write!(serial, "Magnetometer: x {} y {} z {}\r\n", data.x, data.y, data.z).unwrap();
         } else {
-            write!(&mut uart, "error: command not detected\r\n").unwrap();
+            write!(serial, "error: command not detected\r\n").unwrap();
         }
     }
 }
