@@ -43,6 +43,10 @@ code that can conduct hardware operations in the background while we go and do o
 in this and many other cases we have no interest in doing some other work so we just call `block!` which will wait until
 the I/O operation is done and has either succeeded or failed and then continue execution normally.
 
+Last but not least we `flush()` the serial port. This is because an implementor of the `embedded-hal::serial` traits may
+decide to buffer output until it has received a certain number of bytes to send (this is the case with the UARTE implementation).
+Calling `flush()` forces it to write the bytes it currently has right now instead of waiting for more.
+
 ## Testing it
 
 Before flashing this you should make sure to start your minicom/PuTTY as the data we receive via our serial

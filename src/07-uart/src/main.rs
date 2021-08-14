@@ -1,4 +1,3 @@
-#![deny(unsafe_code)]
 #![no_main]
 #![no_std]
 
@@ -51,7 +50,8 @@ fn main() -> ! {
         UartePort::new(serial)
     };
 
-    nb::block!(serial.write(b'X')).ok();
+    nb::block!(serial.write(b'X')).unwrap();
+    nb::block!(serial.flush()).unwrap();
 
     loop {}
 }
