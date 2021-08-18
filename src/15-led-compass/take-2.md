@@ -56,3 +56,5 @@ Suggestions/tips:
 - If `theta` was zero, what LED would you turn on?
 - If `theta` was, instead, very close to zero, what LED would you turn on?
 - If `theta` kept increasing, at what value would you turn on a different LED?
+
+**Note: Newer boards may not work with the lsm303dlhc package. Use this [link](https://github.com/NitinSaxenait/compass-2.0/blob/master/src/main.rs) to work with lsm303agr package.** 
