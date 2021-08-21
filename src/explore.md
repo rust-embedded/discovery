@@ -239,6 +239,11 @@ So where to next? There are several options:
 
 [Rust Embedded matrix channel]: https://matrix.to/#/#rust-embedded:matrix.org
 
+- If you are looking for a general overview of what is available in Rust Embedded right now check out the [Awesome Rust Embedded]
+  list
+
+[Awesome Rust Embedded]: https://github.com/rust-embedded/awesome-embedded-rust/
+
 - You could check out [Real-Time Interrupt-driven Concurrency]. A very efficient preemptive multitasking framework
   that supports task prioritization and dead lock free execution.
 
