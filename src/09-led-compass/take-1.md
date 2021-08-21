@@ -5,15 +5,6 @@ What's the simplest way in which we can implement the LED compass? Even if it's 
 For starters, we'd only care about the X and Y components of the magnetic field because when you
 look at a compass you always hold it in horizontal position thus the compass is in the XY plane.
 
-For example, what LED would you turn on in the following case. EMF stands for Earth's Magnetic Field
-and green arrow has the direction of the EMF (it points north).
-
-<p align="center">
-<img title="Quadrant I" src="../assets/quadrant-i.png">
-</p
-
-The `Southeast` LED, right?
-
 What *signs* do the X and Y components of the magnetic field have in that scenario? Both are
 positive.
 
