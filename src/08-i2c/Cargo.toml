@@ -6,13 +6,13 @@ version = "0.1.0"
 
 [dependencies.microbit-v2]
 version = "0.10.1"
-git = "https://github.com/hargonix/microbit/"
+git = "https://github.com/nrf-rs/microbit/"
 optional = true
 
 
 [dependencies.microbit]
 version = "0.10.1"
-git = "https://github.com/hargonix/microbit/"
+git = "https://github.com/nrf-rs/microbit/"
 optional = true
 
 [dependencies]
