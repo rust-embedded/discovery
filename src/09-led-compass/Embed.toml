@@ -1,6 +1,6 @@
 [default.general]
 # v2
-chip = "nrf52833"
+# chip = "nrf52833"
 # v1
 # chip = "nrf51822"
 
