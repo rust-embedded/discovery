@@ -14,10 +14,6 @@ magnetic field belongs to. Now the question of course is which direction (north,
 do the 4 quadrants represent. In order to figure this out we can just rotate the micro:bit and observe
 how the quadrant changes whenever we point in another direction.
 
-> **NOTE** The LED matrix is pointing to me during these measurements since it
-  is going to face us later on as well. If you are holding the micro:bit the other way
-  around your measurements will of course have different signs.
-
 After experimenting a bit we can find out that if we point the micro:bit in e.g. south east direction,
 both the X and the Y component are always positive. Based on this information you should be able to
 figure out which direction the other quadrants represent.
