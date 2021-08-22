@@ -13,6 +13,7 @@ jobs:
       matrix:
         chapter:
           - 05-led-roulette
+          - 09-led-compass
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
@@ -39,7 +40,6 @@ jobs:
         chapter:
           - 07-uart
           - 08-i2c
-          - 15-led-compass
           - 16-punch-o-meter
     steps:
       - uses: actions/checkout@v2
