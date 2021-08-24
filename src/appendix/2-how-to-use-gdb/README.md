@@ -1,6 +1,6 @@
 # How to use GDB
 
-Below are some useful GDB commands that can help us debug our programs. This assumes you have [flashed a program](../../05-led-roulette/flash-it.md) onto your microcontroller and attached to an OpenOCD session.
+Below are some useful GDB commands that can help us debug our programs. This assumes you have [flashed a program](../../05-led-roulette/flash-it.md) onto your microcontroller and attached GDB to a `cargo-embed` session.
 
 ## General Debugging
 
@@ -42,7 +42,7 @@ Below are some useful GDB commands that can help us debug our programs. This ass
 
 * `print /$f $data` - Print the value contained by the variable `$data`. Optionally format the output with `$f`, which can include:
     ```txt
-    x: hexadecimal 
+    x: hexadecimal
     d: signed decimal
     u: unsigned decimal
     o: octal
@@ -67,7 +67,7 @@ Below are some useful GDB commands that can help us debug our programs. This ass
     * `info address GPIOC`: Print the memory address of the variable `GPIOC`
 * `info variables $regex`: Print names and types of global variables matched by `$regex`, omit `$regex` to print all global variables
 * `ptype $data`: Print more detailed information about `$data`
-    * `ptype cp`: Print detailed type information about the variable `cp` 
+    * `ptype cp`: Print detailed type information about the variable `cp`
 
 ### Poking around the Program Stack
 
@@ -81,6 +81,6 @@ Below are some useful GDB commands that can help us debug our programs. This ass
 * `info registers $r`: Print the value of register `$r` in selected frame, omit `$r` for all registers
     * `info registers $sp`: Print the value of the stack pointer register `$sp` in the current frame
 
-### Controlling OpenOCD Remotely
+### Controlling `cargo-embed` Remotely
 
 * `monitor reset`: Reset the CPU, starting execution over again
