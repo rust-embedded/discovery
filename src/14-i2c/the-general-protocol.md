@@ -1,6 +1,6 @@
 # General protocol
 
-The I2C protocol is more elaborated than the serial communication protocol because it has to support
+The I2C protocol is more elaborate than the serial communication protocol because it has to support
 communication between several devices. Let's see how it works using examples:
 
 ## Master -> Slave
