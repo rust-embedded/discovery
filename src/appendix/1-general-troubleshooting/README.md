@@ -2,7 +2,7 @@
 
 ## `cargo-embed` problems
 Most `cargo-embed` problems are either related to not having installed the `udev`
-rules properly or having selected the wrong chip configuration in `Embed.toml` so
+rules properly (on Linux) or having selected the wrong chip configuration in `Embed.toml` so
 make sure you got both of those right.
 
 If the above does not work out for you, you can open an issue in the [`discovery` issue tracker].
