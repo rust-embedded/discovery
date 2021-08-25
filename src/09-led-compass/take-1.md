@@ -1,9 +1,9 @@
 # Take 1
 
-What's the simplest way in which we can implement the LED compass? Even if it's not perfect.
+What's the simplest way in which we can implement the LED compass, even if it's not perfect?
 
 For starters, we'd only care about the X and Y components of the magnetic field because when you
-look at a compass you always hold it in horizontal position thus the compass is in the XY plane.
+look at a compass you always hold it in horizontal position and thus the compass is in the XY plane.
 
 <p align="center">
 <img class="white_bg" title="Quadrants" src="../assets/quadrants.png">

@@ -16,8 +16,8 @@ git = "https://github.com/nrf-rs/microbit/"
 optional = true
 
 [dependencies]
-cortex-m = "0.6.0"
-cortex-m-rt = "0.6.10"
+cortex-m = "0.7.0"
+cortex-m-rt = "0.6.12"
 panic-halt = "0.2.0"
 rtt-target = { version = "0.2.2", features = ["cortex-m"] }
 panic-rtt-target = { version = "0.1.1", features = ["cortex-m"] }
