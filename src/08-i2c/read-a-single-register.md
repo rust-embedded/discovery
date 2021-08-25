@@ -26,9 +26,9 @@ at address `0x4f` which contain some bit patterns that are unique to the device
 (The A is as in accelerometer and the M is as in magnetometer).
 
 The only thing missing now is the software part, i.e. which API of the `microbit`/the HAL
-crates we should use for this. However if you read through the datasheet of the nRF chip
+crates we should use for this. However, if you read through the datasheet of the nRF chip
 you are using you will soon find out that they don't actually have an I2C peripheral.
-Luckily for us though they have I2C compatible ones called TWI (Two Wire Interface)
+Luckily for us though, they have I2C-compatible ones called TWI (Two Wire Interface)
 and TWIM (depending on which chip you use, just like UART and UARTE).
 
 Now if we put the documentation of the `twi(m)` module from the `microbit` crate
@@ -39,11 +39,10 @@ piece of code to read out and print the two device IDs:
 {{#include src/main.rs}}
 ```
 
-Apart from the initilization this piece of code should be straight forward if you
+Apart from the initialization, this piece of code should be straight forward if you
 understood the I2C protocol as described before. The initilization here works similarly
-to the one from the UART chapter. First we pass the peripheral as well as the pins
-that are used to communicate with the cip to the constructor. The finaly parameter is
-the frequency we wish the bus to operate on, in this case 100 kHz (`K100`).
+to the one from the UART chapter.
+We pass the peripheral as well as the pins that are used to communicate with the chip to the constructor; and then the frequency we wish the bus to operate on, in this case 100 kHz (`K100`).
 
 ## Testing it
 As always you have to modify `Embed.toml` to fit your MCU and can then use:

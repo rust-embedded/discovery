@@ -36,7 +36,7 @@ fn main() {
 ```
 
 Because we already know how to create an instance of an object that implements
-the [embedded_hal::blocking::i2c] traits from the [last page](read-a-single-register.md) this is quite trivial:
+the [embedded_hal::blocking::i2c] traits from the [last page](read-a-single-register.md), this is quite trivial:
 
 [embedded_hal::blocking::i2c]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/blocking/i2c/index.html
 

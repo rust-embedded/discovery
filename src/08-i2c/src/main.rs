@@ -6,7 +6,7 @@ use cortex_m_rt::entry;
 use rtt_target::{rtt_init_print, rprintln};
 use panic_rtt_target as _;
 
-use microbit::hal::{prelude::*};
+use microbit::hal::prelude::*;
 
 #[cfg(feature = "v1")]
 use microbit::{
