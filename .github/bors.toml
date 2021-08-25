@@ -5,7 +5,7 @@ status = [
     "build-book",
     "build-chapter-microbit (05-led-roulette)",
     "build-chapter-microbit (07-uart)",
-    "build-chapter-old (08-i2c)",
+    "build-chapter-microbit (08-i2c)",
     "build-chapter-old (15-led-compass)",
     "build-chapter-microbit (10-punch-o-meter)",
 ]
