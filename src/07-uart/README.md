@@ -10,7 +10,7 @@ microcontroller and your computer.
 
 > **NOTE** that on the micro:bit v2 we will use the so called UARTE peripheral which behaves
 > just like a regular UART, except that the HAL has to talk to it in a different way.
-> However this will of course not be our concern.
+> However, this will of course not be our concern.
 
 ## Setup
 As always from now on you will have to modify the `Embed.toml` to match your micro:bit version:

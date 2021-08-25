@@ -73,7 +73,7 @@ as argument formatting and so on. If you are wondering how to do that, read on.
 ## `write!` and `core::fmt::Write`
 The `core::fmt::Write` trait allows us to use any struct that implements
 it in basically the same way as we use `print!` in the `std` world.
-In this case the `Uart` struct from the `nrf` HAL does implement `core::fmt::Write`
+In this case, the `Uart` struct from the `nrf` HAL does implement `core::fmt::Write`
 so we can refactor our previous program into this:
 
 ```rs
