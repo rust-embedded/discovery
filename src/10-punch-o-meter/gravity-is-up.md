@@ -4,30 +4,15 @@ What's the first thing we'll do?
 
 Perform a sanity check!
 
-The starter code prints the X, Y and Z components of the acceleration measured by the accelerometer.
-The values have already been "scaled" and have units of `g`s. Where `1 g` is equal to the
-acceleration of the gravity, about `9.8` meters per second squared.
+You should already be able to write a program that continiously prints the accelerometer
+data on the RTT console from the [I2C chapter](../08-i2c/index.md). Do you observe something
+interesting even when holding the board parallel to the floor with the LED side facing down?
 
-``` rust
-{{#include src/main.rs}}
-```
-
-The output of this program with the board sitting still will be something like:
-
-``` console
-$ # itmdump console
-(..)
-(0.0, 0.0, 1.078125)
-(0.0, 0.0, 1.078125)
-(0.0, 0.0, 1.171875)
-(0.0, 0.0, 1.03125)
-(0.0, 0.0, 1.078125)
-```
-
-Which is weird because the board is not moving yet its acceleration is non-zero. What's going on?
-This must be related to the gravity, right? Because the acceleration of gravity is `1 g`. But the
-gravity pulls objects downwards so the acceleration along the Z axis should be negative not positive
-...
+What you should see like this is that both the X and Y values are rather close to 0, while the
+Z value is at around 1000. Which is weird because the board is not moving yet its acceleration is
+non-zero. What's going on? This must be related to the gravity, right? Because the acceleration of
+gravity is `1 g` (aha, `1 g` = 1000 from the accelerometer). But the gravity pulls objects downwards
+so the acceleration along the Z axis should be negative not positive
 
 Did the program get the Z axis backwards? Nope, you can test rotating the board to align the gravity
 to the X or Y axis but the acceleration measured by the accelerometer is always pointing up.
