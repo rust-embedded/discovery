@@ -24,7 +24,7 @@
 - [UART](07-uart/README.md)
     - [Send a single byte](07-uart/send-a-single-byte.md)
     - [Send a string](07-uart/send-a-string.md)
-    - [Naive approach and `writeln!`](07-uart/naive-approch-writeln.md)
+    - [Naive approach and `write!`](07-uart/naive-approch-write.md)
     - [Receive a single byte](07-uart/receive-a-single-byte.md)
     - [Echo server](07-uart/echo-server.md)
     - [Reverse a string](07-uart/reverse-a-string.md)
