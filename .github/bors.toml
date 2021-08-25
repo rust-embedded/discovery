@@ -7,5 +7,5 @@ status = [
     "build-chapter-old (07-uart)",
     "build-chapter-old (08-i2c)",
     "build-chapter-old (15-led-compass)",
-    "build-chapter-old (16-punch-o-meter)",
+    "build-chapter-microbit (10-punch-o-meter)",
 ]
