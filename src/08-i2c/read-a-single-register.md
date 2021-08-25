@@ -31,9 +31,11 @@ you are using you will soon find out that they don't actually have an I2C periph
 Luckily for us though, they have I2C-compatible ones called TWI (Two Wire Interface)
 and TWIM (depending on which chip you use, just like UART and UARTE).
 
-Now if we put the documentation of the `twi(m)` module from the `microbit` crate
+Now if we put the documentation of the [`twi(m)` module] from the `microbit` crate
 together will all the other information we have gathered so far we'll end up with this
 piece of code to read out and print the two device IDs:
+
+[`twi(m)` module]: https://docs.rs/microbit-v2/0.10.1/microbit/hal/twim/index.html
 
 ``` rust
 {{#include src/main.rs}}
