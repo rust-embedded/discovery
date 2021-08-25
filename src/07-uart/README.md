@@ -13,7 +13,7 @@ microcontroller and your computer.
 > However this will of course not be our concern.
 
 ## Setup
-As always from now on you will have to modify the Embed.toml to match your micro:bit version:
+As always from now on you will have to modify the `Embed.toml` to match your micro:bit version:
 
 ```toml
 {{#include Embed.toml}}

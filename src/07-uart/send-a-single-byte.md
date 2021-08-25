@@ -14,13 +14,13 @@ parts of the code. This is mostly just because we want to work with a regular UA
 and with the UARTE for micro:bit v2.
 
 You will also have noticed that this is the first time we are including some code that is not from a library,
-namely the `serial_setup` module. Its only purpose is to provide a nice and usable wrapper around the UARTE
-so we can use it the exact same way as the UART via the [embedded_hal::serial] traits. If you want you can
+namely the `serial_setup` module. Its only purpose is to provide a nice wrapper around the UARTE
+so we can use it the exact same way as the UART via the [embedded_hal::serial] traits. If you want, you can
 check out what exactly the module does, but it is not required to understand this chapter in general.
 
 [embedded_hal::serial]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/serial/index.html
 
-Apart from those differences the initilization procedures for the UART and the UARTE are quite similar so we'll
+Apart from those differences, the initialization procedures for the UART and the UARTE are quite similar so we'll
 discuss the initilization of just UARTE. The UARTE is initialized with this piece of code:
 ```rs
 uarte::Uarte::new(
@@ -43,7 +43,7 @@ code that can conduct hardware operations in the background while we go and do o
 in this and many other cases we have no interest in doing some other work so we just call `block!` which will wait until
 the I/O operation is done and has either succeeded or failed and then continue execution normally.
 
-Last but not least we `flush()` the serial port. This is because an implementor of the `embedded-hal::serial` traits may
+Last but not least, we `flush()` the serial port. This is because an implementor of the `embedded-hal::serial` traits may
 decide to buffer output until it has received a certain number of bytes to send (this is the case with the UARTE implementation).
 Calling `flush()` forces it to write the bytes it currently has right now instead of waiting for more.
 
