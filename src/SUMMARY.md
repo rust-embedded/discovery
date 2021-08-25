@@ -24,7 +24,7 @@
 - [UART](07-uart/README.md)
     - [Send a single byte](07-uart/send-a-single-byte.md)
     - [Send a string](07-uart/send-a-string.md)
-    - [Naive approach and `writeln!`](07-uart/naive-approch-writeln.md)
+    - [Naive approach and `write!`](07-uart/naive-approch-write.md)
     - [Receive a single byte](07-uart/receive-a-single-byte.md)
     - [Echo server](07-uart/echo-server.md)
     - [Reverse a string](07-uart/reverse-a-string.md)
@@ -43,10 +43,10 @@
     - [Solution 2](15-led-compass/solution-2.md)
     - [Magnitude](15-led-compass/magnitude.md)
     - [Calibration](15-led-compass/calibration.md)
-- [Punch-o-meter](16-punch-o-meter/README.md)
-    - [Gravity is up?](16-punch-o-meter/gravity-is-up.md)
-    - [The challenge](16-punch-o-meter/the-challenge.md)
-    - [My solution](16-punch-o-meter/my-solution.md)
+- [Punch-o-meter](10-punch-o-meter/README.md)
+    - [Gravity is up?](10-punch-o-meter/gravity-is-up.md)
+    - [The challenge](10-punch-o-meter/the-challenge.md)
+    - [My solution](10-punch-o-meter/my-solution.md)
 - [What's left for you to explore](explore.md)
 
 ---
