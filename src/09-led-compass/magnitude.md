@@ -1,28 +1,17 @@
 # Magnitude
 
-We have been working with the direction of the magnetic field but what's its real magnitude? The
-number that the `magnetic_field` function reports are unit-less. How can we convert those values to
-Gauss?
-
-The documentation will answer that question.
-
-> Section 2.1 Sensor characteristics - Page 10 - LSM303DLHC Data Sheet
-
-The table in that page shows a *magnetic gain setting* that has different values according to the
-values of the GN bits. By default, those GN bits are set to `001`. That means that magnetic gain of
-the X and Y axes is `1100 LSB / Gauss` and the magnetic gain of the Z axis is `980 LSB / Gauss`. LSB
-stands for Least Significant Bits and the `1100 LSB / Gauss` number indicates that a reading of
-`1100` is equivalent to `1 Gauss`, a reading of `2200` is equivalent to 2 Gauss and so on.
-
-So, what we need to do is divide the X, Y and Z values that the sensor outputs by its corresponding
-*gain*. Then, we'll have the X, Y and Z components of the magnetic field in Gauss.
-
-With some extra math we can retrieve the magnitude of the magnetic field from its X, Y and Z
-components:
+We have been working with the direction of the magnetic field but what's its real magnitude?
+According to the documentation about the [`mag_data()`] function the x y z values we are
+getting are already in milli-gauss. That means the only thing we have to compute in order
+to get the magnitude of the magnetic field is the magnitude of the 3D vector that our x y z
+values describe. As you might remember from school this is simply:
 
 ``` rust
-let magnitude = (x * x + y * y + z * z).sqrt();
+let magnitude = sqrtf(x * x + y * y + z * z);
 ```
+
+[`mag_data()`]: https://docs.rs/lsm303agr/0.2.1/lsm303agr/struct.Lsm303agr.html#method.mag_data
+
 
 Putting all this together in a program:
 
@@ -31,29 +20,58 @@ Putting all this together in a program:
 #![no_main]
 #![no_std]
 
-#[allow(unused_imports)]
-use aux15::{entry, iprint, iprintln, prelude::*, I16x3};
-use m::Float;
+use cortex_m_rt::entry;
+use panic_rtt_target as _;
+use rtt_target::{rprintln, rtt_init_print};
+
+mod calibration;
+use crate::calibration::calc_calibration;
+use crate::calibration::calibrated_measurement;
+
+use libm::sqrtf;
+
+use microbit::{display::blocking::Display, hal::Timer};
+
+#[cfg(feature = "v1")]
+use microbit::{hal::twi, pac::twi0::frequency::FREQUENCY_A};
+
+#[cfg(feature = "v2")]
+use microbit::{hal::twim, pac::twim0::frequency::FREQUENCY_A};
+
+use lsm303agr::{AccelOutputDataRate, Lsm303agr, MagOutputDataRate};
 
 #[entry]
 fn main() -> ! {
-    const XY_GAIN: f32 = 1100.; // LSB / G
-    const Z_GAIN: f32 = 980.; // LSB / G
+    rtt_init_print!();
+    let board = microbit::Board::take().unwrap();
 
-    let (_leds, mut lsm303dlhc, mut delay, mut itm) = aux15::init();
+    #[cfg(feature = "v1")]
+    let i2c = { twi::Twi::new(board.TWI0, board.i2c.into(), FREQUENCY_A::K100) };
 
+    #[cfg(feature = "v2")]
+    let i2c = { twim::Twim::new(board.TWIM0, board.i2c_internal.into(), FREQUENCY_A::K100) };
+
+    let mut timer = Timer::new(board.TIMER0);
+    let mut display = Display::new(board.display_pins);
+
+    let mut sensor = Lsm303agr::new_with_i2c(i2c);
+    sensor.init().unwrap();
+    sensor.set_mag_odr(MagOutputDataRate::Hz10).unwrap();
+    sensor.set_accel_odr(AccelOutputDataRate::Hz10).unwrap();
+    let mut sensor = sensor.into_mag_continuous().ok().unwrap();
+
+    let calibration = calc_calibration(&mut sensor, &mut display, &mut timer);
+    rprintln!("Calibration: {:?}", calibration);
+    rprintln!("Calibration done, entering busy loop");
     loop {
-        let I16x3 { x, y, z } = lsm303dlhc.mag().unwrap();
-
-        let x = f32::from(x) / XY_GAIN;
-        let y = f32::from(y) / XY_GAIN;
-        let z = f32::from(z) / Z_GAIN;
-
-        let mag = (x * x + y * y + z * z).sqrt();
-
-        iprintln!(&mut itm.stim[0], "{} mG", mag * 1_000.);
-
-        delay.delay_ms(500_u16);
+        while !sensor.mag_status().unwrap().xyz_new_data {}
+        let mut data = sensor.mag_data().unwrap();
+        data = calibrated_measurement(data, &calibration);
+        let x = data.x as f32;
+        let y = data.y as f32;
+        let z = data.z as f32;
+        let magnitude = sqrtf(x * x + y * y + z * z);
+        rprintln!("{} nT, {} mG", magnitude, magnitude/100.0);
     }
 }
 ```
@@ -61,7 +79,7 @@ fn main() -> ! {
 This program will report the magnitude (strength) of the magnetic field in milligauss (`mG`). The
 magnitude of the Earth's magnetic field is in the range of `250 mG` to `650 mG` (the magnitude
 varies depending on your geographical location) so you should see a value in that range or close to
-that range -- I see a magnitude of around 210 mG.
+that range -- I see a magnitude of around 340 mG.
 
 Some questions:
 

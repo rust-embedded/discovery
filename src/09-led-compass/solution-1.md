@@ -6,33 +6,26 @@
 #![no_std]
 
 use cortex_m_rt::entry;
-use rtt_target::rtt_init_print;
-use rtt_target::rprintln;
 use panic_rtt_target as _;
+use rtt_target::{rprintln, rtt_init_print};
 
-use microbit::{
-    display::blocking::Display,
-    hal::Timer,
-};
-
-#[cfg(feature = "v1")]
-use microbit::{
-    hal::twi,
-    pac::twi0::frequency::FREQUENCY_A,
-};
-
-#[cfg(feature = "v2")]
-use microbit::{
-    hal::twim,
-    pac::twim0::frequency::FREQUENCY_A,
-};
-
-use lsm303agr::{
-    MagOutputDataRate, Lsm303agr,
-};
+mod calibration;
+use crate::calibration::calc_calibration;
+use crate::calibration::calibrated_measurement;
 
 mod led;
-use led::{Direction, direction_to_led};
+use crate::led::Direction;
+use crate::led::direction_to_led;
+
+use microbit::{display::blocking::Display, hal::Timer};
+
+#[cfg(feature = "v1")]
+use microbit::{hal::twi, pac::twi0::frequency::FREQUENCY_A};
+
+#[cfg(feature = "v2")]
+use microbit::{hal::twim, pac::twim0::frequency::FREQUENCY_A};
+
+use lsm303agr::{AccelOutputDataRate, Lsm303agr, MagOutputDataRate};
 
 #[entry]
 fn main() -> ! {
@@ -51,21 +44,26 @@ fn main() -> ! {
     let mut sensor = Lsm303agr::new_with_i2c(i2c);
     sensor.init().unwrap();
     sensor.set_mag_odr(MagOutputDataRate::Hz10).unwrap();
+    sensor.set_accel_odr(AccelOutputDataRate::Hz10).unwrap();
     let mut sensor = sensor.into_mag_continuous().ok().unwrap();
 
+    let calibration = calc_calibration(&mut sensor, &mut display, &mut timer);
+    rprintln!("Calibration: {:?}", calibration);
+    rprintln!("Calibration done, entering busy loop");
     loop {
-        while !sensor.mag_status().unwrap().xyz_new_data  {}
-        let data = sensor.mag_data().unwrap();
+        while !sensor.mag_status().unwrap().xyz_new_data {}
+        let mut data = sensor.mag_data().unwrap();
+        data = calibrated_measurement(data, &calibration);
 
         let dir = match (data.x > 0, data.y > 0) {
             // Quadrant I
-            (true, true) => Direction::SouthEast,
+            (true, true) => Direction::NorthEast,
             // Quadrant II
-            (false, true) => Direction::SouthWest,
+            (false, true) => Direction::NorthWest,
             // Quadrant III
-            (false, false) => Direction::NorthWest,
+            (false, false) => Direction::SouthWest,
             // Quadrant IV
-            (true, false) => Direction::NorthEast,
+            (true, false) => Direction::SouthEast,
         };
 
         // use the led module to turn the direction into an LED arrow
