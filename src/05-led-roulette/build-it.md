@@ -28,7 +28,11 @@ $ rustup target add thumbv6m-none-eabi
 ```
 
 You only need to do the above step once; `rustup` will re-install a new standard library
-(`rust-std` component) whenever you update your toolchain.
+(`rust-std` component) whenever you update your toolchain. Therefore you can skip this step, if you have already added the necessary target
+while [veryfing your setup].
+
+[veryfing your setup]: ../03-setup/verify.html#verifying-cargo-embed
+
 
 With the `rust-std` component in place you can now cross compile the program using Cargo:
 
