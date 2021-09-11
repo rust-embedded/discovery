@@ -7,28 +7,34 @@ future chapters.
 For any fully supported microcontroller/board with a microcontroller
 you will usually hear the following terms being used for their levels
 of abstraction:
-1. The Peripheral Access Crate (PAC), its job is to provide a safe (ish)
-   direct interface to the peripherals of the chip, allowing you to configure
-   every last bit however you want (of course also in wrong ways). Usually
-   you only ever have to deal with the PAC if either the layers that are
-   higher up don't fulfill your needs or when you are developing them.
-   The PAC we are (implicitly) going to use is either the one for the [nRF52]
-   or for the [nRF51].
-2. The Hardware Abstraction Layer (HAL), its job is to build up on top of
-   the chip's PAC and provide an abstraction that is actually usable for
-   someone who does not know about all the special behaviour of this chip.
-   Usually they abstract whole peripherals away into single structs that can
-   for example be used to send data around via the peripheral. We are
-   going to use the [nRF52-hal] or the [nRF51-hal] respectively.
-3. The Board Support Crate (historically called Board Support Package, or BSP), its job is to abstract a whole board
-   (such as the micro:bit) away at once. That means it has to provide
-   abstractions to use both the microcontroller as well als the sensors,
-   LEDs etc. that might be present on the board. Quite often (especially
-   with custom made boards) you will just be working with a HAL for the
-   chip and build the drivers for the sensors either yourself or
-   search for them on crates.io. Luckily for us though, the micro:bit
-   does actually have a [BSP] so we are going to use that on top of our
-   HAL as well.
+
+### Peripheral Access Crate (PAC)
+The job of the PAC is to provide a safe (ish) direct interface to the
+peripherals of the chip, allowing you to configure
+every last bit however you want (of course also in wrong ways). Usually
+you only ever have to deal with the PAC if either the layers that are
+higher up don't fulfill your needs or when you are developing them.
+The PAC we are (implicitly) going to use is either the one for the [nRF52]
+or for the [nRF51].
+
+### The Hardware Abstraction Layer (HAL)
+The job of the HAL is to build up on top of
+the chip's PAC and provide an abstraction that is actually usable for
+someone who does not know about all the special behaviour of this chip.
+Usually they abstract whole peripherals away into single structs that can
+for example be used to send data around via the peripheral. We are
+going to use the [nRF52-hal] or the [nRF51-hal] respectively.
+
+### The Board Support Crate (historically called Board Support Package, or BSP)
+The job of the BSP is to abstract a whole board
+(such as the micro:bit) away at once. That means it has to provide
+abstractions to use both the microcontroller as well als the sensors,
+LEDs etc. that might be present on the board. Quite often (especially
+with custom made boards) you will just be working with a HAL for the
+chip and build the drivers for the sensors either yourself or
+search for them on crates.io. Luckily for us though, the micro:bit
+does actually have a [BSP] so we are going to use that on top of our
+HAL as well.
 
 [nrF52]: https://crates.io/crates/nrf52833-pac
 [nrF51]: https://crates.io/crates/nrf51
