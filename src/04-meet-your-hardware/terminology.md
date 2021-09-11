@@ -39,21 +39,21 @@ of abstraction:
 ## Unifying the layers
 
 Next we are going to have a look at a very central piece of software
-in the Rust Embedded world: `[embedded-hal]`. As its name suggests it
+in the Rust Embedded world: [`embedded-hal`]. As its name suggests it
 relates to the 2nd level of abstraction we got to know: the HALs.
-The idea behind `[embedded-hal]` is to provide a set of traits that
+The idea behind [`embedded-hal`] is to provide a set of traits that
 describe behaviour which is usually shared across all implementations
 of a specific peripheral in all the HALs. For example one would always
 expect to have functions that are capable of turning the power on a pin
 either on or off. For example to switch an LED on and off on the board.
 This allows us to write a driver for, say a temperature sensor, that
-can be used on any chip for which an implementation of the `[embedded-hal]` traits exists,
+can be used on any chip for which an implementation of the [`embedded-hal`] traits exists,
 simply by writing the driver in such a way that it only relies on the
-`[embedded-hal]` traits. Drivers that are written in such a way are called
+[`embedded-hal`] traits. Drivers that are written in such a way are called
 platform agnostic and luckily for us most of the drivers on crates.io
 are actually platform agnostic.
 
-[embedded-hal]: https://crates.io/crates/embedded-hal
+[`embedded-hal`]: https://crates.io/crates/embedded-hal
 
 
 ## Further reading

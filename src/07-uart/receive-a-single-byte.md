@@ -1,7 +1,7 @@
 # Receive a single byte
 
-So far we have sending of data from the microcontroller to your computer working. It's time to try the opposite: receiving
-data from your computer. Luckily `embedded-hal` again got us covered with this one:
+So far we can send data from the microcontroller to your computer. It's time to try the opposite: receiving
+data from your computer. Luckily `embedded-hal` has again got us covered with this one:
 
 ``` rust
 #![no_main]
