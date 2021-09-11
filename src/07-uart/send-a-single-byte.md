@@ -32,9 +32,9 @@ uarte::Uarte::new(
 ```
 This function takes ownership of the UARTE peripheral representation in Rust (`board.UARTE0`) and the TX/RX pins
 on the board (`board.uart.into()`) so nobody else can mess with either the UARTE peripheral or our pins while
-we are using them. After that we pass two configuration options two the constructor: the baudrate (that one should be
-familiar) as well as an option called "parity". Parity is a way that allows serial communication lines to check whether
-the data they received was corrupted during transmission or not but we don't want to use that here so we simply exclude it.
+we are using them. After that we pass two configuration options to the constructor: the baudrate (that one should be
+familiar) as well as an option called "parity". Parity is a way to allow serial communication lines to check whether
+the data they received was corrupted during transmission. We don't want to use that here so we simply exclude it.
 Then we wrap it up in the `UartePort` type so we can use it the same way as the micro:bit v1's `serial`.
 
 After the initilization, we send our `X` via the newly created uart instance. The `block!` macro here is the `nb::block!`

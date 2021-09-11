@@ -32,7 +32,7 @@ Luckily for us though, they have I2C-compatible ones called TWI (Two Wire Interf
 and TWIM (depending on which chip you use, just like UART and UARTE).
 
 Now if we put the documentation of the [`twi(m)` module] from the `microbit` crate
-together will all the other information we have gathered so far we'll end up with this
+together with all the other information we have gathered so far we'll end up with this
 piece of code to read out and print the two device IDs:
 
 [`twi(m)` module]: https://docs.rs/microbit-v2/0.10.1/microbit/hal/twim/index.html
