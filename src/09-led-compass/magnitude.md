@@ -1,9 +1,9 @@
 # Magnitude
 
 We have been working with the direction of the magnetic field but what's its real magnitude?
-According to the documentation about the [`mag_data()`] function the x y z values we are
+According to the documentation about the [`mag_data()`] function the `x` `y` `z` values we are
 getting are already in milli-gauss. That means the only thing we have to compute in order
-to get the magnitude of the magnetic field is the magnitude of the 3D vector that our x y z
+to get the magnitude of the magnetic field is the magnitude of the 3D vector that our `x` `y` `z`
 values describe. As you might remember from school this is simply:
 
 ``` rust
