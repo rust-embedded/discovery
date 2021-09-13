@@ -5,8 +5,20 @@
 use cortex_m_rt::entry;
 use rtt_target::{rtt_init_print, rprintln};
 use panic_rtt_target as _;
-use nrf51_hal as hal;
-use hal::prelude::*;
+
+use microbit::hal::prelude::*;
+
+#[cfg(feature = "v1")]
+use microbit::{
+    hal::twi,
+    pac::twi0::frequency::FREQUENCY_A,
+};
+
+#[cfg(feature = "v2")]
+use microbit::{
+    hal::twim,
+    pac::twim0::frequency::FREQUENCY_A,
+};
 
 const ACCELEROMETER_ADDR: u8 = 0b0011001;
 const MAGNETOMETER_ADDR: u8 = 0b0011110;
@@ -17,19 +29,15 @@ const MAGNETOMETER_ID_REG: u8 = 0x4f;
 #[entry]
 fn main() -> ! {
     rtt_init_print!();
-    let p = hal::pac::Peripherals::take().unwrap();
+    let board = microbit::Board::take().unwrap();
 
-    let p0 = hal::gpio::p0::Parts::new(p.GPIO);
-    let scl = p0.p0_00.into_floating_input().degrade();
-    let sda = p0.p0_30.into_floating_input().degrade();
 
-    let pins = hal::twi::Pins {
-        scl,
-        sda,
-    };
+    #[cfg(feature = "v1")]
+    let mut i2c = { twi::Twi::new(board.TWI0, board.i2c.into(), FREQUENCY_A::K100) };
 
-    // Use a frequency of 100 khz for the bus
-    let mut i2c = hal::twi::Twi::new(p.TWI1, pins, hal::pac::twi0::frequency::FREQUENCY_A::K100);
+    #[cfg(feature = "v2")]
+    let mut i2c = { twim::Twim::new(board.TWIM0, board.i2c_internal.into(), FREQUENCY_A::K100) };
+
     let mut acc = [0];
     let mut mag = [0];
 

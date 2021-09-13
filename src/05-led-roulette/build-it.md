@@ -28,7 +28,11 @@ $ rustup target add thumbv6m-none-eabi
 ```
 
 You only need to do the above step once; `rustup` will re-install a new standard library
-(`rust-std` component) whenever you update your toolchain.
+(`rust-std` component) whenever you update your toolchain. Therefore you can skip this step, if you have already added the necessary target
+while [veryfing your setup].
+
+[veryfing your setup]: ../03-setup/verify.html#verifying-cargo-embed
+
 
 With the `rust-std` component in place you can now cross compile the program using Cargo:
 
@@ -64,7 +68,7 @@ As a sanity check, let's verify that the produced executable is actually an ARM 
 ``` console
 # For micro:bit v2
 # equivalent to `readelf -h target/thumbv7em-none-eabihf/debug/led-roulette`
-$ cargo readobj --features v2 --target thumbv7em-none-eabihf --bin led-roulette -- -file-headers
+$ cargo readobj --features v2 --target thumbv7em-none-eabihf --bin led-roulette -- --file-headers
     Finished dev [unoptimized + debuginfo] target(s) in 0.01s
 ELF Header:
   Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00
@@ -89,7 +93,7 @@ ELF Header:
 
 # For micro:bit v1
 # equivalent to `readelf -h target/thumbv6m-none-eabi/debug/led-roulette`
-$ cargo readobj --features v1 --target thumbv6m-none-eabi --bin led-roulette -- -file-headers
+$ cargo readobj --features v1 --target thumbv6m-none-eabi --bin led-roulette -- --file-headers
     Finished dev [unoptimized + debuginfo] target(s) in 0.01s
 ELF Header:
   Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00

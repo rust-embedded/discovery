@@ -13,7 +13,10 @@ jobs:
       matrix:
         chapter:
           - 05-led-roulette
+          - 07-uart
+          - 08-i2c
           - 09-led-compass
+          - 10-punch-o-meter
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
@@ -32,31 +35,6 @@ jobs:
       - name: Build chapter micro:bit v2
         working-directory: src/${{ matrix.chapter }}
         run: cargo build --features v2 --target thumbv7em-none-eabihf
-  # Until everything is microbit
-  build-chapter-old:
-    runs-on: ubuntu-20.04
-    strategy:
-      matrix:
-        chapter:
-          - 07-uart
-          - 08-i2c
-          - 16-punch-o-meter
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          target: thumbv6m-none-eabi
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          target: thumbv7em-none-eabihf
-      - name: Build chapter
-        working-directory: src/${{ matrix.chapter }}
-        run: cargo build
-
   # Build the book HTML itself and optionally publish it.
   build-book:
     runs-on: ubuntu-20.04
