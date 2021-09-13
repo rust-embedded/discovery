@@ -7,6 +7,9 @@ to get the magnitude of the magnetic field is the magnitude of the 3D vector tha
 values describe. As you might remember from school this is simply:
 
 ``` rust
+// core doesn't have this function yet so we use libm, just like with
+// atan2f from before.
+use libm::sqrtf;
 let magnitude = sqrtf(x * x + y * y + z * z);
 ```
 
