@@ -113,7 +113,7 @@ hello_world::__cortex_m_rt_main () at ~/embedded-discovery/src/06-hello-world/sr
 (gdb)
 ```
 
-Now issue a `next` command which will exectue `aux6::init()` and
+Now issue a `next` command which will execute `aux6::init()` and
 stop at the next executable statement in `main.rs`, which
 positions us at line 12:
 
