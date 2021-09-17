@@ -5,7 +5,7 @@ In the last section, I gave you *initialized* (configured) peripherals (I initia
 are not *initialized* right after the microcontroller boots.
 
 In this section, you'll have more fun with registers. I won't do any initialization and you'll have
-to initialize configure `GPIOE` pins as digital outputs pins so that you'll be able to drive LEDs
+to initialize and configure `GPIOE` pins as digital outputs pins so that you'll be able to drive LEDs
 again.
 
 This is the starter code.
