@@ -2,8 +2,8 @@
 
 We have been working with the direction of the magnetic field but what's its real magnitude?
 According to the documentation about the [`mag_data()`] function the `x` `y` `z` values we are
-getting are already in milli-gauss. That means the only thing we have to compute in order
-to get the magnitude of the magnetic field is the magnitude of the 3D vector that our `x` `y` `z`
+getting are in nanotesla. That means the only thing we have to compute in order to get the
+magnitude of the magnetic field in nanotesla is the magnitude of the 3D vector that our `x` `y` `z`
 values describe. As you might remember from school this is simply:
 
 ``` rust
@@ -79,10 +79,10 @@ fn main() -> ! {
 }
 ```
 
-This program will report the magnitude (strength) of the magnetic field in milligauss (`mG`). The
+This program will report the magnitude (strength) of the magnetic field in nanotesla (`nT`) and milligauss (`mG`). The
 magnitude of the Earth's magnetic field is in the range of `250 mG` to `650 mG` (the magnitude
 varies depending on your geographical location) so you should see a value in that range or close to
-that range -- I see a magnitude of around 340 mG.
+that range -- I see a magnitude of around `340 mG`.
 
 Some questions:
 
