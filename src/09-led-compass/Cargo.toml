@@ -5,13 +5,13 @@ authors = ["Henrik Böving <hargonix@gmail.com>"]
 edition = "2018"
 
 [dependencies.microbit-v2]
-version = "0.10.1"
+version = "0.11.0"
 git = "https://github.com/nrf-rs/microbit/"
 optional = true
 
 
 [dependencies.microbit]
-version = "0.10.1"
+version = "0.11.0"
 git = "https://github.com/nrf-rs/microbit/"
 optional = true
 
