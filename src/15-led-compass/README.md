@@ -21,6 +21,8 @@ Let's get familiar with the readings of the magnetometer by running the followin
 ``` rust
 {{#include src/main.rs}}
 ```
+**NOTE:** If you have a newer version of the board, lsm303dlhc might not work for you use this [link](https://github.com/NitinSaxenait/compass_lsm303agr/blob/master/src/main.rs) to get the solution using
+lsm303agr package.
 
 This `lsm303dlhc` module provides high level API over the LSM303DLHC. Under the hood it does the
 same I2C routine that you implemented in the last section but it reports the X, Y and Z values in a
