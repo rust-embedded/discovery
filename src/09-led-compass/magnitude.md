@@ -13,7 +13,7 @@ use libm::sqrtf;
 let magnitude = sqrtf(x * x + y * y + z * z);
 ```
 
-[`mag_data()`]: https://docs.rs/lsm303agr/0.2.1/lsm303agr/struct.Lsm303agr.html#method.mag_data
+[`mag_data()`]: https://docs.rs/lsm303agr/0.2.2/lsm303agr/struct.Lsm303agr.html#method.mag_data
 
 
 Putting all this together in a program:
