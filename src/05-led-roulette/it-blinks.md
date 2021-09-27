@@ -36,7 +36,7 @@ fn main() -> ! {
     let mut timer = Timer::new(board.TIMER0);
 
     loop {
-        timer.delay_ms(1000u32);
+        timer.delay_ms(1000u16);
         rprintln!("1000 ms passed");
     }
 }
