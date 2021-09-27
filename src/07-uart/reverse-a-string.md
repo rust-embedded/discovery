@@ -6,7 +6,7 @@ ENTER key. Each server response will be in a new line.
 
 This time you'll need a buffer; you can use [`heapless::Vec`]. Here's the starter code:
 
-[`heapless::Vec`]: https://docs.rs/heapless/0.5.6/heapless/struct.Vec.html
+[`heapless::Vec`]: https://docs.rs/heapless/0.7.7/heapless/struct.Vec.html
 
 ``` rust
 #![no_main]

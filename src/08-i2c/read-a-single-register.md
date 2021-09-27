@@ -35,7 +35,7 @@ Now if we put the documentation of the [`twi(m)` module] from the `microbit` cra
 together with all the other information we have gathered so far we'll end up with this
 piece of code to read out and print the two device IDs:
 
-[`twi(m)` module]: https://docs.rs/microbit-v2/0.10.1/microbit/hal/twim/index.html
+[`twi(m)` module]: https://docs.rs/microbit-v2/0.11.0/microbit/hal/twim/index.html
 
 ``` rust
 {{#include src/main.rs}}
