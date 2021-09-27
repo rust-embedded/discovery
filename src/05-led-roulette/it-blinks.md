@@ -6,11 +6,11 @@ before combining this with the GPIO abstractions from the previous chapter in or
 finally make an LED blink.
 
 `embedded-hal` provides us with two abstractions to delay the execution of our program:
-[DelayUs] and [DelayMs]. Both of them essentially work the exact same way except
+[`DelayUs`] and [`DelayMs`]. Both of them essentially work the exact same way except
 that they accept different units for their delay function.
 
-[DelayUs]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/blocking/delay/trait.DelayUs.html
-[DelayMs]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/blocking/delay/trait.DelayMs.html
+[`DelayUs`]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/blocking/delay/trait.DelayUs.html
+[`DelayMs`]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/blocking/delay/trait.DelayMs.html
 
 Inside of our MCU, several so-called "timers" exist. They can do various things regarding time for us,
 including simply pausing the execution of our program for a fixed amount of time. A very
