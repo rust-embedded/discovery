@@ -15,10 +15,10 @@ and with the UARTE for micro:bit v2.
 
 You will also have noticed that this is the first time we are including some code that is not from a library,
 namely the `serial_setup` module. Its only purpose is to provide a nice wrapper around the UARTE
-so we can use it the exact same way as the UART via the [embedded_hal::serial] traits. If you want, you can
+so we can use it the exact same way as the UART via the [`embedded_hal::serial`] traits. If you want, you can
 check out what exactly the module does, but it is not required to understand this chapter in general.
 
-[embedded_hal::serial]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/serial/index.html
+[`embedded_hal::serial`]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/serial/index.html
 
 Apart from those differences, the initialization procedures for the UART and the UARTE are quite similar so we'll
 discuss the initilization of just UARTE. The UARTE is initialized with this piece of code:

@@ -23,6 +23,6 @@ Give it a try and let me know how hard you can punch `;-)`.
   we have seen in previous chapters.
 
 
-[`set_accel_scale`]: https://docs.rs/lsm303agr/0.2.0/lsm303agr/struct.Lsm303agr.html#method.set_accel_scale
+[`set_accel_scale`]: https://docs.rs/lsm303agr/0.2.2/lsm303agr/struct.Lsm303agr.html#method.set_accel_scale
 [`Countdown`]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/timer/trait.CountDown.html
 [`nb::Result`]: https://docs.rs/nb/1.0.0/nb/type.Result.html

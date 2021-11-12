@@ -48,10 +48,10 @@ Trust me on this one.
 > **FAQ**: Can I follow this material with a different development board?
 
 Maybe? It depends mainly on two things: your previous experience with microcontrollers and/or
-whether a high level crate already exists, like the [nrf52-hal], for your development board
+whether a high level crate already exists, like the [`nrf52-hal`], for your development board
 somewhere.
 
-[nrf52-hal]: https://docs.rs/nrf52-hal
+[`nrf52-hal`]: https://docs.rs/nrf52-hal
 
 With a different development board, this text would lose most if not all its beginner friendliness
 and "easy to follow"-ness, IMO.

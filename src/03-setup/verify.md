@@ -21,7 +21,7 @@ In my case, the micro:bit got connected to the bus #1 and got enumerated as the 
 file `/dev/bus/usb/001/065` *is* the micro:bit. Let's check its permissions:
 
 ``` console
-$ ls -l /dev/bus/usb/003/004
+$ ls -l /dev/bus/usb/001/065
 crw-rw-rw-. 1 root root 189, 64 Sep  5 14:27 /dev/bus/usb/001/065
 ```
 
