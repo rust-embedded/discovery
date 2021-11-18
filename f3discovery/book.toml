@@ -5,4 +5,5 @@ author = "Rust Embedded Resources Team"
 language = "en"
 
 [output.html]
+additional-css = ["custom.css"]
 git-repository-url = "https://github.com/rust-embedded/discovery/"

@@ -6,8 +6,8 @@ on:
   pull_request:
 
 jobs:
-  # Check a build succeeds for each chapter that contains example code.
-  build-chapter:
+  # Check build succeeds for each f3discovery chapter containing example code.
+  build-f3discovery-chapter:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
@@ -29,14 +29,14 @@ jobs:
           toolchain: stable
           target: thumbv7em-none-eabihf
       - name: Build chapter
-        working-directory: src/${{ matrix.chapter }}
+        working-directory: f3discovery/src/${{ matrix.chapter }}
         run: cargo build --target thumbv7em-none-eabihf
       - name: Build chapter examples
-        working-directory: src/${{ matrix.chapter }}
+        working-directory: f3discovery/src/${{ matrix.chapter }}
         run: cargo build --target thumbv7em-none-eabihf --examples
 
-  # Check a build succeeds for docs.
-  build-doc:
+  # Check build succeeds for f3discovery docs.
+  build-f3discovery-doc:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -47,6 +47,7 @@ jobs:
           target: thumbv7em-none-eabihf
       - name: Build docs
         run: cargo doc
+        working-direcotry: f3discovery
 
   # Build the book HTML itself and optionally publish it.
   build-book:
@@ -85,10 +86,20 @@ jobs:
       - name: Put new cargo binary directory into path
         run: echo "~/cargo-bin" >> $GITHUB_PATH
 
-      - name: Build book
+      - name: Build f3discovery book
+        working-direcotry: f3discovery
         run: mkdir target && mdbook build
       - name: Check links
+        working-directory: f3discovery
         run: linkchecker book
+
+      - name: Build front page
+        run: mdbook build
+      - name: Check links
+        run: linkchecker book
+
+      - name: Collect books
+        run: mv f3discovery/book book/f3discovery
 
       - name: Deploy book
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}

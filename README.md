@@ -1,9 +1,15 @@
 # `Discovery`
 
-Discover the world of microcontrollers through
-[Rust](https://www.rust-lang.org/):
+Discover the world of microcontrollers through [Rust](https://www.rust-lang.org/)!
 
-- Read this book on-line at https://docs.rust-embedded.org/discovery/
+There are currently two versions of this book. The first is older and uses an
+F3 Discovery circuit board to introduce you to microcontrollers and Rust, while
+the second is newer and uses a micro:bit circuit board instead.
+
+- Read the newer book, using a micro:bit:
+  https://docs.rust-embedded.org/discovery/microbit
+- Read the older book, using an F3 discovery board:
+  https://docs.rust-embedded.org/discovery/f3discovery
 - Start working on the examples from this repository
 - You've got questions?
     - Have a look at our [discussions section on
