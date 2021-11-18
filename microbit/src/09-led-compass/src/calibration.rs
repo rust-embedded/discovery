@@ -1,4 +1,4 @@
-//! Translated from https://github.com/lancaster-university/codal-microbit-v2/blob/006abf5566774fbcf674c0c7df27e8a9d20013de/source/MicroBitCompassCalibrator.cpp
+//! Translated from <https://github.com/lancaster-university/codal-microbit-v2/blob/006abf5566774fbcf674c0c7df27e8a9d20013de/source/MicroBitCompassCalibrator.cpp>
 
 use core::fmt::Debug;
 use embedded_hal::blocking::delay::DelayUs;

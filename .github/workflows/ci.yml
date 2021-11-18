@@ -67,11 +67,7 @@ jobs:
           profile: minimal
           toolchain: stable
           target: thumbv6m-none-eabi
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          target: thumbv7em-none-eabihf
+      - run: rustup target add thumbv7em-none-eabihf
       - name: Build chapter micro:bit v1
         working-directory: microbit/src/${{ matrix.chapter }}
         run: cargo build --features v1 --target thumbv6m-none-eabi
@@ -89,8 +85,12 @@ jobs:
           profile: minimal
           toolchain: stable
           target: thumbv6m-none-eabi
-      - name: Build docs
-        run: cargo doc
+      - run: rustup target add thumbv7em-none-eabihf
+      - name: Build docs for micro:bit v1
+        run: cargo doc --features v1
+        working-directory: microbit
+      - name: Build docs for micro:bit v2
+        run: cargo doc --features v2
         working-directory: microbit
 
   # Build the book HTML itself and optionally publish it.
