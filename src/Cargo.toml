@@ -1,0 +1,14 @@
+[workspace]
+members = [
+  "src/03-setup",
+  "src/05-led-roulette",
+  "src/07-uart",
+  "src/08-i2c",
+  "src/09-led-compass",
+  "src/10-punch-o-meter",
+]
+
+[profile.release]
+codegen-units = 1
+debug = true
+lto = true

@@ -49,6 +49,50 @@ jobs:
         run: cargo doc
         working-direcotry: f3discovery
 
+  # Check a build succeeds for each microbit chapter that contains example code.
+  build-microbit-chapter:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        chapter:
+          - 05-led-roulette
+          - 07-uart
+          - 08-i2c
+          - 09-led-compass
+          - 10-punch-o-meter
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: thumbv6m-none-eabi
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: thumbv7em-none-eabihf
+      - name: Build chapter micro:bit v1
+        working-directory: microbit/src/${{ matrix.chapter }}
+        run: cargo build --features v1 --target thumbv6m-none-eabi
+      - name: Build chapter micro:bit v2
+        working-directory: microbit/src/${{ matrix.chapter }}
+        run: cargo build --features v2 --target thumbv7em-none-eabihf
+
+  # Check build succeeds for microbit docs.
+  build-microbit-doc:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: thumbv6m-none-eabi
+      - name: Build docs
+        run: cargo doc
+        working-direcotry: microbit
+
   # Build the book HTML itself and optionally publish it.
   build-book:
     runs-on: ubuntu-20.04
@@ -59,6 +103,7 @@ jobs:
           profile: minimal
           toolchain: stable
           target: thumbv7em-none-eabihf
+      - run: rustup target add thumbv6m-none-eabi
 
       - name: Install Python dependencies
         run: |
@@ -87,11 +132,18 @@ jobs:
         run: echo "~/cargo-bin" >> $GITHUB_PATH
 
       - name: Build f3discovery book
-        working-direcotry: f3discovery
-        run: mkdir target && mdbook build
-      - name: Check links
         working-directory: f3discovery
-        run: linkchecker book
+        run: mkdir target && mdbook build
+      - name: Check microbit links
+        working-directory: f3discovery
+        run: linkchecker --ignore-url "print.html" book
+
+      - name: Build microbit book
+        working-directory: microbit
+        run: mkdir target && mdbook build
+      - name: Check microbit links
+        working-directory: microbit
+        run: linkchecker --ignore-url "print.html" book
 
       - name: Build front page
         run: mdbook build
@@ -99,7 +151,9 @@ jobs:
         run: linkchecker book
 
       - name: Collect books
-        run: mv f3discovery/book book/f3discovery
+        run: |
+          mv f3discovery/book book/f3discovery
+          mv microbit/book book/microbit
 
       - name: Deploy book
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}

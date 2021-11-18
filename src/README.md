@@ -54,5 +54,49 @@ Contribution to this crate is organized under the terms of the [Rust Code of
 Conduct][CoC], the maintainer of this crate, the [Resources team][team], promises
 to intervene to uphold that code of conduct.
 
+<<<<<<< HEAD
 [CoC]: CODE_OF_CONDUCT.md
 [team]: https://github.com/rust-embedded/wg#the-resources-team
+=======
+- Teaching Rust. There's plenty of material on that topic already. We'll focus on microcontrollers
+  and embedded systems.
+
+- Being a comprehensive text about electric circuit theory or electronics. We'll just cover the
+  minimum required to understand how some devices work.
+
+- Covering details such as linker scripts and the boot process. For example, we'll use existing tools
+  to help get your code onto your board, but not go into detail about how those tools work.
+
+Also I don't intend to port this material to other development boards; this book will make exclusive
+use of the micro:bit development board.
+
+## Reporting problems
+
+The source of this book is in [this repository]. If you encounter any typo or problem with the code
+report it on the [issue tracker].
+
+[this repository]: https://github.com/rust-embedded/discovery
+[issue tracker]: https://github.com/rust-embedded/discovery/issues
+
+## Other embedded Rust resources
+
+This Discovery book is just one of several embedded Rust resources provided by the
+[Embedded Working Group]. The full selection can be found at [The Embedded Rust Bookshelf]. This
+includes the list of [Frequently Asked Questions].
+
+[Embedded Working Group]: https://github.com/rust-embedded/wg
+[The Embedded Rust Bookshelf]: https://docs.rust-embedded.org
+[Frequently Asked Questions]: https://docs.rust-embedded.org/faq.html
+
+## Sponsored by
+
+<p align="center">
+<a href="http://integer32.com/">
+<img style="width: 50%" title="integer 32" src="assets/integer32.svg">
+</a>
+</p>
+
+Many thanks to [integer 32](http://integer32.com/) for sponsoring me to work on this book! Please
+give them lots of work (they do Rust consulting!) so they'll have no choice but to hire more
+Rustaceans <3.
+>>>>>>> rewrite
