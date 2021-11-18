@@ -47,7 +47,7 @@ jobs:
           target: thumbv7em-none-eabihf
       - name: Build docs
         run: cargo doc
-        working-direcotry: f3discovery
+        working-directory: f3discovery
 
   # Check a build succeeds for each microbit chapter that contains example code.
   build-microbit-chapter:
@@ -91,7 +91,7 @@ jobs:
           target: thumbv6m-none-eabi
       - name: Build docs
         run: cargo doc
-        working-direcotry: microbit
+        working-directory: microbit
 
   # Build the book HTML itself and optionally publish it.
   build-book:
