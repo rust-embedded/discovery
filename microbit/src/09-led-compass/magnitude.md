@@ -1,6 +1,6 @@
 # Magnitude
 
-We have been working with the direction of the magnetic field but what's its real magnitude?
+We have been working with the direction of the magnetic field but what is its real magnitude?
 According to the documentation about the [`mag_data()`] function the `x` `y` `z` values we are
 getting are in nanotesla. That means the only thing we have to compute in order to get the
 magnitude of the magnetic field in nanotesla is the magnitude of the 3D vector that our `x` `y` `z`

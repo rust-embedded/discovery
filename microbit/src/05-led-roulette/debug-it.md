@@ -27,7 +27,7 @@ $ gdb target/thumbv6m-none-eabi/debug/led-roulette
 > check out [chapter 3](/03-setup/README.md#tools) if you forgot which one it was.
 
 > **NOTE**: If `cargo-embed` prints a lot of warnings here don't worry about it. As of now it does not fully
-> implement the GDB protocol and thus might not recognize all of the commands your GDB is sending to it,
+> implement the GDB protocol and thus might not recognize all the commands your GDB is sending to it,
 > as long as it does not crash, you are fine.
 
 Next we will have to connect to the GDB stub. It runs on `localhost:1337` per default so in order to
@@ -60,7 +60,7 @@ program run freely *until* it reaches a breakpoint. In this case, until it reach
 function because there's a breakpoint there.
 
 Note that GDB output says "Breakpoint 1". Remember that our processor can only use a limited amount of these
-breakpoints so it's a good idea to pay attention to these messages. If you happen to run out of breakpoints,
+breakpoints, so it's a good idea to pay attention to these messages. If you happen to run out of breakpoints,
 you can list all the current ones with `info break` and delete desired ones with `delete <breakpoint-num>`.
 
 For a nicer debugging experience, we'll be using GDB's Text User Interface (TUI). To enter into that
@@ -206,7 +206,7 @@ beginning.
 
 > **The fine print**: This `reset` command doesn't clear or touch RAM. That memory will retain its
 > values from the previous run. That shouldn't be a problem though, unless your program behavior
-> depends of the value of *uninitialized* variables but that's the definition of Undefined Behavior
+> depends on the value of *uninitialized* variables but that's the definition of Undefined Behavior
 > (UB).
 
 We are done with this debug session. You can end it with the `quit` command.

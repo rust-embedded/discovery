@@ -1,6 +1,6 @@
 # macOS
 
-All the tools can be install using [Homebrew]:
+All the tools can be installed using [Homebrew]:
 
 [Homebrew]: http://brew.sh/
 

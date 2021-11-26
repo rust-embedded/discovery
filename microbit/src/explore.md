@@ -40,7 +40,7 @@ its execution.
 ### Sleeping
 
 All our programs have been continuously polling peripherals to see if there's
-anything that needs to be done. However, some times there's nothing to be done!
+anything that needs to be done. However, sometimes there's nothing to be done!
 At those times, the microcontroller should "sleep".
 
 When the processor sleeps, it stops executing instructions and this saves power.
@@ -52,7 +52,7 @@ and the `wfi` and `wfe` are the instructions that make the processor "sleep".
 
 ## Topics related to microcontroller capabilities
 
-Microcontrollers (like our nRF52/nRF51) have many different capabilities. However, many share similar
+Microcontrollers (like our nRF52/nRF51) have many capabilities. However, many share similar
 capabilities that can be used to solve all sorts of different problems.
 
 These topics discuss some of those capabilities, and how they can be used effectively
@@ -124,18 +124,18 @@ Again digital inputs are abstracted within the [`embedded-hal` `InputPin` trait]
 and of course the [`nrf52-hal`] does have an implementation for them.
 
 (*spoilers* reading the binary state of switches / buttons is not as
-straightforward as it sounds ;-)
+straightforward as it sounds ;-) )
 
 [`embedded-hal` `InputPin` trait]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/digital/v2/trait.InputPin.html
 
 ### Analog-to-Digital Converters (ADC)
 
-There are a lots of digital sensors out there. You can use a protocol like I2C
+There are a lot of digital sensors out there. You can use a protocol like I2C
 and SPI to read them. But analog sensors also exist! These sensors just output a
 voltage level that's proportional to the magnitude they are sensing.
 
-The ADC peripheral can be use to convert that "analog" voltage level, say `1.25`
-Volts,into a "digital" number, say in the `[0, 65535]` range, that the processor
+The ADC peripheral can be used to convert that "analog" voltage level, say `1.25`
+Volts, into a "digital" number, say in the `[0, 65535]` range, that the processor
 can use in its calculations.
 
 Again the [`embedded-hal` `adc` module] as well as the [`nrf52-hal`] got you covered.
@@ -176,7 +176,7 @@ Daylight Save Time for you!
 [`rubble`]: https://github.com/jonas-schievink/rubble
 
 Different applications use different communication protocols. User facing
-applications usually have an USB connector because USB is an ubiquitous
+applications usually have a USB connector because USB is a ubiquitous
 protocol in PCs and smartphones. Whereas inside cars you'll find plenty of CAN
 "buses". Some digital sensors use SPI, others use I2C and others, SMBUS.
 
@@ -194,8 +194,8 @@ systems.
 ### Gyroscopes
 
 As part of our Punch-o-meter exercise, we used the Accelerometer to measure
-changes in acceleration in three dimensions. But there are also other motion
-sensors such as gryoscopes, which allows us to measure changes in "spin" in three
+changes in acceleration in three dimensions. But there are other motion
+sensors such as gyroscopes, which allows us to measure changes in "spin" in three
 dimensions.
 
 This can be very useful when trying to build certain systems, such as a robot

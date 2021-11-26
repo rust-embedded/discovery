@@ -9,7 +9,7 @@ Throughout this chapter, we'll use serial communication to exchange information 
 microcontroller and your computer.
 
 > **NOTE** that on the micro:bit v2 we will use the so called UARTE peripheral which behaves
-> just like a regular UART, except that the HAL has to talk to it in a different way.
+> just like a regular UART, except that the HAL has to talk to it differently.
 > However, this will of course not be our concern.
 
 ## Setup

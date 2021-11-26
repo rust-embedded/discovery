@@ -41,7 +41,7 @@ as well. This directory contains a Cargo configuration file (`.cargo/config`) th
 linking process to tailor the memory layout of the program to the requirements of the target device.
 This modified linking process is a requirement of the `cortex-m-rt` crate.
 
-Furthermore there is also an `Embed.toml` file
+Furthermore, there is also an `Embed.toml` file
 
 ```toml
 {{#include Embed.toml}}

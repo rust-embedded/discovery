@@ -4,7 +4,7 @@ What's the first thing we'll do?
 
 Perform a sanity check!
 
-You should already be able to write a program that continiously prints the accelerometer
+You should already be able to write a program that continuously prints the accelerometer
 data on the RTT console from the [I2C chapter](../08-i2c/index.md). Do you observe something
 interesting even when holding the board parallel to the floor with the LED side facing down?
 
@@ -19,8 +19,8 @@ to the X or Y axis but the acceleration measured by the accelerometer is always 
 
 What happens here is that the accelerometer is measuring the *proper acceleration* of the board not
 the acceleration *you* are observing. This proper acceleration is the acceleration of the board as
-seen from a observer that's in free fall. An observer that's in free fall is moving toward the
-center of the the Earth with an acceleration of `1g`; from its point of view the board is actually
+seen from an observer that's in free fall. An observer that's in free fall is moving toward the
+center of the Earth with an acceleration of `1g`; from its point of view the board is actually
 moving upwards (away from the center of the Earth) with an acceleration of `1g`. And that's why the
 proper acceleration is pointing up. This also means that if the board was in free fall, the
 accelerometer would report a proper acceleration of zero. Please, don't try that at home.

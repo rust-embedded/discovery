@@ -10,11 +10,11 @@ look at a compass you always hold it in horizontal position and thus the compass
 </p>
 
 If we only looked at the signs of the X and Y components we could determine to which quadrant the
-magnetic field belongs to. Now the question of course is which direction (north, north east, etc.)
+magnetic field belongs to. Now the question of course is which direction (north, north-east, etc.)
 do the 4 quadrants represent. In order to figure this out we can just rotate the micro:bit and observe
 how the quadrant changes whenever we point in another direction.
 
-After experimenting a bit we can find out that if we point the micro:bit in e.g. north east direction,
+After experimenting a bit we can find out that if we point the micro:bit in e.g. north-east direction,
 both the X and the Y component are always positive. Based on this information you should be able to
 figure out which direction the other quadrants represent.
 

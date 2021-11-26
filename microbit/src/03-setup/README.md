@@ -1,11 +1,11 @@
 # Setting up a development environment
 
 Dealing with microcontrollers involves several tools as we'll be dealing with an architecture
-different than your computer's and we'll have to run and debug programs on a "remote" device.
+different from your computer's and we'll have to run and debug programs on a "remote" device.
 
 ## Documentation
 
-Tooling is not everything though. Without documentation it is pretty much impossible to work with
+Tooling is not everything though. Without documentation, it is pretty much impossible to work with
 microcontrollers.
 
 We'll be referring to all these documents throughout this book:
@@ -23,7 +23,7 @@ should work but we have listed the version we have tested.
 
 - `gdb-multiarch`. Tested version: 10.2. Other versions will most likely work as well though
   If your distribution/platform does not have `gdb-multiarch` available `arm-none-eabi-gdb`
-  will do the trick as well. Furthermore some normal `gdb` binaries are built with multiarch
+  will do the trick as well. Furthermore, some normal `gdb` binaries are built with multiarch
   capabilities as well, you can find further information about this in the sub chapters.
 
 - [`cargo-binutils`]. Version 0.3.3 or newer.
@@ -45,7 +45,7 @@ Next, follow OS-agnostic installation instructions for a few of the tools:
 Install rustup by following the instructions at [https://rustup.rs](https://rustup.rs).
 
 If you already have rustup installed double check that you are on the stable
-channel and your stable toolchain is up to date. `rustc -V` should return a date
+channel and your stable toolchain is up-to-date. `rustc -V` should return a date
 newer than the one shown below:
 
 ``` console
@@ -77,7 +77,7 @@ git commit: crates.io
 ### This repository
 
 Since this book also contains some small Rust code bases used in various chapters
-you will also have to download its the source code. You can do this in one of the following ways:
+you will also have to download its source code. You can do this in one of the following ways:
 
 * Visit the [repository](https://github.com/rust-embedded/discovery/), click the green "Code" button and then the
    "Download Zip" one

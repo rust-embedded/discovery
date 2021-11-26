@@ -2,7 +2,7 @@
 
 The primary knowledge requirement to read this book is to know *some* Rust. It's
 hard for me to quantify *some* but at least I can tell you that you don't need
-to fully grok generics but you do need to know how to *use* closures. You also
+to fully grok generics, but you do need to know how to *use* closures. You also
 need to be familiar with the idioms of the [2018 edition], in particular with
 the fact that `extern crate` is not necessary in the 2018 edition.
 

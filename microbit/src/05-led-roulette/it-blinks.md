@@ -12,7 +12,7 @@ that they accept different units for their delay function.
 [`DelayUs`]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/blocking/delay/trait.DelayUs.html
 [`DelayMs`]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/blocking/delay/trait.DelayMs.html
 
-Inside of our MCU, several so-called "timers" exist. They can do various things regarding time for us,
+Inside our MCU, several so-called "timers" exist. They can do various things regarding time for us,
 including simply pausing the execution of our program for a fixed amount of time. A very
 simple delay-based program that prints something every second might for example look like this:
 

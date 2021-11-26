@@ -41,6 +41,6 @@ Finally, click the Open button. A console will show up now:
 <img title="PuTTY console" src="../assets/putty-console.png">
 </p>
 
-If you type on this console, the yellow LED on top of the micro:bit will blink. Each key stroke
+If you type on this console, the yellow LED on top of the micro:bit will blink. Each keystroke
 should make the LED blink once. Note that the console won't echo back what you type so the screen
 will remain blank.

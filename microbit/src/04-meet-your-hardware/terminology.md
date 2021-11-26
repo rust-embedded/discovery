@@ -1,6 +1,6 @@
 # Rust Embedded terminology
 Before we dive into programming the micro:bit let's have a quick look
-at the libraries and terminology that will be important for all of the
+at the libraries and terminology that will be important for all the
 future chapters.
 
 ## Abstraction layers
@@ -28,9 +28,9 @@ going to use the [nRF52-hal] or the [nRF51-hal] respectively.
 ### The Board Support Crate (historically called Board Support Package, or BSP)
 The job of the BSP is to abstract a whole board
 (such as the micro:bit) away at once. That means it has to provide
-abstractions to use both the microcontroller as well als the sensors,
+abstractions to use both the microcontroller as well as the sensors,
 LEDs etc. that might be present on the board. Quite often (especially
-with custom made boards) you will just be working with a HAL for the
+with custom-made boards) you will just be working with a HAL for the
 chip and build the drivers for the sensors either yourself or
 search for them on crates.io. Luckily for us though, the micro:bit
 does actually have a [BSP] so we are going to use that on top of our

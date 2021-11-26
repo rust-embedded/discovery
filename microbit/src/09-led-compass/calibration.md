@@ -27,7 +27,7 @@ works is illustrated in this video:
 <video src="https://video.microbit.org/support/compass+calibration.mp4" loop autoplay>
 </p>
 
-You have to basically tilt the micro:bit until all of the LEDs on the LED matrix light up.
+You have to basically tilt the micro:bit until all the LEDs on the LED matrix light up.
 
 If you do not want to play the game every time you restart your application during development
 feel free to modify the `src/main.rs` template to just use the same static calibration

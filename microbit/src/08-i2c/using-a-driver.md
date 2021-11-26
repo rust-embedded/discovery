@@ -100,5 +100,5 @@ $ cargo embed --features v2 --target thumbv7em-none-eabihf
 $ cargo embed --features v1 --target thumbv6m-none-eabi
 ```
 
-Furthermore if you (physically) move around your micro:bit a little bit you should see the
+Furthermore if you (physically) move around your micro:bit a little you should see the
 acceleration numbers that are being printed change.

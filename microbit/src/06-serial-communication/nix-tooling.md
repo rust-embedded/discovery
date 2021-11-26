@@ -80,11 +80,11 @@ on top of the micro:bit though, you will notice that it blinks whenever you type
 ## `minicom` commands
 
 `minicom` exposes commands via keyboard shortcuts. On Linux, the shortcuts start with `Ctrl+A`. On
-mac, the shortcuts start with the `Meta` key. Some useful commands below:
+Mac, the shortcuts start with the `Meta` key. Some useful commands below:
 
 - `Ctrl+A` + `Z`. Minicom Command Summary
 - `Ctrl+A` + `C`. Clear the screen
 - `Ctrl+A` + `X`. Exit and reset
 - `Ctrl+A` + `Q`. Quit with no reset
 
-> **NOTE** mac users: In the above commands, replace `Ctrl+A` with `Meta`.
+> **NOTE** Mac users: In the above commands, replace `Ctrl+A` with `Meta`.

@@ -17,13 +17,13 @@ with the communication protocol that this cable is/was usually used for.
 So what's this [*serial communication*][ASC]? It's an *asynchronous* communication protocol where two
 devices exchange data *serially*, as in one bit at a time, using two data lines (plus a common
 ground). The protocol is asynchronous in the sense that neither of the shared lines carries a clock
-signal. Instead both parties must agree on how fast data will be sent along the wire *before* the
+signal. Instead, both parties must agree on how fast data will be sent along the wire *before* the
 communication occurs. This protocol allows *duplex* communication as data can be sent from A to B
 and from B to A simultaneously.
 
 We'll be using this protocol to exchange data between the microcontroller and your computer. Now you might
-asking yourself why exactly we aren't using RTT for this like we did before. RTT is a protocol that is meant
-to be used soley for debugging. You will most definitely not be able to find a device that actually uses RTT
+be asking yourself why exactly we aren't using RTT for this like we did before. RTT is a protocol that is meant
+to be used solely for debugging. You will most definitely not be able to find a device that actually uses RTT
 to communicate with some other device in production. However, serial communication is used quite often. For
 example some GPS receivers send the positioning information they receive via serial communication.
 
@@ -43,7 +43,7 @@ microcontroller).
 Today's computers don't support the serial communication protocol. So you can't directly connect
 your computer to the microcontroller. Luckily for us though, the debug probe on the micro:bit has a so-called
 USB-to-serial converter. This means that the converter will sit between the two and expose a serial interface to
-the microcontroller and an USB interface to your computer. The microcontroller will see your computer as
+the microcontroller and a USB interface to your computer. The microcontroller will see your computer as
 another serial device and your computer will see the microcontroller as a virtual serial device.
 
 Now, let's get familiar with the serial module and the serial communication tools that your OS

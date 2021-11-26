@@ -10,7 +10,7 @@ provided by `embedded-hal`, specifically the [`OutputPin`] trait which allows us
 ## The micro:bit LEDs
 
 On the back of the micro:bit you can see a 5x5 square of LEDs, usually called an LED matrix. This matrix alignment is
-used so that instead of having to use 25 seperate pins to drive every single one of the LEDs, we can just use 10 (5+5) pins in
+used so that instead of having to use 25 separate pins to drive every single one of the LEDs, we can just use 10 (5+5) pins in
 order to control which column and which row of our matrix lights up.
 
 > **NOTE** that the micro:bit v1 team implemented this a little differently. Their [schematic page] says

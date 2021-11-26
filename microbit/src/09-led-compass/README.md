@@ -11,7 +11,7 @@ but it reports back the *decomposition* of said field along *its axes*.
 The magnetometer has three axes associated to it. The X and Y axes basically span the plane that is the floor.
 The Z axis is pointing "out" of the floor, so upwards.
 
-You should already be able to write a program that continiously prints the magnetometer
+You should already be able to write a program that continuously prints the magnetometer
 data on the RTT console from the [I2C chapter](../08-i2c/index.md). After you wrote that
 program, locate where north is at your current location. Then line up your micro:bit with
 that direction and observe how the sensor's measurements look.

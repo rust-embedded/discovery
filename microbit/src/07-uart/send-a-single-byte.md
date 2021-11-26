@@ -21,7 +21,7 @@ check out what exactly the module does, but it is not required to understand thi
 [`embedded_hal::serial`]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/serial/index.html
 
 Apart from those differences, the initialization procedures for the UART and the UARTE are quite similar so we'll
-discuss the initilization of just UARTE. The UARTE is initialized with this piece of code:
+discuss the initialization of just UARTE. The UARTE is initialized with this piece of code:
 ```rs
 uarte::Uarte::new(
     board.UARTE0,
@@ -37,7 +37,7 @@ familiar) as well as an option called "parity". Parity is a way to allow serial 
 the data they received was corrupted during transmission. We don't want to use that here so we simply exclude it.
 Then we wrap it up in the `UartePort` type so we can use it the same way as the micro:bit v1's `serial`.
 
-After the initilization, we send our `X` via the newly created uart instance. The `block!` macro here is the `nb::block!`
+After the initialization, we send our `X` via the newly created uart instance. The `block!` macro here is the `nb::block!`
 macro. `nb` is a (quoting from its description) "Minimal and reusable non-blocking I/O layer". It allows us to write
 code that can conduct hardware operations in the background while we go and do other work (non-blocking). However,
 in this and many other cases we have no interest in doing some other work so we just call `block!` which will wait until

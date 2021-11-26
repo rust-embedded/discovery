@@ -52,7 +52,8 @@ Below are some useful GDB commands that can help us debug our programs. This ass
     f: floating point
     ```
     * `print /t 0xA`: Prints the hexadecimal value `0xA` as binary (0b1010)
-* `x /$n$u$f $address`: Examine memory at `$address`. Optionally, `$n` define the number of units to display, `$u` unit size (bytes, halfwords, words, etc), `$f` any `print` format defined above
+* `x /$n$u$f $address`: Examine memory at `$address`. Optionally, `$n` define the number of units to display,
+  `$u` unit size (bytes, halfwords, words, etc.), `$f` any `print` format defined above
     * `x /5i 0x080012c4`: Print 5 machine instructions staring at address `0x080012c4`
     * `x/4xb $pc`: Print 4 bytes of memory starting where `$pc` currently is pointing
 * `disassemble $location`

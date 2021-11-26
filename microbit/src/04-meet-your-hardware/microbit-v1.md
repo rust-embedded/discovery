@@ -35,7 +35,7 @@ dedicated to explaining the weird chip naming. Here we learn that:
 - The `1951LN` is a tracking code, hence it might differ on your chip
 
 The product specification does of course contain a lot more useful information about
-the chip, for example that it is based on an ARM® Cortex™-M0 32 bit processor.
+the chip, for example that it is based on an ARM® Cortex™-M0 32-bit processor.
 
 ### Arm? Cortex-M0?
 

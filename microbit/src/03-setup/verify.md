@@ -6,7 +6,7 @@ Let's verify that all the tools were installed correctly.
 
 ### Verify permissions
 
-Connect the micro:bit to your computer using an USB cable.
+Connect the micro:bit to your computer using a USB cable.
 
 The micro:bit should now appear as a USB device (file) in `/dev/bus/usb`. Let's find out how it got
 enumerated:
@@ -37,7 +37,7 @@ $ sudo udevadm control --reload-rules
 # All
 
 ## Verifying cargo-embed
-First, connect the micro:bit to your Computer using an USB cable.
+First, connect the micro:bit to your Computer using a USB cable.
 
 At least an orange LED right next to the USB port of the micro:bit should light up.
 Furthermore, if you have never flashed another program on to your micro:bit, the default
@@ -56,7 +56,7 @@ chip variants:
 # chip = "nrf51822"
 ```
 
-If you are working with the micro:bit v2 board uncomment the first , for the v1
+If you are working with the micro:bit v2 board uncomment the first, for the v1
 uncomment the second variant.
 
 Next run one of these commands:

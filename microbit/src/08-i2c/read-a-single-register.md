@@ -10,7 +10,7 @@ datasheet on page 39 and are:
 - 0011110 for the magnetometer
 
 > **NOTE** Remember that these are only the 7 leading bits of the address,
-> the 8th bit is going to be the bit that determines  whether we are
+> the 8th bit is going to be the bit that determines whether we are
 > performing a read or write.
 
 Next up we'll need a register to read from. Lots of I2C chips out there will
@@ -42,7 +42,7 @@ piece of code to read out and print the two device IDs:
 ```
 
 Apart from the initialization, this piece of code should be straight forward if you
-understood the I2C protocol as described before. The initilization here works similarly
+understood the I2C protocol as described before. The initialization here works similarly
 to the one from the UART chapter.
 We pass the peripheral as well as the pins that are used to communicate with the chip to the constructor; and then the frequency we wish the bus to operate on, in this case 100 kHz (`K100`).
 

@@ -4,7 +4,7 @@ We just saw the serial communication protocol. It's a widely used protocol becau
 simple and this simplicity makes it easy to implement on top of other protocols like Bluetooth and
 USB.
 
-However, it's simplicity is also a downside. More elaborated data exchanges, like reading a digital
+However, its simplicity is also a downside. More elaborated data exchanges, like reading a digital
 sensor, would require the sensor vendor to come up with another protocol on top of it.
 
 (Un)Luckily for us, there are *plenty* of other communication protocols in the embedded space. Some
@@ -29,4 +29,4 @@ Once a master has *started* a communication with a slave, no other device can ma
 until the master *stops* the communication.
 
 The clock line determines how fast data can be exchanged and it usually operates at a frequency of
-100 KHz (standard mode) or 400 KHz (fast mode).
+100 kHz (standard mode) or 400 kHz (fast mode).
