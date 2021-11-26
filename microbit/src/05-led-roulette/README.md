@@ -49,7 +49,7 @@ Furthermore, there is also an `Embed.toml` file
 
 This file tells `cargo-embed` that:
 
-* we are working with either an nrf52833 or nrf51822, you will again have to remove the comments from the
+* we are working with either a nrf52833 or nrf51822, you will again have to remove the comments from the
   chip you are using, just like you did in chapter 3.
 * we want to halt the chip after we flashed it so our program does not instantly jump to the loop
 * we want to disable RTT, RTT being a protocol that allows the chip to send text to a debugger.

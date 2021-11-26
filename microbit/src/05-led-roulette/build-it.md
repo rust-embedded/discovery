@@ -29,7 +29,7 @@ $ rustup target add thumbv6m-none-eabi
 
 You only need to do the above step once; `rustup` will re-install a new standard library
 (`rust-std` component) whenever you update your toolchain. Therefore you can skip this step, if you have already added the necessary target
-while [veryfing your setup].
+while [verifying your setup].
 
 [veryfing your setup]: ../03-setup/verify.html#verifying-cargo-embed
 
@@ -61,7 +61,7 @@ $ cargo build --features v1 --target thumbv6m-none-eabi
 > **NOTE** Be sure to compile this crate *without* optimizations. The provided Cargo.toml
 > file and build command above will ensure optimizations are off.
 
-OK, now we have produced an executable. This executable won't blink any leds,
+OK, now we have produced an executable. This executable won't blink any LEDs,
 it's just a simplified version that we will build upon later in the chapter.
 As a sanity check, let's verify that the produced executable is actually an ARM binary:
 
