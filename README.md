@@ -2,8 +2,9 @@
 
 Discover the world of microcontrollers through [Rust](https://www.rust-lang.org/)!
 
-There are currently two versions of this book. The first is older and uses an
-F3 Discovery circuit board to introduce you to microcontrollers and Rust, while
+There are currently two versions of this book. Both of them provide an
+introduction to microcontrollers and how to use Rust with them.
+The first is older and uses an F3 Discovery circuit board, while
 the second is newer and uses a micro:bit circuit board instead.
 
 - Read the newer book, using a micro:bit:
