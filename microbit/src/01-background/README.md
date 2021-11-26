@@ -77,4 +77,6 @@ The C ecosystem is way more mature. Off the shelf solution for several problems 
 you need to control a time sensitive process, you can grab one of the existing commercial Real Time
 Operating Systems (RTOS) out there and solve your problem. There are no commercial, production-grade
 RTOSes in Rust yet so you would have to either create one yourself or try one of the ones that are
-in development.
+in development. You can find a list of those in the [Awesome Embedded Rust] repository.
+
+[Awesome Embedded Rust]: https://github.com/rust-embedded/awesome-embedded-rust#real-time-operating-system-rtos
