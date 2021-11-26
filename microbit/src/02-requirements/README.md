@@ -49,9 +49,11 @@ Trust me on this one.
 
 Maybe? It depends mainly on two things: your previous experience with microcontrollers and/or
 whether a high level crate already exists, like the [`nrf52-hal`], for your development board
-somewhere.
+somewhere. You can lough through the [Awesome Embedded Rust] HAL list for your microcontroller,
+if you intend to use a different one.
 
 [`nrf52-hal`]: https://docs.rs/nrf52-hal
+[Awesome Embedded Rust]: https://github.com/rust-embedded/awesome-embedded-rust
 
 With a different development board, this text would lose most if not all its beginner friendliness
 and "easy to follow"-ness, IMO.
