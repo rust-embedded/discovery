@@ -49,7 +49,7 @@ Trust me on this one.
 
 Maybe? It depends mainly on two things: your previous experience with microcontrollers and/or
 whether a high level crate already exists, like the [`nrf52-hal`], for your development board
-somewhere. You can lough through the [Awesome Embedded Rust HAL list] for your microcontroller,
+somewhere. You can look through the [Awesome Embedded Rust HAL list] for your microcontroller,
 if you intend to use a different one.
 
 [`nrf52-hal`]: https://docs.rs/nrf52-hal
