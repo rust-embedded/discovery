@@ -42,6 +42,11 @@ fn main() -> ! {
 }
 ```
 
+Note that we changed our panic implementation from `panic_halt` to
+`panic_rtt_target` here. This will require you to uncomment the two
+RTT lines from `Cargo.toml` and comment the `panic-halt` one out,
+since Rust only allows one panic implementation at a time.
+
 In order to actually see the prints we have to change `Embed.toml` like this:
 ```
 [default.general]
