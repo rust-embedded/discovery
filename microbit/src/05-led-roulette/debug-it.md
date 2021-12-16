@@ -24,7 +24,9 @@ $ gdb target/thumbv6m-none-eabi/debug/led-roulette
 ```
 
 > **NOTE** Depending on which GDB you installed you will have to use a different command to launch it,
-> check out [chapter 3](/03-setup/README.md#tools) if you forgot which one it was.
+> check out [chapter 3] if you forgot which one it was.
+
+[chapter 3]: ../03-setup/index.md#tools
 
 > **NOTE**: If `cargo-embed` prints a lot of warnings here don't worry about it. As of now it does not fully
 > implement the GDB protocol and thus might not recognize all the commands your GDB is sending to it,
