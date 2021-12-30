@@ -5,7 +5,7 @@ protocol = "Swd"
 # v2
 # chip = "nrf52833"
 # v1
-# chip = "nrf51822"
+# chip = "nrf51822_xxAA"
 
 [default.rtt]
 enabled = true
