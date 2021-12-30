@@ -53,7 +53,7 @@ chip variants:
 # v2
 # chip = "nrf52833"
 # v1
-# chip = "nrf51822-xxAA"
+# chip = "nrf51822_xxAA"
 ```
 
 If you are working with the micro:bit v2 board uncomment the first, for the v1
