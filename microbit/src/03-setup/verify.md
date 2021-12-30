@@ -50,14 +50,12 @@ chip variants:
 
 ```toml
 [default.general]
-# v2
-# chip = "nrf52833"
-# v1
-# chip = "nrf51822_xxAA"
+# chip = "nrf52833" # uncomment this line for micro:bit V2
+# chip = "nrf51822_xxAA" # uncomment this line for micro:bit V1
 ```
 
 If you are working with the micro:bit v2 board uncomment the first, for the v1
-uncomment the second variant.
+uncomment the second line.
 
 Next run one of these commands:
 
