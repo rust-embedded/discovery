@@ -50,7 +50,7 @@ since Rust only allows one panic implementation at a time.
 In order to actually see the prints we have to change `Embed.toml` like this:
 ```
 [default.general]
-# chip = "nrf52833" # uncomment this line for micro:bit V2
+# chip = "nrf52833_xxAA" # uncomment this line for micro:bit V2
 # chip = "nrf51822_xxAA" # uncomment this line for micro:bit V1
 
 [default.reset]
