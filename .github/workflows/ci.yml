@@ -46,7 +46,7 @@ jobs:
           toolchain: stable
           target: thumbv7em-none-eabihf
       - name: Build docs
-        run: cargo doc
+        run: cargo doc --target thumbv7em-none-eabihf
         working-directory: f3discovery
 
   # Check a build succeeds for each microbit chapter that contains example code.
@@ -87,10 +87,10 @@ jobs:
           target: thumbv6m-none-eabi
       - run: rustup target add thumbv7em-none-eabihf
       - name: Build docs for micro:bit v1
-        run: cargo doc --features v1
+        run: cargo doc --features v1 --target thumbv6m-none-eabi
         working-directory: microbit
       - name: Build docs for micro:bit v2
-        run: cargo doc --features v2
+        run: cargo doc --features v2 --target thumbv7em-none-eabihf
         working-directory: microbit
 
   # Build the book HTML itself and optionally publish it.
