@@ -122,7 +122,7 @@ cd test-size
 cargo run
 ```
 ```
-cargo size -- -version
+cargo size -- --version
 ```
 
 The results should be something like:
@@ -142,7 +142,7 @@ $ cargo run
 Hello, world!
 
 ~/test-size (main)
-$ cargo size -- -version
+$ cargo size -- --version
     Finished dev [unoptimized + debuginfo] target(s) in 0.00s
 LLVM (http://llvm.org/):
   LLVM version 11.0.0-rust-1.50.0-stable
