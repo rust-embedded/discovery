@@ -25,12 +25,16 @@ that's the COM port of the serial module.
 Now launch `putty`. A GUI will pop out.
 
 <p align="center">
-<img title="PuTTY settings" src="../assets/putty-settings.png">
+<img title="PuTTY settings" src="../assets/putty-session-choose-serial.png">
 </p>
 
 On the starter screen, which should have the "Session" category open, pick "Serial" as the
 "Connection type". On the "Serial line" field enter the `COM` device you got on the previous step,
 for example `COM3`.
+
+<p align="center">
+<img title="PuTTY settings" src="../assets/putty-settings.png">
+</p>
 
 Next, pick the "Connection/Serial" category from the menu on the left. On this new view, make sure
 that the serial port is configured as follows:
