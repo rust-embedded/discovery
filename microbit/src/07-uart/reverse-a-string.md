@@ -14,7 +14,7 @@ This time you'll need a buffer; you can use [`heapless::Vec`]. Here's the starte
 
 use cortex_m_rt::entry;
 use core::fmt::Write;
-use heapless::{Vec, consts};
+use heapless::Vec;
 use rtt_target::rtt_init_print;
 use panic_rtt_target as _;
 
@@ -64,7 +64,7 @@ fn main() -> ! {
     };
 
     // A buffer with 32 bytes of capacity
-    let mut buffer: Vec<u8, consts::U32> = Vec::new();
+    let mut buffer: Vec<u8, 32> = Vec::new();
 
     loop {
         buffer.clear();
