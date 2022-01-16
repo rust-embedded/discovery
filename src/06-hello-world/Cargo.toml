@@ -1,8 +1,0 @@
-[package]
-authors = ["Jorge Aparicio <jorge@japaric.io>"]
-edition = "2018"
-name = "hello-world"
-version = "0.1.0"
-
-[dependencies]
-aux6 = { path = "auxiliary" }

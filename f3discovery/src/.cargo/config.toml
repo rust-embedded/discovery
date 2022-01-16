@@ -1,0 +1,11 @@
+[target.thumbv7em-none-eabihf]
+runner = "arm-none-eabi-gdb -q"
+# runner = "gdb-multiarch -q"
+# runner = "gdb -q"
+rustflags = [
+  "-C", "link-arg=-Tlink.x",
+]
+
+[build]
+target = "thumbv7em-none-eabihf"
+

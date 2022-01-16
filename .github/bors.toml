@@ -1,4 +1,22 @@
 block_labels = ["needs-decision"]
 delete_merged_branches = true
 required_approvals = 1
-status = ["continuous-integration/travis-ci/push"]
+status = [
+    "build-book",
+    "build-f3discovery-doc",
+    "build-f3discovery-chapter (05-led-roulette)",
+    "build-f3discovery-chapter (06-hello-world)",
+    "build-f3discovery-chapter (07-registers)",
+    "build-f3discovery-chapter (08-leds-again)",
+    "build-f3discovery-chapter (09-clocks-and-timers)",
+    "build-f3discovery-chapter (11-usart)",
+    "build-f3discovery-chapter (14-i2c)",
+    "build-f3discovery-chapter (15-led-compass)",
+    "build-f3discovery-chapter (16-punch-o-meter)",
+    "build-microbit-doc",
+    "build-microbit-chapter (05-led-roulette)",
+    "build-microbit-chapter (07-uart)",
+    "build-microbit-chapter (08-i2c)",
+    "build-microbit-chapter (09-led-compass)",
+    "build-microbit-chapter (10-punch-o-meter)",
+]

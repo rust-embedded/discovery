@@ -1,0 +1,164 @@
+name: CI
+
+on:
+  push:
+    branches: [ staging, trying, master ]
+  pull_request:
+
+jobs:
+  # Check build succeeds for each f3discovery chapter containing example code.
+  build-f3discovery-chapter:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        chapter:
+          - 05-led-roulette
+          - 06-hello-world
+          - 07-registers
+          - 08-leds-again
+          - 09-clocks-and-timers
+          - 11-usart
+          - 14-i2c
+          - 15-led-compass
+          - 16-punch-o-meter
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: thumbv7em-none-eabihf
+      - name: Build chapter
+        working-directory: f3discovery/src/${{ matrix.chapter }}
+        run: cargo build --target thumbv7em-none-eabihf
+      - name: Build chapter examples
+        working-directory: f3discovery/src/${{ matrix.chapter }}
+        run: cargo build --target thumbv7em-none-eabihf --examples
+
+  # Check build succeeds for f3discovery docs.
+  build-f3discovery-doc:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: thumbv7em-none-eabihf
+      - name: Build docs
+        run: cargo doc --target thumbv7em-none-eabihf
+        working-directory: f3discovery
+
+  # Check a build succeeds for each microbit chapter that contains example code.
+  build-microbit-chapter:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        chapter:
+          - 05-led-roulette
+          - 07-uart
+          - 08-i2c
+          - 09-led-compass
+          - 10-punch-o-meter
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: thumbv6m-none-eabi
+      - run: rustup target add thumbv7em-none-eabihf
+      - name: Build chapter micro:bit v1
+        working-directory: microbit/src/${{ matrix.chapter }}
+        run: cargo build --features v1 --target thumbv6m-none-eabi
+      - name: Build chapter micro:bit v2
+        working-directory: microbit/src/${{ matrix.chapter }}
+        run: cargo build --features v2 --target thumbv7em-none-eabihf
+
+  # Check build succeeds for microbit docs.
+  build-microbit-doc:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: thumbv6m-none-eabi
+      - run: rustup target add thumbv7em-none-eabihf
+      - name: Build docs for micro:bit v1
+        run: cargo doc --features v1 --target thumbv6m-none-eabi
+        working-directory: microbit
+      - name: Build docs for micro:bit v2
+        run: cargo doc --features v2 --target thumbv7em-none-eabihf
+        working-directory: microbit
+
+  # Build the book HTML itself and optionally publish it.
+  build-book:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: thumbv7em-none-eabihf
+      - run: rustup target add thumbv6m-none-eabi
+
+      - name: Install Python dependencies
+        run: |
+          pip3 install --user python-dateutil linkchecker
+      - name: Put pip binary directory into path
+        run: echo "~/.local/bin" >> $GITHUB_PATH
+
+      - name: Cache Cargo installed binaries
+        uses: actions/cache@v1
+        id: cache-cargo
+        with:
+          path: ~/cargo-bin
+          key: cache-cargo
+      - name: Install mdbook
+        if: steps.cache-cargo.outputs.cache-hit != 'true'
+        uses: actions-rs/install@v0.1
+        with:
+          crate: mdbook
+          version: latest
+      - name: Copy mdbook to cache directory
+        if: steps.cache-cargo.outputs.cache-hit != 'true'
+        run: |
+          mkdir ~/cargo-bin
+          cp ~/.cargo/bin/mdbook ~/cargo-bin
+      - name: Put new cargo binary directory into path
+        run: echo "~/cargo-bin" >> $GITHUB_PATH
+
+      - name: Build f3discovery book
+        working-directory: f3discovery
+        run: mkdir target && mdbook build
+      - name: Check microbit links
+        working-directory: f3discovery
+        run: linkchecker --ignore-url "print.html" book
+
+      - name: Build microbit book
+        working-directory: microbit
+        run: mkdir target && mdbook build
+      - name: Check microbit links
+        working-directory: microbit
+        run: linkchecker --ignore-url "print.html" book
+
+      - name: Build front page
+        run: mdbook build
+      - name: Check links
+        run: linkchecker book
+
+      - name: Collect books
+        run: |
+          mv f3discovery/book book/f3discovery
+          mv microbit/book book/microbit
+
+      - name: Deploy book
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: book
+          force_orphan: true
