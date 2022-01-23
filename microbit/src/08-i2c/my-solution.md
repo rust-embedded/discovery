@@ -4,6 +4,8 @@
 #![no_main]
 #![no_std]
 
+use core::str;
+
 use cortex_m_rt::entry;
 use rtt_target::rtt_init_print;
 use panic_rtt_target as _;
@@ -26,7 +28,7 @@ use microbit::{
 
 use microbit::hal::prelude::*;
 use lsm303agr::{AccelOutputDataRate, MagOutputDataRate, Lsm303agr};
-use heapless::{consts, Vec, String};
+use heapless::Vec;
 use nb::block;
 use core::fmt::Write;
 
@@ -74,29 +76,28 @@ fn main() -> ! {
     let mut sensor = sensor.into_mag_continuous().ok().unwrap();
 
     loop {
-        let mut buffer: Vec<u8, consts::U32> = Vec::new();
+        let mut buffer: Vec<u8, 32> = Vec::new();
 
         loop {
             let byte = block!(serial.read()).unwrap();
+
+            if byte == 13 {
+                break;
+            }
 
             if buffer.push(byte).is_err() {
                 write!(serial, "error: buffer full\r\n").unwrap();
                 break;
             }
-
-            if byte == 13 {
-                break;
-            }
         }
 
-        let command_string = String::from_utf8(buffer).unwrap();
-        if command_string.as_str().trim() == "accelerometer" {
+        if str::from_utf8(&buffer).unwrap().trim() == "accelerometer" {
             while !sensor.accel_status().unwrap().xyz_new_data  {
             }
 
             let data = sensor.accel_data().unwrap();
             write!(serial, "Accelerometer: x {} y {} z {}\r\n", data.x, data.y, data.z).unwrap();
-        } else if command_string.as_str().trim() == "magnetometer" {
+        } else if str::from_utf8(&buffer).unwrap().trim() == "magnetometer" {
             while !sensor.mag_status().unwrap().xyz_new_data  {
             }
 
@@ -107,4 +108,5 @@ fn main() -> ! {
         }
     }
 }
+
 ```
