@@ -22,3 +22,11 @@ the second is newer and uses a micro:bit circuit board instead.
       request](https://github.com/rust-embedded/discovery/pulls) for solving
       it
 - Have fun and enjoy!
+
+## Translations
+
+This book has been translated by generous volunteers. If you would like your
+translation listed here, please open a PR to add it.
+
+* [Japanese](https://tomoyuki-nakabayashi.github.io/discovery/)
+  ([repository](https://github.com/tomoyuki-nakabayashi/discovery))
