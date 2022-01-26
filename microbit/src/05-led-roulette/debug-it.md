@@ -4,7 +4,7 @@ Before we debug our little program let's take a moment to quickly understand wha
 happening here. In the previous chapter we already discussed the purpose of the second chip
 on the board as well as how it talks to our computer, but how can we actually use it?
 
-The little option `default.gb.enabled = true` in `Embed.toml` made `cargo-embed` open a so-called "GDB stub" after flashing,
+The little option `default.gdb.enabled = true` in `Embed.toml` made `cargo-embed` open a so-called "GDB stub" after flashing,
 this is a server that our GDB can connect to and send commands like "set a breakpoint at address X" to. The server can then decide
 on its own how to handle this command. In the case of the `cargo-embed` GDB stub it will forward the
 command to the debugging probe on the board via USB which then does the job of actually talking to the
