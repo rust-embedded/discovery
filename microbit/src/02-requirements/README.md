@@ -53,7 +53,7 @@ somewhere. You can look through the [Awesome Embedded Rust HAL list] for your mi
 if you intend to use a different one.
 
 [`nrf52-hal`]: https://docs.rs/nrf52-hal
-[Awesome Embedded Rust]: https://github.com/rust-embedded/awesome-embedded-rust#hal-implementation-crates
+[Awesome Embedded Rust HAL list]: https://github.com/rust-embedded/awesome-embedded-rust#hal-implementation-crates
 
 With a different development board, this text would lose most if not all its beginner friendliness
 and "easy to follow"-ness, IMO.
