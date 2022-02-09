@@ -19,7 +19,7 @@ We'll be referring to all these documents throughout this book:
 We'll use all the tools listed below. Where a minimum version is not specified, any recent version
 should work but we have listed the version we have tested.
 
-- Rust 1.53.0 or a newer toolchain.
+- Rust 1.57.0 or a newer toolchain.
 
 - `gdb-multiarch`. Tested version: 10.2. Other versions will most likely work as well though
   If your distribution/platform does not have `gdb-multiarch` available `arm-none-eabi-gdb`
