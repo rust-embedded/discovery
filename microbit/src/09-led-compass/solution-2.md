@@ -60,27 +60,27 @@ fn main() -> ! {
         data = calibrated_measurement(data, &calibration);
 
         // use libm's atan2f since this isn't in core yet
-        let theta = atan2f(data.x as f32, data.y as f32);
+        let theta = atan2f(data.y as f32, data.x as f32);
 
         // Figure out the direction based on theta
         let dir = if theta < -7. * PI / 8. {
-            Direction::South
+            Direction::West
         } else if theta < -5. * PI / 8. {
             Direction::SouthWest
         } else if theta < -3. * PI / 8. {
-            Direction::West
+            Direction::South
         } else if theta < -PI / 8. {
-            Direction::NorthWest
+            Direction::SouthEast
         } else if theta < PI / 8. {
-            Direction::North
+            Direction::East
         } else if theta < 3. * PI / 8. {
             Direction::NorthEast
         } else if theta < 5. * PI / 8. {
-            Direction::East
+            Direction::North
         } else if theta < 7. * PI / 8. {
-            Direction::SouthEast
+            Direction::NorthWest
         } else {
-            Direction::South
+            Direction::West
         };
 
         display.show(&mut timer, direction_to_led(dir), 100);
