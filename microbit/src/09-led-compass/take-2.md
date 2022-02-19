@@ -75,7 +75,7 @@ fn main() -> ! {
         data = calibrated_measurement(data, &calibration);
 
         // use libm's atan2f since this isn't in core yet
-        let theta = atan2f(data.x as f32, data.y as f32);
+        let theta = atan2f(data.y as f32, data.x as f32);
 
         // Figure out the direction based on theta
         let dir = Direction::NorthEast;
