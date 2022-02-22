@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-[Choose Your Discovery](README.md)
-=======
 [Introduction](README.md)
 - [Background](01-background/README.md)
 - [Hardware/knowledge requirements](02-requirements/README.md)
@@ -66,4 +63,3 @@
 <!--     - [My other solution](17-async-io-the-future/my-other-solution.md) -->
 <!--     - [More challenges](17-async-io-the-future/more-challenges.md) -->
 ---
->>>>>>> rewrite
