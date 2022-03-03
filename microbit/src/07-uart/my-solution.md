@@ -66,7 +66,7 @@ fn main() -> ! {
             let byte = nb::block!(serial.read()).unwrap();
 
             if buffer.push(byte).is_err() {
-                writeln!(serial, "error: buffer full").unwrap();
+                write!(serial, "error: buffer full\r\n").unwrap();
                 break;
             }
 
