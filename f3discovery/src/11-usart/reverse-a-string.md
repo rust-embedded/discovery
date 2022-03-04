@@ -6,7 +6,7 @@ ENTER key. Each server response will be in a new line.
 
 This time you'll need a buffer; you can use [`heapless::Vec`]. Here's the starter code:
 
-[`heapless::Vec`]: https://docs.rs/heapless/0.2.1/heapless/struct.Vec.html
+[`heapless::Vec`]: https://docs.rs/heapless/latest/heapless/struct.Vec.html
 
 ``` rust
 {{#include examples/reverse-string.rs}}
