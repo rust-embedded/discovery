@@ -43,7 +43,7 @@ This makes Printed Circuit Boards (PCB) smaller and cheaper to design and manufa
 processor. For applications which run on batteries, that makes a huge difference.
 
 **Responsiveness.** To accomplish their purpose, some embedded systems must always react within a
-limited time interval (e.g. the "anti-lock" breaking system of a car). If the system misses this
+limited time interval (e.g. the "anti-lock" braking system of a car). If the system misses this
 type of *deadline*, a catastrophic failure might occur. Such a deadline is called a "hard real time"
 requirement. An embedded system which is bound by such a deadline is referred to as a "hard
 real-time system". A general purpose computer and OS usually has many software components which
