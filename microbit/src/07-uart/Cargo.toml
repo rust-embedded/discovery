@@ -6,13 +6,10 @@ edition = "2018"
 
 [dependencies.microbit-v2]
 version = "0.12.0"
-git = "https://github.com/nrf-rs/microbit/"
 optional = true
-
 
 [dependencies.microbit]
 version = "0.12.0"
-git = "https://github.com/nrf-rs/microbit/"
 optional = true
 
 [dependencies]
