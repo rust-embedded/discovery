@@ -16,13 +16,13 @@ Make sure the F3 is connected to your computer and run the following commands in
 ## For *nix & MacOS:
 ``` console
 cd /tmp
-openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
+openocd -f interface/stlink.cfg -f target/stm32f3x.cfg
 ```
 
 ## For Windows **Note**: substitute `C:` for the actual OpenOCD path:
 ```
 cd %TEMP%
-openocd -s C:\share\scripts -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
+openocd -s C:\share\scripts -f interface/stlink.cfg -f target/stm32f3x.cfg
 ```
 
 > **NOTE** Older revisions of the board need to pass slightly different arguments to
@@ -51,12 +51,12 @@ As for OpenOCD, it's software that provides some services like a *GDB server* on
 devices that expose a debugging protocol like SWD or JTAG.
 
 Onto the actual command: those `.cfg` files we are using instruct OpenOCD to look for a ST-LINK USB
-device (`interface/stlink-v2-1.cfg`) and to expect a STM32F3XX microcontroller
+device (`interface/stlink.cfg`) and to expect a STM32F3XX microcontroller
 (`target/stm32f3x.cfg`) to be connected to the ST-LINK.
 
 The OpenOCD output looks like this:
 ``` console
-$ openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
+$ openocd -f interface/stlink.cfg -f target/stm32f3x.cfg
 Open On-Chip Debugger 0.10.0
 Licensed under GNU GPL v2
 For bug reports, read
