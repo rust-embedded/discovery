@@ -123,4 +123,10 @@ ELF Header:
   Section header string table index: 20
   ```
 
+If you get an error like `error: no such subcommand: readobj`, you may need to install `cargo-binutils`:
+``` console
+cargo install cargo-binutils
+rustup component add llvm-tools-preview
+```
+
 Next, we'll flash the program into our microcontroller.
