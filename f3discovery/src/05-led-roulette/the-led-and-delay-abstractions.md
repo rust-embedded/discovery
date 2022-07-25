@@ -31,7 +31,7 @@ Now we'll run and repeat the flashing procedure as we did in the previous sectio
 but with the new program. I'll let you type in the `cargo run`, *this will get easier shortly*. :)
 Note: 
 
-Don't forget to start ```openocd``` (debugger) on a seperate terminal or target remote :3333 won't work! 
+Don't forget to start ```openocd``` (debugger) on a separate terminal. Otherwise `target remote :3333` won't work! 
 
 ``` console
 $ cargo run
