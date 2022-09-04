@@ -74,7 +74,7 @@ that is highly unlikely in our case, we can just `unwrap()` the result.
 
 ## Testing it
 
-Testing our little program is quite simple. First put it into `src/mains.rs`. Afterwards we simply have to run the
+Testing our little program is quite simple. First put it into `src/main.rs`. Afterwards we simply have to run the
 `cargo embed` command from the last section again, let it flash and just like before. Then open our GDB and connect
 to the GDB stub:
 
