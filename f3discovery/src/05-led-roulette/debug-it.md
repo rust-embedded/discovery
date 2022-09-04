@@ -12,12 +12,12 @@ the `main` function. We'll do that using a breakpoint. Issue `break main` at the
 
 > **NOTE** For these GDB commands I generally won't provide a copyable code block
 > as these are short and it's faster just to type them yourself. In addition most
-> can be shortend. For instance `b` for `break` or `s` for `step`, see [GDB Quick Reference]
+> can be shortened. For instance `b` for `break` or `s` for `step`, see [GDB Quick Reference]
 > for more info or use Google to find your others. In addition, you can use tab completion
 > by typing the first few letters than one tab to complete or two tabs to
 > see all possible commands.
 >
->> Finally, `help xxxx` where xxxx is the comand will provide short names and other info:
+>> Finally, `help xxxx` where xxxx is the command will provide short names and other info:
 >> ```
 >> (gdb) help s
 >> step, s

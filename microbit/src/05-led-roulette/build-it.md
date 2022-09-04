@@ -31,7 +31,7 @@ You only need to do the above step once; `rustup` will re-install a new standard
 (`rust-std` component) whenever you update your toolchain. Therefore you can skip this step, if you have already added the necessary target
 while [verifying your setup].
 
-[veryfing your setup]: ../03-setup/verify.html#verifying-cargo-embed
+[verifying your setup]: ../03-setup/verify.html#verifying-cargo-embed
 
 
 With the `rust-std` component in place you can now cross compile the program using Cargo:
