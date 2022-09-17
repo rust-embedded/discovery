@@ -30,3 +30,5 @@ translation listed here, please open a PR to add it.
 
 * [Japanese](https://tomoyuki-nakabayashi.github.io/discovery/)
   ([repository](https://github.com/tomoyuki-nakabayashi/discovery))
+* [Chinese](https://jzow.github.io/discovery/)
+  ([repository](https://github.com/jzow/discovery))
