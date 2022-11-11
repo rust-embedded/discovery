@@ -76,7 +76,6 @@ cargo-embed 0.11.0
 git commit: crates.io
 ```
 
-
 ### This repository
 
 Since this book also contains some small Rust code bases used in various chapters
