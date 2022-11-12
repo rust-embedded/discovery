@@ -6,6 +6,7 @@
     - [Windows](03-setup/windows.md)
     - [macOS](03-setup/macos.md)
     - [Verify the installation](03-setup/verify.md)
+    - [Setting up your IDE](03-setup/IDE.md)
 - [Meet your hardware](04-meet-your-hardware/README.md)
     - [micro:bit v2](04-meet-your-hardware/microbit-v2.md)
     - [micro:bit v1](04-meet-your-hardware/microbit-v1.md)
