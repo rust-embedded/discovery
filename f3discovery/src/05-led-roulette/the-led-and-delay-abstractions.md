@@ -378,8 +378,8 @@ $ cargo run --target thumbv7em-none-eabihf   # Compile and load the program into
 ```
 
 The critical changes are at lines 13, 17 and 20 in the source code which
-you can see in the disassembly. At 13 we creating `v_half_period` and then
-`read()` it's value in lines 17 and 20. This means that when we `set half_period = 2000`
+you can see in the disassembly. At 13 we create `v_half_period` and then
+`read()` its value in lines 17 and 20. This means that when we `set half_period = 2000`
 the led will now be on for 2 seconds then off for 2 seconds.
 
 ``` console
