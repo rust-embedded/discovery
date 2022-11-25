@@ -12,12 +12,12 @@ If the Controller wants to send data to the Target:
 </p>
 
 1. Controller: Broadcast START
-2. M: Broadcast target address (7 bits) + the R/W (8th) bit set to WRITE
+2. C: Broadcast target address (7 bits) + the R/W (8th) bit set to WRITE
 3. Target: Responds ACK (ACKnowledgement)
-4. M: Send one byte
-5. S: Responds ACK
+4. C: Send one byte
+5. T: Responds ACK
 6. Repeat steps 4 and 5 zero or more times
-7. M: Broadcast STOP OR (broadcast RESTART and go back to (2))
+7. C: Broadcast STOP OR (broadcast RESTART and go back to (2))
 
 > **NOTE** The target address could have been 10 bits instead of 7 bits long. Nothing else would have
 > changed.
@@ -30,13 +30,13 @@ If the controller wants to read data from the target:
 <img class="white_bg" height=180 title="I2C bus" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/I2C_controller-target.svg/440px-I2C_controller-target.svg.png">
 </p>
 
-1. M: Broadcast START
-2. M: Broadcast target address (7 bits) + the R/W (8th) bit set to READ
-3. S: Responds with ACK
-4. S: Send byte
-5. M: Responds with ACK
+1. C: Broadcast START
+2. C: Broadcast target address (7 bits) + the R/W (8th) bit set to READ
+3. T: Responds with ACK
+4. T: Send byte
+5. C: Responds with ACK
 6. Repeat steps 4 and 5 zero or more times
-7. M: Broadcast STOP OR (broadcast RESTART and go back to (2))
+7. C: Broadcast STOP OR (broadcast RESTART and go back to (2))
 
 > **NOTE** The target address could have been 10 bits instead of 7 bits long. Nothing else would have
 > changed.
