@@ -18,7 +18,7 @@ uses two lines to exchange data: a data line (SDA) and a clock line (SCL). Becau
 used to synchronize the communication, this is a *synchronous* protocol.
 
 <p align="center">
-<img class="white_bg" height=270 title="I2C bus" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/I2C_controller-target.svg/440px-I2C_controller-target.svg.png">
+<img class="white_bg" height=270 title="I2C bus" src="https://upload.wikimedia.org/wikipedia/commons/0/04/I2C_controller-target.svg">
 </p>
 
 This protocol uses a *controller* *target* model where the controller is the device that *starts* and
