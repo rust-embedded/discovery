@@ -8,7 +8,7 @@ communication between several devices. Let's see how it works using examples:
 If the Controller wants to send data to the Target:
 
 <p align="center">
-  <img class="white_bg" height=180 title="I2C bus" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/I2C_controller-target.svg/440px-I2C_controller-target.svg.png">
+  <img class="white_bg" height=360 title="I2C bus" src="https://upload.wikimedia.org/wikipedia/commons/0/04/I2C_controller-target.svg">
 </p>
 
 1. Controller: Broadcast START
@@ -27,7 +27,7 @@ If the Controller wants to send data to the Target:
 If the controller wants to read data from the target:
 
 <p align="center">
-<img class="white_bg" height=180 title="I2C bus" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/I2C_controller-target.svg/440px-I2C_controller-target.svg.png">
+<img class="white_bg" height=360 title="I2C bus" src="https://upload.wikimedia.org/wikipedia/commons/0/04/I2C_controller-target.svg">
 </p>
 
 1. C: Broadcast START
