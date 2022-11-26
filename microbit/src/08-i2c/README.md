@@ -22,7 +22,7 @@ used to synchronize the communication, this is a *synchronous* protocol.
 </p>
 
 This protocol uses a *controller* *target* model where the controller is the device that *starts* and
-drives the communication with a target device. Several devices, both conntrollers and targets, can be
+drives the communication with a target device. Several devices, both controllers and targets, can be
 connected to the same bus at the same time. A controller device can communicate with a specific target
 device by first broadcasting its *address* to the bus. This address can be 7 bits or 10 bits long.
 Once a controller has *started* a communication with a target, no other device can make use of the bus
