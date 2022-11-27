@@ -18,15 +18,15 @@ uses two lines to exchange data: a data line (SDA) and a clock line (SCL). Becau
 used to synchronize the communication, this is a *synchronous* protocol.
 
 <p align="center">
-<img class="white_bg" height=180 title="I2C bus" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/I2C.svg">
+<img class="white_bg" height=360 title="I2C bus" src="https://upload.wikimedia.org/wikipedia/commons/0/04/I2C_controller-target.svg">
 </p>
 
-This protocol uses a *master* *slave* model where the master is the device that *starts* and
-drives the communication with a slave device. Several devices, both masters and slaves, can be
-connected to the same bus at the same time. A master device can communicate with a specific slave
+This protocol uses a *controller* *target* model where the controller is the device that *starts* and
+drives the communication with a target device. Several devices, both controllers and targets, can be
+connected to the same bus at the same time. A controller device can communicate with a specific target
 device by first broadcasting its *address* to the bus. This address can be 7 bits or 10 bits long.
-Once a master has *started* a communication with a slave, no other device can make use of the bus
-until the master *stops* the communication.
+Once a controller has *started* a communication with a target, no other device can make use of the bus
+until the controller *stops* the communication.
 
 The clock line determines how fast data can be exchanged and it usually operates at a frequency of
 100 kHz (standard mode) or 400 kHz (fast mode).

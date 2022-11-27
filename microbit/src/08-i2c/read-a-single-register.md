@@ -2,7 +2,7 @@
 
 Let's put all that theory into practice!
 
-First things first we need to know the slave addresses of both the accelerometer
+First things first we need to know the target addresses of both the accelerometer
 and the magnetometer inside the chip, these can be found in the LSM303AGR's
 datasheet on page 39 and are:
 
@@ -14,7 +14,7 @@ datasheet on page 39 and are:
 > performing a read or write.
 
 Next up we'll need a register to read from. Lots of I2C chips out there will
-provide some sort of device identification register for their masters to read.
+provide some sort of device identification register for their controllers to read.
 This is done since considering the thousands (or even millions) of I2C chips
 out there it is highly likely that at some point two chips with the same address
 will end up being built (after all the address is "only" 7 bit wide). With
