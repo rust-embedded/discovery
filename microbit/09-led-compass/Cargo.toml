@@ -1,0 +1,26 @@
+[package]
+name = "led-compass"
+version = "0.1.0"
+authors = ["Henrik Böving <hargonix@gmail.com>"]
+edition = "2018"
+
+[dependencies.microbit-v2]
+version = "0.12.0"
+optional = true
+
+[dependencies.microbit]
+version = "0.12.0"
+optional = true
+
+[dependencies]
+cortex-m = "0.7.3"
+cortex-m-rt = "0.7.0"
+rtt-target = { version = "0.3.1", features = ["cortex-m"] }
+panic-rtt-target = { version = "0.1.2", features = ["cortex-m"] }
+lsm303agr = "0.2.2"
+libm = "0.2.1"
+embedded-hal = "0.2.6"
+
+[features]
+v2 = ["microbit-v2"]
+v1 = ["microbit"]
