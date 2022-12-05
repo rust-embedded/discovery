@@ -22,6 +22,6 @@ Recommended steps to wire this up:
 And that's it! You should be able to run all the programs you wrote in [section 11] without
 modification! Just make sure you open the right serial device / COM port.
 
-**NOTE** If you are having trouble communicating with the bluetooth device, you may need to initialize USART1 with a lower baud rate. Lowering it from 115,200 bps to 9,600 bps might help, as described [here](https://github.com/rust-embedded/discovery/blob/master/src/11-usart/auxiliary/src/lib.rs#L31)
+**NOTE** If you are having trouble communicating with the bluetooth device, you may need to initialize USART1 with a lower baud rate. Lowering it from 115,200 bps to 9,600 bps might help, as described [in the code here](https://github.com/rust-embedded/discovery/blob/master/f3discovery/src/11-usart/auxiliary/src/lib.rs#L31)
 
 [section 11]: ../11-usart/index.html
