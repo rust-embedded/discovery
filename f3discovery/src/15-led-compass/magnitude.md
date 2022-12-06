@@ -12,7 +12,7 @@ The table in that page shows a *magnetic gain setting* that has different values
 values of the GN bits. By default, those GN bits are set to `001`. That means that magnetic gain of
 the X and Y axes is `1100 LSB / Gauss` and the magnetic gain of the Z axis is `980 LSB / Gauss`. LSB
 stands for Least Significant Bits and the `1100 LSB / Gauss` number indicates that a reading of
-`1100` is equivalent to `1 Gauss`, a reading of `2200` is equivalent to 2 Gauss and so on.
+`1100` is equivalent to `1 Gauss`, a reading of `2200` is equivalent to `2 Gauss` and so on.
 
 So, what we need to do is divide the X, Y and Z values that the sensor outputs by its corresponding
 *gain*. Then, we'll have the X, Y and Z components of the magnetic field in Gauss.
