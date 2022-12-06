@@ -10,7 +10,7 @@ and green arrow has the direction of the EMF (it points north).
 
 <p align="center">
 <img title="Quadrant I" src="../assets/quadrant-i.png">
-</p
+</p>
 
 The `Southeast` LED, right?
 
