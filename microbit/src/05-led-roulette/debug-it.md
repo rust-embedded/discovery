@@ -23,7 +23,7 @@ $ gdb target/thumbv7em-none-eabihf/debug/led-roulette
 $ gdb target/thumbv6m-none-eabi/debug/led-roulette
 ```
 
-> **NOTE** Depending on which GDB you installed you will have to use a different command to launch it,
+> **NOTE**: Depending on which GDB you installed you will have to use a different command to launch it,
 > check out [chapter 3] if you forgot which one it was.
 
 [chapter 3]: ../03-setup/index.md#tools
@@ -72,7 +72,7 @@ mode, on the GDB shell enter the following command:
 (gdb) layout src
 ```
 
-> **NOTE** Apologies Windows users. The GDB shipped with the GNU ARM Embedded Toolchain doesn't
+> **NOTE**: Apologies Windows users. The GDB shipped with the GNU ARM Embedded Toolchain doesn't
 > support this TUI mode `:-(`.
 
 ![GDB session](../assets/gdb-layout-src.png "GDB TUI")
@@ -135,7 +135,7 @@ _y = 42
 
 If we use `next` again on top of the `loop {}` statement, we'll get stuck because the program will
 never pass that statement. Instead, we'll switch to the disassemble view with the `layout asm`
-command and advance one instruction at a time using `stepi`. You can always switch back into Rust
+command and advance one instruction at a time using `step`. You can always switch back into Rust
 source code view later by issuing the `layout src` command again.
 
 > **NOTE**: If you used the `next` or `continue` command by mistake and GDB got stuck, you can get unstuck by hitting `Ctrl+C`.
@@ -225,7 +225,7 @@ Ending remote debugging.
 [Inferior 1 (Remote target) detached]
 ```
 
-> **NOTE** If the default GDB CLI is not to your liking check out [gdb-dashboard]. It uses Python to
+> **NOTE**: If the default GDB CLI is not to your liking check out [gdb-dashboard]. It uses Python to
 > turn the default GDB CLI into a dashboard that shows registers, the source view, the assembly view
 > and other things.
 
