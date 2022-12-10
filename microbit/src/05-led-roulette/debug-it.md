@@ -135,7 +135,7 @@ _y = 42
 
 If we use `next` again on top of the `loop {}` statement, we'll get stuck because the program will
 never pass that statement. Instead, we'll switch to the disassemble view with the `layout asm`
-command and advance one instruction at a time using `step`. You can always switch back into Rust
+command and advance one instruction at a time using `stepi`. You can always switch back into Rust
 source code view later by issuing the `layout src` command again.
 
 > **NOTE**: If you used the `next` or `continue` command by mistake and GDB got stuck, you can get unstuck by hitting `Ctrl+C`.
