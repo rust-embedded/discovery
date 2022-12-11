@@ -24,7 +24,7 @@ cargo build
 
 > **NOTE** It's possible to forget to rebuild the program *before* starting a GDB session; this
 > omission can lead to very confusing debug sessions. To avoid this problem you can call just `cargo run`
-> instead of `cargo build`; `cargo run`. The `cargo run` command will build *and* start a debug
+> instead of `cargo build`. The `cargo run` command will build *and* start a debug
 > session ensuring you never forget to recompile your program.
 
 Now we'll run and repeat the flashing procedure as we did in the previous section
