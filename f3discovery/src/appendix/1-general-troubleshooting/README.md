@@ -170,7 +170,7 @@ Solution B
 All:
 - Send configuration details to OpenOCD when starting it up so that it uses a different port from the default for any of the processes.
 - For example, to do its telnet features on 4441 instead of the default 4444, you would run `openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg -c "telnet_port 4441"`
-- More details on OpenOCD's Configuration Stage can be found in their [official docs online]: http://openocd.org/doc/html/Server-Configuration.html
+- More details on OpenOCD's Configuration Stage can be found in their [official docs online](http://openocd.org/doc/html/Server-Configuration.html).
 
 
 ## Cargo problems
