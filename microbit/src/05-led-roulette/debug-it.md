@@ -23,7 +23,7 @@ $ gdb target/thumbv7em-none-eabihf/debug/led-roulette
 $ gdb target/thumbv6m-none-eabi/debug/led-roulette
 ```
 
-> **NOTE** Depending on which GDB you installed you will have to use a different command to launch it,
+> **NOTE**: Depending on which GDB you installed you will have to use a different command to launch it,
 > check out [chapter 3] if you forgot which one it was.
 
 [chapter 3]: ../03-setup/index.md#tools
@@ -72,7 +72,7 @@ mode, on the GDB shell enter the following command:
 (gdb) layout src
 ```
 
-> **NOTE** Apologies Windows users. The GDB shipped with the GNU ARM Embedded Toolchain doesn't
+> **NOTE**: Apologies Windows users. The GDB shipped with the GNU ARM Embedded Toolchain doesn't
 > support this TUI mode `:-(`.
 
 ![GDB session](../assets/gdb-layout-src.png "GDB TUI")
@@ -225,7 +225,7 @@ Ending remote debugging.
 [Inferior 1 (Remote target) detached]
 ```
 
-> **NOTE** If the default GDB CLI is not to your liking check out [gdb-dashboard]. It uses Python to
+> **NOTE**: If the default GDB CLI is not to your liking check out [gdb-dashboard]. It uses Python to
 > turn the default GDB CLI into a dashboard that shows registers, the source view, the assembly view
 > and other things.
 

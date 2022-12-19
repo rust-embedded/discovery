@@ -22,16 +22,16 @@ Now build it:
 cargo build
 ```
 
-> **NOTE** It's possible to forget to rebuild the program *before* starting a GDB session; this
+> **NOTE**: It's possible to forget to rebuild the program *before* starting a GDB session; this
 > omission can lead to very confusing debug sessions. To avoid this problem you can call just `cargo run`
-> instead of `cargo build`; `cargo run`. The `cargo run` command will build *and* start a debug
+> instead of `cargo build`. The `cargo run` command will build *and* start a debug
 > session ensuring you never forget to recompile your program.
 
 Now we'll run and repeat the flashing procedure as we did in the previous section
 but with the new program. I'll let you type in the `cargo run`, *this will get easier shortly*. :)
-Note: 
 
-Don't forget to start ```openocd``` (debugger) on a separate terminal. Otherwise `target remote :3333` won't work! 
+> **NOTE**: Don't forget to start ```openocd``` (debugger) on a separate terminal. 
+> Otherwise `target remote :3333` won't work!
 
 ``` console
 $ cargo run
@@ -230,7 +230,7 @@ Breakpoint 2, led_roulette::__cortex_m_rt_main () at src/05-led-roulette/src/mai
 ```
 
 Now open your terminal window so it's about 80 lines long an 170 characters wide if possible.
-> **NOTE** If you can't open the terminal that large, no problem you'll just see
+> **NOTE**: If you can't open the terminal that large, no problem you'll just see
 > `--Type <RET> for more, q to quit, c to continue without paging--` so just type return
 > until you see the `(gdb)` prompt. Then scroll your terminal window to
 > see the results.

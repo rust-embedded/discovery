@@ -20,4 +20,6 @@ Download the latest `putty.exe` from [this site] and place it somewhere in your 
 
 [this site]: http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html
 
+Now, go to the [next section].
+
 [next section]: verify.md

@@ -44,7 +44,7 @@ If our chip is manufactured by Nordic, then who is Arm? And if our chip is the
 nRF52833, what is the Cortex-M4?
 
 You might be surprised to hear that while "Arm-based" chips are quite
-popular, the company behind the "Arm" trademark ([Arm Holdings][]) doesn't
+popular, the company behind the "Arm" trademark ([Arm Holdings]) doesn't
 actually manufacture chips for purchase. Instead, their primary business
 model is to just *design* parts of chips. They will then license those designs to
 manufacturers, who will in turn implement the designs (perhaps with some of
