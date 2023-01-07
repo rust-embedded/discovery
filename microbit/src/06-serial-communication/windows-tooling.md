@@ -12,8 +12,8 @@ It will print a list of devices that are connected to your computer. The ones th
 their names are serial devices. This is the kind of device we'll be working with. Take note of all
 the `COM` *ports* `mode` outputs *before* plugging the serial module.
 
-Now, plug the micro:bit and run the `mode` command again. If you see a new
-`COM` port appear on the list then you have that's the COM port assigned to the
+Now, plug in the micro:bit and run the `mode` command again. If you see a new
+`COM` port appear on the list, then that's the COM port assigned to the
 serial functionality on the micro:bit.
 
 Now launch `putty`. A GUI will pop out.
