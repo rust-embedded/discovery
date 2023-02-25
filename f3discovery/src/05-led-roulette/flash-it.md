@@ -152,10 +152,14 @@ Get back to the terminal prompt and look at `../.cargo/config.toml`:
 ``` console
 ~/embedded-discovery/src/05-led-roulette
 $ cat ../.cargo/config.toml
+# default runner starts a GDB sesssion, which requires OpenOCD to be
+# running, e.g.,
+## openocd -f interface/stlink.cfg -f target/stm32f3x.cfg
+# depending on your local GDB, pick one of the following
 [target.thumbv7em-none-eabihf]
-runner = "arm-none-eabi-gdb -q"
-# runner = "gdb-multiarch -q"
-# runner = "gdb -q"
+runner = "arm-none-eabi-gdb -q -x ../openocd.gdb"
+# runner = "gdb-multiarch -q -x ../openocd.gdb"
+# runner = "gdb -q -x ../openocd.gdb"
 rustflags = [
   "-C", "link-arg=-Tlink.x",
 ]
@@ -173,17 +177,19 @@ For example, if your debugger was `gdb-multiarch` then after
 editing the `git diff` should be:
 ``` diff
 $ git diff ../.cargo/config.toml
-diff --git a/src/.cargo/config.toml b/src/.cargo/config.toml
-index ddff17f..8512cfe 100644
---- a/src/.cargo/config.toml
-+++ b/src/.cargo/config.toml
-@@ -1,6 +1,6 @@
+diff --git a/f3discovery/src/.cargo/config.toml b/f3discovery/src/.cargo/config.toml
+index 2f38f6b..95860a0 100644
+--- a/f3discovery/src/.cargo/config.toml
++++ b/f3discovery/src/.cargo/config.toml
+@@ -3,8 +3,8 @@
+ ## openocd -f interface/stlink.cfg -f target/stm32f3x.cfg
+ # depending on your local GDB, pick one of the following
  [target.thumbv7em-none-eabihf]
--runner = "arm-none-eabi-gdb -q"
--# runner = "gdb-multiarch -q"
-+# runner = "arm-none-eabi-gdb -q"
-+runner = "gdb-multiarch -q"
- # runner = "gdb -q"
+-runner = "arm-none-eabi-gdb -q -x ../openocd.gdb"
+-# runner = "gdb-multiarch -q -x ../openocd.gdb"
++# runner = "arm-none-eabi-gdb -q -x ../openocd.gdb"
++runner = "gdb-multiarch -q -x ../openocd.gdb"
+ # runner = "gdb -q -x ../openocd.gdb"
  rustflags = [
    "-C", "link-arg=-Tlink.x",
 ```
@@ -204,17 +210,27 @@ Results in:
 ```
 ~/embedded-discovery/src/05-led-roulette
 $ cargo run --target thumbv7em-none-eabihf
-    Finished dev [unoptimized + debuginfo] target(s) in 0.01s
-     Running `arm-none-eabi-gdb -q ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
-Reading symbols from ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
-```
+    Finished dev [unoptimized + debuginfo] target(s) in 0.14s
+     Running `gdb-multiarch -q -x ../openocd.gdb /home/adam/vc/rust-training/discovery/f3discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
+Reading symbols from /home/adam/vc/rust-training/discovery/f3discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
+0x08000230 in core::fmt::Arguments::new_v1 (pieces=..., args=...)
+    at /rustc/d5a82bbd26e1ad8b7401f6a718a9c57c96905483/library/core/src/fmt/mod.rs:394
+394	/rustc/d5a82bbd26e1ad8b7401f6a718a9c57c96905483/library/core/src/fmt/mod.rs: No such file or directory.
+Loading section .vector_table, size 0x194 lma 0x8000000
+Loading section .text, size 0x1ad8 lma 0x8000194
+Loading section .rodata, size 0x5a4 lma 0x8001c6c
+Start address 0x08000194, load size 8720
+Transfer rate: 12 KB/sec, 2906 bytes/write.
+Breakpoint 1 at 0x80001e8: file src/05-led-roulette/src/main.rs, line 7.
+Note: automatically using hardware breakpoints for read-only addresses.
+Breakpoint 2 at 0x800020a: file src/lib.rs, line 570.
+Breakpoint 3 at 0x8001c5a: file src/lib.rs, line 560.
 
-Now issue the `target remote :3333` to connect to the OpenOCD server
-and connect to the F3:
-```
-(gdb) target remote :3333
-Remote debugging using :3333
-0x00000000 in ?? ()
+Breakpoint 1, led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roulette/src/main.rs:7
+7	#[entry]
+halted: PC: 0x080001ee
+led_roulette::__cortex_m_rt_main () at src/05-led-roulette/src/main.rs:10
+10	    let x = 42;
 ```
 
 Bravo, we will be modifying `../.cargo/config.toml` in future. **But**, since
@@ -226,6 +242,11 @@ directory.
 ## Flash the device
 
 Assuming you have GDB running, if not start it as suggested in the previous section.
+
+> **NOTE** The `-x ../openocd.gdb` arguments to `gdb` is already setup
+> to flash the device, so explicitly flashing the project code to the
+> device is normally handled with a simple `cargo run`.  We'll cover
+> the openocd configuration script in the next section.
 
 Now use the `load` command in `gdb` to actually flash the program into the device:
 ```
