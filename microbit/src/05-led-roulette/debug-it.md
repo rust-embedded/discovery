@@ -28,6 +28,18 @@ $ gdb target/thumbv6m-none-eabi/debug/led-roulette
 
 [chapter 3]: ../03-setup/index.md#tools
 
+> **NOTE**: If you are getting `target/thumbv7em-none-eabihf/debug/led-roulette: No such file or directory`
+> error, try adding `../../` to the file path, for example:
+>
+> ```shell
+> $ gdb ../../target/thumbv7em-none-eabihf/debug/led-roulette
+> ```
+>
+> This is caused by each example project being in a `workspace` that contains the entire book, and workspaces have
+> a single `target` directory. Check out [Workspaces chapter in Rust Book] for more.
+
+[Workspaces chapter in Rust Book]: https://doc.rust-lang.org/book/ch14-03-cargo-workspaces.html#creating-a-workspace
+
 > **NOTE**: If `cargo-embed` prints a lot of warnings here don't worry about it. As of now it does not fully
 > implement the GDB protocol and thus might not recognize all the commands your GDB is sending to it,
 > as long as it does not crash, you are fine.
