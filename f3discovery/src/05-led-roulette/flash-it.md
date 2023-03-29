@@ -97,6 +97,17 @@ gdb-multiarch -q -ex "target remote :3333" target/thumbv7em-none-eabihf/debug/le
 ``` console
 gdb -q -ex "target remote :3333" target/thumbv7em-none-eabihf/debug/led-roulette
 ```
+
+> **NOTE**: If you are getting `target/thumbv7em-none-eabihf/debug/led-roulette: No such file or directory`
+> error, try adding `../../` to the file path, for example:
+>
+> ```shell
+> $ gdb -q -ex "target remote :3333" ../../target/thumbv7em-none-eabihf/debug/led-roulette
+> ```
+>
+> This is caused by each example project being in a `workspace` that contains the entire book, and workspaces have
+> a single `target` directory. Check out [Workspaces chapter in Rust Book] for more.
+
 ### **Failing case**
 
 You can detect a failing case if there is a `warning` or `error` after the `Remote debugging using :3333` line:
