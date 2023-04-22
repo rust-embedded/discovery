@@ -101,6 +101,7 @@ Continuing.
 Breakpoint 2, led_roulette::__cortex_m_rt_main () at src/05-led-roulette/src/main.rs:13
 (gdb)
 ```
+
 At any point you can leave the TUI mode using the following command:
 
 ```
