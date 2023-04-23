@@ -30,7 +30,7 @@ should work but we have listed the version we have tested.
 
 [`cargo-binutils`]: https://github.com/rust-embedded/cargo-binutils
 
-- [`cargo-embed`]. Version 0.11.0 or newer.
+- [`cargo-embed`]. Version 0.18.0 or newer.
 
 [`cargo-embed`]: https://github.com/probe-rs/cargo-embed
 
@@ -66,7 +66,7 @@ cargo-size 0.3.3
 
 ### `cargo-embed`
 
-In order to install cargo-embed, first install its [prerequisites](https://github.com/probe-rs/probe-rs/blob/master/cargo-embed/README.md#prerequisites). Then install it with cargo:  
+In order to install cargo-embed, first install its [prerequisites](https://github.com/probe-rs/probe-rs/blob/master/cargo-embed/README.md#prerequisites). Then install it with cargo:
 
 ```console
 $ cargo install cargo-embed --vers 0.11.0
