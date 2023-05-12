@@ -65,7 +65,7 @@ $ cat /etc/udev/rules.d/99-microbit.rules
 
 ``` text
 # CMSIS-DAP for microbit
-SUBSYSTEM=="usb", ATTR{idVendor}=="0d28", ATTR{idProduct}=="0204", MODE:="666"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0d28", ATTR{idProduct}=="0204", MODE:="664"
 ```
 
 Then reload the udev rules with:
