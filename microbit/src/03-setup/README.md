@@ -69,10 +69,10 @@ cargo-size 0.3.3
 In order to install cargo-embed, first install its [prerequisites](https://github.com/probe-rs/probe-rs/blob/master/cargo-embed/README.md#prerequisites). Then install it with cargo:
 
 ```console
-$ cargo install cargo-embed --vers 0.11.0
+$ cargo install cargo-embed --vers 0.18.0
 
 $ cargo embed --version
-cargo-embed 0.11.0
+cargo-embed 0.18.0
 git commit: crates.io
 ```
 
