@@ -366,7 +366,7 @@ $ cargo run --target thumbv7em-none-eabihf   # Compile and load the program into
 (gdb) disassemble /m                # Disassemble main function
 (gdb) continue                      # Led blinking on for 1/2 sec then off 1/2 sec
 ^C                                  # Stop with Ctrl+C
-(gdb) enable 1                      # Enable breakpiont 1
+(gdb) enable 1                      # Enable breakpoint 1
 (gdb) continue                      # Continue, will stop at main.rs:16
 (gdb) print half_period             # Print half_period result is 500
 (gdb) set half_period = 2000        # Set half_period to 2000ms
