@@ -32,7 +32,7 @@ should work but we have listed the version we have tested.
 
 - [`cargo-embed`]. Version 0.18.0 or newer.
 
-[`cargo-embed`]: https://github.com/probe-rs/cargo-embed
+[`cargo-embed`]: https://probe.rs/docs/tools/cargo-embed/
 
 - `minicom` on Linux and macOS. Tested version: 2.7.1. Other versions will most likely work as well though
 
@@ -66,7 +66,7 @@ cargo-size 0.3.3
 
 ### `cargo-embed`
 
-In order to install cargo-embed, first install its [prerequisites](https://github.com/probe-rs/probe-rs/blob/master/cargo-embed/README.md#prerequisites). Then install it with cargo:
+In order to install cargo-embed, first install its [prerequisites](https://probe.rs/docs/getting-started/installation/) (note: these instructions are part of the more general [`probe-rs`](https://probe.rs/) embedded debugging toolkit). Then install it with cargo:
 
 ```console
 $ cargo install cargo-embed --vers 0.18.0
