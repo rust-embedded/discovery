@@ -1,4 +1,4 @@
-# Putting it all together
+# 把它们放在一起
 
 ``` rust
 #![no_main]
