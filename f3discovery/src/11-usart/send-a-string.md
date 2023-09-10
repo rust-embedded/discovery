@@ -1,14 +1,13 @@
-# Send a string
+# 发送字符串
 
-The next task will be to send a whole string from the microcontroller to your computer.
+下一个任务是将整个字符串从微控制器发送到计算机。
 
-I want you to send the string `"The quick brown fox jumps over the lazy dog."` from the microcontroller to
-your computer.
+我要你从微控制器向你的计算机发送字符串`"The quick brown fox jumps over the lazy dog."`。
 
-It's your turn to write the program.
+轮到你编写程序了。
 
-Execute your program inside the debugger, statement by statement. What do you see?
+在调试器内逐个语句执行程序。你看到了什么？
 
-Then execute the program again but in *one go* using the `continue` command. What happens this time?
+然后使用`continue`命令*一次性*再次执行程序。这次会发生什么？
 
-Finally, build the program in *release* mode and, again, run it in one go. What happens this time?
+最后，以*发布*模式构建程序，然后再次一次性运行。这次会发生什么？
