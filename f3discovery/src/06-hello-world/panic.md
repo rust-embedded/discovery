@@ -1,8 +1,8 @@
 # `panic!`
 
-The `panic!` macro also sends its output to the ITM!
+`panic!`宏还将其输出发送到ITM！
 
-Change the `main` function to look like this:
+将`main`函数更改为如下所示：
 
 ``` rust
 #[entry]
@@ -11,9 +11,8 @@ fn main() -> ! {
 }
 ```
 
-Before running one other suggestion, I find it inconvenient to have to
-confirm when quitting gdb. Add the following file in your home
-directory `~/.gdbinit` so that it quits immediately:
+在运行另一个建议之前，我发现在退出gdb时必须进行确认很不方便。
+在主目录中添加以下文件。`~/.gdbinit`使其立即退出：
 
 ``` console
 $ cat ~/.gdbinit
@@ -22,7 +21,7 @@ define hook-quit
 end
 ```
 
-OK, now use `cargo run` and it stops at the first line of `fn main()`:
+好的，现在使用`cargo run`，它停在`fn main()`的第一行：
 
 ``` console
 $ cargo run
@@ -49,13 +48,13 @@ hello_world::__cortex_m_rt_main () at ~/embedded-discovery/src/06-hello-world/sr
 (gdb)
 ```
 
-We'll use short command names to save typing, enter `c` then the `Enter` or `Return` key:
+我们将使用简短的命令名保存输入，输入`c`然后按`Enter`或`Return`键：
 ```
 (gdb) c
 Continuing.
 ```
 
-If all is well you'll see some new output in the `itmdump` terminal.
+如果一切正常，您将在`itmdump`终端中看到一些新的输出。
 
 ``` console
 $ # itmdump terminal
@@ -63,7 +62,7 @@ $ # itmdump terminal
 panicked at 'Hello, world!', src/06-hello-world/src/main.rs:10:5
 ```
 
-Then type `Ctrl-c` which breaks out of a loop in the runtime:
+然后输入`Ctrl-c`，它在运行时中断循环：
 ``` text
 ^C
 Program received signal SIGINT, Interrupt.
@@ -71,9 +70,8 @@ Program received signal SIGINT, Interrupt.
 57	        atomic::compiler_fence(Ordering::SeqCst);
 ```
 
-Ultimately, `panic!` is just another function call so you can see it leaves behind
-a trace of function calls. This allows you to use `backtrace` or just `bt` and to see
-call stack that caused the panic:
+最终，`panic!`只是另一个函数调用，因此您可以看到它留下了函数调用的痕迹。
+这允许您使用`backtrace`或仅使用`bt`，并查看导致死机的调用堆栈：
 
 ``` text
 (gdb) bt
@@ -84,9 +82,8 @@ call stack that caused the panic:
 #4  0x080001f4 in hello_world::__cortex_m_rt_main_trampoline () at src/06-hello-world/src/main.rs:8
 ```
 
-Another thing we can do is catch the panic *before* it does the logging.
-So we'll do several things; reset to the beginning, disable breakpoint 1,
-set a new breakpoint at `rust_begin_unwind`, list the break points and then continue:
+我们可以做的另一件事是在它进行日志记录*之前*拦截panic。
+因此，我们将做几件事；重置到开头，禁用断点1，在`rust_begin_unwind`处设置新断点，列出断点，然后继续：
 
 ``` text
 (gdb) monitor reset halt
@@ -120,12 +117,11 @@ Breakpoint 4, panic_itm::panic (info=0x20009fa0) at ~/.cargo/registry/src/github
 47          interrupt::disable();
 ```
 
-You'll notice that nothing got printed on the `itmdump` console this time. If
-you resume the program using `continue` then a new line will be printed.
+您将注意到这次`itmdump`控制台上没有打印任何内容。如果使用`continue`继续程序，则将打印一行新行。
 
-In a later section we'll look into other simpler communication protocols.
+在后面的一节中，我们将探讨其他更简单的通信协议。
 
-Finally, enter the `q` command to quit and it quits immediately without asking for confirmation:
+最后，输入`q`命令退出，它立即退出，无需确认：
 
 ``` text
 (gdb) q
@@ -134,10 +130,9 @@ Ending remote debugging.
 [Inferior 1 (Remote target) detached]
 ```
 
-As an even shorter sequence you can type `Ctrl-d`, which eliminates
-one keystroke!
+作为一个更短的队列，您可以输入`Ctrl-d`，这样就省去了一次按键！
 
-> **NOTE** In this case the `(gdb)` prompt is overwritten with `quit)`
+> **注意**：在这种情况下，`(gdb)` 提示符被`(quit)`覆盖
 
 ``` text
 quit)
