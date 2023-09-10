@@ -1,45 +1,38 @@
-# Registers
+# 寄存器
 
-It's time to explore what the `Led` API does under the hood.
+是时候探索`Led` API在幕后的作用了。
 
-In a nutshell, it just writes to some special memory regions. Go into the `07-registers` directory
-and let's run the starter code statement by statement.
+简而言之，它只是写入一些特殊的内存区域。进入`07-registers`目录，让我们
+逐个语句运行starter代码语句。
 
 ``` rust
 {{#include src/main.rs}}
 ```
 
-What's this magic?
+这是什么魔法？
 
-The address `0x48001018` points to a *register*. A register is a special region of memory that
-controls a *peripheral*. A peripheral is a piece of electronics that sits right next to the
-processor within the microcontroller package and provides the processor with extra functionality.
-After all, the processor, on its own, can only do math and logic.
+地址`0x48001018`指向*寄存器*。寄存器是控制*外围设备*的特殊存储器区域。 外围设备是一块电子设备，位
+于微控制器封装内的处理器旁边，为处理器提供额外的功能。毕竟，处理器本身只能做数学和逻辑。
 
-This particular register controls General Purpose Input/Output (GPIO) *pins* (GPIO *is* a
-peripheral) and can be used to *drive* each of those pins *low* or *high*.
+该特定寄存器控制通用输入/输出(GPIO) *引脚* (GPIO*是*外围设备)，并可用于驱动这些引脚中的每一个*低*或*高*。
 
-## An aside: LEDs, digital outputs and voltage levels
+## 旁白: LEDs, 数字输出和电压电平
 
-Drive? Pin? Low? High?
+驱动? 引脚? 低的? 高的?
 
-A pin is a electrical contact. Our microcontroller has several of them and some of them are
-connected to LEDs. An LED, a Light Emitting Diode, will only emit light when voltage is applied to
-it with a certain polarity.
+引脚是电触点。我们的微控制器有几个，其中一些连接到LED。LED（发光二极管）仅当电压以特定极性施加到其上时才会发光。
 
-<p align="center">
+<p>
 <img class="white_bg" height=180 title="LED circuit" src="https://upload.wikimedia.org/wikipedia/commons/c/c9/LED_circuit.svg">
 </p>
 
-Luckily for us, the microcontroller's pins are connected to the LEDs with the right polarity. All
-that we have to do is *output* some non-zero voltage through the pin to turn the LED on. The pins
-attached to the LEDs are configured as *digital outputs* and can only output two different voltage
-levels: "low", 0 Volts, or "high", 3 Volts. A "high" (voltage) level will turn the LED on whereas
-a "low" (voltage) level will turn it off.
+幸运的是，微控制器的引脚连接到具有正确极性的LED。我们所要做的就是通过引脚*输出*一些非零电压以打开LED。
+连接到LED的引脚被配置为*数字输出*，只能输出两个不同的电压电平："低", 0 伏, 或 "高", 3 伏。
+"高" (电压) 将点亮LED，而 "低" (电压) 将熄灭LED。
 
-These "low" and "high" states map directly to the concept of digital logic. "low" is `0` or `false`
-and "high" is `1` or `true`. This is why this pin configuration is known as digital output.
+这些"低"和"高"状态直接映射到数字逻辑的概念。"低"为`0`或`false`和"高"为`1`或`true`。
+这就是为什么这种引脚配置被称为数字输出。
 
 ---
 
-OK. But how can one find out what this register does? Time to RTRM (Read the Reference Manual)!
+好的。但是怎样才能知道这个寄存器的作用呢？RTRM时间到了（阅读参考手册）！
