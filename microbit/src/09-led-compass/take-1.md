@@ -1,25 +1,20 @@
 # Take 1
 
-What's the simplest way in which we can implement the LED compass, even if it's not perfect?
+实现LED指南针的最简单方法是什么，即使它并不完美？
 
-For starters, we'd only care about the X and Y components of the magnetic field because when you
-look at a compass you always hold it in horizontal position and thus the compass is in the XY plane.
+对于初学者，我们只关心磁场的X和Y分量，因为当您查看指南针时，您总是将它保持在水平位置，因此指南针位于XY平面上。
 
-<p align="center">
+<p>
 <img class="white_bg" title="Quadrants" src="../assets/quadrants.png">
 </p>
 
-If we only looked at the signs of the X and Y components we could determine to which quadrant the
-magnetic field belongs to. Now the question of course is which direction (north, north-east, etc.)
-do the 4 quadrants represent. In order to figure this out we can just rotate the micro:bit and observe
-how the quadrant changes whenever we point in another direction.
+如果我们只看X和Y分量的符号，我们就可以确定磁场属于哪个象限。在的问题当然是4个象限代表哪个方向(北、东北等)。
+为了弄清楚这一点，我们可以旋转micro:bit并观察当我们指向另一个方向时象限如何变化。
 
-After experimenting a bit we can find out that if we point the micro:bit in e.g. north-east direction,
-both the X and the Y component are always positive. Based on this information you should be able to
-figure out which direction the other quadrants represent.
+经过一番实验，我们可以发现，如果我们将micro:bit指向例如东北方向，X和Y分量始终为正。
+根据这些信息，您应该能够确定其他象限代表的方向。
 
-Once you figured out the relation between quadrant and direction you should be able to
-complete the template from below.
+一旦你弄清楚象限和方向之间的关系，你应该能够从下面完成模板。
 
 ```rust
 #![deny(unsafe_code)]
