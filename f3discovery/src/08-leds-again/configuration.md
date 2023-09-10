@@ -1,21 +1,18 @@
-# Configuration
+# 配置
 
-After turning on the GPIOE peripheral, it still needs to be configured. In this case, we
-want the pins to be configured as digital *outputs* so they can drive the LEDs; by default, most
-pins are configured as digital *inputs*.
+打开GPIOE外设后，仍需要对其进行配置。在这种情况下，我们希望将引脚配置为数字*输出*，以便它们能
+够驱动LED； 默认情况下，大多数引脚配置为数字*输入*。
 
-You can find the list of registers in the `GPIOE` register block in:
+您可以在以下位置找到`GPIOE`寄存器块中的寄存器列表：
 
-> Section 11.4.12 - GPIO registers - Page 243 - Reference Manual
+> 第11.4.12节-GPIO寄存器-第243页-参考手册
 
-The register we'll have to deal with is: `MODER`.
+我们要处理的寄存器是：`MODER`。
 
-Your task for this section is to further update the starter code to configure the *right* `GPIOE`
-pins as digital outputs. You'll have to:
+本节的任务是进一步更新启动器代码，将*正确*的`GPIOE`引脚配置为数字输出。您必须：
 
-- Figure out *which* pins you need to configure as digital outputs. (hint: check Section 6.4 LEDs of
-  the *User Manual* (page 18)).
-- Read the documentation to understand what the bits in the `MODER` register do.
-- Modify the `MODER` register to configure the pins as digital outputs.
+- 找出*哪些*需要配置为数字输出的引脚。 (提示：查看用户手册第6.4节LED（第18页）)。
+- 阅读文档以了解`MODER`寄存器中的位的作用。
+- 修改`MODER`寄存器，将引脚配置为数字输出。
 
-If successful, you'll see the 8 LEDs turn on when you run the program.
+如果成功，您将在运行程序时看到8个LED点亮。
