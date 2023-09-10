@@ -1,35 +1,29 @@
-# LED compass
+# LED 指南针
 
-In this section, we'll implement a compass using the LEDs on the F3. Like proper compasses, our LED
-compass must point north somehow. It will do that by turning on one of its eight LEDs; the on LED
-should point towards north.
+在本节中，我们将使用F3上的LED来实现指南针。像正确的指南针一样，我们的LED指南针必须以某种方式指向北方。
+它将通过打开八个LED中的一个来实现这一点；开启的LED应指向北方。
 
-Magnetic fields have both a magnitude, measured in Gauss or Teslas, and a *direction*. The
-magnetometer on the F3 measures both the magnitude and the direction of an external magnetic field
-but it reports back the *decomposition* of said field along *its axes*.
+磁场既有以高斯或特斯拉为单位测量的大小，也有*方向*。F3上的磁强计测量外部磁场的大小和方向，但它沿*其轴*报告所述磁场的*分解*。
 
-See below, the magnetometer has three axes associated to it.
+见下图，磁力计有三个轴与之相关。
 
-<p align="center">
+<p>
 <img height=480 title="Magnetometer axes" src="../assets/f3-lsm303dlhc.png">
 </p>
 
-Only the X and Y axes are shown above. The Z axis is pointing "out" of your screen.
+上面只显示了X轴和Y轴。Z轴指向屏幕"out"。
 
-Let's get familiar with the readings of the magnetometer by running the following starter code:
+让我们通过运行以下启动代码来熟悉磁力计的读数：
 
 ``` rust
 {{#include src/main.rs}}
 ```
 
-This `lsm303dlhc` module provides high level API over the LSM303DLHC. Under the hood it does the
-same I2C routine that you implemented in the last section but it reports the X, Y and Z values in a
-`I16x3` struct instead of a tuple.
+该`lsm303dlhc`模块在LSM303DLHC上提供高级API。在后台，它执行上一节中实现的I2C例程，但它在`I16x3`结构中而不是在元组中报告X、Y和Z值。
 
-Locate where north is at your current location. Then rotate the board such that it's aligned
-"towards north": the North LED (LD3) should be pointing towards north.
+找到当前位置的北向位置。然后旋转电路板，使其"朝北"对其：北LED（LD3）应指向北。
 
-Now run the starter code and observe the output. What X, Y and Z values do you see?
+现在运行启动器代码并观察输出。您看到什么X、Y和Z值？
 
 ``` console
 $ # itmdump terminal
@@ -39,5 +33,4 @@ I16x3 { x: 46, y: 195, z: -8 }
 I16x3 { x: 47, y: 197, z: -2 }
 ```
 
-Now rotate the board 90 degrees while keeping it parallel to the ground. What X, Y and Z values do
-you see this time? Then rotate it 90 degrees again. What values do you see?
+现在将板旋转90度，同时保持其与地面平行。这次您看到了什么X、Y和Z值？然后将其再次旋转90度。你看到了什么值？
