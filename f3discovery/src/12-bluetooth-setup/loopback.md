@@ -1,26 +1,23 @@
-# Loopback, again
+# 再次 Loopback
 
-After pairing your computer to the Bluetooth module, your OS should have created a device file / COM
-port for you. On Linux, it should be `/dev/rfcomm*`; on mac, it should be `/dev/cu.*`; and on
-Windows, it should be a new COM port.
+将计算机与蓝牙模块配对后，操作系统应为您创建了设备文件/COM端口。
+在Linux上，它应该是`/dev/rfcomm*`；在mac上，它应该是`/dev/cu.*`;在Windows上，它应该是一个新的COM端口。
 
-We can now test the Bluetooth module with minicom/PuTTY. Because this module doesn't have LED
-indicators for the transmission and reception events like the serial module did, we'll test the
-module using a loopback connection:
+我们现在可以用minicom/PuTTY测试蓝牙模块。
+由于该模块不像串行模块那样具有用于发送和接收事件的LED指示灯， 因此我们将使用loopback连接测试该模块：
 
-<p align="center">
+<p>
 <img height=640 title="F3 <-> Bluetooth connection (loopback)" src="../assets/f3-bluetooth-loopback.png">
 </p>
 
-Just connect the module's TXD pin to its RXD pin using a F/F wire.
+只需使用F/F线将模块的TXD引脚连接到RXD引脚。
 
-Now, connect to the device using `minicom`/`PuTTY`:
+现在，使用`minicom`/`PuTTY`连接到设备：
 
 ``` console
 $ minicom -D /dev/rfcomm0
 ```
 
-Upon connecting, the blinking pattern of the Bluetooth module should change to: long pause then
-blink twice quickly.
+连接后，蓝牙模块的闪烁模式应更改为：长暂停，然后快速闪烁两次。
 
-Typing inside minicom/PuTTY terminal should echo back what you type.
+在minicom/PuTTY终端内输入应该会回复您输入的内容。
