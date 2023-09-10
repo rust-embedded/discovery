@@ -1,19 +1,17 @@
-# Debug it
-## How does this even work?
-Before we debug our little program let's take a moment to quickly understand what is actually
-happening here. In the previous chapter we already discussed the purpose of the second chip
-on the board as well as how it talks to our computer, but how can we actually use it?
+# 调试
 
-The little option `default.gdb.enabled = true` in `Embed.toml` made `cargo-embed` open a so-called "GDB stub" after flashing,
-this is a server that our GDB can connect to and send commands like "set a breakpoint at address X" to. The server can then decide
-on its own how to handle this command. In the case of the `cargo-embed` GDB stub it will forward the
-command to the debugging probe on the board via USB which then does the job of actually talking to the
-MCU for us.
+## 这是怎么工作的？
+在调试我们的小程序之前，让我们花点时间快速了解这里实际发生的情况。在上一章中，我们已经讨论了
+开发板上第二个芯片的用途以及它如何与我们的计算机通信， 但我们如何实际使用它呢？
 
-## Let's debug!
+`Embed.toml`中的option`default.gdb.enabled = true`使`cargo-embed`在闪烁后打开了一个所谓的"GDB stub"，
+这是我们的GDB可以连接到的服务器，并向其发送"在地址X设置断点"等命令。然后，服务器可以自行决定如何处理该命令。
+在`cargo-embed`GDB stub 的情况下，它将通过USB将命令转发到板上进行调试指针，然后为我们实际与MCU通信。
 
-Since `cargo-embed` is blocking our current shell we can simply open a new one and cd back into our project
-directory. Once we are there we first have to open the binary in gdb like this:
+## 让我们调试！
+
+由于`cargo-embed`阻塞了我们当前的shell，我们可以简单地打开一个新的shell，然后cd回到我们的项目
+目录。 一旦我们到达那里，我们首先必须像这样在gdb中打开二进制文件：
 
 ```shell
 # For micro:bit v2
@@ -23,29 +21,14 @@ $ gdb target/thumbv7em-none-eabihf/debug/led-roulette
 $ gdb target/thumbv6m-none-eabi/debug/led-roulette
 ```
 
-> **NOTE**: Depending on which GDB you installed you will have to use a different command to launch it,
-> check out [chapter 3] if you forgot which one it was.
+> **注意**：根据您安装的GDB，您将不得不使用不同的命令来启动它，如果您忘记了它是哪一个，请查看[第三章]。
 
-[chapter 3]: ../03-setup/index.md#tools
+[第三章]: ../03-setup/index.md#tools
 
-> **NOTE**: If you are getting `target/thumbv7em-none-eabihf/debug/led-roulette: No such file or directory`
-> error, try adding `../../` to the file path, for example:
->
-> ```shell
-> $ gdb ../../target/thumbv7em-none-eabihf/debug/led-roulette
-> ```
->
-> This is caused by each example project being in a `workspace` that contains the entire book, and workspaces have
-> a single `target` directory. Check out [Workspaces chapter in Rust Book] for more.
+> **注意**：如果`cargo-embed`在这里打印很多警告，请不要担心。到目前为止，它还没有完全实现GDB
+> 协议，因此可能无法识别GDB发送给它的所有命令，只要它不崩溃，就可以了。
 
-[Workspaces chapter in Rust Book]: https://doc.rust-lang.org/book/ch14-03-cargo-workspaces.html#creating-a-workspace
-
-> **NOTE**: If `cargo-embed` prints a lot of warnings here don't worry about it. As of now it does not fully
-> implement the GDB protocol and thus might not recognize all the commands your GDB is sending to it,
-> as long as it does not crash, you are fine.
-
-Next we will have to connect to the GDB stub. It runs on `localhost:1337` per default so in order to
-connect to it run the following:
+接下来我们必须连接到GDB stub。它在`localhost:1337`默认情况下运行，因此为了连接到它运行以下命令：
 
 ```shell
 (gdb) target remote :1337
@@ -54,9 +37,7 @@ Remote debugging using :1337
 157     #[derive(Copy, Clone, Debug)]
 ```
 
-Next what we want to do is get to the main function of our program.
-We will do this by first setting a breakpoint there and the continuing
-program execution until we hit the breakpoint:
+接下来我们要做的是进入程序的主要功能。我们将首先在此处设置断点并继续执行程序，直到遇到断点：
 
 ```
 (gdb) break main
@@ -69,28 +50,23 @@ Breakpoint 1, led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roule
 9       #[entry]
 ```
 
-Breakpoints can be used to stop the normal flow of a program. The `continue` command will let the
-program run freely *until* it reaches a breakpoint. In this case, until it reaches the `main`
-function because there's a breakpoint there.
+断点可用于停止程序的正常流程。该`continue`命令将让程序自由运行，*直到*它到达断点。在这种情况下，
+直到它到达`main`函数，因为那里有一个断点。
 
-Note that GDB output says "Breakpoint 1". Remember that our processor can only use a limited amount of these
-breakpoints, so it's a good idea to pay attention to these messages. If you happen to run out of breakpoints,
-you can list all the current ones with `info break` and delete desired ones with `delete <breakpoint-num>`.
+请注意，GDB输出显示"断点1"。请记住，我们的处理器只能使用有限数量的这些断点，因此最好注意这些消息。
+如果您碰巧用完了断点， 您可以使用`info break`列出所有当前的断点，并使用`delete <breakpoint-num>`删除所需的断点。
 
-For a nicer debugging experience, we'll be using GDB's Text User Interface (TUI). To enter into that
-mode, on the GDB shell enter the following command:
+为了获得更好的调试体验，我们将使用GDB的文本用户界面 (TUI)。要进入该模式，请在GDB shell上输入以下命令：
 
 ```
 (gdb) layout src
 ```
 
-> **NOTE**: Apologies Windows users. The GDB shipped with the GNU ARM Embedded Toolchain doesn't
-> support this TUI mode `:-(`.
+> **注意**：向Windows用户致歉。GNU ARM Embedded Toolchain附带的GDB不支持这种TUI模式`:-(`。
 
 ![GDB session](../assets/gdb-layout-src.png "GDB TUI")
 
-GDB's break command does not only work for function names, it can also break at certain line numbers.
-If we wanted to break in line 13 we can simply do:
+GDB的break命令不仅适用于函数名，它还可以在某些行号处中断。如果我们想跳过第13行，我们可以简单地做：
 
 ```
 (gdb) break 13
@@ -101,15 +77,13 @@ Continuing.
 Breakpoint 2, led_roulette::__cortex_m_rt_main () at src/05-led-roulette/src/main.rs:13
 (gdb)
 ```
-
-At any point you can leave the TUI mode using the following command:
+您可以随时使用以下命令离开TUI模式：
 
 ```
 (gdb) tui disable
 ```
 
-We are now "on" the `_y = x` statement; that statement hasn't been executed yet. This means that `x`
-is initialized but `_y` is not. Let's inspect those stack/local variables using the `print` command:
+我们现在正在`_y = x`语句"上"; 该语句尚未执行。这意味着`x`被初始化，但`_y`未被初始化。让我们使用`print`命令检查这些堆栈/局部变量：
 
 ```
 (gdb) print x
@@ -119,25 +93,24 @@ $2 = (*mut i32) 0x20003fe8
 (gdb)
 ```
 
-As expected, `x` contains the value `42`. The command `print &x` prints the address of the variable `x`.
-The interesting bit here is that GDB output shows the type of the reference: `i32*`, a pointer to an `i32` value.
+正如预期的那样，`x`包含值`42`。命令`print &x`打印变量`x`的地址。这里有趣的一点是GDB输出显示了引
+`i32*`，一个指向`i32`值的指针。
 
-If we want to continue the program execution line by line we can do that using the `next` command
-so let's proceed to the `loop {}` statement:
+如果我们想逐行继续执行程序，我们可以使用`next`命令来做到这一点，所以让我们继续执行`loop {}`语句：
 
 ```
 (gdb) next
 16          loop {}
 ```
 
-And `_y` should now be initialized.
+`_y`现在应该被初始化。
 
 ```
 (gdb) print _y
 $5 = 42
 ```
 
-Instead of printing the local variables one by one, you can also use the `info locals` command:
+您也可以使用`info locals`命令，而不是逐个打印局部变量：
 
 ```
 (gdb) info locals
@@ -146,12 +119,11 @@ _y = 42
 (gdb)
 ```
 
-If we use `next` again on top of the `loop {}` statement, we'll get stuck because the program will
-never pass that statement. Instead, we'll switch to the disassemble view with the `layout asm`
-command and advance one instruction at a time using `stepi`. You can always switch back into Rust
-source code view later by issuing the `layout src` command again.
+如果我们在`loop {}`语句的顶部再次使用`next`，我们将陷入困境，因为程序永远不会传递该语句。
+相反，我们将使用`layout asm`命令切换到反汇编视图，并使用`stepi`一次前进一条指令。通过再次发出
+`layout src`命令，您可以随时切换回Rust源代码视图。
 
-> **NOTE**: If you used the `next` or `continue` command by mistake and GDB got stuck, you can get unstuck by hitting `Ctrl+C`.
+> **NOTE**: 如果您错误地使用了`next`或`continue`命令，并且GDB卡住了，您可以通过点击`Ctrl+C`来取消卡住。
 
 ```
 (gdb) layout asm
@@ -159,8 +131,7 @@ source code view later by issuing the `layout src` command again.
 
 ![GDB session](../assets/gdb-layout-asm.png "GDB disassemble")
 
-If you are not using the TUI mode, you can use the `disassemble /m` command to disassemble the
-program around the line you are currently at.
+如果您不使用TUI模式，您可以使用该`disassemble /m`命令围绕您当前所在的行反汇编程序。
 
 ```
 (gdb) disassemble /m
@@ -185,10 +156,9 @@ Dump of assembler code for function _ZN12led_roulette18__cortex_m_rt_main17h3e25
 End of assembler dump.
 ```
 
-See the fat arrow `=>` on the left side? It shows the instruction the processor will execute next.
+看到左侧的箭头`=>`了吗？它显示处理器下一步将执行的指令。
 
-If not inside the TUI mode on each `stepi` command GDB will print the statement and the line number
-of the instruction the processor will execute next.
+如果不在TUI模式下，在每个`stepi`命令上，GDB将打印语句和处理器下一步将执行的指令的行号。
 
 ```
 (gdb) stepi
@@ -197,7 +167,7 @@ of the instruction the processor will execute next.
 16          loop {}
 ```
 
-One last trick before we move to something more interesting. Enter the following commands into GDB:
+在我们转到更有趣的事情之前，最后一个技巧。在GDB中输入以下命令：
 
 ```
 (gdb) monitor reset
@@ -209,22 +179,17 @@ Breakpoint 1, led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roule
 (gdb)
 ```
 
-We are now back at the beginning of `main`!
+我们现在又回到了`main`起点！
 
-`monitor reset` will reset the microcontroller and stop it right at the program entry point.
-The following `continue` command will let the program run freely until it reaches the `main`
-function that has a breakpoint on it.
+`monitor reset`将重置微控制器并在程序入口点停止它。以下`continue`命令将让程序自由运行，直到它
+到达具有断点的`main`函数。
 
-This combo is handy when you, by mistake, skipped over a part of the program that you were
-interested in inspecting. You can easily roll back the state of your program back to its very
-beginning.
+当您错误地跳过了程序的一部分时，这个组合非常方便，对检查感兴趣。您可以轻松地将程序的状态回滚到其最新状态开始
 
-> **The fine print**: This `reset` command doesn't clear or touch RAM. That memory will retain its
-> values from the previous run. That shouldn't be a problem though, unless your program behavior
-> depends on the value of *uninitialized* variables but that's the definition of Undefined Behavior
-> (UB).
+> **细节**：此`reset`命令不清除或触摸RAM。该内存将保留上次运行时的值。不过，这不应该是一个问
+> 题，除非您的程序行为取决于*未初始化*变量的值，但这就是未定义行为(UB)的定义。
 
-We are done with this debug session. You can end it with the `quit` command.
+我们完成了这个调试会话。你可以用`quit`命令结束它。
 
 ```
 (gdb) quit
@@ -238,12 +203,11 @@ Ending remote debugging.
 [Inferior 1 (Remote target) detached]
 ```
 
-> **NOTE**: If the default GDB CLI is not to your liking check out [gdb-dashboard]. It uses Python to
-> turn the default GDB CLI into a dashboard that shows registers, the source view, the assembly view
-> and other things.
+> **注意**：如果您不喜欢默认的GDB CLI，请查看[gdb-dashboard]。它使用Python将默认的GDB CLI转换为
+> 显示寄存器、源视图、程序集视图和其他内容的仪表板。
 
 [gdb-dashboard]: https://github.com/cyrus-and/gdb-dashboard#gdb-dashboard
 
-If you want to learn more about what GDB can do, check out the section [How to use GDB](../appendix/2-how-to-use-gdb/).
+如果您想了解更多关于GDB的功能，请查看[如何使用GDB](../appendix/2-how-to-use-gdb/)部分。
 
-What's next? The high level API I promised.
+下一步是什么？我承诺的高级API。
