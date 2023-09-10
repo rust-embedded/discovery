@@ -1,12 +1,9 @@
-# The challenge
+# 挑战
 
-The challenge for this chapter is, to build a small application that
-communicates with the outside world via the serial interface introduced
-in the last chapter. It should be able to receive the commands "magnetometer"
-as well as "accelerometer" and then print the corresponding sensor data
-in response. This time no template code will be provided since all you need
-is already provided in the [UART](../07-uart/index.md) and this chapter. However, here are a few clues:
+本章的挑战是构建一个通过上一章介绍的串行接口与外部世界通信的小型应用程序。
+它应该能够接收命令"磁力计"和"加速度计"，然后打印相应的传感器数据作为响应。
+这次将不提供模板代码，因为[UART](../07-uart/index.md)和本章已经提供了您所需的所有信息。
+然而，这里有一些线索：
 
-- You might be interested in `core::str::from_utf8` to convert the bytes in the buffer to a `&str`, since we need to compare with `"magnetometer"` and `"accelerometer"`.
-- You will (obviously) have to read the documentation of the magnetometer API, however
-  it's more or less equivalent to the accelerometer one
+- 您可能对`core::str::from_utf8`感兴趣，以将buffer中的字节转换为`&str`，因为我们需要与`"magnetometer"`和`"accelerometer"`进行比较。
+- 您将（显然）必须阅读磁力计 API 的文档，但它或多或少等同于加速度计
