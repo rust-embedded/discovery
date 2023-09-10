@@ -1,10 +1,8 @@
-# Magnitude
+# 大小
 
-We have been working with the direction of the magnetic field but what is its real magnitude?
-According to the documentation about the [`mag_data()`] function the `x` `y` `z` values we are
-getting are in nanotesla. That means the only thing we have to compute in order to get the
-magnitude of the magnetic field in nanotesla is the magnitude of the 3D vector that our `x` `y` `z`
-values describe. As you might remember from school this is simply:
+我们一直在研究磁场的方向，但它的实际大小是多少？根据关于[`mag_data()`]函数的文档，我们得到的
+`x` `y` `z`值是纳米级的。这意味着我们唯一需要计算的，就是我们的`x` `y` `z`值所描述的三维矢量的大小，
+才能得到纳米级磁场的大小。正如你在学校所记得的，这很简单：
 
 ``` rust
 // core doesn't have this function yet so we use libm, just like with
@@ -16,7 +14,7 @@ let magnitude = sqrtf(x * x + y * y + z * z);
 [`mag_data()`]: https://docs.rs/lsm303agr/0.2.2/lsm303agr/struct.Lsm303agr.html#method.mag_data
 
 
-Putting all this together in a program:
+将所有这些放在一个程序中：
 
 ``` rust
 #![deny(unsafe_code)]
@@ -79,13 +77,12 @@ fn main() -> ! {
 }
 ```
 
-This program will report the magnitude (strength) of the magnetic field in nanotesla (`nT`) and milligauss (`mG`). The
-magnitude of the Earth's magnetic field is in the range of `250 mG` to `650 mG` (the magnitude
-varies depending on your geographical location) so you should see a value in that range or close to
-that range -- I see a magnitude of around `340 mG`.
+该程序将报告磁场的大小 (强度) ，单位为纳米特斯拉 (`nT`) 和毫米高斯 (`mG`)。地球磁场的大小在
+`250 mG` 到 `650 mG`之间（大小取决于你的地理位置）， 所以你应该看到一个在这个范围内或接近这个范围
+的值——我看到大约`340 mG`。
 
-Some questions:
+一些问题：
 
-Without moving the board, what value do you see? Do you always see the same value?
+如果不移动开发板，您看到了什么值？你总是看到相同的值吗？
 
-If you rotate the board, does the magnitude change? Should it change?
+如果旋转开发板，大小是否会改变？应该改变吗？
