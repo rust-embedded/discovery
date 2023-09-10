@@ -1,19 +1,18 @@
 # Linux
 
-Here are the installation commands for a few Linux distributions.
+以下是一些 Linux 发行版的安装命令。
 
-## Ubuntu 20.04 or newer / Debian 10 or newer
+## Ubuntu 20.04 或最新版本 / Debian 10 或最新版本
 
-> **NOTE** `gdb-multiarch` is the GDB command you'll use to debug your ARM
-> Cortex-M programs
+> **注意** `gdb-multiarch`是您将用于调试ARM Cortex-M程序的GDB命令
 ``` console
 $ sudo apt-get install \
   gdb-multiarch \
   minicom
 ```
 
-## Fedora 32 or newer
-> **NOTE** `gdb` is the GDB command you'll use to debug your ARM
+## Fedora 32 或最新版本
+> **注意** `gdb`是您将用于调试 ARM Cortex-M程序的GDB命令
 > Cortex-M programs
 ``` console
 $ sudo dnf install \
@@ -23,41 +22,37 @@ $ sudo dnf install \
 
 ## Arch Linux
 
-> **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
-> Cortex-M programs
+> **注意** `arm-none-eabi-gdb`是您将用于调试ARM Cortex-M程序的GDB命令
 ``` console
 $ sudo pacman -S \
   arm-none-eabi-gdb \
   minicom
 ```
 
-## Other distros
+## 其他发行版
 
-> **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
-> Cortex-M programs
+> **注意** `arm-none-eabi-gdb`是您将用于调试ARM Cortex-M程序的GDB命令
 
-For distros that don't have packages for [ARM's pre-built
-toolchain](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads),
-download the "Linux 64-bit" file and put its `bin` directory on your path.
-Here's one way to do it:
+对于没有[ARM预构建工具链](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads)软件包的发行版，
+请下载"Linux 64-bit"文件并将其`bin`目录放在您的路径中。
+这是一种方法：
 
 ``` console
 $ mkdir -p ~/local && cd ~/local
 $ tar xjf /path/to/downloaded/file/gcc-arm-none-eabi-9-2020-q2-update-x86_64-linux.tar.bz2
 ```
 
-Then, use your editor of choice to append to your `PATH` in the appropriate
-shell init file (e.g. `~/.zshrc` or `~/.bashrc`):
+然后，使用您选择的编辑器在适当的shell初始化文件(例如 `~/.zshrc` 或 `~/.bashrc`)中附加到`PATH`：
 
 ```
 PATH=$PATH:$HOME/local/gcc-arm-none-eabi-9-2020-q2-update/bin
 ```
 
-## udev rules
+## udev 规则
 
-These rules let you use USB devices like the micro:bit without root privilege, i.e. `sudo`.
+这些规则让您可以在没有root权限的情况下使用像micro:bit这样的USB设备，即`sudo`。
 
-Create this file in `/etc/udev/rules.d` with the content shown below.
+`/etc/udev/rules.d`使用如下所示的内容创建此文件。
 
 ``` console
 $ cat /etc/udev/rules.d/99-microbit.rules
@@ -68,14 +63,14 @@ $ cat /etc/udev/rules.d/99-microbit.rules
 SUBSYSTEM=="usb", ATTR{idVendor}=="0d28", ATTR{idProduct}=="0204", MODE:="666"
 ```
 
-Then reload the udev rules with:
+然后使用以下命令重新加载udev规则：
 
 ``` console
 $ sudo udevadm control --reload-rules
 ```
 
-If you had any board plugged to your computer, unplug them and then plug them in again.
+如果您的计算机上插入了任何板，请拔下它们，然后重新插入。
 
-Now, go to the [next section].
+现在，转到[下一节]。
 
-[next section]: verify.md
+[下一节]: verify.md
