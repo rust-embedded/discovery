@@ -1,53 +1,39 @@
-# Read a single register
+# 读取单个寄存器
 
-Let's put all that theory into practice!
+让我们将所有理论付诸实践！
 
-First things first we need to know the target addresses of both the accelerometer
-and the magnetometer inside the chip, these can be found in the LSM303AGR's
-datasheet on page 39 and are:
+首先，我们需要知道芯片内的加速度计和磁力计的从地址，这些可以在第39页的LSM303AGR数据表中找到，它们是：
 
 - 0011001 for the accelerometer
 - 0011110 for the magnetometer
 
-> **NOTE** Remember that these are only the 7 leading bits of the address,
-> the 8th bit is going to be the bit that determines whether we are
-> performing a read or write.
+> **注意**：请记住，这些只是地址的前7位，第8位将是决定我们是执行读取还是写入的位。
 
-Next up we'll need a register to read from. Lots of I2C chips out there will
-provide some sort of device identification register for their controllers to read.
-This is done since considering the thousands (or even millions) of I2C chips
-out there it is highly likely that at some point two chips with the same address
-will end up being built (after all the address is "only" 7 bit wide). With
-this device ID register a driver could then make sure that it is indeed talking
-to a LSM303AGR and not some other chip that just happens to have the same address.
-As you can read in the LSM303AGR's datasheet (specifically on page 46 and 61)
-it does provide two registers called `WHO_AM_I_A` at address `0x0f` and `WHO_AM_I_M`
-at address `0x4f` which contain some bit patterns that are unique to the device
-(The A is as in accelerometer and the M is as in magnetometer).
+接下来我们需要一个寄存器来读取。许多I2C芯片将提供某种设备标识寄存器，供其主机读取。这样做是因
+为考虑到成千上万（甚至数百万）的I2C芯片， 很可能在某一时刻，两个具有相同地址的芯片最终将被构建
+（毕竟地址"仅"7位宽）。有了这个设备ID寄存器，驱动程序可以确保它确实在与LSM303AGR通信，而不是
+与恰好具有相同地址的其他芯片通信。正如您可以在 LSM303AGR 的数据表（特别是第46页和第61页）
+中阅读的那样，它确实提供了两个寄存器， 分别称为`WHO_AM_I_A`地址`0x0f`和`WHO_AM_I_M`地址`0x4f`
+其中包含一些设备独有的位模式（A与加速度计相同，M与磁力计相同）。
 
-The only thing missing now is the software part, i.e. which API of the `microbit`/the HAL
-crates we should use for this. However, if you read through the datasheet of the nRF chip
-you are using you will soon find out that they don't actually have an I2C peripheral.
-Luckily for us though, they have I2C-compatible ones called TWI (Two Wire Interface)
-and TWIM (depending on which chip you use, just like UART and UARTE).
+现在唯一缺少的是软件部分，即`microbit`我们应该为此使用/the HAL crates的哪个API。但是，如果您仔
+细阅读您正在使用的nRF芯片的数据表， 您很快就会发现它们实际上并没有I2C外设。不过对我们来说幸运的是，它们
+有与I2C兼容的TWI（双线接口）和TWIM（取决于您使用的芯片，就像UART和UART一样）。
 
-Now if we put the documentation of the [`twi(m)` module] from the `microbit` crate
-together with all the other information we have gathered so far we'll end up with this
-piece of code to read out and print the two device IDs:
+现在，如果我们将`microbit` crate中[`twi(m)`模块]的文档与我们迄今为止收集到的所有其他信息放在一起，
+我们将得到这段代码来读取和打印两个设备ID：
 
-[`twi(m)` module]: https://docs.rs/microbit-v2/0.11.0/microbit/hal/twim/index.html
+[`twi(m)`模块]: https://docs.rs/microbit-v2/0.11.0/microbit/hal/twim/index.html
 
 ``` rust
 {{#include src/main.rs}}
 ```
 
-Apart from the initialization, this piece of code should be straight forward if you
-understood the I2C protocol as described before. The initialization here works similarly
-to the one from the UART chapter.
-We pass the peripheral as well as the pins that are used to communicate with the chip to the constructor; and then the frequency we wish the bus to operate on, in this case 100 kHz (`K100`).
+除了初始化之外，如果您理解前面描述的I2C协议，那么这段代码应该是直截了当的。这里的初始化与UART章节中的初始化类似。
+我们将外围设备以及用于与芯片通信的引脚传递给构造器；然后是我们希望总线工作的频率，在这种情况下为100kHz（`K100`）。
 
-## Testing it
-As always you have to modify `Embed.toml` to fit your MCU and can then use:
+## 测试
+与往常一样，您必须修改`Embed.toml`以适合您的MCU，然后可以使用：
 ```console
 # For micro:bit v2
 $ cargo embed --features v2 --target thumbv7em-none-eabihf
@@ -55,4 +41,4 @@ $ cargo embed --features v2 --target thumbv7em-none-eabihf
 # For micro:bit v1
 $ cargo embed --features v1 --target thumbv6m-none-eabi
 ```
-in order to test our little example program.
+为了测试我们的小示例程序。
