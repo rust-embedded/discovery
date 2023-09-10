@@ -1,22 +1,18 @@
-# LEDs, again
+# 再一次LED
 
-In the last section, I gave you *initialized* (configured) peripherals (I initialized them in
-`aux7::init`). That's why just writing to `BSRR` was enough to control the LEDs. But, peripherals
-are not *initialized* right after the microcontroller boots.
+在上一节中，我为您提供了*初始化* (配置) 的外设 (我在`aux7::init`中初始化了它们）。 这就是为什么仅向
+`BSRR`写入就足以控制LED的原因。但是，外围设备在微控制器启动后不会立即初始化。
 
-In this section, you'll have more fun with registers. I won't do any initialization and you'll have
-to initialize and configure `GPIOE` pins as digital outputs pins so that you'll be able to drive LEDs
-again.
+在本节中，您将获得更多寄存器的乐趣。我不会进行任何初始化，您必须将`GPIOE`引脚初始化并配置为数字输出引脚，以便您能够再次驱动LED。
 
-This is the starter code.
+这是启动代码。
 
 ``` rust
 {{#include src/main.rs}}
 ```
 
-If you run the starter code, you'll see that nothing happens this time. Furthermore, if you print
-the `GPIOE` register block, you'll see that every register reads as zero even after the
-`gpioe.odr.write` statement was executed!
+如果您运行启动程序代码，您将看到这次没有发生任何事情。此外，如果您打印`GPIOE`寄存器块，您将看
+到即使在执行`gpioe.odr.write`语句之后，每个寄存器都读取为零！
 
 ```
 $ cargo run
