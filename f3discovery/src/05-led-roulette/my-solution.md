@@ -1,20 +1,20 @@
-# My solution
+# 我的解决方案
 
-What solution did you come up with?
+你想出了什么解决方案？
 
-Here's mine:
+这是我的：
 
 ``` rust
 {{#include examples/my-solution.rs}}
 ```
 
-One more thing! Check that your solution also works when compiled in "release" mode:
+还有一件事！检查您的解决方案在"release"模式下编译时是否也能正常工作：
 
 ``` console
 $ cargo build --target thumbv7em-none-eabihf --release
 ```
 
-You can test it with this `gdb` command:
+您可以使用以下`gdb`命令进行测试：
 
 ``` console
 $ # or, you could simply call `cargo run --target thumbv7em-none-eabihf --release`
@@ -22,8 +22,7 @@ $ arm-none-eabi-gdb target/thumbv7em-none-eabihf/release/led-roulette
 $ #                                              ~~~~~~~
 ```
 
-Binary size is something we should always keep an eye on! How big is your solution? You can check
-that using the `size` command on the release binary:
+二进制大小是我们应该时刻关注的事情！您的解决方案有多大？您可以在发布二进制文件上使用`size`命令进行检查：
 
 ``` console
 $ # equivalent to size target/thumbv7em-none-eabihf/debug/led-roulette
@@ -77,14 +76,11 @@ section              size        addr
 Total              209601
 ```
 
-> **NOTE** The Cargo project is already configured to build the release binary using LTO.
+> **注意**：Cargo项目已经配置为使用LTO构建发布二进制文件。
 
-Know how to read this output? The `text` section contains the program instructions. It's around 5.25KB
-in my case. On the other hand, the `data` and `bss` sections contain variables statically allocated
-in RAM (`static` variables). A `static` variable is being used in `aux5::init`; that's why it shows 4
-bytes of `bss`.
+知道如何读取此输出吗？`text`部分包含程序说明。 我的情况是大约5.25KB。另一方面`data`和`bss`部分包含
+静态分配在RAM中的变量 (`static`变量)。`aux5::init`中使用了一个`static`变量；这就是它显示4字节`bss`的原因。
 
-One final thing! We have been running our programs from within GDB but our programs doesn't depend on
-GDB at all. You can confirm this be closing both GDB and OpenOCD and then resetting the board by
-pressing the black button on the board. The LED roulette application will run without intervention
-of GDB.
+最后一件事！我们一直在GDB内部运行我们的程序，但我们的程序根本不依赖GDB。
+您可以通过关闭GDB和OpenOCD，然后按下板上的黑色按钮重置板来确认这一点。
+LED轮盘应用程序将在没有GDB干预的情况下运行。
