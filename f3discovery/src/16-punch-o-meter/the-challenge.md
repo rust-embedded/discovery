@@ -1,17 +1,13 @@
-# The challenge
+# 挑战
 
-To keep things simple, we'll measure the acceleration only in the X axis while the board remains
-horizontal. That way we won't have to deal with subtracting that *fictitious* `1g` we observed
-before which would be hard because that `1g` could have X Y Z components depending on how the board
-is oriented.
+为了简单起见，我们将在板保持水平的情况下仅测量X轴上的加速度。这样，我们就不必处理减去我们之前
+观察到的*虚拟*的`1g`可能有X，Y，Z分量，这取决于电路板的方向。
 
-Here's what the punch-o-meter must do:
+冲压式流量计必须做到以下几点
 
-- By default, the app is not "observing" the acceleration of the board.
-- When a significant X acceleration is detected (i.e. the acceleration goes above some threshold),
-  the app should start a new measurement.
-- During that measurement interval, the app should keep track of the maximum acceleration observed
-- After the measurement interval ends, the app must report the maximum acceleration observed. You
-  can report the value using the `iprintln` macro.
+- 默认情况下，应用程序不会"观察"电路板的加速度。
+- 当检测到显著的X加速度（即加速度超过某个阈值）时，应用程序应开始新的测量。
+- 在测量间隔期间，应用程序应跟踪观察到的最大加速度。
+- 测量间隔结束后，应用程序必须报告观察到的最大加速度。您可以使用`iprintln`宏报告该值。
 
-Give it a try and let me know how hard you can punch `;-)`.
+试一试，让我知道你打得有多用力 `;-)`.
