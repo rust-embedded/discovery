@@ -1,89 +1,92 @@
-# How to use GDB
+# 如何使用GDB
 
-Below are some useful GDB commands that can help us debug our programs. This assumes you have [flashed a program](../../05-led-roulette/flash-it.md) onto your microcontroller and attached to an OpenOCD session.
+下面是一些有用的GDB命令，可以帮助我们调试程序。这假设您已将[程序闪存](../../05-led-roulette/flash-it.md)
+到微控制器上，并将GDB连接到`cargo-embed`会话。
 
-## General Debugging
+## 常规调试
 
-> **NOTE:** Many of the commands you see below can be executed using a short form. For example, `continue` can simply be used as `c`, or `break $location` can be used as `b $location`. Once you have experience with the commands below, try to see how short you can get the commands to go before GDB doesn't recognize them!
+> **注意**：您在下面看到的许多命令可以使用简短的形式执行。例如，`continue`可以简单地用作`c`，
+> 或`break $location`可以用作`b $location`。一旦你对下面的命令有了经验，试着看看在GDB无法识别它们之前你可以让这些命令运行多短！
 
 
-### Dealing with Breakpoints
+### 处理断点
 
-* `break $location`: Set a breakpoint at a place in your code. The value of `$location` can include:
-    * `break *main` - Break on the exact address of the function `main`
-    * `break *0x080012f2` - Break on the exact memory location `0x080012f2`
-    * `break 123` - Break on line 123 of the currently displayed file
-    * `break main.rs:123` - Break on line 123 of the file `main.rs`
-* `info break`: Display current breakpoints
-* `delete`: Delete all breakpoints
-    * `delete $n`: Delete breakpoint `$n` (`n` being a number. For example: `delete $2`)
-* `clear`: Delete breakpoint at next instruction
-    * `clear main.rs:$function`: Delete breakpoint at entry of `$function` in `main.rs`
-    * `clear main.rs:123`: Delete breakpoint on line 123 of `main.rs`
-* `enable`: Enable all set breakpoints
-  * `enable $n`: Enable breakpoint `$n`
-* `disable`: Disable all set breakpoints
-  * `disable $n`: Disable breakpoint `$n`
+* `break $location`：在代码中的某个位置设置断点。`$location`的值可以包括：
+  * `break *main` - 函数`main`的确切地址上的break
+  * `break *0x080012f2` - 在准确的内存位置`0x080012f2`上中断
+  * `break 123` - 在当前显示文件的第123行中断
+  * `break main.rs:123` - 在文件`main.rs`的第123行中断
+* `info break`: 显示当前断点
+* `delete`: 删除所有断点
+  * `delete $n`:  删除断点`$n` (`n`是一个数字。例如：`delete $2`)
+* `clear`: 删除下一条指令的断点
+  * `clear main.rs:$function`: 删除`main.rs`中`$function`条目处的断点
+  * `clear main.rs:123`:  删除`main.rs`第123行上的断点
+* `enable`: 启用所有设置的断点
+  * `enable $n`: 启用断点`$n`
+* `disable`: 禁用所有设置的断点
+  * `disable $n`: 禁用断点`$n`
 
-### Controlling Execution
+### 控制执行
 
-* `continue`: Begin or continue execution of your program
-* `next`: Execute the next line of your program
-    * `next $n`: Repeat `next` `$n` number times
-* `nexti`: Same as `next` but with machine instructions instead
-* `step`: Execute the next line, if the next line includes a call to another function, step into that code
-    * `step $n`: Repeat `step` `$n` number times
-* `stepi`: Same as `step` but with machine instructions instead
-* `jump $location`: Resume execution at specified location:
-    * `jump 123`: Resume execution at line 123
-    * `jump 0x080012f2`: Resume execution at address 0x080012f2
+* `continue`: 开始或继续执行程序
+* `next`: 执行程序的下一行
+  * `next $n`: 重复`next` `$n`多次
+* `nexti`: 与`next`相同，但使用机器指令
+* `step`: 执行下一行，如果下一行包含对另一个函数的调用，则进入该代码
+  * `step $n`: 重复`step` `$n`多次
+* `stepi`:  与`step`相同，但使用机器指令
+* `jump $location`: 在指定位置继续执行：
+  * `jump 123`: 在第123行继续执行
+  * `jump 0x080012f2`: 在地址0x08001f2恢复执行
 
-### Printing Information
+### 打印信息
 
-* `print /$f $data` - Print the value contained by the variable `$data`. Optionally format the output with `$f`, which can include:
+* `print /$f $data` - 打印变量`$data`包含的值。可选地，使用`$f`格式化输出，包括：
     ```txt
-    x: hexadecimal 
-    d: signed decimal
-    u: unsigned decimal
-    o: octal
-    t: binary
-    a: address
-    c: character
-    f: floating point
+    x: 十六进制
+    d: 有符号十进制
+    u: 无符号十进制
+    o: 八进制
+    t: 二进制
+    a: 地址
+    c: 字符
+    f: 浮点
     ```
-    * `print /t 0xA`: Prints the hexadecimal value `0xA` as binary (0b1010)
-* `x /$n$u$f $address`: Examine memory at `$address`. Optionally, `$n` define the number of units to display, `$u` unit size (bytes, halfwords, words, etc), `$f` any `print` format defined above
-    * `x /5i 0x080012c4`: Print 5 machine instructions staring at address `0x080012c4`
-    * `x/4xb $pc`: Print 4 bytes of memory starting where `$pc` currently is pointing
+  * `print /t 0xA`: 将十六进制值`0xA`打印为二进制(0b1010)
+* `x /$n$u$f $address`: 检查`$address`处的内存。可选，`$n`定义要显示的单位数，
+  `$u` 单位大小(字节、半字、字等), `$f`以上定义任何的`print`格式
+  * `x /5i 0x080012c4`: 打印5条机器指令，起始地址为`0x080012c4`
+  * `x/4xb $pc`: 从`$pc`当前指向的位置开始打印4字节内存
 * `disassemble $location`
-    * `disassemble /r main`: Disassemble the function `main`, using `/r` to show the bytes that make up each instruction
+  * `disassemble /r main`: 反汇编函数`main`，使用`/r`显示组成每个指令的字节
 
 
-### Looking at the Symbol Table
+### 查看符号表
 
-* `info functions $regex`: Print the names and data types of functions matched by `$regex`, omit `$regex` to print all functions
-    * `info functions main`: Print names and types of defined functions that contain the word `main`
-* `info address $symbol`: Print where `$symbol` is stored in memory
-    * `info address GPIOC`: Print the memory address of the variable `GPIOC`
-* `info variables $regex`: Print names and types of global variables matched by `$regex`, omit `$regex` to print all global variables
-* `ptype $data`: Print more detailed information about `$data`
-    * `ptype cp`: Print detailed type information about the variable `cp` 
+* `info functions $regex`: 打印与`$regex`匹配的函数的名称和数据类型，省略`$regex`以打印所有函数
+  * `info functions main`: 打印包含单词`main`的已定义函数的名称和类型
+* `info address $symbol`: 打印`$symbol`存储在内存中的位置
+  * `info address GPIOC`: 打印变量`GPIOC`的内存地址
+* `info variables $regex`: 打印与`$regex`匹配的全局变量的名称和类型，省略`$regex`打印所有全局变量
+* `ptype $data`:  打印有关`$data`的更多详细信息
+  * `ptype cp`: 打印变量`cp`的详细类型信息
 
-### Poking around the Program Stack
+### 浏览程序堆栈
 
-* `backtrace $n`: Print trace of `$n` frames, or omit `$n` to print all frames
-  * `backtrace 2`: Print trace of first 2 frames
-* `frame $n`: Select frame with number or address `$n`, omit `$n` to display current frame
-* `up $n`: Select frame `$n` frames up
-* `down $n`: Select frame `$n` frames down
-* `info frame $address`: Describe frame at `$address`, omit `$address` for currently selected frame
-* `info args`: Print arguments of selected frame
-* `info registers $r`: Print the value of register `$r` in selected frame, omit `$r` for all registers
-    * `info registers $sp`: Print the value of the stack pointer register `$sp` in the current frame
+* `backtrace $n`: 打印`$n`帧的跟踪，或省略`$n`以打印所有帧
+  * `backtrace 2`: 前2帧的打印跟踪
+* `frame $n`: 选择编号或地址为`$n`的帧，忽略`$n`以显示当前帧
+* `up $n`: 选择帧`$n`帧向上
+* `down $n`: S选择帧`$n`帧向下
+* `info frame $address`: 在`$address`处描述帧，忽略当前选定帧的`$address`
+* `info args`: 打印所选帧的参数
+* `info registers $r`: 打印选定帧中寄存器`$r`的值，忽略所有寄存器`$r`
+  * `info registers $sp`: 打印当前帧中堆栈指针寄存器`$sp`的值
 
-### Controlling OpenOCD Remotely
+### 远程控制OpenOCD
 
-* `monitor reset run`: Reset the CPU, starting execution over again
-    * `monitor reset`: Same as above
-* `monitor reset init`: Reset the CPU, halting execution at the start
-* `monitor targets`: Display information and state of current target
+* `monitor reset run`: 重置CPU，重新开始执行
+    * `monitor reset`: 同上
+* `monitor reset init`: 重置CPU，开始时停止执行
+* `monitor targets`: 显示当前目标的信息和状态
