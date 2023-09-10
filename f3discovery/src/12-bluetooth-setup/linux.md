@@ -1,14 +1,12 @@
 # Linux
 
-If you have a graphical Bluetooth manager, you can use that to pair your computer to the Bluetooth
-module and skip most of these steps. You'll probably still have to [this step] though.
+如果您有图形蓝牙管理器，您可以使用它将计算机与蓝牙模块配对，并跳过大部分步骤。不过，您可能仍需要执行[此步骤]。
 
-[this step]: #rfcomm-device
+[此步骤]: #rfcomm-device
 
-## Power up
+## 通电
 
-First, your computer's Bluetooth transceiver may be OFF. Check its status with `hciconfig` and turn it
-ON if necessary:
+首先，计算机的蓝牙收发器可能处于关闭状态。使用`hciconfig`检查其状态，必要时将其打开：
 
 ``` console
 $ hciconfig
@@ -28,21 +26,21 @@ hci0:   Type: Primary  Bus: USB
         TX bytes:1072 acl:0 sco:0 commands:66 errors:0
 ```
 
-Then you need to launch the BlueZ (Bluetooth) daemon:
+然后，您需要启动BlueZ (蓝牙) 守护程序：
 
-- On systemd based Linux distributions, use:
+- 在基于systemd的Linux发行版上，请使用：
 
 ``` console
 $ sudo systemctl start bluetooth
 ```
 
-- On Ubuntu (or upstart based Linux distributions), use:
+- 在Ubuntu (或基于新的Linux发行版)上，使用：
 
 ``` console
 $ sudo /etc/init.d/bluetooth start
 ```
 
-You may also need to unblock your Bluetooth, depending on what `rfkill list` says:
+您可能还需要解锁蓝牙，具体取决于`rfkill list`列表中的内容：
 
 ``` console
 $ rfkill list
@@ -59,7 +57,7 @@ $ rfkill list
 
 ```
 
-## Scan
+## 扫描
 
 ``` console
 $ hcitool scan
@@ -68,7 +66,7 @@ Scanning ...
 $ #                             ^^^^^^
 ```
 
-## Pair
+## 配对
 
 ``` console
 $ bluetoothctl
@@ -81,19 +79,17 @@ Request PIN code
 [agent] Enter PIN code: 1234
 ```
 
-## rfcomm device
+## 射频通信设备
 
-We'll create a device file for our Bluetooth module in `/dev`. Then we'll be able to use it just
-like we used `/dev/ttyUSB0`.
+我们将在`/dev`中为蓝牙模块创建一个设备文件。然后我们就可以像使用`/dev/ttyUSB0`一样使用它了。
 
 ``` console
 $ sudo rfcomm bind 0 20:16:05:XX:XX:XX
 ```
 
-Because we used `0` as an argument to `bind`, `/dev/rfcomm0` will be the device file assigned to our
-Bluetooth module.
+因为我们使用`0`作为`bind`的参数，所以`/dev/rfcomm0`将是分配给蓝牙模块的设备文件。
 
-You can release (destroy) the device file at any time with the following command:
+您可以随时使用以下命令释放（销毁）设备文件：
 
 ``` console
 $ # Don't actually run this command right now!
