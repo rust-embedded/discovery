@@ -1,56 +1,50 @@
-# RTRM: Reading The Reference Manual
+# RTRM: 阅读参考手册
 
-I mentioned that the microcontroller has several pins. For convenience, these pins are grouped in
-*ports* of 16 pins. Each port is named with a letter: Port A, Port B, etc. and the pins within each
-port are named with numbers from 0 to 15.
+我提到微控制器有几个引脚。为了方便起见，这些引脚被分组在16个引脚的*端口*中。
+每个端口用一个字母命名： 端口A、端口B等，每个端口内的引脚用0到15之间的数字命名。
 
-The first thing we have to find out is which pin is connected to which LED. This information is in
-the STM32F3DISCOVERY [User Manual] (You downloaded a copy, right?). In this particular section:
+我们首先要弄清楚的是哪个引脚连接到哪个LED。此信息在STM32F3DISCOVERY[用户手册中] (您下载了一份副本，对吗？)。
+在本节中：
 
-[User Manual]: http://www.st.com/resource/en/user_manual/dm00063382.pdf
+[用户手册中]: http://www.st.com/resource/en/user_manual/dm00063382.pdf
 
-> Section 6.4 LEDs - Page 18
+> 第6.4节LED-第18页
 
-The manual says:
+手册上说：
 
-- `LD3`, the North LED, is connected to the pin `PE9`. `PE9` is the short form of: Pin 9 on Port E.
-- `LD7`, the East LED, is connected to the pin `PE11`.
+- `LD3`，北面的LED，连接到引脚`PE9`。`PE9`是端口E上的引脚9的缩写。
+- `LD7`， 东面的LED，连接到引脚`PE11`。
 
-Up to this point, we know that we want to change the state of the pins PE9 and PE11 to turn the
-North/East LEDs on/off. These pins are part of Port E so we'll have to deal with the `GPIOE`
-peripheral.
+到目前为止，我们知道我们想要改变引脚PE9和PE11的状态以打开/关闭 北/东LED。
+这些引脚是端口E的一部分，因此我们必须处理`GPIOE`外围设备。
 
-Each peripheral has a register *block* associated to it. A register block is a collection of
-registers allocated in contiguous memory. The address at which the register block starts is known as
-its base address. We need to figure out what's the base address of the `GPIOE` peripheral. That
-information is in the following section of the microcontroller [Reference Manual]:
+每个外围设备都有一个与其相关的寄存器块。寄存器块是在连续存储器中分配的寄存器的集合。
+寄存器块开始的地址称为其基址。我们需要弄清楚`GPIOE`外设的基址是什么。该信息在微控制器[参考手册]以下章节中：
 
-[Reference Manual]: http://www.st.com/resource/en/reference_manual/dm00043574.pdf
+[参考手册]: http://www.st.com/resource/en/reference_manual/dm00043574.pdf
 
-> Section 3.2.2 Memory map and register boundary addresses - Page 51
+> 第3.2.2节内存映射和寄存器边界地址-第51页
 
-The table says that base address of the `GPIOE` register block is `0x4800_1000`.
+该表显示`GPIOE`寄存器块的基址为`0x4800_1000`。
 
-Each peripheral also has its own section in the documentation. Each of these sections ends with a
-table of the registers that the peripheral's register block contains. For the `GPIO` family of
-peripheral, that table is in:
+每个外围设备在文档中也有自己的部分。这些部分中的每一个都以外围设备寄存器块包含的寄存器表结尾。
+对于`GPIO`系列外设，该表位于：
 
-> Section 11.4.12 GPIO register map - Page 243
+> 第11.4.12节GPIO寄存器映射-第243页
 
-'BSRR' is the register which we will be using to set/reset. Its offset value is '0x18' from the base address 
-of the 'GPIOE'. We can look up BSRR in the reference manual. 
-GPIO Registers -> GPIO port bit set/reset register (GPIOx_BSRR).
+'BSRR'是我们将用于设置/重置的寄存器。其偏移值为'GPIOE'基址的'0x18'。
+我们可以在参考手册中查找BSRR。GPIO 寄存器 -> GPIO 端口位 设置/重置 寄存器 (GPIOx_BSRR)。
 
-Now we need to jump to the documentation of that particular register. It's a few pages above in:
+现在我们需要跳转到特定寄存器的文档。上面有几页：
 
-> Section 11.4.7 GPIO port bit set/reset register (GPIOx_BSRR) - Page 240
+> 第11.4.7节GPIO端口位设置/复位寄存器（GPIOx_BSRR）-第240页
 
-Finally!
+最后！
 
-This is the register we were writing to. The documentation says some interesting things. First, this
-register is write only ... so let's try reading its value `:-)`.
+这是我们写的注册表。文档中有一些有趣的内容。首先，这个寄存器是只读的...
+所以让我们尝试读取它的值`:-)`。
 
-We'll use GDB's `examine` command: `x`.
+我们将使用GDB's `examine`命令：`x`。
 
 ```
 (gdb) next
@@ -67,22 +61,20 @@ We'll use GDB's `examine` command: `x`.
 0x48001018:     0x00000000
 ```
 
-Reading the register returns `0`. That matches what the documentation says.
+读取寄存器返回`0`。这与文档中的内容相符。
 
-The other thing that the documentation says is that the bits 0 to 15 can be used to *set* the
-corresponding pin. That is bit 0 sets the pin 0. Here, *set* means outputting a *high* value on
-the pin.
+文档中提到的另一件事是，位0到15可以用来设置相应的引脚。即位0设置管脚0。
+这里，*设置*表示在管脚上输出*高*值。
 
-The documentation also says that bits 16 to 31 can be used to *reset* the corresponding pin. In this
-case, the bit 16 resets the pin number 0. As you may guess, *reset* means outputting a *low* value
-on the pin.
+文档还指出，位16至31可用于重置相应的引脚。在这种情况下，位16重置管脚编号0。
+正如您可能猜到的，*重置*意味着在管脚上输出一个*低*值。
 
-Correlating that information with our program, all seems to be in agreement:
+将这些信息与我们的计划联系起来，似乎都是一致的：
 
-- Writing `1 << 9` (`BS9 = 1`)  to `BSRR`  sets `PE9` *high*. That turns the North LED *on*.
+- 将 `1 << 9` (`BS9 = 1`)  写入 `BSRR`  将 `PE9` 设置为 *high*。这将*打开*北面的LED。
 
-- Writing `1 << 11` (`BS11 = 1`) to `BSRR` sets `PE11` *high*. That turns the East LED *on*.
+- 将 `1 << 11` (`BS11 = 1`) 写入 `BSRR` 将 `PE11` 设置为 *high*。这将*打开*东面的LED。
 
-- Writing `1 << 25` (`BR9 = 1`) to `BSRR` sets `PE9` *low*. That turns the North LED *off*.
+- 将 `1 << 25` (`BR9 = 1`) 写入 `BSRR` 将 `PE9` 设置为 *low*。这将*关闭*北面的LED。
 
-- Finally, writing `1 << 27` (`BR11 = 1`) to `BSRR` sets `PE11` *low*. That turns the East LED *off*.
+- 最后，将 `1 << 27` (`BR11 = 1`) 写入 `BSRR` 将 `PE11`设置为 *low*。这将*关闭*东面的LED。
