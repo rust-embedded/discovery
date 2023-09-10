@@ -1,19 +1,13 @@
-# Using a driver
+# 使用驱动程序
 
-As we already discussed in chapter 5 `embedded-hal` provides abstractions
-which can be used to write platform independent code that can interact with
-hardware. In fact all the methods we have used to interact with hardware
-in chapter 7 and up until now in chapter 8 were from traits, defined by `embedded-hal`.
-Now we'll make actual use of the traits `embedded-hal` provides for the first time.
+正如我们在第5章中已经讨论过的，`embedded-hal`提供了一些抽象，可以用来编写与硬件交互的平台无关代码。
+事实上， 我们在第7章和到目前为止在第8章中用于与硬件交互的所有方法都来自于由`embedded-hal`定义的特征。
+现在，我们将首次实际使用`embedded-hal`提供的特性。
 
-It would be pointless to implement a driver for our LSM303AGR for every platform
-embedded Rust supports (and new ones that might eventually pop up). To avoid this a driver
-can be written that consumes generic types that implement `embedded-hal` traits in order to provide
-a platform agnostic version of a driver. Luckily for us this has already been done in the
-[`lsm303agr`] crate. Hence reading the actual accelerometer and magnetometer values will now
-be basically a plug and play experience (plus reading a bit of documentation). In fact the `crates.io`
-page already provides us with everything we need to know in order to read accelerometer data but using a Raspberry Pi. We'll
-just have to adapt it to our chip:
+为我们的LSM303AGR为每个嵌入式Rust支持的平台（以及可能最终弹出的新平台）实现驱动程序是没有意义的。
+为了避免这种情况，可以编写使用实现`embedded-hal`特征的泛型类型的驱动程序，以提供驱动程序的平台无关版本。
+幸运的是，这已经在[`lsm303agr`]crate中完成了。因此， 读取实际加速度计和磁强计值现在基本上是一种即插即用体验（再加上阅读一些文档）。
+事实上是`crates.io`页面已经为我们提供了读取加速度计数据所需的所有信息，但使用的是Raspberry Pi。我们只需要将它适应我们的芯片：
 
 [`lsm303agr`]: https://crates.io/crates/lsm303agr
 
@@ -35,8 +29,7 @@ fn main() {
 }
 ```
 
-Because we already know how to create an instance of an object that implements
-the [`embedded_hal::blocking::i2c`] traits from the [previous page](read-a-single-register.md), this is quite trivial:
+因为我们已经知道如何创建实现[上一页](read-a-single-register.md)中[`embedded_hal::blocking::i2c`]特性的对象实例，所以这非常简单：
 
 [`embedded_hal::blocking::i2c`]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/blocking/i2c/index.html
 
@@ -91,7 +84,7 @@ fn main() -> ! {
 }
 ```
 
-Just like the last snippet you should just be able to try this out like this:
+就像最后一个片段一样，您应该可以这样尝试：
 ```console
 # For micro:bit v2
 $ cargo embed --features v2 --target thumbv7em-none-eabihf
@@ -100,5 +93,4 @@ $ cargo embed --features v2 --target thumbv7em-none-eabihf
 $ cargo embed --features v1 --target thumbv6m-none-eabi
 ```
 
-Furthermore if you (physically) move around your micro:bit a little you should see the
-acceleration numbers that are being printed change.
+此外，如果您（物理上）在您的micro:bit周围移动一点，您应该会看到正在打印的加速度数字发生了变化。
