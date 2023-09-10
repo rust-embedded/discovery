@@ -1,8 +1,8 @@
-# Naive approach and `write!`
+# 简单的方法和`write!`
 
-## Naive approach
+## 简单的的方法
 
-You probably came up with a program similar to the following:
+您可能想出了一个类似于以下的程序：
 
 ```rs
 #![no_main]
@@ -66,15 +66,12 @@ fn main() -> ! {
 }
 ```
 
-While this is a perfectly valid implementation, at some point
-you might want to have all the nice perks of `print!` such
-as argument formatting and so on. If you are wondering how to do that, read on.
+虽然这是一个完全有效的实现，但在某些时候，您可能希望拥有所有`print!`的所有好处！
+如参数格式等。如果您想知道如何做到这一点，请继续阅读。
 
-## `write!` and `core::fmt::Write`
-The `core::fmt::Write` trait allows us to use any struct that implements
-it in basically the same way as we use `print!` in the `std` world.
-In this case, the `Uart` struct from the `nrf` HAL does implement `core::fmt::Write`
-so we can refactor our previous program into this:
+## `write!`和`core::fmt::Write`
+`core::fmt::Write` trait允许我们使用与使用`print!` 基本相同的方式实现它的任何结构在std世界。
+在这种情况下，来自`nrf`HAL的`Uart`结构确实实现了`core::fmt::Write`，因此我们可以将之前的程序重构为：
 
 ```rs
 #![no_main]
@@ -137,6 +134,4 @@ fn main() -> ! {
 }
 ```
 
-If you were to flash this program onto your micro:bit, you'll
-see that it is functionally equivalent to the iterator-based
-program you came up with.
+如果您将这个程序闪存到您的micro:bit上，您将看到它在功能上等同于您提出的基于迭代器的程序。
