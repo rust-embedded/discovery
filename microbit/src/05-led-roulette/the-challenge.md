@@ -1,21 +1,19 @@
-# The challenge
+# 挑战
 
-You are now well armed to face a challenge! Your task will be to implement the application I showed
-you at the beginning of this chapter.
+你现在已经武装好迎接挑战了！你的任务是实现我在本章开头向你展示的应用程序。
 
-<p align="center">
+<p>
 <video src="../assets/roulette_fast.mp4" loop autoplay>
 </p>
 
-If you can't exactly see what's happening here it is in a much slower version:
+如果您不能确切地看到这里发生了什么，那么它的版本要慢得多：
 
-<p align="center">
+<p>
 <video src="../assets/roulette_slow.mp4" loop autoplay>
 </p>
 
-Since working with the LED pins separately is quite annoying
-(especially if you have to use basically all of them like here)
-you can use the display API provided by the BSP. It works like this:
+由于单独使用 LED 引脚非常烦人（特别是如果您必须像这里一样使用基本上所有这些引脚），
+您可以使用BSP提供的显示API。它是这样工作的：
 
 ```rust
 #![deny(unsafe_code)]
@@ -56,5 +54,4 @@ fn main() -> ! {
 }
 ```
 
-Equipped with this API your task basically boils down to just having
-to calculate the proper image matrix and passing it into the BSP.
+有了这个API，您的任务基本上归结为只需计算适当的图像矩阵并将其传递到BSP。
