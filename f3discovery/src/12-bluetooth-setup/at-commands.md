@@ -1,31 +1,29 @@
-## AT commands
+## AT 命令
 
-The Bluetooth module and the F3 need to be configured to communicate at the same baud rate. The tutorial code initializes the UART1 serial device to a baud rate of 115200. The HC-05 Bluetooth module is configured at a baud rate of 9600 by default.
+蓝牙模块和F3需要配置为以相同的波特率进行通信。教程代码将UART1串行设备初始化为115200的波特率。默认情况下，HC-05蓝牙模块配置为9600的波特率。
 
-The Bluetooth module supports an AT mode that allows you to examine and change its configuration and settings. To utilize the AT mode, connect the Bluetooth module to the F3 and FTDI as shown in the following diagram.
+蓝牙模块支持AT模式，允许您检查和更改其配置和设置。要使用AT模式，请将蓝牙模块连接到F3和FTDI，如下图所示。
 
-<p align="center">
+<p>
 <img height=640 title="Bluetooth <-> Serial connection" src="../assets/bluetooth-serial.png">
 </p>
 
-Recommended steps to enter AT mode:
+进入AT模式的建议步骤：
 
-- Disconnect the F3 and FTDI from your computer.
-- Connect F3's GND pin to the Bluetooth's GND pin using a Female/Female (F/F) wire
-  (preferably, a black one).
-- Connect F3's 5V pin to the Bluetooth's VCC pin using a F/F wire (preferably, a
-  red one).
-- Connect the FTDI RXI pin to the Bluetooth's TXD pin using a Female/Male (F/M) wire.
-- Connect the FTDI TXO pin to the Bluetooth's RXD pin using a Female/Male (F/M) wire.
-- Now connect the FTDI to your computer via USB cable.
-- Next connect the F3 to your computer via USB cable while simultaneously pressing and holding the button on the Bluetooth module (kinda tricky).
-- Now, release the button and the Bluetooth module will enter AT mode. You can confirm this by observing that the red LED on the Bluetooth module is blinking in a slow pattern (approx 1-2 seconds on/off).
+- 断开F3和FTDI与计算机的连接。
+- 使用母/母（F/F）线（最好是黑色线）将F3的GND引脚连接到蓝牙的GND插针。
+- 使用F/F线（最好是红色线）将F3的5V引脚连接到蓝牙的VCC引脚。
+- 使用母/公（F/M）导线将FTDI RXI引脚连接到蓝牙的TXD引脚。
+- 使用母/公（F/M）导线将FTDI TXO引脚连接到蓝牙的RXD引脚。
+- 现在通过USB电缆将FTDI连接到计算机。
+- 然后通过USB电缆将F3连接到计算机，同时按住蓝牙模块上的按钮（有点棘手）。
+- 现在，松开按钮，蓝牙模块将进入AT模式。您可以通过观察蓝牙模块上的红色LED以缓慢模式闪烁（约1-2秒打开/关闭）来确认这一点。
 
-The AT mode always operates at a baud rate of 38400, so configure your terminal program for that baud rate and connect to the FTDI device.
+AT模式始终以38400的波特率运行，因此请为该波特率配置终端程序并连接到FTDI设备。
 
-When your serial connection is established, you may get a bunch of `ERROR: (0)` repeatedly being displayed. If this happens, just hit ENTER to stop the errors.
+建立串行连接后，可能会重复显示一组`ERROR: (0)`。如果发生这种情况，只需按ENTER键停止错误。
 
-### Sanity check
+### 完整性检查
 
 ```
 $ at
@@ -34,16 +32,16 @@ OK
 (etc...)
 ```
 
-Answers `OK` repeatedly until you hit ENTER again.
+重复回答`OK`，直到再次按下ENTER键
 
-### Rename the device
+### 重命名设备
 
 ```
 $ at+name=ferris
 OK
 ```
 
-### Query for the current baud rate of the Bluetooth module
+### 查询蓝牙模块的当前波特率
 
 ```
 at+uart?
@@ -54,7 +52,7 @@ OK
 (etc ...)
 ```
 
-### Change the baud rate
+### 更改波特率
 
 ```
 $ at+uart=115200,0,0
