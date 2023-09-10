@@ -1,13 +1,12 @@
-# Overruns
+# 溢出
 
-If you wrote your program like this:
+如果你这样编写程序：
 
 ``` rust
 {{#include examples/buffer-overrun.rs}}
 ```
 
-You probably received something like this on your computer when you executed the program compiled in
-debug mode.
+当您在调试模式下执行编译的程序时，可能会在计算机上收到类似的消息。
 
 ``` console
 $ # minicom's terminal
@@ -15,7 +14,7 @@ $ # minicom's terminal
 The uic brwn oxjums oer helaz do.
 ```
 
-And if you compiled in release mode, you probably only got something like this:
+如果你在发布模式下编译，你可能只得到这样的结果：
 
 ``` console
 $ # minicom's terminal
@@ -23,29 +22,24 @@ $ # minicom's terminal
 T
 ```
 
-What went wrong?
+出了什么问题？
 
-You see, sending bytes over the wire takes a relatively large amount of time. I already did the math
-so let me quote myself:
+你看，通过网络发送字节需要相当长的时间。我已经做了数学，所以让我引用自己的话：
 
-> With a common configuration of 1 start bit, 8 bits of data, 1 stop bit and a baud rate of 115200
-> bps one can, in theory, send 11,520 frames per second. Since each one frame carries a byte of data
-> that results in a data rate of 11.52 KB/s
+> 理论上，使用1个起始bit，8个数据bits，1个stop bit和115200 bps波特率的通用配置，可以每秒发送11520帧。
+> 由于每一帧携带一字节数据，因此数据速率为11.52 KB/s
 
-Our pangram has a length of 45 bytes. That means it's going to take, at least, 3,900 microseconds
-(`45 bytes / (11,520 bytes/s) = 3,906 us`) to send the string. The processor is working at 8 MHz,
-where executing an instruction takes 125 nanoseconds, so it's likely going to be done with the `for`
-loop in less than 3,900 microseconds.
+我们的全字母短句长度为45字节。这意味着发送字符串至少需要3900微秒(`45 bytes / (11,520 bytes/s) = 3,906 us`) 。
+处理器的工作频率为8 MHz，执行一条指令需要125纳秒，所以很可能在3900微秒以内完成`for`循环。
 
-We can actually time how long it takes to execute the `for` loop. `aux11::init()` returns a
-`MonoTimer` (monotonic timer) value that exposes an `Instant` API that's similar to the one in
-`std::time`.
+我们实际上可以计算执行`for`循环环所需的时间。`aux11::init()`返回一个`MonoTimer` (单调计时器) 该值公开一个与
+`std::time`中的API类似`Instant`API。
 
 ``` rust
 {{#include examples/buffer-overrun-timed.rs}}
 ```
 
-In debug mode, I get:
+在调试模式下，我得到：
 
 ``` console
 $ # itmdump terminal
@@ -53,23 +47,20 @@ $ # itmdump terminal
 `for` loop took 22415 ticks (2801.875 us)
 ```
 
-This is less than 3,900 microseconds but it's not that far off and that's why only a few bytes of
-information are lost.
+这不到3900微秒，但并不遥远，这就是为什么只有几个字节的信息丢失的原因。
 
-In conclusion, the processor is trying to send bytes at a faster rate than what the hardware can
-actually handle and this results in data loss. This condition is known as buffer *overrun*.
+总之，处理器试图以比硬件实际处理速度更快的速度发送字节，这会导致数据丢失。这种情况称为缓冲区*溢出*。
 
-How do we avoid this? The status register (`ISR`) has a flag, `TXE`, that indicates if it's "safe"
-to write to the `TDR` register without incurring in data loss.
+我们如何避免这种情况？状态寄存器 (`ISR`) 有一个标志`TXE`，指示在不导致数据丢失的情况下写入
+`TDR`寄存器是否"安全"
 
-Let's use that to slowdown the processor.
+让我们用它来降低处理器的速度。
 
 ``` rust
 {{#include examples/buffer-overrun-txe.rs}}
 ```
 
-This time, running the program in debug or release mode should result in a complete string on the
-receiving side.
+这次，在调试或发布模式下运行程序应该会在接收端产生一个完整的字符串。
 
 ``` console
 $ # minicom/PuTTY's console
@@ -77,8 +68,7 @@ $ # minicom/PuTTY's console
 The quick brown fox jumps over the lazy dog.
 ```
 
-The timing of the `for` loop should be closer to the theoretical 3,900 microseconds as well. The
-timing below is for the debug version.
+`for`循环的计时也应该接近理论上的3900微秒。以下是调试版本的计时。
 
 ``` console
 $ # itmdump terminal
