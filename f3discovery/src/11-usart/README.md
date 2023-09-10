@@ -1,30 +1,22 @@
 # USART
 
-The microcontroller has a peripheral called USART, which stands for Universal
-Synchronous/Asynchronous Receiver/Transmitter. This peripheral can be configured to work with
-several communication protocols like the serial communication protocol.
+微控制器有一个叫做USART的外设，它代表通用同步/异步接收机/发射机。该外围设备可以被配置为与多个通信协议（如串行通信协议）一起工作。
 
-Throughout this chapter, we'll use serial communication to exchange information between the
-microcontroller and your computer. But before we do that we have to wire up everything.
+在本章中，我们将使用串行通信在微控制器和计算机之间交换信息。但在我们这样做之前，我们必须把所有的东西都连接起来。
 
-I mentioned before that this protocol involves two data lines: TX and RX. TX stands for transmitter
-and RX stands for receiver. Transmitter and receiver are relative terms though; which line is the
-transmitter and which line is the receiver depends from which side of the communication you are
-looking at the lines.
+我之前提到过，该协议涉及两条数据线：TX和RX。TX代表发射机，RX代表接收机。发射器和接收器是相对的术语；
+哪一条线路是发射机，哪一条线是接收机，取决于你从通信的哪一侧看线路。
 
-### Newer board revisions
+### 更新的修订
 
-If you have a newer revision of the board and are using the on-board USB <->
-Serial functionality then the `auxiliary` crate will set pin `PC4` as the TX
-line and pin `PC5` as the RX line.
+如果您有较新版本的主板，并且使用板USB <-> 串行功能，则`auxiliary` crate 将引脚`PC4`设置为TX线，
+引脚`PC5`设置为RX线。
 
-Everything is already wired on the board so you don't need to wire anything yourself.
-You can move on to the [next section](send-a-single-byte.html).
+所有的东西都已经在板上布线了，所以你不需要自己布线。您可以转到[下一节](send-a-single-byte.html)。
 
-### Older board revisions / external serial module
+### 较旧的电路板版本 / 外部串行模块
 
-If you are using an external USB <-> Serial module then you will **need** to
-enable the `adapter` feature of the `aux11` crate dependency in `Cargo.toml`.
+如果您使用的是外部USB <-> 串行模块，则**需要**在`Cargo.toml`中启用`aux11` crate依赖项的`adapter`功能。
 
 ``` toml
 [dependencies.aux11]
@@ -33,33 +25,29 @@ path = "auxiliary"
 features = ["adapter"] # <- uncomment this
 ```
 
-We'll be using the pin `PA9` as the microcontroller's TX line and `PA10` as its RX line. In other
-words, the pin `PA9` outputs data onto its wire whereas the pin `PA10` listens for data on its
-wire.
+我们将使用引脚`PA9`作为微控制器的TX线，`PA10`作为其RX线。换句话说，引脚`PA9`将数据输出到其导线上，
+而引脚`PA10`监听其导线上的数据。
 
-We could have used a different pair of pins as the TX and RX pins. There's a table in page 44 of the
-[Data Sheet] that list all the other possible pins we could have used.
+我们可以使用一对不同的引脚作为TX和RX引脚。[数据表]第44页有一个表格， 列出了我们可能使用的所有其他引脚。
 
 [Data Sheet]: http://www.st.com/resource/en/datasheet/stm32f303vc.pdf
 
-The serial module also has TX and RX pins. We'll have to *cross* these pins: that is connect the
-microcontroller's TX pin to the serial module's RX pin and the micro's RX pin to the serial module's
-TX pin. The wiring diagram below shows all the necessary connections.
+串行模块还具有TX和RX引脚。我们将不得不*交叉*这些引脚：即将微控制器的TX引脚连接到串行模块的RX引脚，
+将微型计算机的RX引脚连接到串口模块的TX引脚。下图显示了所有必要的连接。
 
-<p align="center">
+<p>
 <img height=640 title="F3 <-> Serial connection" src="../assets/f3-serial.png">
 </p>
 
-These are the recommended steps to connect the microcontroller and the serial module:
+以下是连接微控制器和串行模块的建议步骤：
 
-- Close OpenOCD and `itmdump`
-- Disconnect the USB cables from the F3 and the serial module.
-- Connect one of F3 GND pins to the GND pin of the serial module using a female to male (F/M) wire.
-  Preferably, a black one.
-- Connect the PA9 pin on the back of the F3 to the RXI pin of the serial module using a F/M wire.
-- Connect the PA10 pin on the back of the F3 to the TXO pin of the serial module using a F/M wire.
-- Now connect the USB cable to the F3.
-- Finally connect the USB cable to the Serial module.
-- Re-launch OpenOCD and `itmdump`
+- 关闭OpenOCD和`itmdump`。
+- 断开F3和串行模块的USB电缆。
+- 使用母对公（F/M）导线将F3 GND引脚之一连接到串行模块的GND引脚。最好是黑色的。
+- 使用F/M导线将F3背面的PA9引脚连接到串行模块的RXI引脚。
+- 使用F/M导线将F3背面的PA10引脚连接到串行模块的TXO引脚。
+- 现在将USB电缆连接到F3。
+- 最后将USB电缆连接到串行模块。
+- 重新启动OpenOCD和`itmdump`。
 
-Everything's wired up! Let's proceed to send data back and forth.
+一切都准备好了！让我们继续来回发送数据。
