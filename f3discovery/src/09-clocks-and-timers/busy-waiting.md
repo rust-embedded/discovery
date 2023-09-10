@@ -1,10 +1,9 @@
-# Busy waiting
+# 繁忙等待
 
-The timer should now be properly initialized. All that's left is to implement the `delay` function
-using the timer.
+现在应该正确初始化计时器。剩下的就是使用计时器实现`delay`功能。
 
-First thing we have to do is set the autoreload register (`ARR`) to make the timer go off in `ms`
-milliseconds. Because the counter operates at 1 KHz, the autoreload value will be the same as `ms`.
+我们要做的第一件事是设置自动释放寄存器 (`ARR`) ，使计时器在`ms`内关闭。
+因为计数器在1 KHz下工作，所以自动减速值将与`ms`相同。
 
 ``` rust
     // Set the timer to go off in `ms` ticks
@@ -12,31 +11,29 @@ milliseconds. Because the counter operates at 1 KHz, the autoreload value will b
     tim6.arr.write(|w| w.arr().bits(ms));
 ```
 
-Next, we need to enable the counter. It will immediately start counting.
+接下来，我们需要启用计数器。它将立即开始计数。
 
 ``` rust
     // CEN: Enable the counter
     tim6.cr1.modify(|_, w| w.cen().set_bit());
 ```
 
-Now we need to wait until the counter reaches the value of the autoreload register, `ms`, then we'll
-know that `ms` milliseconds have passed. That condition is known as an *update event* and its
-indicated by the `UIF` bit of the status register (`SR`).
+现在我们需要等待，直到计数器达到自动释放寄存器的值`ms`，然后我们就知道`ms`已经过去了。 该条件称为*更新事件*，由状态寄存器
+(`SR`)的`UIF`位指示。
 
 ``` rust
     // Wait until the alarm goes off (until the update event occurs)
     while !tim6.sr.read().uif().bit_is_set() {}
 ```
 
-This pattern of just waiting until some condition is met, in this case that `UIF` becomes `1`, is
-known as *busy waiting* and you'll see it a few more times in this text `:-)`.
+这种等待直到满足某个条件在这种情况下`UIF`变为`1`的模式被称为*繁忙等待*，您将在本文中多次看到`:-)`。
 
-Finally, we must clear (set to `0`) this `UIF` bit. If we don't, next time we enter the `delay`
-function we'll think the update event has already happened and skip over the busy waiting part.
+最后，我们必须清除 (设置为`0`) 这个`UIF`位。如果没有，下次我们进入`delay`函数时，我们会认为更新
+事件已经发生，并跳过繁忙的等待部分。
 
 ``` rust
     // Clear the update event flag
     tim6.sr.modify(|_, w| w.uif().clear_bit());
 ```
 
-Now, put this all together and check if it works as expected.
+现在，把所有这些放在一起，检查它是否按预期工作。
