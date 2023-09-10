@@ -1,16 +1,13 @@
-# Spooky action at a distance
+# 超距作用
 
-`BSRR` is not the only register that can control the pins of Port E. The `ODR` register also lets
-you change the value of the pins. Furthermore, `ODR` also lets you retrieve the current output
-status of Port E.
+`BSRR`不是唯一一个可以控制端口E引脚的寄存器。`ODR`寄存器还允许您更改引脚的值。
+`ODR`还允许您检索端口E的当前输出状态。
 
-`ODR` is documented in:
+`ODR`记录在：
 
-> Section 11.4.6 GPIO port output data register - Page 239
+> 第11.4.6节GPIO端口输出数据寄存器-第239页
 
-Let's look at this program. The key to this program
-is `fn iprint_odr`. This function prints the current
-value in `ODR` to the `ITM` console
+让我们看看这个程序。该程序的关键是`fn iprint_odr`。此函数将`ODR`中的当前值打印到`ITM`控制台
 
 ``` rust
 #![no_main]
@@ -66,7 +63,7 @@ fn main() -> ! {
 }
 ```
 
-If you run this program
+如果运行此程序
 ```
 $ cargo run
 (..)
@@ -77,7 +74,7 @@ Breakpoint 1, registers::__cortex_m_rt_main_trampoline () at src/07-registers/sr
 Continuing.
 ```
 
-You'll see on itmdump's console:
+您将在itmdump的控制台上看到：
 
 ``` console
 $ # itmdump's console
@@ -89,5 +86,4 @@ ODR = 0x0800
 ODR = 0x0000
 ```
 
-Side effects! Although we are reading the same address multiple times without actually modifying it,
-we still see its value change every time `BSRR` is written to.
+副作用！尽管我们多次读取同一地址，但实际上并未对其进行修改，但每次写入`BSRR`时，我们仍会看到其值发生变化。
