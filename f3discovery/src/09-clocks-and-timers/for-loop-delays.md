@@ -1,7 +1,6 @@
-# `for` loop delays
+# `for` 循环延迟
 
-The first challenge is to implement the `delay` function without using any peripheral and the
-obvious solution is to implement it as a `for` loop delay:
+第一个挑战是在不使用任何外围设备的情况下实现`delay`功能，显而易见的解决方案是将其实现`for`循环延迟：
 
 ``` rust
 #[inline(never)]
@@ -10,16 +9,12 @@ fn delay(tim6: &tim6::RegisterBlock, ms: u16) {
 }
 ```
 
-Of course, the above implementation is wrong because it always generates the same delay for any
-value of `ms`.
+当然，上述实现是错误的，因为它总是为`ms`的任何值生成相同的延迟。
 
-In this section, you'll have to:
+在本节中，您必须：
 
-- Fix the `delay` function to generate delays proportional to its input `ms`.
-- Tweak the `delay` function to make the LED roulette spin at a rate of approximately 5 cycles in 4
-  seconds (800 milliseconds period).
-- The processor inside the microcontroller is clocked at 72 MHz and executes most instructions in one
-  "tick", a cycle of its clock. How many (`for`) loops do  you *think* the `delay` function must do
-  to generate a delay of 1 second?
-- How many `for` loops does `delay(1000)` actually do?
-- What happens if compile your program in release mode and run it?
+- 修正`delay`函数以生成与其输入`ms`成比例的延迟
+- 调整`delay`函数，使LED轮盘在4秒内以大约5个周期（800毫秒周期）的速度旋转。
+- 微控制器内的处理器的时钟频率为72MHz，并在一次"tick"中执行大多数指令。您*认为*延迟函数必须执行多少(`for`)循环才能产生1秒的`delay`？
+- `delay(1000)`实际执行多少个`for`循环？
+- 如果以发布模式编译程序并运行它会发生什么？
