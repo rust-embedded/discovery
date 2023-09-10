@@ -1,17 +1,22 @@
 # macOS
 
-All the tools can be installed using [Homebrew]:
+可以使用[Homebrew]安装所有工具：
 
 [Homebrew]: http://brew.sh/
 
+安装 ArmMbed
 ``` console
-$ # ARM GCC debugger
-$ brew install arm-none-eabi-gdb
-
-$ # Minicom and OpenOCD
-$ brew install minicom openocd
+brew tap ArmMbed/homebrew-formulae
+```
+安装 ARM GCC 工具链
+``` console
+brew install arm-none-eabi-gcc
+```
+安装 minicom 和 OpenOCD
+``` console
+brew install minicom openocd
 ```
 
-That's all! Go to the [next section].
+这就是全部！转到[下一节]。
 
-[next section]: verify.md
+[下一节]: verify.md
