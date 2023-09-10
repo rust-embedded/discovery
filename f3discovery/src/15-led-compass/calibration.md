@@ -1,20 +1,15 @@
-# Calibration
+# 校准
 
-If we rotate the board, the direction of the Earth's magnetic field with respect to the magnetometer
-should change but its magnitude should not! Yet, the magnetometer indicates that the magnitude of
-the magnetic field changes as the board rotates.
+如果我们旋转磁强计板，地球磁场相对于磁强计的方向应该会改变，但其大小不应该改变！然而，磁强计显示，磁场的大小随着板的旋转而改变。
 
-Why's that the case? Turns out the magnetometer needs to be calibrated to return the correct answer.
+为什么会这样？结果磁力计需要校准才能返回正确的答案。
 
-The calibration involves quite a bit of math (matrices) so we won't cover it here but this
-[Application Note] describes the procedure if you are interested. Instead, what we'll do in this
-section is *visualize* how off we are.
+校准涉及相当多的数学（矩阵），因此我们在这里不做介绍，但如果您感兴趣，本[应用说明]将介绍该过程。相反，我们将在本节中做的是*想象*我们的境况。
 
-[Application Note]: https://www.nxp.com/docs/en/application-note/AN4246.pdf
+[应用说明]: https://www.nxp.com/docs/en/application-note/AN4246.pdf
 
-Let's try this experiment: Let's record the readings of the magnetometer while we slowly rotate the
-board in different directions. We'll use the `iprintln` macro to format the readings as Tab
-Separated Values (TSV).
+让我们试试这个实验：让我们记录磁强计的读数，同时我们慢慢地向不同的方向旋转磁强计板。
+我们将使用`iprintln`宏 将读数格式化为制表符分隔值(TSV)。
 
 ``` rust
 #![deny(unsafe_code)]
@@ -38,7 +33,7 @@ fn main() -> ! {
 }
 ```
 
-You should get an output in the console that looks like this:
+您应该在控制台中获得如下输出：
 
 ``` console
 $ # itmdump console
@@ -49,17 +44,16 @@ $ # itmdump console
 -73     213     -55
 ```
 
-You can pipe that to a file using:
+您可以使用以下方式将其传输到文件：
 
 ``` console
 $ # Careful! Exit any running other `itmdump` instance that may be running
 $ itmdump -F -f itm.txt > emf.txt
 ```
 
-Rotate the board in many different direction while you log data for a several seconds.
+在记录数据的同时，沿多个不同方向旋转电路板几秒钟。
 
-Then import that TSV file into a spreadsheet program (or use the Python script shown below) and plot
-the first two columns as a scatter plot.
+然后将该TSV文件导入电子表格程序（或使用下面显示的Python脚本），并将前两列绘制为散点图。
 
 ``` python
 #!/usr/bin/python
@@ -100,15 +94,11 @@ plt.savefig('emf.svg')
 plt.close
 ```
 
-<p align="center">
+<p>
 <img title="Earth's magnetic field" src="../assets/emf.svg">
 </p>
 
-If you rotated the board on a flat horizontal surface, the Z component of the magnetic field should
-have remained relatively constant and this plot should have been a circumference (not a ellipse)
-centered at the origin. If you rotated the board in random directions, which was the case of plot
-above, then you should have gotten a circle made of a bunch of points centered at the origin.
-Deviations from the circle shape indicate that the magnetometer needs to be calibrated.
+如果你在一个平坦的水平表面上旋转电路板，磁场的Z分量应该保持相对恒定，这个图应该是以原点为中心的圆周（而不是椭圆）。
+如果你以随机的方向旋转棋盘，这就是上面的图，那么你应该得到一个由以原点为中心的一堆点组成的圆。与圆形的偏差表明磁力计需要校准。
 
-Take home message: Don't just trust the reading of a sensor. Verify it's outputting sensible values.
-If it's not, then calibrate it.
+Take home message: 不要只相信传感器的读数。验证它是否输出了可感知的值。如果不是，则进行校准。
