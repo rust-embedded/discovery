@@ -1,51 +1,37 @@
-# Serial communication
+# 串口通讯
 
 <a href="https://en.wikipedia.org/wiki/File:Serial_port.jpg">
-<p align="center">
+<p>
 <img height="240" title="Standard serial port connector DE-9" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Serial_port.jpg/800px-Serial_port.jpg">
 </p>
 </a>
 
-<p align="center">
-<em>This is what we'll be using. I hope your computer has one!</em>
+<p>
+<em>这是我们将要使用的。我希望你的电脑有一个！</em>
 </p>
 
-Nah, don't worry. This connector, the DE-9, went out of fashion on PCs quite some time ago; it got
-replaced by the Universal Serial Bus (USB). We won't be dealing with the DE-9 connector itself but
-with the communication protocol that this cable is/was usually used for.
+不，别担心。这个连接器DE-9在电脑上很早就过时了；它被通用串行总线(USB)所取代。
+我们不会处理DE-9连接器本身，而是处理该电缆通常用于的通信协议。
 
-So what's this [*serial communication*][ASC]? It's an *asynchronous* communication protocol where two
-devices exchange data *serially*, as in one bit at a time, using two data lines (plus a common
-ground). The protocol is asynchronous in the sense that neither of the shared lines carries a clock
-signal. Instead both parties must agree on how fast data will be sent along the wire *before* the
-communication occurs. This protocol allows *duplex* communication as data can be sent from A to B
-and from B to A simultaneously.
+这是什么[*串口通信*][ASC]？ 这是一种*异步*通信协议，两个设备使用两条数据线（加上一个公共地线）*串行*交换数据，
+该协议是异步的，因为共享线路都不携带时钟信号。相反，在通信发生*之前*，双方必须就数据沿线路发送的速度达成一致。
+该协议允许*双工通信*，因为数据可以同时从A发送到B和从B发送到A。
 
-We'll be using this protocol to exchange data between the microcontroller and your computer. In
-contrast to the ITM protocol we have used before, with the serial communication protocol you can
-send data from your computer to the microcontroller.
+我们将使用此协议在微控制器和计算机之间交换数据。与我们以前使用的ITM协议不同，通过串行通信协议，您可以将数据从计算机发送到微控制器。
 
-The next practical question you probably want to ask is: How fast can we send data through this
-protocol?
+你可能想问的下一个实际问题是：我们能以多快的速度发送数据协议？
 
-This protocol works with frames. Each frame has one *start* bit, 5 to 9 bits of payload (data) and 1
-to 2 *stop bits*. The speed of the protocol is known as *baud rate* and it's quoted in bits per
-second (bps). Common baud rates are: 9600, 19200, 38400, 57600 and 115200 bps.
+此协议适用于帧。每个帧有一个*起始*bit，5到9 bits的有效载荷（数据）和1到2个*stop bits*。
+协议的速度称为*波特率*，以bits每秒（bps）为单位。常用波特率为：9600, 19200, 38400, 57600 和 115200 bps。
 
-To actually answer the question: With a common configuration of 1 start bit, 8 bits of data, 1
-stop bit and a baud rate of 115200 bps one can, in theory, send 11,520 frames per second. Since each
-one frame carries a byte of data that results in a data rate of 11.52 KB/s. In practice, the data
-rate will probably be lower because of processing times on the slower side of the communication (the
-microcontroller).
+实际上，要回答这个问题：使用 1个起始bit, 8个数据bits，1个stop bit和115200 bps的波特率的通用配置，理论上每秒可以发送11520帧。
+因为每一帧携带一字节的数据，导致数据速率为11.52 KB/s。实际上，由于通信（微控制器）较慢侧的处理时间，数据速率可能会更低。
 
-Today's computers don't support the serial communication protocol. So you can't directly connect
-your computer to the microcontroller. But that's where the serial module comes in. This module will
-sit between the two and expose a serial interface to the microcontroller and an USB interface to
-your computer. The microcontroller will see your computer as another serial device and your computer
-will see the microcontroller as a virtual serial device.
+今天的计算机不支持串行通信协议。因此，您不能将计算机直接连接到微控制器。但这就是串行模块的作用所在。
+该模块将位于两者之间，并为微控制器提供串行接口，为计算机提供USB接口。
+微控制器会将您的计算机视为另一个串行设备，而您的计算机会将微控制器视为虚拟串行设备。
 
-Now, let's get familiar with the serial module and the serial communication tools that your OS
-offers. Pick a route:
+现在，让我们熟悉您的操作系统中的串行模块和串行通信工具。选择路线：
 
 - [\*nix](nix-tooling.md)
 - [Windows](windows-tooling.md)
