@@ -1,16 +1,14 @@
 # NOP
 
-If in the previous section you compiled the program in release mode and actually looked at the
-disassembly, you probably noticed that the `delay` function is optimized away and never gets called
-from within `main`.
+如果在上一节中，您以发布模式编译了程序，并实际查看了反汇编，那么您可能会注意到`delay`函数被优化了，
+并且从未从`main`中调用。
 
-LLVM decided that the function wasn't doing anything worthwhile and just removed it.
+LLVM 认为该函数没有做任何值得做的事情，于是删除了它。
 
-There is a way to prevent LLVM from optimizing the `for` loop delay: add a *volatile* assembly
-instruction. Any instruction will do but NOP (No OPeration) is a particular good choice in this case
-because it has no side effect.
+有一种方法可以防止LLVM优化`for`循环延迟：添加*不稳定的*汇编指令。
+任何指令都可以，但NOP（无操作）在这种情况下是一个特别好的选择，因为它没有副作用。
 
-Your `for` loop delay would become:
+你的`for`循环延迟将变为：
 
 ``` rust
 #[inline(never)]
@@ -22,7 +20,7 @@ fn delay(_tim6: &tim6::RegisterBlock, ms: u16) {
 }
 ```
 
-And this time `delay` won't be compiled away by LLVM when you compile your program in release mode:
+在发布模式下编译程序时，LLVM不会编译掉这个时间`delay`：
 
 ``` console
 $ cargo objdump --bin clocks-and-timers --release -- -d --no-show-raw-insn
@@ -40,6 +38,5 @@ clocks_and_timers::delay::h711ce9bd68a6328f:
  8000198:       pop     {r4, r5, r7, pc}
 ```
 
-Now, test this: Compile the program in debug mode and run it, then compile the program in release
-mode and run it. What's the difference between them? What do you think is the main cause of the
-difference? Can you think of a way to make them equivalent or at least more similar again?
+现在，测试一下：在调试模式下编译程序并运行它，然后在发布模式下编译并运行它。
+他们之间有什么区别？ 你认为差异的主要原因是什么？你能想出一种方法使它们变得同等或至少更相似吗？
