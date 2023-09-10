@@ -1,7 +1,6 @@
-# Echo server
+# Echo 服务器
 
-Let's merge transmission and reception into a single program and write an echo server. An echo
-server sends back to the client the same text it sent. For this application, the microcontroller
-will be the server and you and your computer will be the client.
+让我们将传输和接收合并到一个程序中，并编写一个echo服务器。echo服务器将其发送的文本发送回客户端。
+对于这个应用程序，微控制器将是服务器，您和您的计算机将是客户端。
 
-This should be straightforward to implement. (hint: do it byte by byte)
+这应该很容易实现。（提示：逐字节执行）
