@@ -1,18 +1,15 @@
-# Punch-o-meter
+# 冲压式流量计
 
-In this section we'll be playing with the accelerometer that's in the board.
+在本节中，我们将使用板上的加速计。
 
-What are we building this time? A punch-o-meter! We'll be measuring the power of your jabs. Well,
-actually the maximum acceleration that you can reach because acceleration is what accelerometers
-measure. Strength and acceleration are proportional though so it's a good approximation.
+这次我们要建造什么？一个冲压式流量计！我们将测量你刺拳的威力。实际上，你能达到的最大加速度，因为加速度是加速计测量的。
+强度和加速度是成比例的，所以这是一个很好的近似值。
 
-The accelerometer is also built inside the LSM303DLHC package. And just like the magnetometer, it
-can also be accessed using the I2C bus. It also has the same coordinate system as the magnetometer.
-Here's the coordinate system again:
+加速度计也内置在LSM303DLHC封装内。就像磁强计一样，它也可以通过I2C总线访问。
+它还具有与磁力计相同的坐标系。这是坐标系：
 
-<p align="center">
+<p>
 <img height=480 title="Magnetometer axes" src="../assets/f3-lsm303dlhc.png">
 </p>
 
-Just like in the previous unit, we'll be using a high level API to directly get the sensor readings
-in a nicely packaged `struct`.
+就像在上一单元中一样，我们将使用高级API直接获取封装好的`struct`中的传感器读数。
