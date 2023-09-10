@@ -1,13 +1,12 @@
 # Linux
 
-Here are the installation commands for a few Linux distributions.
+以下是一些Linux发行版的安装命令。
 
-## REQUIRED packages
+## 必需的程序包
 
-### Ubuntu 18.04 or newer / Debian stretch or newer
+### Ubuntu 18.04 或更新版本 / Debian stretch 或更新版本
 
-> **NOTE** `gdb-multiarch` is the GDB command you'll use to debug your ARM
-> Cortex-M programs
+> **注意**：`gdb-multiarch`是用于调试ARM Cortex-M程序的GDB命令
 
 <!-- Debian stretch -->
 <!-- GDB 7.12 -->
@@ -24,10 +23,9 @@ sudo apt-get install \
   openocd
 ```
 
-### Ubuntu 14.04 and 16.04
+### Ubuntu 14.04 和 16.04
 
-> **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
-> Cortex-M programs
+> **注意**：`arm-none-eabi-gdb`是用于调试ARM Cortex-M程序的GDB命令
 
 <!-- Ubuntu 14.04 -->
 <!-- GDB 7.6 -->
@@ -40,7 +38,7 @@ sudo apt-get install \
   openocd
 ```
 
-### Fedora 23 or newer
+### Fedora 23 或更高版本
 
 ``` console
 sudo dnf install \
@@ -51,8 +49,7 @@ sudo dnf install \
 
 ### Arch Linux
 
-> **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
-> Cortex-M programs
+> **注意**：`arm-none-eabi-gdb`是用于调试ARM Cortex-M程序的GDB命令
 
 ``` console
 sudo pacman -S \
@@ -61,15 +58,12 @@ sudo pacman -S \
   openocd
 ```
 
-### Other distros
+### 其他发行版
 
-> **NOTE** `arm-none-eabi-gdb` is the GDB command you'll use to debug your ARM
-> Cortex-M programs
+> **注意**：`arm-none-eabi-gdb`是用于调试ARM Cortex-M程序的GDB命令
 
-For distros that don't have packages for [ARM's pre-built
-toolchain](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads),
-download the "Linux 64-bit" file and put its `bin` directory on your path.
-Here's one way to do it:
+对于没有[ARM预构建工具链包](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads)的发行版，请下载
+"Linux 64-bit"文件并将其`bin`目录放在您的路径上。这里有一种方法：
 
 ``` console
 mkdir -p ~/local && cd ~/local
@@ -78,14 +72,13 @@ mkdir -p ~/local && cd ~/local
 tar xjf /path/to/downloaded/file/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2
 ```
 
-Then, use your editor of choice to append to your `PATH` in the appropriate
-shell init file (e.g. `~/.zshrc` or `~/.bashrc`):
+然后，使用您选择的编辑器在适当的shell init文件中附加到`PATH`(例如`~/.zshrc` 或 `~/.bashrc`):
 
 ```
 PATH=$PATH:$HOME/local/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux/bin
 ```
 
-## Optional packages
+## 可选软件包
 
 ### Ubuntu / Debian
 
@@ -112,58 +105,54 @@ sudo pacman -S \
   rfkill
 ```
 
-## udev rules
+## udev规则
 
-These rules let you use USB devices like the F3 and the Serial module without root privilege, i.e.
-`sudo`.
+这些规则允许您在没有root权限即`sudo`的情况下使用F3和串行模块等USB设备。
 
-Create `99-openocd.rules` in `/etc/udev/rules.d` using the `idVendor` and `idProduct`
-from the `lsusb` output.
+创建`99-openocd.rules`在`/etc/udev/rules.d`使用`lsusb`输出中的`idVendor`和`idProduct`。
 
-For example, connect the STM32F3DISCOVERY to your computer using a USB cable.
-Be sure to connect the cable to the "USB ST-LINK" port, the USB port in the
-center of the edge of the board.
+例如，使用USB电缆将STM32F3DISCOVERYY连接到计算机。确保将电缆连接到"USB ST-LINK"端口，即板边缘中央的USB端口。
 
-Execute `lsusb`:
+执行 `lsusb`:
 ``` console
 lsusb | grep ST-LINK
 ```
-It should result in something like:
+结果应该是：
 ```
 $ lsusb | grep ST-LINK
 Bus 003 Device 003: ID 0483:374b STMicroelectronics ST-LINK/V2.1
 ```
-So the `idVendor` is `0483` and `idProduct` is `374b`.
+因此`idVendor`为`0483`和`idProduct`为`374b`。
 
-### Create `/etc/udev/rules.d/99-openocd.rules`:
+### 创建 `/etc/udev/rules.d/99-openocd.rules`:
 ``` console
 sudo vi /etc/udev/rules.d/99-openocd.rules
 ```
-With the contents:
+内容如下：
 ``` text
 # STM32F3DISCOVERY - ST-LINK/V2.1
 ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE:="0666"
 ```
-#### For older devices with OPTIONAL USB <-> FT232 based Serial Module
+#### 对于带有可选USB <-> 基于FT232的串行模块的旧设备
 
-Create `/etc/udev/rules.d/99-ftdi.rules`:
+创建 `/etc/udev/rules.d/99-ftdi.rules`:
 ``` console
 sudo vi /etc/udev/rules.d/99-openocd.rules
 ```
-With the contents:
+内容如下：
 ``` text
 # FT232 - USB <-> Serial Converter
 ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", MODE:="0666"
 ```
 
-### Reload the udev rules with:
+### 重新加载udev规则：
 
 ``` console
 sudo udevadm control --reload-rules
 ```
 
-If you had any board plugged to your computer, unplug them and then plug them in again.
+如果您的电脑上插了任何板，请拔下它们的插头，然后重新插入。
 
-Now, go to the [next section].
+现在，转到[下一节]。
 
-[next section]: verify.md
+[下一节]: verify.md
