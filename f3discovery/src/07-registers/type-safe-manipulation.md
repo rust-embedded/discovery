@@ -1,33 +1,26 @@
-# Type safe manipulation
+# 类型安全操作
 
-The last register we were working with, `ODR`, had this in its documentation:
+我们使用的最后一个寄存器`ODR`在其文档中有这样的内容：
 
-> Bits 31:16 Reserved, must be kept at reset value
+> Bits 31:16保留，必须保持在重置值
 
-We are not supposed to write to those bits of the register or Bad Stuff May Happen.
+我们不应该写入寄存器中的那些位，否则可能会发生糟糕的事情。
 
-There's also the fact the registers have different read/write permissions. Some of them are write
-only, others can be read and written to and there must be others that are read only.
+此外，寄存器具有不同的读/写权限。其中一些是只读的，其他的可以读写，必须有其他的是只读的。
 
-Finally, directly working with hexadecimal addresses is error prone. You already saw that trying to
-access an invalid memory address causes an exception which disrupts the execution of our program.
+最后，直接使用十六进制地址容易出错。您已经看到，尝试访问无效的内存地址会导致异常，从而中断程序的执行。
 
-Wouldn't it be nice if we had an API to manipulate registers in a "safe" manner? Ideally, the API
-should encode these three points I've mentioned: No messing around with the actual addresses, should
-respect read/write permissions and should prevent modification of the reserved parts of a register.
+如果我们有一个API来以"safe"的方式操作寄存器，这不是很好吗？理想情况下，API应该对我提到的这三点
+进行编码：不要乱用实际地址，应该尊重读/写权限，并且应该防止修改寄存器的保留部分。
 
-Well, we do! `aux7::init()` actually returns a value that provides a type safe API to manipulate the
-registers of the  `GPIOE` peripheral.
+好吧，我们做到了！`aux7::init()`实际上返回一个值，该值提供了一个类型安全API来操作`GPIOE`外设的寄存器。
 
-As you may remember: a group of registers associated to a peripheral is called register block, and
-it's located in a contiguous region of memory. In this type safe API each register block is modeled
-as a `struct` where each of its fields represents a register. Each register field is a different
-newtype over e.g. `u32` that exposes a combination of the following methods: `read`, `write` or
-`modify` according to its read/write permissions. Finally, these methods don't take primitive values
-like `u32`, instead they take yet another newtype that can be constructed using the builder pattern
-and that prevent the modification of the reserved parts of the register.
+您可能还记得：与外围设备相关联的一组寄存器称为寄存器块，它位于内存的连续区域中。在这种类型安全的API中，
+每个寄存器块都被建模为一个`struct`，其中每个字段代表一个寄存器。每个寄存器字段都是不同的新类型，例如`u32`
+它公开了以下方法的组合：根据其读/写权限进行`read`，`write`或`modify`。最后，这些方法不采用像`u32`这样的原始值，而是
+采用另一种新类型，该类型可以使用构建器模式构建，并防止修改寄存器的保留部分。
 
-The best way to get familiar with this API is to port our running example to it.
+熟悉此API的最佳方法是将我们的运行示例移植到它。
 
 ``` rust
 #![no_main]
@@ -56,19 +49,15 @@ fn main() -> ! {
 }
 ```
 
-First thing you notice: There are no magic addresses involved. Instead we use a more human friendly
-way, for example `gpioe.bsrr`, to refer to the `BSRR` register in the `GPIOE` register block.
+你注意到的第一件事是：没有魔法地址。相反，我们使用更人性化的方式，例如`gpioe.bsrr`，以引用`GPIOE`寄存器块中的`BSRR`寄存器。
 
-Then we have this `write` method that takes a closure. If the identity closure (`|w| w`) is used,
-this method will set the register to its *default* (reset) value, the value it had right after the
-microcontroller was powered on / reset. That value is `0x0` for the `BSRR` register. Since we want
-to write a non-zero value to the register, we use builder methods like `bs9` and `br9` to set some
-of the bits of the default value.
+然后我们有一个`write`方法，它需要一个闭包。如果使用标识闭包 (`|w| w`)，则此方法将寄存器设置为其*默认*（重置）值，
+即微控制器通电/重置后的值。对于`BSRR`寄存器，该值为`0x0`。由于我们想向寄存器中写入一个非零值，
+所以我们使用`bs9`和`br9`等构建器方法来设置默认值的一些位。
 
-Let's run this program! There's some interesting stuff we can do *while* debugging the program.
+让我们运行这个程序！在调试程序时，我们可以做*一些*有趣的事情。
 
-`gpioe` is a reference to the `GPIOE` register block. `print gpioe` will return the base address of
-the register block.
+`gpioe`是对`GPIOE`寄存器块的引用。`print gpioe`将返回寄存器块的基址。
 
 ```
 $ cargo run
@@ -88,8 +77,7 @@ registers::__cortex_m_rt_main () at src/07-registers/src/main.rs:9
 $1 = (*mut stm32f3::stm32f303::gpioc::RegisterBlock) 0x48001000
 ```
 
-But if we instead `print *gpioe`, we'll get a *full view* of the register block: the value of each
-of its registers will be printed.
+但是如果我们改为 `print *gpioe`，我们将得到寄存器块的*完整视图*：它的每个寄存器的值都将被打印出来。
 
 ```
 (gdb) print *gpioe
@@ -185,19 +173,17 @@ $2 = stm32f3::stm32f303::gpioc::RegisterBlock {
 }
 ```
 
-All these newtypes and closures sound like they'd generate large, bloated programs but, if you
-actually compile the program in release mode with [LTO] enabled, you'll see that it produces exactly
-the same instructions that the "unsafe" version that used `write_volatile` and hexadecimal addresses
-did!
+所有这些新类型和闭包听起来都会生成大型、臃肿的程序，但如果您在启用[LTO]的发布模式下编译程序，
+您会发现它生成的指令与使用`write_volatile`和十六进制地址的"unsafe"版本完全相同！
 
 [LTO]: https://en.wikipedia.org/wiki/Interprocedural_optimization
 
-Use `cargo objdump` to grab the assembler code to `release.txt`:
+使用`cargo objdump`获取汇编程序代码`release.txt`:
 ``` console
 cargo objdump --bin registers --release -- -d --no-show-raw-insn --print-imm-hex > release.txt
 ```
 
-Then search for `main` in `release.txt`
+然后在`release.txt`中搜索`main`
 ```
 0800023e <main>:
  800023e:      	push	{r7, lr}
@@ -222,11 +208,8 @@ Then search for `main` in `release.txt`
  8000270:      	b	#-0x4 <registers::__cortex_m_rt_main::h199f1359501d5c71+0x28>
 ```
 
-The best part of all this is that nobody had to write a single line of code to implement the
-GPIOE API. All the code was automatically generated from a System View Description (SVD) file using the
-[svd2rust] tool. This SVD file is actually an XML file that microcontroller vendors provide and that
-contains the register maps of their microcontrollers. The file contains the layout of register
-blocks, the base addresses, the read/write permissions of each register, the layout of the
-registers, whether a register has reserved bits and lots of other useful information.
+最棒的是，没有人需要编写一行代码来实现GPIOE API。所有代码都是使用[svd2rust]工具从系统视图描述（SVD）文件自动生成的。
+该SVD文件实际上是微控制器供应商提供的XML文件，包含其微控制器的寄存器映射。
+该文件包含寄存器块的布局、基址、每个寄存器的读/写权限、寄存器的布局、寄存器是否有保留位以及许多其他有用信息。
 
 [svd2rust]: https://crates.io/crates/svd2rust
