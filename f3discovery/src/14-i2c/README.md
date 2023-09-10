@@ -1,33 +1,22 @@
 # I2C
 
-We just saw the serial communication protocol. It's a widely used protocol because it's very
-simple and this simplicity makes it easy to implement on top of other protocols like Bluetooth and
-USB.
+我们刚刚看到了串行通信协议。这是一种广泛使用的协议，因为它非常简单，这种简单性使得它很容易在蓝牙和USB等其他协议之上实现。
 
-However, it's simplicity is also a downside. More elaborated data exchanges, like reading a digital
-sensor, would require the sensor vendor to come up with another protocol on top of it.
+然而，它的简单性也是一个缺点。更详细的数据交换，如读取数字传感器，将要求传感器供应商在其之上制定另一个协议。
 
-(Un)Luckily for us, there are *plenty* of other communication protocols in the embedded space. Some
-of them are widely used in digital sensors.
+(Un)对我们来说，幸运的是，嵌入式空间中还有*很多*其他通信协议。其中一些广泛用于数字传感器。
 
-The F3 board we are using has three motion sensors in it: an accelerometer, a magnetometer and
-gyroscope. The accelerometer and magnetometer are packaged in a single component and can be accessed
-via an I2C bus.
+我们使用的F3板有三个运动传感器：加速计、磁力计和陀螺仪。加速计和磁力计封装在单个组件中，可以通过I2C总线访问。
 
-I2C stands for Inter-Integrated Circuit and is a *synchronous* *serial* communication protocol. It
-uses two lines to exchange data: a data line (SDA) and a clock line (SCL). Because a clock line is
-used to synchronize the communication, this is a *synchronous* protocol.
+I2C代表内部集成电路，是一种*同步串行*通信协议。它使用两条线交换数据：数据线（SDA）和时钟线（SCL）。
+因为时钟线用于同步通信，所以这是一种*同步*协议。
 
-<p align="center">
+<p>
 <img class="white_bg" height=180 title="I2C bus" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/I2C.svg">
 </p>
 
-This protocol uses a *master* *slave* model where the master is the device that *starts* and
-drives the communication with a slave device. Several devices, both masters and slaves, can be
-connected to the same bus at the same time. A master device can communicate with a specific slave
-device by first broadcasting its *address* to the bus. This address can be 7 bits or 10 bits long.
-Once a master has *started* a communication with a slave, no other device can make use of the bus
-until the master *stops* the communication.
+该协议使用*主* *从*模式，其中主机是*启动*并驱动与从设备通信的设备。多个设备（包括主设备和从设备）可以同时连接到同一总线。
+主设备可以通过首先向总线广播其*地址*来与特定从设备通信。该地址可以是7位或10位长。
+一旦主设备*启动*了与从设备的通信，在主设备*停止*通信之前，任何其他设备都不能使用总线。
 
-The clock line determines how fast data can be exchanged and it usually operates at a frequency of
-100 KHz (standard mode) or 400 KHz (fast mode).
+时钟线决定数据交换的速度，通常以100KHz（标准模式）或400KHz（快速模式）的频率工作。
