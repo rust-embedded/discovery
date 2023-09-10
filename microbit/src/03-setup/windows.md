@@ -2,9 +2,8 @@
 
 ## `arm-none-eabi-gdb`
 
-ARM provides `.exe` installers for Windows. Grab one from [here][gcc], and follow the instructions.
-Just before the installation process finishes tick/select the "Add path to environment variable"
-option. Then verify that the tools are in your `%PATH%`:
+ARM`.exe`为Windows提供安装程序。从[从][gcc]下载，然后按照说明进行操作。就在安装过程完成之前
+勾选/选择"Add path to environment variable"选项。然后验证这些工具是否在您的`%PATH%`：
 
 ``` console
 $ arm-none-eabi-gcc -v
@@ -16,10 +15,10 @@ gcc version 5.4.1 20160919 (release) (..)
 
 ## PuTTY
 
-Download the latest `putty.exe` from [this site] and place it somewhere in your `%PATH%`.
+`putty.exe`从[该站点]下载最新版本并将其放在您的`%PATH%`。
 
-[this site]: http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html
+现在，转到[下一节]。
 
-Now, go to the [next section].
+[该站点]: http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html
 
-[next section]: verify.md
+[下一节]: verify.md
