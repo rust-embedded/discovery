@@ -1,19 +1,16 @@
-# Receive a single byte
+# 接收单个字节
 
-So far we have sending data from the microcontroller to your computer. It's time to try the opposite: receiving
-data from your computer.
+到目前为止，我们已经从微控制器向您的计算机发送了数据。是时候尝试相反的方法了：从计算机接收数据。
 
-There's a `RDR` register that will be filled with the data that comes from the RX line. If we read
-that register, we'll retrieve the data that the other side of the channel sent. The question is: How
-do we know that we have received (new) data? The status register, `ISR`, has a bit for that purpose:
-`RXNE`. We can just busy wait on that flag.
+有一个`RDR`寄存器，将填充来自RX线的数据。如果我们读取该寄存器，我们将检索通道另一侧发送的数据。
+问题是：我们如何知道我们收到了（新的）数据？状态寄存器`ISR`有一位用于此目的：`RXNE`。我们可以忙着等flag。
 
 ``` rust
 {{#include examples/receive-a-single-byte.rs}}
 ```
 
-Let's try this program! Let it run free using `continue` and then type a single character in
-minicom/PuTTY's console. What happens? What are the contents of the `_byte` variable?
+让我们试试这个程序吧！使用`continue`让它自由运行，然后在minicom/PuTTY的控制台中键入一个字符。
+发生了什么？`_byte`变量的内容是什么？
 
 ```
 (gdb) continue
