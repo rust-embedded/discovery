@@ -1,9 +1,8 @@
-# \*nix tooling
+# \*nix 工具
 
-## Connecting the micro:bit board
+## 连接micro:bit板
 
-If you connect the micro:bit board to your computer you
-should see a new TTY device appear in `/dev`.
+如果您将micro:bit板连接到您的计算机，您应该会看到一个新的TTY设备出现在`/dev`。
 
 ``` console
 $ # Linux
@@ -11,34 +10,30 @@ $ dmesg | tail | grep -i tty
 [63712.446286] cdc_acm 1-1.7:1.1: ttyACM0: USB ACM device
 ```
 
-This is the USB <-> Serial device. On Linux, it's named `tty*` (usually
-`ttyACM*` or `ttyUSB*`).
-On Mac OS `ls /dev/cu.usbmodem*` will show the serial device.
+这是USB<->串行设备。在 Linux 上，它被命名为`tty*` (通常是`ttyACM*` 或 `ttyUSB*`)。
+在Mac OS`ls /dev/cu.usbmodem*`上将显示串行设备。
 
-But what exactly is `ttyACM0`? It's a file of course!
-Everything is a file in \*nix:
+但`ttyACM0`究竟是什么？当然是文件！一切都是\*nix中的文件：
 
 ```
 $ ls -l /dev/ttyACM0
 crw-rw----. 1 root plugdev 166, 0 Jan 21 11:56 /dev/ttyACM0
 ```
 
-You can send out data by simply writing to this file:
+您可以通过简单地写入此文件来发送数据：
 
 ``` console
 $ echo 'Hello, world!' > /dev/ttyACM0
 ```
 
-You should see the orange LED on the micro:bit, right next to the USB port, blink for a moment,
-whenever you enter this command.
+每当您输入此命令时，您应该会看到micro:bit上的橙色LED，就在USB端口旁边，闪烁片刻。
 
 ## minicom
 
-We'll use the program `minicom` to interact with the serial device using the keyboard.
+我们将使用程序`minicom`使用键盘与串行设备交互。
 
-We must configure `minicom` before we use it. There are quite a few ways to do that but we'll use a
-`.minirc.dfl` file in the home directory. Create a file in `~/.minirc.dfl` with the following
-contents:
+我们必须先配置`minicom`然后才能使用它。有很多方法可以做到这一点，但我们将使用`.minirc.dfl`主目录中的文件。创建一个包含
+创建一个包含`~/.minirc.dfl`文件，包含以下内容：
 
 ``` console
 $ cat ~/.minirc.dfl
@@ -50,44 +45,41 @@ pu rtscts No
 pu xonxoff No
 ```
 
-> **NOTE** Make sure this file ends in a newline! Otherwise, `minicom` will fail to read it.
+> **注意**：确保此文件以换行符结尾！否则，`minicom`将无法读取它。
 
-That file should be straightforward to read (except for the last two lines), but nonetheless let's
-go over it line by line:
+该文件应该易于阅读（最后两行除外），但让我们逐行查看：
 
-- `pu baudrate 115200`. Sets baud rate to 115200 bps.
-- `pu bits 8`. 8 bits per frame.
-- `pu parity N`. No parity check.
-- `pu stopbits 1`. 1 stop bit.
-- `pu rtscts No`. No hardware control flow.
-- `pu xonxoff No`. No software control flow.
+- `pu baudrate 115200`。将波特率设置为115200bps。
+- `pu bits 8`。每帧8位。
+- `pu parity N`。无相同校验。
+- `pu stopbits 1`。1个stop bit。
+- `pu rtscts No`。没有硬件控制流
+- `pu xonxoff No`。没有软件控制流程。
 
-Once that's in place, we can launch `minicom`.
+一旦这一切就绪，我们就可以启动`minicom`。
 
 ``` console
 $ # NOTE you may need to use a different device here
 $ minicom -D /dev/ttyACM0 -b 115200
 ```
 
-This tells `minicom` to open the serial device at `/dev/ttyACM0` and set its
-baud rate to 115200. A text-based user interface (TUI) will pop out.
+这通过`minicom`在`/dev/ttyACM0`打开串行设备，并将其波特率设置为115200。将弹出基于文本的用户界面（TUI）。
 
-<p align="center">
+<p>
 <img title="minicom" src="../assets/minicom.png">
 </p>
 
-You can now send data using the keyboard! Go ahead and type something. Note that
-the text UI will *not* echo back what you type. If you pay attention to the yellow LED
-on top of the micro:bit though, you will notice that it blinks whenever you type something.
+您现在可以使用键盘发送数据！请输入一些内容。请注意，文本UI不会回显您键入的内容。但是，如果你
+注意micro:bit顶部的黄色LED，你会注意到每当你键入某个内容时，它都会闪烁。
 
-## `minicom` commands
+## `minicom`命令
 
-`minicom` exposes commands via keyboard shortcuts. On Linux, the shortcuts start with `Ctrl+A`. On
-Mac, the shortcuts start with the `Meta` key. Some useful commands below:
+`minicom`通过键盘快捷键公开命令。在Linux上，快捷方式以`Ctrl+A`开头。 在Mac上，快捷键以`Meta`键开头。
+以下是一些有用的命令：
 
-- `Ctrl+A` + `Z`. Minicom Command Summary
-- `Ctrl+A` + `C`. Clear the screen
-- `Ctrl+A` + `X`. Exit and reset
-- `Ctrl+A` + `Q`. Quit with no reset
+- `Ctrl+A` + `Z`。Minicom 命令摘要
+- `Ctrl+A` + `C`。清除屏幕
+- `Ctrl+A` + `X`。退出并重置
+- `Ctrl+A` + `Q`。退出并重置
 
-> **NOTE** Mac users: In the above commands, replace `Ctrl+A` with `Meta`.
+> **注意**：Mac用户：在上述命令中，将`Ctrl+A`替换为`Meta`。
