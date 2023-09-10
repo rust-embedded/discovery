@@ -1,21 +1,19 @@
-# Read several registers
+# 读取多个寄存器
 
-Reading the `IRA_REG_M` register was a good test of our understanding of the I2C protocol but that
-register contains uninteresting information.
+读取`IRA_REG_M`寄存器很好地测试了我们对I2C协议的理解，但该寄存器包含了不感兴趣的信息。
 
-This time, we'll read the registers of the magnetometer that actually expose the sensor readings.
-Six contiguous registers are involved and they start with `OUT_X_H_M` at address `0x03`.
+这一次，我们将读取实际暴露传感器读数的磁力计寄存器。涉及六个连续寄存器，它们从地址`0x03`处的`OUT_X_H_M`开始。
 
-We'll modify our previous program to read these six registers. Only a few modifications are needed.
+我们将修改以前的程序以读取这六个寄存器。只需要进行一些修改。
 
-We'll need to change the address we request from the magnetometer from `IRA_REG_M` to `OUT_X_H_M`.
+我们需要将磁力计请求的地址从`IRA_REG_M`更改为`OUT_X_H_M`。
 
 ``` rust
     // Send the address of the register that we want to read: OUT_X_H_M
     i2c1.txdr.write(|w| w.txdata().bits(OUT_X_H_M));
 ```
 
-We'll have to request the slave for six bytes rather than just one.
+我们必须向从属服务器请求六个字节而不是一个字节。
 
 ``` rust
     // Broadcast RESTART
@@ -28,7 +26,7 @@ We'll have to request the slave for six bytes rather than just one.
     });
 ```
 
-And fill a buffer rather than read just one byte:
+并填充缓冲区，而不是仅读取一个字节：
 
 ``` rust
     let mut buffer = [0u8; 6];
@@ -42,7 +40,7 @@ And fill a buffer rather than read just one byte:
     // Broadcast STOP (automatic because of `AUTOEND = 1`)
 ```
 
-Putting it all together inside a loop alongside a delay to reduce the data throughput:
+将所有这些放在一个循环中，并加上一个延迟，以降低数据吞吐量：
 
 ``` rust
 #![deny(unsafe_code)]
@@ -108,8 +106,8 @@ fn main() -> ! {
 }
 ```
 
-If you run this, you should printed in the `itmdump`'s console a new array of six bytes every
-second. The values within the array should change if you move around the board.
+如果运行此命令，应该在`itmdump`的控制台中每秒打印一个新的六字节数组。
+如果在板上移动，数组中的值应该会改变。
 
 ``` console
 $ # itmdump terminal
@@ -119,7 +117,7 @@ $ # itmdump terminal
 [0, 49, 255, 250, 0, 195]
 ```
 
-But these bytes don't make much sense like that. Let's turn them into actual readings:
+但这些字节并没有什么意义。让我们将它们转化为实际读数：
 
 ``` rust
         let x_h = u16::from(buffer[0]);
@@ -136,7 +134,7 @@ But these bytes don't make much sense like that. Let's turn them into actual rea
         iprintln!(&mut itm.stim[0], "{:?}", (x, y, z));
 ```
 
-Now it should look better:
+现在看起来应该更好了：
 
 ``` console
 $ # `itmdump terminal
@@ -146,6 +144,6 @@ $ # `itmdump terminal
 (46, 196, -9)
 ```
 
-This is the Earth's magnetic field decomposed alongside the XYZ axis of the magnetometer.
+这是沿着磁力仪的XYZ轴分解的地球磁场。
 
-In the next section, we'll learn how to make sense of these numbers.
+在下一节中，我们将学习如何理解这些数字。
