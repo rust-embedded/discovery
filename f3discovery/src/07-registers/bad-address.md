@@ -1,6 +1,6 @@
-# `0xBAAAAAAD` address
+# `0xBAAAAAAD` 地址
 
-Not all the peripheral memory can be accessed. Look at this program.
+并非所有外围存储器都可以访问。看看这个程序。
 
 ``` rust
 #![no_main]
@@ -23,10 +23,9 @@ fn main() -> ! {
 }
 ```
 
-This address is close to the `GPIOE_BSRR` address we used before but this address is *invalid*.
-Invalid in the sense that there's no register at this address.
+此地址与我们之前使用的`GPIOE_BSRR`地址接近，但此地址*无效*。
 
-Now, let's try it.
+现在，让我们试试看。
 
 ``` console
 $ cargo run
@@ -44,21 +43,16 @@ Breakpoint 3, cortex_m_rt::HardFault_ (ef=0x20009fb0)
 (gdb)
 ```
 
-We tried to do an invalid operation, reading memory that doesn't exist, so the processor raised an
-*exception*, a *hardware* exception.
+我们试图执行无效操作，读取不存在的内存，因此处理器引发了一个*异常*，一个*硬件*异常。
 
-In most cases, exceptions are raised when the processor attempts to perform an invalid operation.
-Exceptions break the normal flow of a program and force the processor to execute an *exception
-handler*, which is just a function/subroutine.
+在大多数情况下，当处理器尝试执行无效操作时会引发异常。异常打破了程序的正常流程，迫使处理器执行
+*异常处理程序*，这只是一个函数/子例程。
 
-There are different kind of exceptions. Each kind of exception is raised by different conditions and
-each one is handled by a different exception handler.
+有不同类型的例外。每种异常都由不同的条件引发，每种异常由不同的异常处理程序处理。
 
-The `aux7` crate depends on the `cortex-m-rt` crate which defines a default
-*hard fault* handler, named `HardFault`, that handles the "invalid memory
-address" exception. `openocd.gdb` placed a breakpoint on `HardFault`; that's why
-the debugger halted your program while it was executing the exception handler.
-We can get more information about the exception from the debugger. Let's see:
+`aux7` crate 依赖于`cortex-m-rt` crate，它定义了一个名为`HardFault`的默认*硬故障*处理程序，用于处理"无效内存地址"异常。
+`openocd.gdb`在`HardFault`上放置了一个断点; 这就是调试器在执行异常处理程序时暂停程序的原因。
+我们可以从调试器获取有关异常的更多信息。让我们看看：
 
 ```
 (gdb) list
@@ -74,7 +68,7 @@ We can get more information about the exception from the debugger. Let's see:
 564         }
 ```
 
-`ef` is a snapshot of the program state right before the exception occurred. Let's inspect it:
+`ef`是发生异常之前程序状态的快照。让我们检查一下：
 
 ```
 (gdb) print/x *ef
@@ -90,9 +84,8 @@ $1 = cortex_m_rt::ExceptionFrame {
 }
 ```
 
-There are several fields here but the most important one is `pc`, the Program Counter register.
-The address in this register points to the instruction that generated the exception. Let's
-disassemble the program around the bad instruction.
+这里有几个字段，但最重要的是`pc`，即程序计数器寄存器。此寄存器中的地址指向生成异常的指令。
+让我们围绕坏指令来拆解程序。
 
 ```
 (gdb) disassemble /m ef.pc
@@ -121,14 +114,11 @@ Dump of assembler code for function core::ptr::read_volatile<u32>:
 End of assembler dump.
 ```
 
-The exception was caused by the `ldr r0, [r0, #0]` instruction, a read instruction. The instruction
-tried to read the memory at the address indicated by the `r0` register. By the way, `r0` is a CPU
-(processor) register not a memory mapped register; it doesn't have an associated address like, say,
-`GPIO_BSRR`.
+异常是由`ldr r0, [r0, #0]`指令（读取指令）引起的。该指令试图读取`r0`寄存器指示的地址处的内存。
+顺便说一句，`r0`是CPU（处理器）寄存器，而不是内存映射寄存器；它没有关联的地址，比如`GPIO_BSRR`。
 
-Wouldn't it be nice if we could check what the value of the `r0` register was right at the instant
-when the exception was raised? Well, we already did! The `r0` field in the `ef` value we printed
-before is the value of `r0` register had when the exception was raised. Here it is again:
+如果我们能够在引发异常的瞬间检查`r0`寄存器的值是正确的，这不是很好吗？嗯，我们已经做到了！我们
+之前打印的`ef`值中的`r0`字段是引发异常时`r0`寄存器的值。这里又是：
 
 ```
 (gdb) print/x *ef
@@ -144,5 +134,4 @@ $1 = cortex_m_rt::ExceptionFrame {
 }
 ```
 
-`r0` contains the value `0x4800_1800` which is the invalid address we called the `read_volatile`
-function with.
+`r0`包含值`0x4800_1800`，这是我们调用`read_volatile`函数时使用的无效地址。
