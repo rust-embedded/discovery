@@ -1,12 +1,9 @@
-# (mis)Optimization
+# (mis)优化
 
-Reads/writes to registers are quite special. I may even dare to say that they are embodiment of side
-effects. In the previous example we wrote four different values to the same register. If you didn't
-know that address was a register, you may have simplified the logic to just write the final value `1
-<< (11 + 16)` into the register.
+寄存器的读/写非常特殊。我甚至敢说它们是副作用的体现。在前面的示例中，我们将四个不同的值写入同一个寄存器。
+如果您不知道地址是一个寄存器，那么您可能已经简化了逻辑，只将最终值`1 << (11 + 16)`写入寄存器。
 
-Actually, LLVM, the compiler's backend / optimizer, does not know we are dealing with a register and
-will merge the writes thus changing the behavior of our program. Let's check that really quick.
+实际上，编译器的后端/优化器LLVM不知道我们正在处理寄存器，并将合并写入，从而改变程序的行为。让我们快速检查一下。
 
 ``` console
 $ cargo run --release
@@ -55,18 +52,17 @@ Dump of assembler code for function _ZN9registers18__cortex_m_rt_main17h45b1ef53
 End of assembler dump.
 ```
 
-The state of the LEDs didn't change this time! The `str` instruction is the one that writes a value
-to the register. Our *debug* (unoptimized) program had four of them, one for each write to the
-register, but the *release* (optimized) program only has one.
+这次LED的状态没有改变！`str`指令是将值写入寄存器的指令。我们的*debug*（未优化）程序有四个，每
+个写入寄存器一个，但*release*（优化）程序只有一个。
 
-We can check that using `objdump` and capture the output to `out.asm`:
+我们可以使用`objdump`检查并将输出捕获到`out.asm`：
 
 ``` console
 # same as cargo objdump -- -d --no-show-raw-insn --print-imm-hex --source target/thumbv7em-none-eabihf/debug/registers
 cargo objdump --bin registers -- -d --no-show-raw-insn --print-imm-hex --source > debug.txt
 ```
 
-Then examine `debug.txt` looking for `main` and we see the 4 `str` instructions:
+然后检查`debug.txt`查找`main`我们看到4个`str`指令：
 ```
 080001ec <main>:
 ; #[entry]
@@ -110,8 +106,7 @@ Then examine `debug.txt` looking for `main` and we see the 4 `str` instructions:
  (..)
 ```
 
-How do we prevent LLVM from misoptimizing our program? We use *volatile* operations instead of plain
-reads/writes:
+我们如何防止LLVM错误优化我们的程序？我们使用*易失性*操作而不是简单的读/写：
 
 ``` rust
 #![no_main]
@@ -148,13 +143,13 @@ fn main() -> ! {
 
 ```
 
-Generate `release.txt` using with `--release` mode.
+生成`release.txt`使用`--release`模式。
 
 ``` console
 cargo objdump --release --bin registers -- -d --no-show-raw-insn --print-imm-hex --source > release.txt
 ```
 
-Now find the `main` routine in `release.txt` and we see the 4 `str` instructions.
+现在在`release.txt`中找到`main`程序，我们看到了4个`str`指令。
 ```
 0800023e <main>:
 ; #[entry]
@@ -184,10 +179,8 @@ Now find the `main` routine in `release.txt` and we see the 4 `str` instructions
  (..)
  ```
 
-We see that the four writes (`str` instructions) are preserved. If you run it using
-`gdb` you'll also see that we get the expected behavior.
-> NB: The last `next` will endlessly execute `loop {}`, use `Ctrl-c` to get
-> back to the `(gdb)` prompt.
+我们看到四个写入 (`str`指令)被保留。如果您使用`gdb`运行它，您还会看到我们得到了预期的行为。
+> 注意：下一个`next`将无休止地执行`loop {}`，使用`Ctrl-c`返回`(gdb)`提示符。
 ```
 $ cargo run --release
 (..)
