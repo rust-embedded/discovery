@@ -1,60 +1,51 @@
-# Flash it
+# 闪存
 
-Flashing is the process of moving our program into the microcontroller's (persistent) memory. Once
-flashed, the microcontroller will execute the flashed program every time it is powered on.
+闪存是将我们的程序移动到微控制器（持久）存储器中的过程。一旦闪存，微控制器将在每次通电时执行闪存程序。
 
-In this case, our `led-roulette` program will be the *only* program in the microcontroller memory.
-By this I mean that there's nothing else running on the microcontroller: no OS, no "daemon",
-nothing. `led-roulette` has full control over the device.
+在这种情况下，我们的`led-roulette`程序将是微控制器存储器中的*唯一*程序。我的意思是，微控制器上
+没有运行任何其他东西：没有操作系统，没有"守护进程"，什么都没有。`led-roulette`可以完全控制设备。
 
-Onto the actual flashing. First thing we need to do is launch OpenOCD. We did that in the
-previous section but this time we'll run the command inside a temporary directory (`/tmp` on \*nix;
-`%TEMP%` on Windows).
+根据实际闪烁。我们需要做的第一件事是启动OpenOCD。我们在上一节中做过，但这次
+我们将在临时目录(*nix上的`/tmp`; Windows上的`%TEMP%`)。
 
-Make sure the F3 is connected to your computer and run the following commands in a **new terminal**.
+确保F3已连接到计算机，并在**新终端**中运行以下命令。
 
-## For *nix & MacOS:
+## 对于*nix & MacOS:
 ``` console
 cd /tmp
 openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
 ```
 
-## For Windows **Note**: substitute `C:` for the actual OpenOCD path:
+## 对于Windows**注意**：用`C:`替换实际的OpenOCD路径：
 ```
 cd %TEMP%
 openocd -s C:\share\scripts -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
 ```
 
-> **NOTE** Older revisions of the board need to pass slightly different arguments to
-> `openocd`. Review [this section] for the details.
+> **注意**：较旧版本的开发板需要向`openocd`传递稍微不同的参数。查看[本节]了解详细信息。
 
-[this section]: ../03-setup/verify.md#first-openocd-connection
+[本节]: ../03-setup/verify.md#first-openocd-connection
 
-The program will block; leave that terminal open.
+程序将阻止；保持终端打开。
 
-Now it's a good time to explain what the `openocd` command is actually doing.
+现在是解释`openocd`命令实际作用的好时机。
 
-I mentioned that the STM32F3DISCOVERY (aka F3) actually has two microcontrollers. One of them is used as a
-programmer/debugger. The part of the board that's used as a programmer is called ST-LINK (that's what
-STMicroelectronics decided to call it). This ST-LINK is connected to the target microcontroller
-using a Serial Wire Debug (SWD) interface (this interface is an ARM standard so you'll run into it
-when dealing with other Cortex-M based microcontrollers). This SWD interface can be used to flash
-and debug a microcontroller. The ST-LINK is connected to the "USB ST-LINK" port and will appear as
-a USB device when you connect the F3 to your computer.
+我提到STM32F3DISCOVERY (又名F3) 实际上有两个微控制器。其中一个用作程序员/调试器。板上用作编程器的部分称为
+ST-LINK (决定将其称为 STMicroelectronics)。该ST-LINK使用串行线调试（SWD）接口连接到目标微控制器
+(该接口是ARM标准，因此您在处理其他基于Cortex-M的微控制器时会遇到它)。该SWD接口可用于闪存和调试微控制器。
+ST-LINK连接到"USB ST-LINK"端口，当您将F3连接到计算机时，ST-LINK将显示为USB设备。
 
-<p align="center">
+<p>
 <img height=640 title="On-board ST-LINK" src="../assets/st-link.png">
 </p>
 
 
-As for OpenOCD, it's software that provides some services like a *GDB server* on top of USB
-devices that expose a debugging protocol like SWD or JTAG.
+至于OpenOCD，它是一种软件，它在USB设备上提供一些服务，如GDB服务器，这些设备暴露了SWD或JTAG等调试协议。
 
-Onto the actual command: those `.cfg` files we are using instruct OpenOCD to look for a ST-LINK USB
-device (`interface/stlink-v2-1.cfg`) and to expect a STM32F3XX microcontroller
-(`target/stm32f3x.cfg`) to be connected to the ST-LINK.
+转到实际命令：我们使用的`.cfg`文件指示OpenOCD查找ST-LINK USB设备(`interface/stlink-v2-1.cfg`)
+并期望STM32F3XX微控制器(`target/stm32f3x.cfg`)连接到ST-LINK。
 
-The OpenOCD output looks like this:
+OpenOCD输出如下所示：
 ``` console
 $ openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
 Open On-Chip Debugger 0.10.0
@@ -75,19 +66,17 @@ Info : Target voltage: 2.888183
 Info : stm32f3x.cpu: hardware has 6 breakpoints, 4 watchpoints
 ```
 
-The "6 breakpoints, 4 watchpoints" part indicates the debugging features the processor has
-available.
+"6个断点，4个监视点" 部分表示处理器可用的调试功能。
 
-Leave that `openocd` process running, and in the previous terminal or a new terminal
-**make sure that you are inside the project's `src/05-led-roulette/` directory**.
+保持`openocd`进程运行，在上一个终端或新终端中确保您位于项目的**确保您位于项目的`src/05-led-roulette/`目录中**。
 
-I mentioned that OpenOCD provides a GDB server so let's connect to that right now:
+我提到OpenOCD提供了一个GDB服务器，所以我们现在就连接到它：
 
-## Execute GDB
+## 执行 GDB
 
-First, we need to determine what version of `gdb` you have that is capable of debugging ARM binaries.
+首先，我们需要确定可以调试ARM二进制文件的`gdb`版本。
 
-This could be any one of the commands below, try each one:
+这可以是以下任意一个命令，请尝试每一个：
 ``` console
 arm-none-eabi-gdb -q -ex "target remote :3333" target/thumbv7em-none-eabihf/debug/led-roulette
 ```
@@ -97,20 +86,9 @@ gdb-multiarch -q -ex "target remote :3333" target/thumbv7em-none-eabihf/debug/le
 ``` console
 gdb -q -ex "target remote :3333" target/thumbv7em-none-eabihf/debug/led-roulette
 ```
+### **失败案例e**
 
-> **NOTE**: If you are getting `target/thumbv7em-none-eabihf/debug/led-roulette: No such file or directory`
-> error, try adding `../../` to the file path, for example:
->
-> ```shell
-> $ gdb -q -ex "target remote :3333" ../../target/thumbv7em-none-eabihf/debug/led-roulette
-> ```
->
-> This is caused by each example project being in a `workspace` that contains the entire book, and workspaces have
-> a single `target` directory. Check out [Workspaces chapter in Rust Book] for more.
-
-### **Failing case**
-
-You can detect a failing case if there is a `warning` or `error` after the `Remote debugging using :3333` line:
+如果远程调试后出现`warning`或`error`，您可以使用：`Remote debugging using :3333`检测失败情况：
 ```
 $ gdb -q -ex "target remote :3333" target/thumbv7em-none-eabihf/debug/led-roulette
 Reading symbols from target/thumbv7em-none-eabihf/debug/led-roulette...
@@ -119,8 +97,8 @@ warning: Architecture rejected target-supplied description
 Truncated register 16 in remote 'g' packet
 (gdb)
 ```
-### **Successful case**
-Successful case 1:
+### **成功案例**
+成功案例 1：
 ```
 $ arm-none-eabi-gdb -q -ex "target remote :3333" target/thumbv7em-none-eabihf/debug/led-roulette
 Reading symbols from target/thumbv7em-none-eabihf/debug/led-roulette...
@@ -129,7 +107,7 @@ cortex_m_rt::Reset () at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/corte
 497     pub unsafe extern "C" fn Reset() -> ! {
 (gdb)
 ```
-Successful case 2:
+成功案例 2：
 ```
 ~/embedded-discovery/src/05-led-roulette (master)
 $ arm-none-eabi-gdb -q -ex "target remote :3333" target/thumbv7em-none-eabihf/debug/led-roulette
@@ -138,7 +116,7 @@ Remote debugging using :3333
 0x00000000 in ?? ()
 (gdb)
 ```
-In both failing and successful cases you should see new output in the **OpenOCD terminal**, something like the following:
+在失败和成功的情况下，您应该在**OpenOCD终端**中看到新的输出，如下所示：
 ``` diff
  Info : stm32f3x.cpu: hardware has 6 breakpoints, 4 watchpoints
 +Info : accepting 'gdb' connection on tcp/3333
@@ -146,31 +124,24 @@ In both failing and successful cases you should see new output in the **OpenOCD 
 +Info : flash size = 256kbytes
 ```
 
-> **NOTE** If you are getting an error like `undefined debug reason 7 - target needs reset`, you can try running `monitor reset halt` as described [here](https://stackoverflow.com/questions/38994596/reason-7-target-needs-reset-unreliable-debugging-setup).
+> **注意**：如果您收到`undefined debug reason 7 - target needs reset`之类的错误，您可以尝试`monitor reset halt`参考[此处](https://stackoverflow.com/questions/38994596/reason-7-target-needs-reset-unreliable-debugging-setup)。
 
-By default OpenOCD's GDB server listens on TCP port 3333 (localhost). This command is connecting to
-that port.
+默认情况下，OpenOCD's 的GDB服务器侦听TCP端口3333 (localhost)。此命令正在连接到该端口。
 
-## Update ../.cargo/config.toml
+## 更新 ../.cargo/config.toml
 
-Now that you've successfully determined which debugger you need to use
-we need to change `../.cargo/config.toml` so that the `cargo run` command will succeed.
+现在您已经成功地确定了需要使用的调试器，我们需要更改`../.cargo/config.toml`这样`cargo run`命令将成功。
 
-> **NOTE** `cargo` is the Rust package manager and you can read about it
-[here](https://doc.rust-lang.org/cargo/).
+> **注意**：`cargo`是Rust包管理器，您可以在[这里](https://doc.rust-lang.org/cargo/)阅读。
 
-Get back to the terminal prompt and look at `../.cargo/config.toml`:
+返回到终端提示符，查看`../.cargo/config.toml`：
 ``` console
 ~/embedded-discovery/src/05-led-roulette
 $ cat ../.cargo/config.toml
-# default runner starts a GDB sesssion, which requires OpenOCD to be
-# running, e.g.,
-## openocd -f interface/stlink.cfg -f target/stm32f3x.cfg
-# depending on your local GDB, pick one of the following
 [target.thumbv7em-none-eabihf]
-runner = "arm-none-eabi-gdb -q -x ../openocd.gdb"
-# runner = "gdb-multiarch -q -x ../openocd.gdb"
-# runner = "gdb -q -x ../openocd.gdb"
+runner = "arm-none-eabi-gdb -q"
+# runner = "gdb-multiarch -q"
+# runner = "gdb -q"
 rustflags = [
   "-C", "link-arg=-Tlink.x",
 ]
@@ -179,87 +150,61 @@ rustflags = [
 target = "thumbv7em-none-eabihf"
 
 ```
-Use your favorite editor to edit `../.cargo/config.toml` so that the
-`runner` line contains the correct name of that debugger:
+使用您最喜欢的编辑器编辑`../.cargo/config.toml`，以便`runner`程序行包含该调试器的正确名称：
 ``` console
 nano ../.cargo/config.toml
 ```
-For example, if your debugger was `gdb-multiarch` then after
-editing the `git diff` should be:
+例如，如果您的调试器是`gdb-multiarch`，那么在编辑`git diff`之后应该是：
 ``` diff
 $ git diff ../.cargo/config.toml
-diff --git a/f3discovery/src/.cargo/config.toml b/f3discovery/src/.cargo/config.toml
-index 2f38f6b..95860a0 100644
---- a/f3discovery/src/.cargo/config.toml
-+++ b/f3discovery/src/.cargo/config.toml
-@@ -3,8 +3,8 @@
- ## openocd -f interface/stlink.cfg -f target/stm32f3x.cfg
- # depending on your local GDB, pick one of the following
+diff --git a/src/.cargo/config.toml b/src/.cargo/config.toml
+index ddff17f..8512cfe 100644
+--- a/src/.cargo/config.toml
++++ b/src/.cargo/config.toml
+@@ -1,6 +1,6 @@
  [target.thumbv7em-none-eabihf]
--runner = "arm-none-eabi-gdb -q -x ../openocd.gdb"
--# runner = "gdb-multiarch -q -x ../openocd.gdb"
-+# runner = "arm-none-eabi-gdb -q -x ../openocd.gdb"
-+runner = "gdb-multiarch -q -x ../openocd.gdb"
- # runner = "gdb -q -x ../openocd.gdb"
+-runner = "arm-none-eabi-gdb -q"
+-# runner = "gdb-multiarch -q"
++# runner = "arm-none-eabi-gdb -q"
++runner = "gdb-multiarch -q"
+ # runner = "gdb -q"
  rustflags = [
    "-C", "link-arg=-Tlink.x",
 ```
 
-Now that you have `../.cargo/config.toml` setup let's test it using `cargo run` to
-start the debug session.
+现在，您已经有了`../.cargo/config.toml`设置让我们使用`cargo run`来测试它，以启动调试会话。
 
-> **NOTE** The `--target thumbv7em-none-eabihf` defines which architecture
-> to build and run. In our `../.cargo/config.toml` file we have
-> `target = "thumbv7em-none-eabihf"` so it is actually not necessary
-> to specify `--target` we do it here just so you know that parameters on
-> the command line can be used and they override those in `config.toml` files.
+> **注意**：`--target thumbv7em-none-eabihf`定义要构建和运行的体系结构。在我们的`../.cargo/config.toml`
+> 文件我们有`target = "thumbv7em-none-eabihf"`所以实际上不需要指定`--target`
+> 我们在这里这样做只是为了让您知道可以使用命令行上的参数，并且它们会覆盖`config.toml`文件中的参数。
 
 ```
 cargo run --target thumbv7em-none-eabihf
 ```
-Results in:
+结果如下：
 ```
 ~/embedded-discovery/src/05-led-roulette
 $ cargo run --target thumbv7em-none-eabihf
-    Finished dev [unoptimized + debuginfo] target(s) in 0.14s
-     Running `gdb-multiarch -q -x ../openocd.gdb /home/adam/vc/rust-training/discovery/f3discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
-Reading symbols from /home/adam/vc/rust-training/discovery/f3discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
-0x08000230 in core::fmt::Arguments::new_v1 (pieces=..., args=...)
-    at /rustc/d5a82bbd26e1ad8b7401f6a718a9c57c96905483/library/core/src/fmt/mod.rs:394
-394	/rustc/d5a82bbd26e1ad8b7401f6a718a9c57c96905483/library/core/src/fmt/mod.rs: No such file or directory.
-Loading section .vector_table, size 0x194 lma 0x8000000
-Loading section .text, size 0x1ad8 lma 0x8000194
-Loading section .rodata, size 0x5a4 lma 0x8001c6c
-Start address 0x08000194, load size 8720
-Transfer rate: 12 KB/sec, 2906 bytes/write.
-Breakpoint 1 at 0x80001e8: file src/05-led-roulette/src/main.rs, line 7.
-Note: automatically using hardware breakpoints for read-only addresses.
-Breakpoint 2 at 0x800020a: file src/lib.rs, line 570.
-Breakpoint 3 at 0x8001c5a: file src/lib.rs, line 560.
-
-Breakpoint 1, led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roulette/src/main.rs:7
-7	#[entry]
-halted: PC: 0x080001ee
-led_roulette::__cortex_m_rt_main () at src/05-led-roulette/src/main.rs:10
-10	    let x = 42;
+    Finished dev [unoptimized + debuginfo] target(s) in 0.01s
+     Running `arm-none-eabi-gdb -q ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
+Reading symbols from ~/embedded-discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
 ```
 
-Bravo, we will be modifying `../.cargo/config.toml` in future. **But**, since
-this file is shared with all of the chapters those changes should be made with
-that in mind. If you want or we need to make changes that only pertain to
-a particular chapter then create a `.cargo/config.toml` local to that chapter
-directory.
+现在`target remote :3333`以连接到OpenOCD服务器并连接到F3:
+```
+(gdb) target remote :3333
+Remote debugging using :3333
+0x00000000 in ?? ()
+```
 
-## Flash the device
+好极了，我们将修改在future里的`../.cargo/config.toml`。**但是**由于该文件与所有章节共享，因此在进
+行这些更改时应牢记这一点。如果您希望或我们需要进行仅与特定章节相关的更改，请创建一个在该章节目录本地的`.cargo/config.toml`
 
-Assuming you have GDB running, if not start it as suggested in the previous section.
+## 闪存设备
 
-> **NOTE** The `-x ../openocd.gdb` arguments to `gdb` is already setup
-> to flash the device, so explicitly flashing the project code to the
-> device is normally handled with a simple `cargo run`.  We'll cover
-> the openocd configuration script in the next section.
+假设您正在运行GDB，如果没有按照上一节中的建议启动它。
 
-Now use the `load` command in `gdb` to actually flash the program into the device:
+现在使用`gdb`中的`load`命令将程序闪存到设备中：
 ```
 (gdb) load
 Loading section .vector_table, size 0x194 lma 0x8000000
@@ -269,7 +214,7 @@ Start address 0x08000194, load size 10132
 Transfer rate: 17 KB/sec, 3377 bytes/write.
 ```
 
-You'll also see new output in the OpenOCD terminal, something like:
+您还将在OpenOCD终端中看到新的输出，例如：
 
 ``` diff
  Info : flash size = 256kbytes
@@ -290,4 +235,4 @@ You'll also see new output in the OpenOCD terminal, something like:
 +xPSR: 0x01000000 pc: 0x08000194 msp: 0x2000a000
 ```
 
-Our program is loaded, let's debug it!
+我们的程序已加载，让我们调试它！
