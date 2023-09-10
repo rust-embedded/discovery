@@ -1,17 +1,12 @@
-# Hardware/knowledge requirements
+# 硬件/知识要求
 
-The primary knowledge requirement to read this book is to know *some* Rust. It's
-hard for me to quantify *some* but at least I can tell you that you don't need
-to fully grok generics but you do need to know how to *use* closures. You also
-need to be familiar with the idioms of the [2018 edition], in particular with
-the fact that `extern crate` is not necessary in the 2018 edition.
+阅读本书的主要知识要求是了解*一些*Rust。我们很难量化一些，但至少我可以告诉你，你不需要完全理解
+泛型， 但你需要知道如何*使用*闭包。您还需要熟悉[2018版]的语法，`extern crate`尤其是在2018版中不需要的事实。
 
-[2018 edition]: https://rust-lang-nursery.github.io/edition-guide/
+[2018版]: https://rust-lang-nursery.github.io/edition-guide/
 
-Due to the nature of embedded programming, it will also be extremely helpful to
-understand how binary and hexadecimal representations of values work, as well
-as the use of some bitwise operators. For example, it would be useful to
-understand how the following program produces its output.
+由于嵌入式编程的性质，了解二进制和十六进制值的表示方式以及一些按位运算符的使用也将非常有帮助。
+例如，了解以下程序是如何产生输出的，这将很有用。
 
 ```rust
 fn main() {
@@ -25,99 +20,86 @@ fn main() {
 }
 ```
 
-Also, to follow this material you'll need the following hardware:
+此外，要遵循此材料，您需要以下硬件：
 
-(Some components are optional but recommended)
+(某些组件是可选的，但建议使用)
 
-- A [STM32F3DISCOVERY] board.
+- 一个[STM32F3DISCOVERY]开发板。
 
 [STM32F3DISCOVERY]: http://www.st.com/en/evaluation-tools/stm32f3discovery.html
 
-(You can purchase this board from "big" [electronics][0] [suppliers][1] or from [e-commerce][2]
-[sites][3])
+(您可以从"大型"[电子产品][0] [供应商][1]或[电子商务][2][网站][3]购买此开发板)
 
 [0]: http://www.mouser.com/ProductDetail/STMicroelectronics/STM32F3DISCOVERY
 [1]: http://www.digikey.com/product-detail/en/stmicroelectronics/STM32F3DISCOVERY/497-13192-ND
 [2]: https://www.aliexpress.com/wholesale?SearchText=stm32f3discovery
 [3]: http://www.ebay.com/sch/i.html?_nkw=stm32f3discovery
 
-<p align="center">
+<p>
 <img title="STM32F3DISCOVERY" src="../assets/f3.jpg">
 </p>
 
-- OPTIONAL. A **3.3V** USB <-> Serial module. To elaborate: if you have one of
-  the latest revisions of the discovery board (which is usually the case given
-  the first revision was released years ago) then you do *not* need this module
-  because the board includes this functionality on-board. If you have an older
-  revision of the board then you'll need this module for chapters 10 and 11. For
-  completeness, we'll include instructions for using a Serial module. The book
-  will use [this particular model][sparkfun] but you can use any other model as
-  long as it operates at 3.3V. The CH340G module, which you can buy
- from [e-commerce][4] sites works too and it's probably cheaper for you to get.
+- 可选。 **3.3V** USB <-> 串行模块。详细说明：如果您有发现板的最新版本之一
+  （鉴于第一个版本是几年前发布的，通常是这种情况），那么您*不*需要此模块， 因为开发板包含此功能。如果您有较旧版本
+  的电路板，则需要在第10章和第11章中使用此模块。为完整起见，我们将提供使用串行模块的说明。
+  这本书将使用[这种特定的模式][sparkfun]，但你可以使用任何其他模式，只要它在3.3V下运行。您可以从
+  [电子商务][4]网站购买的CH340G模块也可以使用，而且可能更便宜。
 
 [sparkfun]: https://www.sparkfun.com/products/9873
 [4]: https://www.aliexpress.com/wholesale?SearchText=CH340G
 
-<p align="center">
+<p>
 <img title="A 3.3v USB <-> Serial module" src="../assets/serial.jpg">
 </p>
 
-- OPTIONAL. A HC-05 Bluetooth module (with headers!). A HC-06 would work too.
+- 可选。HC-05蓝牙模块（带标头！）。HC-06也会起作用。
 
-(As with other Chinese parts, you pretty much can only find these on [e-commerce][5] [sites][6].
-(US) Electronics suppliers don't usually stock these for some reason)
+(与其他中国零件一样，你几乎只能在[电子商务][5] [网站][6]上找到这些零件。（美国）电子产品供应商通常出于某种原因不库存这些零件)
 
 [5]: http://www.ebay.com/sch/i.html?_nkw=hc-05
 [6]: https://www.aliexpress.com/wholesale?SearchText=hc-05
 
-<p align="center">
+<p>
 <img title="The HC-05 Bluetooth module" src="../assets/bluetooth.jpg">
 </p>
 
-- Two mini-B USB cables. One is required to make the STM32F3DISCOVERY board work. The other is only
-  required if you have the Serial <-> USB module. Make sure that the cables both
-  support data transfer as some cables only support charging devices.
+- 两条mini-B USB电缆。STM32F3DISCOVERY板工作需要一个。另一个仅当您具有串行<-> USB模块时才需要。
+  确保两条电缆都支持数据传输，因为某些电缆仅支持充电设备。
 
-<p align="center">
+<p>
 <img title="mini-B USB cable" src="../assets/usb-cable.jpg">
 </p>
 
-> **NOTE** These are **not** the USB cables that ship with pretty much every Android phone; those
-> are *micro* USB cables. Make sure you have the right thing!
+> **注意**：这些**不是**几乎所有Android手机都附带的USB电缆；这些是
+> *微型*USB电缆。确保你有正确的东西！
 
-- MOSTLY OPTIONAL. 5 female to female, 4 male to female and 1 Male to Male *jumper* (AKA Dupont)
-  wires. You'll *very likely* need one female to female to get ITM working. The other wires are only
-  needed if you'll be using the USB <-> Serial and Bluetooth modules.
+- 大部分是可选的。 5根母对母、4根公对母和1根公对公*跳线* (AKA Dupont)。
+  你*很可能*需要一个母对母线来让ITM工作。只有当您使用USB<-> 串行和蓝牙模块时，才需要其他导线。
 
-(You can get these from electronics [suppliers][7] or from [e-commerce][8] [sites][9])
+(您可以从电子[电子供应商][7]或[电子商务][8] [网站][9]获取这些信息)
 
 [7]: https://www.adafruit.com/categories/306
 [8]: http://www.ebay.com/sch/i.html?_nkw=dupont+wire
 [9]: https://www.aliexpress.com/wholesale?SearchText=dupont+wire
 
-<p align="center">
+<p>
 <img title="Jumper wires" src="../assets/jumper-wires.jpg">
 </p>
 
-> **FAQ**: Wait, why do I need this specific hardware?
+> **FAQ**：等等，我为什么需要这个特定的硬件？
 
-It makes my life and yours much easier.
+这让我和你的生活变得更加轻松。
 
-The material is much, much more approachable if we don't have to worry about hardware differences.
-Trust me on this one.
+如果我们不必担心硬件差异，那么这种材料就更容易接近。相信我。
 
-> **FAQ**: Can I follow this material with a different development board?
+> **FAQ**：我可以用不同的开发板来学习这些材料吗？
 
-Maybe? It depends mainly on two things: your previous experience with microcontrollers and/or
-whether there already exists a high level crate, like the [`f3`], for your development board
-somewhere.
+大概这主要取决于两件事：您以前使用微控制器的经验和/或是否已经在某个地方为您的开发板提供了像[`f3`]这样的高级crate。
 
 [`f3`]: https://docs.rs/f3
 
-With a different development board, this text would lose most if not all its beginner friendliness
-and "easy to follow"-ness, IMO.
+如果使用不同的开发板，这篇文章将失去大部分（如果不是全部的话）初学者友好性和"易于理解"性。
 
-If you have a different development board and you don't consider yourself a total beginner, you are
-better off starting with the [quickstart] project template.
+如果你有一个不同的开发板，并且你不认为自己完全是初学者，那么最好从[快速启动]项目模板开始。
 
-[quickstart]: https://rust-embedded.github.io/cortex-m-quickstart/cortex_m_quickstart/
+[快速启动]: https://rust-embedded.github.io/cortex-m-quickstart/cortex_m_quickstart/
