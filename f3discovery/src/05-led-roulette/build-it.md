@@ -1,38 +1,33 @@
-# Build it
+# 构建
 
-The first step is to build our "binary" crate. Because the microcontroller has a different
-architecture than your computer we'll have to cross compile. Cross compiling in Rust land is as simple
-as passing an extra `--target` flag to `rustc`or Cargo. The complicated part is figuring out the
-argument of that flag: the *name* of the target.
+第一步是构建我们的"二进制" crate。因为微控制器的架构与您的计算机不同，所以我们必须进行交叉编译。
+Rust land中的交叉编译就像向`rustc`或Cargo传递一个额外的`--target`标志一样简单。
+复杂的部分是找出该标志的参数：target的*名字*。
 
-The microcontroller in the F3 has a Cortex-M4F processor in it. `rustc` knows how to cross compile
-to the Cortex-M architecture and provides 4 different targets that cover the different processor
-families within that architecture:
+F3中的微控制器中有一个Cortex-M4F处理器。`rustc`知道如何交叉编译到Cortex-M架构，并
+提供4个不同的targets，涵盖该架构中的不同处理器系列：
 
-- `thumbv6m-none-eabi`, for the Cortex-M0 and Cortex-M1 processors
-- `thumbv7m-none-eabi`, for the Cortex-M3 processor
-- `thumbv7em-none-eabi`, for the Cortex-M4 and Cortex-M7 processors
-- `thumbv7em-none-eabihf`, for the Cortex-M4**F** and Cortex-M7**F** processors
+- `thumbv6m-none-eabi`, 适用于Cortex-M0 和 Cortex-M1处理器
+- `thumbv7m-none-eabi`, 适用于Cortex-M3处理器
+- `thumbv7em-none-eabi`, 适用于Cortex-M4 和 Cortex-M7处理器
+- `thumbv7em-none-eabihf`, 用于Cortex-M4**F** 和 Cortex-M7**F**处理器
 
-For the F3, we'll use the `thumbv7em-none-eabihf` target. Before cross compiling you have to
-download a pre-compiled version of the standard library (a reduced version of it actually) for your
-target. That's done using `rustup`:
+对于F3，我们将使用`thumbv7em-none-eabihf`。在交叉编译之前，您必须为目标下载标准库的预编译版本
+（实际上是标准库的缩减版本）。这是使用`rustup`完成的：
 
 ``` console
 rustup target add thumbv7em-none-eabihf
 ```
 
-You only need to do the above step once; `rustup` will re-install a new standard library
-(`rust-std` component) whenever you update your toolchain.
+您只需执行上述步骤一次；每当您更新工具链时，`rustup`都会重新安装一个新的标准库(`rust-std`组件) 。
 
-With the `rust-std` component in place you can now cross compile the program using Cargo.
+有了`rust-std`组件，您现在可以使用Cargo交叉编译程序。
 
-> **NOTE** Make sure you are in the `src/05-led-roulette` directory
-> and run `cargo build` command below to create the executable:
+> **注意**：确保您位于`src/05-led-roulette`目录中，并运行下面的`cargo build`命令以创建可执行文件：
 ``` console
 cargo build --target thumbv7em-none-eabihf
 ```
-On your console you should see something like:
+在控制台上，您应该看到以下内容：
 ``` console
 $ cargo build --target thumbv7em-none-eabihf
    Compiling typenum v1.12.0
@@ -88,16 +83,15 @@ $ cargo build --target thumbv7em-none-eabihf
     Finished dev [unoptimized + debuginfo] target(s) in 17.91s
 ```
 
-> **NOTE** Be sure to compile this crate *without* optimizations. The provided Cargo.toml file and build command above will ensure optimizations are off.
+> **注意**：确保编译此crate时*不进行*优化。提供的Cargo.toml文件和build命令将确保优化关闭。
 
-OK, now we have produced an executable. This executable won't blink any LEDs, it's just a simplified version that we will build upon later in the chapter. As a sanity check, let's verify that the produced executable is actually an ARM binary:
+好了，现在我们已经生成了一个可执行文件。这个可执行文件不会闪烁任何LED，它只是一个简化的版本，我们将在本章稍后部分进行构建。
+作为健全性检查，让我们验证生成的可执行文件实际上是ARM二进制文件：
 
 ``` console
 cargo readobj --target thumbv7em-none-eabihf --bin led-roulette -- --file-header
 ```
-The `cargo readobj ..` above is equivalent to
-`readelf -h target/thumbv7em-none-eabihf/debug/led-roulette`
-and should produce something similar to:
+`cargo readobj ..`相当于`readelf -h target/thumbv7em-none-eabihf/debug/led-roulette`应该产生类似的结果：
 ``` console
 $ cargo readobj --target thumbv7em-none-eabihf --bin led-roulette -- --file-header
     Finished dev [unoptimized + debuginfo] target(s) in 0.02s
@@ -123,4 +117,4 @@ ELF Header:
   Section header string table index: 20
   ```
 
-Next, we'll flash the program into our microcontroller.
+接下来，我们将把程序闪存到微控制器中。
