@@ -21,7 +21,9 @@
 
 这本书是由志愿者翻译的。如果你愿意翻译此书，请打开PR添加。
 
-* [Japanese](https://tomoyuki-nakabayashi.github.io/discovery/)
-  ([repository](https://github.com/tomoyuki-nakabayashi/discovery))
-* [Chinese](https://jzow.github.io/discovery/)
+* [中文](https://jzow.github.io/discovery/)
   ([repository](https://github.com/jzow/discovery))
+* [日语](https://tomoyuki-nakabayashi.github.io/discovery/)
+  ([repository](https://github.com/tomoyuki-nakabayashi/discovery))
+* [葡萄牙语 (巴西)](https://allynaell.github.io/discovery/)
+  ([repository](https://github.com/allynaell/discovery))
