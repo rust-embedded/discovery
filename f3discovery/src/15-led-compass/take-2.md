@@ -1,19 +1,16 @@
 # Take 2
 
-This time, we'll use math to get the precise angle that the magnetic field forms with the X and Y
-axes of the magnetometer.
+这一次，我们将使用数学来获得磁场与磁力计X轴和Y轴形成的精确角度。
 
-We'll use the `atan2` function. This function returns an angle in the `-PI` to `PI` range. The
-graphic below shows how this angle is measured:
+我们将使用`atan2`函数。此函数返回`-PI`到`PI`范围内的角度。下图显示了如何测量该角度：
 
-<p align="center">
+<p>
 <img class="white_bg" title="atan2" src="https://upload.wikimedia.org/wikipedia/commons/0/03/Atan2_60.svg">
 </p>
 
-Although not explicitly shown in this graph the X axis points to the right and the Y axis points up.
+虽然未在该图中明确显示，但X轴指向右侧，Y轴指向上方。
 
-Here's the starter code. `theta`, in radians, has already been computed. You need to pick which LED
-to turn on based on the value of `theta`.
+这是启动码。`theta`弧度已经计算出来了。您需要根据`theta`的值选择要打开哪个LED。
 
 ``` rust
 #![deny(unsafe_code)]
@@ -49,10 +46,10 @@ fn main() -> ! {
 }
 ```
 
-Suggestions/tips:
+建议/提示：
 
-- A whole circle rotation equals 360 degrees.
-- `PI` radians is equivalent to 180 degrees.
-- If `theta` was zero, what LED would you turn on?
-- If `theta` was, instead, very close to zero, what LED would you turn on?
-- If `theta` kept increasing, at what value would you turn on a different LED?
+- 整圈旋转等于360度。
+- `PI`弧度等于180度。
+- 如果 `theta` 为零，你会打开什么LED？
+- 如果 `theta` 非常接近零，你会打开什么LED？
+- 如果 `theta` 持续增加，你会以什么值打开不同的LED？
