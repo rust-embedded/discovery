@@ -1,66 +1,43 @@
-# Nordic nRF51822 (the "nRF51", micro:bit v1)
+# 北欧 nRF51822 (the "nRF51", micro:bit v1)
 
-Our MCU has 48 tiny metal **pins** sitting right underneath it (it's a so called [QFN48] chip).
-These pins are connected to **traces**, the little "roads" that act as the wires connecting components
-together on the board. The MCU can dynamically alter the electrical properties
-of the pins. This works similar to a light switch altering how electrical
-current flows through a circuit. By enabling or disabling electrical current to
-flow through a specific pin, an LED attached to that pin (via the traces) can
-be turned on and off.
+我们的MCU正下方有48个微小的金属**引脚**（它是所谓的[QFN48]芯片)。这些引脚连接到**迹线**，即充当将电
+路板上的组件连接在一起的电线的小"道路"。MCU可以动态改变引脚的电气特性。这类似于改变电流如何
+流过电路的电灯开关。通过启用或禁用流过特定引脚的电流，可以打开和关闭连接到该引脚（通过迹线）的LED。
 
-Each manufacturer uses a different part numbering scheme, but many will allow
-you to determine information about a component simply by looking at the part
-number. Looking at our MCU's part number (`N51822 QFAAH3 1951LN`, you probably cannot
-see it with your bare eye, but it is on the chip), the `n` at the
-front hints to us that this is a part manufactured by [Nordic Semiconductor].
-Looking up the part number on their website we quickly find the [product page].
-There we learn that our chip's main marketing point is that it is a
-"Bluetooth Low Energy and 2.4 GHz SoC" (SoC being short for "System on a Chip"),
-which explains the RF in the product name since RF is short for radio frequency.
-If we search through the documentation of the chip linked on the [product page]
-for a bit we find the [product specification] which contains chapter 10 "Ordering Information"
-dedicated to explaining the weird chip naming. Here we learn that:
+每个制造商使用不同的零件编号方案，但许多制造商允许您通过查看零件编号来确定有关组件的信息。
+看我们MCU的零件编号 (`N51822 QFAAH3 1951LN`，可能肉眼看不到，但它在芯片上)，`n`前面的暗示我们这是
+[Nordic Semiconductor]制造的零件。在他们的网站上查找零件号，我们很快就找到了[产品页面]。在那里
+我们了解到我们芯片的主要营销点是它是"蓝牙低功耗和2.4 GHz SoC"（SoC 是"System on a Chip"的缩写）
+这解释了产品名称中的RF，因为RF是无线电的缩写频率。如果我们搜索[产品页面]上链接的芯片文档我们找到了
+包含第10章"订购信息"的[产品规格]，专门用于解释奇怪的芯片命名。在这里我们了解到：
 
 [QFN48]: https://en.wikipedia.org/wiki/Flat_no-leads_package
 [Nordic Semiconductor]: https://www.nordicsemi.com/
-[product page]: https://www.nordicsemi.com/products/nrf51822
-[product specification]: https://infocenter.nordicsemi.com/pdf/nRF51822_PS_v3.3.pdf
+[产品页面]: https://www.nordicsemi.com/products/nrf51822
+[产品规格]: https://infocenter.nordicsemi.com/pdf/nRF51822_PS_v3.3.pdf
 
-- The `N51` is the MCU's series, indicating that there are other `nRF51` MCUs
-- The `822` is the part code
-- The `QF` is the package code, in this case short for `QFN48`
-- The `AA` is the variant code, indicating how much RAM and flash memory the MCU has,
-  in our case 256 kilobyte flash and 16 kilobyte RAM
-- The `H3` is the build code, indicating the hardware version (`H`) as well as the product configuration (`3`)
-- The `1951LN` is a tracking code, hence it might differ on your chip
+- `N51`是MCU的系列，表示还有其他`nRF51`MCUs
+- `822`是零件代码
+- `QF`是包代码，是`QFN48`的缩写
+- `AA`是变体代码，表示MCU有多少RAM和闪存，在我们的例子中是256 KB闪存和16 KB RAM
+- `H3`是构建代码，指示硬件版本 (`H`) 以及产品配置 (`3`)
+- `1951LN`是一个跟踪代码，因此它可能在您的芯片上有所不同
 
-The product specification does of course contain a lot more useful information about
-the chip, for example that it is based on an ARM® Cortex™-M0 32-bit processor.
+产品规格当然包含有关芯片的更多有用信息，例如它基于ARM® Cortex™-M0 32位处理器。
 
 ### Arm? Cortex-M0?
 
-If our chip is manufactured by Nordic, then who is Arm? And if our chip is the
-nRF51822, what is the Cortex-M0?
+如果我们的芯片是Nordic制造的，那么Arm是谁？如果我们的芯片是nRF51822, 那么Cortex-M0是什么？
 
-You might be surprised to hear that while "Arm-based" chips are quite
-popular, the company behind the "Arm" trademark ([Arm Holdings]) doesn't
-actually manufacture chips for purchase. Instead, their primary business
-model is to just *design* parts of chips. They will then license those designs to
-manufacturers, who will in turn implement the designs (perhaps with some of
-their own tweaks) in the form of physical hardware that can then be sold.
-Arm's strategy here is different from companies like Intel, which both
-designs *and* manufactures their chips.
+您可能会惊讶地发现，虽然"基于Arm"的芯片非常受欢迎，但"Arm"商标背后的公司([Arm Holdings])实际上并不生产用于购买的芯片。
+相反，他们的主要商业模式只是*设计*芯片的一部分。然后，他们会将这些设计授权给制造商，制造商反过来以物理硬件的形式实施这些设计
+（可能会进行一些自己的调整），然后可以出售。Arm在这方面的战略与英特尔等公司不同，后者既设计*并*制造芯片。
 
-Arm licenses a bunch of different designs. Their "Cortex-M" family of designs
-are mainly used as the core in microcontrollers. For example, the Cortex-M0
-(the core our chip is based on) is designed for low cost and low power usage.
-The Cortex-M7 is higher cost, but with more features and performance.
+Arm许可了一堆不同的设计。他们的"Cortex-M"系列设计主要用作微控制器的核心。
+例如，Cortex-M0（我们的芯片所基于的内核）专为低成本和低功耗而设计。 
+Cortex-M7成本更高，但功能和性能更多。
 
-Luckily, you don't need to know too much about different types of processors
-or Cortex designs for the sake of this book. However, you are hopefully now a
-bit more knowledgeable about the terminology of your device. While you are
-working specifically with an nRF51822, you might find yourself reading
-documentation and using tools for Cortex-M-based chips, as the nRF51822 is
-based on a Cortex-M design.
+幸运的是，为了本书，您不需要对不同类型的处理器或Cortex设计有太多了解。但是，希望您现在对设备的术语有更多的了解。
+当您专门使用nRF51822时，您可能会发现自己正在阅读文档并使用基于Cortex-M的芯片的工具，因为nRF51822基于Cortex-M设计。
 
 [Arm Holdings]: https://www.arm.com/
