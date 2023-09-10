@@ -1,8 +1,7 @@
-# Send a string
+# 发送字符串
 
-The next task will be to send a whole string from the microcontroller to your computer.
+下一个任务是将整个字符串从微控制器发送到计算机。
 
-I want you to send the string `"The quick brown fox jumps over the lazy dog."` from the microcontroller to
-your computer.
+我想让你把`"The quick brown fox jumps over the lazy dog."`的字符串从微控制器发送到你的计算机。
 
-It's your turn to write the program.
+轮到你写程序了。
