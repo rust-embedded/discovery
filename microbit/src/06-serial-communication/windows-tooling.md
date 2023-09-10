@@ -1,33 +1,28 @@
-# Windows tooling
+# Windows 工具
 
-Start by unplugging your micro:bit.
+首先拔掉你的micro:bit。
 
-Before plugging the micro:bit, run the following command on the terminal:
+在插入micro:bit之前，在终端上运行以下命令：
 
 ``` console
 $ mode
 ```
 
-It will print a list of devices that are connected to your computer. The ones that start with `COM` in
-their names are serial devices. This is the kind of device we'll be working with. Take note of all
-the `COM` *ports* `mode` outputs *before* plugging the serial module.
+它将打印连接到您的计算机的设备列表。以`COM`的名字开头的是串行设备。这是我们将要使用的设备。
+在插入串行模块*之前*请注意所有`COM`*ports*`mode`输出。
 
-Now, plug in the micro:bit and run the `mode` command again. If you see a new
-`COM` port appear on the list, then that's the COM port assigned to the
-serial functionality on the micro:bit.
+现在，插入micro:bit并再次运行命令`mode`。如果您看到`COM`列表中出现了一个新端口，那么您就有了分
+配给micro:bit串行功能的COM端口。
 
-Now launch `putty`. A GUI will pop out.
+现在启动`putty`。将弹出一个GUI。
 
-<p align="center">
+<p>
 <img title="PuTTY settings" src="../assets/putty-settings.png">
 </p>
 
-On the starter screen, which should have the "Session" category open, pick "Serial" as the
-"Connection type". On the "Serial line" field enter the `COM` device you got on the previous step,
-for example `COM3`.
+在启动屏幕上，应该打开"会话"类别，选择"串行"作为"连接类型"。在"串行线路"字段中输入上一步中获得的`COM`设备，例如`COM3`。
 
-Next, pick the "Connection/Serial" category from the menu on the left. On this new view, make sure
-that the serial port is configured as follows:
+接下来，从左侧菜单中选择"连接/串行"类别。在这个新视图上，确保串行端口配置如下：
 
 - "Speed (baud)": 115200
 - "Data bits": 8
@@ -35,12 +30,11 @@ that the serial port is configured as follows:
 - "Parity": None
 - "Flow control": None
 
-Finally, click the Open button. A console will show up now:
+最后，单击打开按钮。现在将显示一个控制台：
 
-<p align="center">
+<p>
 <img title="PuTTY console" src="../assets/putty-console.png">
 </p>
 
-If you type on this console, the yellow LED on top of the micro:bit will blink. Each keystroke
-should make the LED blink once. Note that the console won't echo back what you type so the screen
-will remain blank.
+如果您在此控制台上键入，micro:bit顶部的黄色LED将闪烁。每次按键应使LED闪烁一次。请注意，控制台
+不会回显您键入的内容，因此屏幕将保持空白。
