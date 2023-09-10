@@ -1,36 +1,28 @@
-# Bluetooth setup
+# 蓝牙设置
 
-It's time to get rid of some wires. Serial communication can not only be emulated on top of the USB
-protocol; it can also be emulated on top of the Bluetooth protocol. This serial over Bluetooth
-protocol is known as RFCOMM.
+是时候去掉一些电线了。串行通信不仅可以在USB协议之上进行仿真；它也可以在蓝牙协议之上进行仿真。这种串行蓝牙协议被称为RFCOMM。
 
-Before we use the Bluetooth module with the microcontroller, let's first interact with it using
-minicom/PuTTY.
+在我们将蓝牙模块与微控制器一起使用之前，让我们先使用minicom/PuTTY与它进行交互。
 
-The first thing we'll need to do is: turn on the Bluetooth module. We'll have to share some of the
-F3 power to it using the following connection:
+我们需要做的第一件事是：打开蓝牙模块。我们必须使用以下连接共享F3电源：
 
-<p align="center">
+<p>
 <img height=640 title="F3 <-> Bluetooth connection (power only)" src="../assets/f3-bluetooth-power-only.png">
 </p>
 
-The recommend steps to wire this up are:
+建议的连接步骤如下：
 
-- Close OpenOCD and `itmdump`
-- Disconnect the USB cables from the F3 and the serial module.
-- Connect F3's GND pin to the Bluetooth's GND pin using a female to female (F/F) wire. Preferably, a
-  black one.
-- Connect F3's 5V pin to the Bluetooth's VCC pin using a F/F wire. Preferably, a red one.
-- Then, connect the USB cable back to the F3.
-- Re-launch OpenOCD and `itmdump`
+- 关闭OpenOCD和`itmdump`。
+- 断开F3和串行模块的USB电缆。
+- 使用母对母 (F/F) 导线将F3的GND引脚连接到蓝牙的GND插针。最好是黑色的。
+- 使用F/F线将F3的5V引脚连接到蓝牙的VCC引脚。最好是红色的。
+- 然后，将USB电缆连接回F3。
+- 重新启动OpenOCD和`itmdump`。
 
-Two LEDs, a blue one and a red one, on the Bluetooth module should start blinking right after you
-power on the F3 board.
+打开F3板电源后，蓝牙模块上的两个LED（蓝色和红色）应立即开始闪烁。
 
-Next thing to do is pair your computer and the Bluetooth module. AFAIK, Windows and mac users can
-simply use their OS default Bluetooth manager to do the pairing. The Bluetooth module default pin
-is 1234.
+接下来要做的是将计算机和蓝牙模块配对。AFAIK，Windows和mac用户只需使用其操作系统默认蓝牙管理器即可进行配对。蓝牙模块默认引脚为1234
 
-Linux users will have to follow (some of) [these instructions].
+Linux用户将必须遵循（部分）[这些说明]。
 
-[these instructions]: linux.md
+[这些说明]: linux.md
