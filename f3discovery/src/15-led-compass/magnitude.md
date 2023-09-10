@@ -1,30 +1,25 @@
-# Magnitude
+# 大小
 
-We have been working with the direction of the magnetic field but what's its real magnitude? The
-number that the `magnetic_field` function reports are unit-less. How can we convert those values to
-Gauss?
+我们一直在研究磁场的方向，但它的真实大小是多少？`magnetic_field`函数报告的数量是无单位的。
+我们如何将这些值转换为Gauss？
 
-The documentation will answer that question.
+文档将回答这个问题。
 
-> Section 2.1 Sensor characteristics - Page 10 - LSM303DLHC Data Sheet
+> 第2.1节传感器特性-第10页-LSM303DLHC数据表
 
-The table in that page shows a *magnetic gain setting* that has different values according to the
-values of the GN bits. By default, those GN bits are set to `001`. That means that magnetic gain of
-the X and Y axes is `1100 LSB / Gauss` and the magnetic gain of the Z axis is `980 LSB / Gauss`. LSB
-stands for Least Significant Bits and the `1100 LSB / Gauss` number indicates that a reading of
-`1100` is equivalent to `1 Gauss`, a reading of `2200` is equivalent to `2 Gauss` and so on.
+该页中的表显示了根据GN bits的值具有不同值的*磁增益设置*。默认情况下，这些GN bits设置为`001`。
+这意味着X轴和Y轴的磁增益为`1100 LSB / Gauss`，Z轴的磁增量为`980 LSB / Gauss`。LSB代表最低有效位，
+`1100 LSB / Gauss`数表示读数`1100`等于`1 Gauss`，读数`2200`等于`2 Gauss`，依此类推。
 
-So, what we need to do is divide the X, Y and Z values that the sensor outputs by its corresponding
-*gain*. Then, we'll have the X, Y and Z components of the magnetic field in Gauss.
+因此，我们需要做的是将传感器输出的X、Y和Z值除以相应的*增值*。然后，我们将得到磁场的X、Y和Z分量，单位为Gauss。
 
-With some extra math we can retrieve the magnitude of the magnetic field from its X, Y and Z
-components:
+通过一些额外的数学运算，我们可以从X、Y和Z分量中检索磁场的大小：
 
 ``` rust
 let magnitude = (x * x + y * y + z * z).sqrt();
 ```
 
-Putting all this together in a program:
+将所有这些放在一个程序中：
 
 ``` rust
 #![deny(unsafe_code)]
@@ -58,13 +53,11 @@ fn main() -> ! {
 }
 ```
 
-This program will report the magnitude (strength) of the magnetic field in milligauss (`mG`). The
-magnitude of the Earth's magnetic field is in the range of `250 mG` to `650 mG` (the magnitude
-varies depending on your geographical location) so you should see a value in that range or close to
-that range -- I see a magnitude of around 210 mG.
+该程序将以毫高斯 (`mG`)为单位报告磁场的大小（强度）。地球磁场的大小在`250 mG`到`650 mG`的范围内（大小取决于你的地理位置），所以
+你应该看到一个在这个范围内或接近这个范围的值 -- 我看到的大约是210 mG。
 
-Some questions:
+一些问题：
 
-Without moving the board, what value do you see? Do you always see the same value?
+不移动开发板，你会看到什么值？你总是看到同样的值吗？
 
-If you rotate the board, does the magnitude change? Should it change?
+如果你旋转板，幅度会改变吗？它应该改变吗？
