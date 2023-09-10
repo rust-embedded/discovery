@@ -1,53 +1,40 @@
-# Serial communication
+# 串口通讯
 
 <a href="https://en.wikipedia.org/wiki/File:Serial_port.jpg">
-<p align="center">
+<p>
 <img height="240" title="Standard serial port connector DE-9" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Serial_port.jpg/800px-Serial_port.jpg">
 </p>
 </a>
 
-<p align="center">
-<em>This is what we'll be using. I hope your computer has one!</em>
+<p>
+<em>这就是我们将要使用的。我希望你的电脑有一个！</em>
 </p>
 
-Nah, don't worry. This connector, the DE-9, went out of fashion on PCs quite some time ago; it got
-replaced by the Universal Serial Bus (USB). We won't be dealing with the DE-9 connector itself but
-with the communication protocol that this cable is/was usually used for.
+不，别担心。这种连接器DE-9很久以前在PC上已经过时了。它被通用串行总线（USB）取代。
+我们不会处理DE-9连接器本身，而是处理该电缆通常使用的通信协议。
 
-So what's this [*serial communication*][ASC]? It's an *asynchronous* communication protocol where two
-devices exchange data *serially*, as in one bit at a time, using two data lines (plus a common
-ground). The protocol is asynchronous in the sense that neither of the shared lines carries a clock
-signal. Instead, both parties must agree on how fast data will be sent along the wire *before* the
-communication occurs. This protocol allows *duplex* communication as data can be sent from A to B
-and from B to A simultaneously.
+那么这个[*串口通讯*][ASC]是什么？这是一种异步通信协议， 其中两个设备使用两条数据线（加上一个公共地线）
+*串行*交换数据，一次一位。该协议是异步的，因为这两条共享线路都不承载时钟信号。相反，双方必须就在通信发生
+*之前*沿线路发送数据的速度达成一致。该协议允许*双工*通信，因为数据可以同时从A发送到B以及从B发送到A。
 
-We'll be using this protocol to exchange data between the microcontroller and your computer. Now you might
-be asking yourself why exactly we aren't using RTT for this like we did before. RTT is a protocol that is meant
-to be used solely for debugging. You will most definitely not be able to find a device that actually uses RTT
-to communicate with some other device in production. However, serial communication is used quite often. For
-example some GPS receivers send the positioning information they receive via serial communication.
+我们将使用此协议在微控制器和您的计算机之间交换数据。现在您可能会问自己，为什么我们没有像以前
+那样使用RTT。RTT是一种仅用于调试的协议。 您绝对无法找到实际使用RTT与生产中的其他设备进行通信
+的设备。但是，串行通信经常使用。例如，一些GPS接收器通过串行通信发送它们接收到的定位信息。
 
-The next practical question you probably want to ask is: How fast can we send data through this
-protocol?
+您可能想问的下一个实际问题是：我们可以通过该协议以多快的速度发送数据？
 
-This protocol works with frames. Each frame has one *start* bit, 5 to 9 bits of payload (data) and 1
-to 2 *stop bits*. The speed of the protocol is known as *baud rate* and it's quoted in bits per
-second (bps). Common baud rates are: 9600, 19200, 38400, 57600 and 115200 bps.
+该协议适用于帧。每帧有一个*起始*bit，5到9bits有效载荷（数据）和1到2个*stop bits*。协议的速度称为*波特率*。
+以每秒位数 (bps) 为单位。常见的波特率有：9600、19200、38400、57600 和 115200 bps。
 
-To actually answer the question: With a common configuration of 1 start bit, 8 bits of data, 1
-stop bit and a baud rate of 115200 bps one can, in theory, send 11,520 frames per second. Since each
-one frame carries a byte of data that results in a data rate of 11.52 KB/s. In practice, the data
-rate will probably be lower because of processing times on the slower side of the communication (the
-microcontroller).
+实际回答这个问题：在1个起始bit，8个数据bits，1个stop bit和115200bps波特率的常见配置下，理论上每
+秒可以发送11,520帧。 由于每一帧都携带一个字节的数据，因此数据速率为11.52KB/s。实际上，由于通信
+较慢的一侧（微控制器）的处理时间，数据速率可能会较低。
 
-Today's computers don't support the serial communication protocol. So you can't directly connect
-your computer to the microcontroller. Luckily for us though, the debug probe on the micro:bit has a so-called
-USB-to-serial converter. This means that the converter will sit between the two and expose a serial interface to
-the microcontroller and a USB interface to your computer. The microcontroller will see your computer as
-another serial device and your computer will see the microcontroller as a virtual serial device.
+今天的计算机不支持串行通信协议。所以你不能直接将你的电脑连接到微控制器。不过幸运的是，micro:bit上的调试探针
+有一个所谓的USB转串口转换器。 这意味着转换器将位于两者之间，并为微控制器提供一个串行接口，并为您的计算机提供
+一个USB接口。微控制器会将您的计算机视为另一个串行设备，而您的计算机会将微控制器视为虚拟串行设备。
 
-Now, let's get familiar with the serial module and the serial communication tools that your OS
-offers. Pick a route:
+现在，让我们熟悉一下您的操作系统提供的串行模块和串行通信工具。选择路线：
 
 - [\*nix](nix-tooling.md)
 - [Windows](windows-tooling.md)
