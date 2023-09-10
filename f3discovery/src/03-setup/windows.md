@@ -2,15 +2,14 @@
 
 ## `arm-none-eabi-gdb`
 
-ARM provides `.exe` installers for Windows. Grab one from [here][gcc], and follow the instructions.
-Just before the installation process finishes tick/select the "Add path to environment variable"
-option. Then verify that the tools are in your `%PATH%`:
+ARM为Windows提供`.exe`安装程序。从[这里][gcc]获取，并按照说明操作。就在安装过程完成之前，勾选/选择
+"向环境变量添加路径"选项。然后验证工具是否在`%PATH%`中：
 
-Verify gcc is installed:
+验证是否安装了gcc：
 ``` console
 arm-none-eabi-gcc -v
 ```
-The results should be something like:
+结果应该是：
 ```
 (..)
 $ arm-none-eabi-gcc -v
@@ -21,19 +20,17 @@ gcc version 5.4.1 20160919 (release) (..)
 
 ## OpenOCD
 
-There's no official binary release of OpenOCD for Windows but there are unofficial releases
-available [here][openocd]. Grab the 0.10.x zipfile and extract it somewhere in your drive (I
-recommend `C:\OpenOCD` but with the drive letter that makes sense to you) then update your `%PATH%`
-environment variable to include the following path: `C:\OpenOCD\bin` (or the path that you used
-before).
+OpenOCD for Windows没有官方二进制版本，但[这里][openocd]有非官方版本。获取0.10.x zip文件并将其解压缩到
+驱动器中的某个位置 (我建议使用`C:\OpenOCD`但使用对您有意义的驱动器号) 然后更新`%PATH%`环境变量，使其包含
+以下路径：`C:\OpenOCD\bin` (或以前使用的路径)。
 
 [openocd]: https://github.com/xpack-dev-tools/openocd-xpack/releases
 
-Verify OpenOCD is installed and in your `%PATH%` with:
+验证OpenOCD是否已安装并在`%PATH%`中：
 ``` console
 openocd -v
 ```
-The results should be something like:
+结果应该是：
 ``` console
 $ openocd -v
 Open On-Chip Debugger 0.10.0
@@ -42,17 +39,16 @@ Open On-Chip Debugger 0.10.0
 
 ## PuTTY
 
-Download the latest `putty.exe` from [this site] and place it somewhere in your `%PATH%`.
+从[此网站]下载最新的`putty.exe`并将其放置在`%PATH%`中的某个位置。
 
-[this site]: http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html
+[此网站]: http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html
 
-## ST-LINK USB driver
+## ST-LINK USB 驱动程序
 
-You'll also need to install [this USB driver] or OpenOCD won't work. Follow the installer
-instructions and make sure you install the right (32-bit or 64-bit) version of the driver.
+您还需要安装此[USB驱动程序]，否则OpenOCD将无法工作。按照安装程序说明进行操作，确保安装正确的（32位或64位）驱动程序版本。
 
-[this USB driver]: http://www.st.com/en/embedded-software/stsw-link009.html
+[USB驱动程序]: http://www.st.com/en/embedded-software/stsw-link009.html
 
-That's all! Go to the [next section].
+这就是全部！转到[下一节]。
 
-[next section]: verify.md
+[下一节]: verify.md
