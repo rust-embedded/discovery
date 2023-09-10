@@ -1,13 +1,12 @@
-# General troubleshooting
+# 一般故障排除
 
-## OpenOCD problems
+## OpenOCD 问题
 
-### can't connect to OpenOCD - "Error: open failed"
+### 无法连接到OpenOCD - "Error: open failed"
 
-#### Symptoms
+#### 症状
 
-Upon trying to establish a *new connection* with the device you get an error
-that looks like this:
+尝试与设备建立*新连接*时，会出现如下错误：
 
 ```
 $ openocd -f (..)
@@ -17,37 +16,31 @@ in procedure 'init'
 in procedure 'ocd_bouncer'
 ```
 
-#### Cause
+#### 原因
 
-The device is not (properly) connected or not the correct ST-LINK interface
-configuration is used.
+设备未（正确）连接或未使用正确的ST-LINK接口配置。
 
-#### Fix
+#### 修复
 
 Linux:
 
-- Check the USB connection using `lsusb`.
-- You may not have enough permission to open the device. Try again with `sudo`.
-  If that works, you can use [these instructions] to make OpenOCD work without
-  root privilege.
-- You might be using the wrong interface configuration for your ST-LINK.
-  Try `interface/stlink-v2.cfg` instead of `interface/stlink-v2-1.cfg`.
+- 使用`lsusb`检查USB连接。
+- 您可能没有足够的权限打开设备。请使用`sudo`重试。如果这有效，您可以使用[这些指令]使OpenOCD在没有root权限的情况下工作。
+- 您可能使用了错误的ST-LINK接口配置。尝试使用`interface/stlink-v2.cfg`而不是`interface/stlink-v2-1.cfg`。
 
-[these instructions]: ../../03-setup/linux.md#udev-rules
+[这些指令]: ../../03-setup/linux.md#udev-rules
 
 Windows:
 
-- You are probably missing the ST-LINK USB driver. Installation instructions
-  [here].
+- 您可能缺少ST-LINK USB驱动程序。[此处]的安装说明。
 
-[here]: ../../03-setup/windows.md#st-link-usb-driver
+[此处]: ../../03-setup/windows.md#st-link-usb-driver
 
-### can't connect to OpenOCD - "Polling again in X00ms"
+### 无法连接到OpenOCD - "Polling again in X00ms"
 
-#### Symptoms
+#### 症状
 
-Upon trying to establish a *new connection* with the device you get an error
-that looks like this:
+尝试与设备建立*新连接*时，会出现如下错误：
 
 ```
 $ openocd -f (..)
@@ -62,25 +55,23 @@ Examination failed, GDB will be halted. Polling again in 300ms
 Info : Previous state query failed, trying to reconnect
 ```
 
-#### Cause
+#### 原因
 
-The microcontroller may have get stuck in some tight infinite loop or it may be
-continuously raising an exception, e.g. the exception handler is raising an
-exception.
+微控制器可能卡在某个紧密的无限循环中，或者持续引发异常，例如异常处理程序正在引发异常。
 
-#### Fix
+#### 修复
 
-- Close OpenOCD, if running
-- Press and hold the reset (black) button
-- Launch the OpenOCD command
-- Now, release the reset button
+- 关闭OpenOCD（如果正在运行）
+- 按住重置（黑色）按钮
+- 启动OpenOCD命令
+- 现在，松开复位按钮
 
 
-### OpenOCD connection lost - "Polling again in X00ms"
+### OpenOCD连接丢失 - "Polling again in X00ms"
 
-#### Symptoms
+#### 症状
 
-A *running* OpenOCD session suddenly errors with:
+*正在运行*OpenOCD会话突然出现错误：
 
 ```
 # openocd -f (..)
@@ -94,21 +85,21 @@ Examination failed, GDB will be halted. Polling again in 300ms
 Info : Previous state query failed, trying to reconnect
 ```
 
-#### Cause
+#### 原因
 
-The USB connection was lost.
+USB连接丢失。
 
-#### Fix
+#### 修复
 
-- Close OpenOCD
-- Disconnect and re-connect the USB cable.
-- Re-launch OpenOCD
+- 关闭OpenOCD
+- 断开并重新连接USB电缆。
+- 重新启动OpenOCD
 
-### Can't flash the device - "Ignoring packet error, continuing..."
+### 无法刷新设备 - "Ignoring packet error, continuing..."
 
-#### Symptoms
+#### 症状
 
-While flashing the device, you get:
+在刷新设备时，您可以：
 
 ```
 $ arm-none-eabi-gdb $file
@@ -118,32 +109,27 @@ Ignoring packet error, continuing...
 Ignoring packet error, continuing...
 ```
 
-#### Cause
+#### 原因
 
-Closed `itmdump` while a program that "printed" to the ITM was running. The
-current GDB session will appear to work normally, just without ITM output but
-the next GDB session will error with the message that was shown in the previous
-section.
+在运行"打印"到ITM的程序时关闭`itmdump`。当前GDB会话看起来正常工作，只是没有ITM输出，
+但下一个GDB会话将出现上一节中显示的消息错误。
 
-Or, `itmdump` was called **after** the `monitor tpiu` was issued thus making
-`itmdump` delete the file / named-pipe that OpenOCD was writing to.
+或者，在发出`monitor tpiu`之后调用`itmdump`，从而使`itmdump`删除OpenOCD正在写入的文件/命名管道。
 
-#### Fix
+#### 修复
 
-- Close/kill GDB, OpenOCD and `itmdump`
-- Remove the file / named-pipe that `itmdump` was using (for example,
-  `itm.txt`).
-- Launch OpenOCD
-- Then, launch `itmdump`
-- Then, launch the GDB session that executes the `monitor tpiu` command.
+- 关闭/杀死GDB，OpenOCD和`itmdump`。
+- 删除`itmdump`正在使用的文件/命名管道 (例如，`itm.txt`)。
+- 启动OpenOCD。
+- 然后，启动`itmdump`。
+- 然后，启动执行`monitor tpiu`命令的GDB会话。
 
 
-### can't connect to OpenOCD - "Error: couldn't bind [telnet] to socket: Address already in use"
+### 无法连接到OpenOCD - "Error: couldn't bind [telnet] to socket: Address already in use"
 
-#### Symptoms
+#### 症状
 
-Upon trying to establish a *new connection* with the device you get an error
-that looks something like this:
+尝试与设备建立*新连接*时，会出现如下错误：
 
 ```
 $ openocd -f (..)
@@ -151,33 +137,36 @@ $ openocd -f (..)
 Error: couldn't bind telnet to socket: Address already in use
 ```
 
-#### Cause
+#### 原因
 
-One or more of the ports OpenOCD requires access to, 3333, 4444, or 6666, is in use by another process. Each of these ports is used for another aspect: 3333 for gdb, 4444 for telnet, 6666 for remote procedure call (RPC) commands to TCL
+OpenOCD需要访问的一个或多个端口3333、4444或6666正在被另一个进程使用。
+每个端口用于另一个方面：3333用于gdb，4444用于telnet，6666用于TCL的远程过程调用（RPC）命令
 
-#### Fix
+#### 修复
 
-You can go two routes for fixing this. A) Kill any process that's using one of those ports. B) Specify different ports you know to be free for OpenOCD to use.
+你可以两种方法来解决这个问题 
+A）杀死使用这些端口之一的任何进程。 
+B) 指定OpenOCD可以免费使用的不同端口。
 
-Solution A
+解决方案 A
 
 Mac:
-- Get a list of processes using ports by running `sudo lsof -PiTCP -sTCP:LISTEN`
-- Kill the process(es) blocking the key ports by noting their pid(s) and running `kill [pid]` for each. (Assuming you can confirm they're not running anything mission-critical on your machine!)
+- 通过运行`sudo lsof -PiTCP -sTCP:LISTEN`获取使用端口的进程列表
+- 通过记录进程的pid并为每个进程运行`kill [pid]`来终止阻塞关键端口的进程。（假设您可以确认他们没有在您的机器上运行任何关键任务！）
 
-Solution B
+解决方案 B
 
 All:
-- Send configuration details to OpenOCD when starting it up so that it uses a different port from the default for any of the processes.
-- For example, to do its telnet features on 4441 instead of the default 4444, you would run `openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg -c "telnet_port 4441"`
-- More details on OpenOCD's Configuration Stage can be found in their [official docs online](http://openocd.org/doc/html/Server-Configuration.html).
+- 启动OpenOCD时，将配置详细信息发送给OpenOCD，以便它使用与任何进程默认端口不同的端口。
+- 例如，要在4441而不是默认的4444上执行其telnet功能，需要运行`openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg -c "telnet_port 4441"`
+- 有关OpenOCD配置阶段的更多详细信息，请参见他们的[在线官方文档](http://openocd.org/doc/html/Server-Configuration.html)。
 
 
-## Cargo problems
+## Cargo 问题
 
-### "can't find crate for `core`"
+### "找不到`core` crate"
 
-#### Symptoms
+#### 症状
 
 ```
    Compiling volatile-register v0.1.2
@@ -202,14 +191,13 @@ error: Could not compile `r0`.
 To learn more, run the command again with --verbose.
 ```
 
-#### Cause
+#### 原因
 
-You are using a toolchain older than `nightly-2018-04-08` and forgot to call `rustup target add
-thumbv7em-none-eabihf`.
+您使用的工具链早于`nightly-2018-04-08`并忘记调用`rustup target add thumbv7em-none-eabihf`。
 
-#### Fix
+#### 修复
 
-Update your nightly and install the `thumbv7em-none-eabihf` target.
+更新并安装`thumbv7em-none-eabihf` target。
 
 ``` console
 $ rustup update nightly
