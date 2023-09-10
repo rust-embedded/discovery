@@ -1,28 +1,24 @@
-# Flash it
+# 闪存
 
-Flashing is the process of moving our program into the microcontroller's (persistent) memory. Once
-flashed, the microcontroller will execute the flashed program every time it is powered on.
+闪存是将我们的程序移动到微控制器（永久）存储器中的过程。一旦刷写完成，每次上电时，单片机都会执行刷写的程序。
 
-In this case, our `led-roulette` program will be the *only* program in the microcontroller memory.
-By this I mean that there's nothing else running on the microcontroller: no OS, no "daemon",
-nothing. `led-roulette` has full control over the device.
+在这种情况下，我们的`led-roulette`程序将是微控制器内存中*唯一*的程序。 意思是微控制器上没有其他
+任何东西在运行：没有操作系统，没有"守护进程"，什么都没有。`led-roulette`完全控制设备。
 
-Flashing the binary itself is quite simple thanks to `cargo embed`.
+由于`cargo embed`，闪存二进制文件本身非常简单。
 
-Before executing that command though, let's look into what it actually does. If you look at the side of your micro:bit
-with the USB connector facing upwards you will notice, that there are actually 2 black squares on there
-(on the micro:bit v2 there is a third and biggest one, which is a speaker), one is our MCU
-we already talked about but what purpose does the other one serve? The other chip has 3 main purposes:
+不过，在执行该命令之前，让我们看看它实际上做了什么。如果您看一下micro:bit的侧面，USB连接器朝
+上，您会注意到那里实际上有2个黑色方块 （在micro:bit v2上，有第三个也是最大的一个，它是一个扬声器），一个
+是我们已经谈过的MCU，但另一个是干什么用的？另一个芯片有3个主要用途：
 
-1. Provide power from the USB connector to our MCU
-2. Provide a serial to USB bridge for our MCU (we will look into that in a later chapter)
-3. Being a programmer/debugger (this is the relevant purpose for now)
+1. 从USB连接器向我们的MCU供电
+2. 为我们的MCU提供一个串口转USB桥接器（我们将在后面的章节中研究）
+3. 作为程序/调试器（这是目前的相关目的）
 
-Basically this chip acts as a bridge between our computer (to which it is connected via USB) and the MCU (to which it is
-connected via traces and communicates with using the SWD protocol). This bridge enables us to flash new binaries on to
-the MCU, inspect its state via a debugger and other things.
+基本上，该芯片充当我们的计算机（通过 USB 连接到它）和MCU（通过迹线连接到它并使用 SWD 协议与
+之通信之间的桥梁。 这个桥使我们能够将新的二进制文件闪存到MCU上，通过调试器和其他东西检查它的状态。
 
-So lets flash it!
+所以让我们闪存吧！
 
 ```console
 # For micro:bit v2
@@ -41,8 +37,7 @@ $ cargo embed --features v1 --target thumbv6m-none-eabi
 ```
 
 
-You will notice that `cargo-embed` blocks after outputting the last line, this is intended and you should not close it
-since we need it in this state for the next step: debugging it! Furthermore, you will have noticed that the `cargo build`
-and `cargo embed` are actually passed the same flags, this is because `cargo embed` actually executes the build and then
-flashes the resulting binary on to the chip, hence you can leave out the `cargo build` step in the future if you
-want to flash your code right away.
+您会注意到`cargo-embed`在输出最后一行后会出现块，这是有意的，您不应该关闭它，因为我们需要在此
+状态下进行下一步：调试它！此外， 您会注意到`cargo build`和`cargo embed`实际上传递了相同的标志，
+这是因为`cargo embed`实际执行构建，然后将生成的二进制文件闪存到芯片上，因此如果您以后想要闪存，可以
+在将来省去`cargo build`步骤。
