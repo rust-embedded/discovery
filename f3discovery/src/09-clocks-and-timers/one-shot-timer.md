@@ -1,48 +1,40 @@
-# One-shot timer
+# 一次性定时器
 
-I hope that, by now, I have convinced you that `for` loop delays are a poor way to implement delays.
+我希望，到目前为止，我已经说服您，`for`循环延迟是实现延迟的一种糟糕方式。
 
-Now, we'll implement delays using a *hardware timer*. The basic function of a (hardware) timer is
-... to keep precise track of time. A timer is yet another peripheral that's available to the
-microcontroller; thus it can be controlled using registers.
+现在，我们将使用*硬件计时器*实现延迟。（硬件）计时器的基本功能是...精确跟踪时间。
+定时器是微控制器可用的另一个外围设备；因此可以使用寄存器来控制。
 
-The microcontroller we are using has several (in fact, more than 10) timers of different kinds
-(basic, general purpose, and advanced timers) available to it. Some timers have more *resolution*
-(number of bits) than others and some can be used for more than just keeping track of time.
+我们使用的微控制器有几个（事实上超过10个）不同类型的定时器（基本定时器、通用定时器和高级定时器）。
+有些计时器比其他计时器具有更高的*分辨率*（位数），有些计时器可用于跟踪时间。
 
-We'll be using one of the *basic* timers: `TIM6`. This is one of the simplest timers available in
-our microcontroller. The documentation for basic timers is in the following section:
+我们将使用一个*基本*计时器：`TIM6`。这是我们微控制器中最简单的计时器之一。基本计时器的文档如下：
 
-> Section 22 Timers - Page 670 - Reference Manual
+> 第22节计时器-第670页-参考手册
 
-Its registers are documented in:
+其寄存器记录在：
 
-> Section 22.4.9 TIM6/TIM7 register map - Page 682 - Reference Manual
+> 第22.4.9节TIM6/TIM7寄存器图-第682页-参考手册
 
-The registers we'll be using in this section are:
+我们将在本节中使用的寄存器是：
 
-- `SR`, the status register.
-- `EGR`, the event generation register.
-- `CNT`, the counter register.
-- `PSC`, the prescaler register.
-- `ARR`, the autoreload register.
+- `SR`, 状态寄存器。
+- `EGR`, 事件生成寄存器。
+- `CNT`, 计数器寄存器。
+- `PSC`, 预分频器寄存器。
+- `ARR`, 自动卸载寄存器。
 
-We'll be using the timer as a *one-shot* timer. It will sort of work like an alarm clock. We'll set
-the timer to go off after some amount of time and then we'll wait until the timer goes off. The
-documentation refers to this mode of operation as *one pulse mode*.
+我们将使用计时器作为*一次性*计时器。它会像闹钟一样工作。我们会将计时器设置为在一段时间后关闭，
+然后等待计时器关闭。文档将此操作模式称为*单脉冲模式*。
 
-Here's a description of how a basic timer works when configured in one pulse mode:
+以下描述了在单脉冲模式下配置基本计时器时的工作方式：
 
-- The counter is enabled by the user (`CR1.CEN = 1`).
-- The `CNT` register resets its value to zero and, on each tick, its value gets incremented by one.
-- Once the `CNT` register has reached the value of the `ARR` register, the counter will be disabled
-  by hardware (`CR1.CEN = 0`) and an *update event* will be raised (`SR.UIF = 1`).
+- 计数器由用户启用 (`CR1.CEN = 1`)。
+- `CNT`寄存器将其值重置为零，并且在每个刻度上，其值递增1。
+- 一旦`CNT`寄存器达到`ARR`寄存器的值，硬件将禁用计数器(CR1.CEN = 0)，并引发*更新事件* (`SR.UIF = 1`)。
 
-`TIM6` is driven by the APB1 clock, whose frequency doesn't have to necessarily match the processor
-frequency. That is, the APB1 clock could be running faster or slower. The default, however, is that
-both APB1 and the processor are clocked at 8 MHz.
+`TIM6`由APB1时钟驱动，其频率不必与处理器频率匹配。也就是说，APB1时钟可能运行得更快或更慢。
+然而，默认情况下，APB1和处理器的时钟均为8 MHz。
 
-The tick mentioned in the functional description of the one pulse mode is *not* the same as one
-tick of the APB1 clock. The `CNT` register increases at a frequency of `apb1 / (psc + 1)`
-times per second, where `apb1` is the frequency of the APB1 clock and `psc` is the value of the
-prescaler register, `PSC`.
+单脉冲模式的功能描述中提到的刻度与APB1时钟的刻度*不*同。`CNT`寄存器以每秒`apb1 / (psc + 1)` 次的频率增加，其中
+`apb1`是APB1时钟的频率，`psc`是预分频器寄存器`PSC`的值。
