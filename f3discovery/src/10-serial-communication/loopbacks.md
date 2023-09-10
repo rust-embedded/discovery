@@ -1,49 +1,40 @@
 # Loopbacks
 
-We've tested sending data. It's time to test receiving it. Except that there's no other device that
-can send us some data ... or is there?
+我们已经测试了发送数据。是时候测试接收它了。除了没有其他设备可以向我们发送数据... 或者有吗？
 
-Enter: loopbacks
+输入: loopbacks
 
-<p align="center">
+<p>
 <img title="Serial module loopback" src="../assets/serial-loopback.png">
 </p>
 
-You can send data to yourself! Not very useful in production but very useful for debugging.
+您可以向自己发送数据！在生产中不太有用，但对调试非常有用。
 
-## Older board revision / external serial module
+## 较旧的电路板版本 / 外部串行模块
 
-Connect the `TXO` and the `RXI` pins of the serial module together using a male to male jumper wire
-as shown above.
+如上所示，使用公跨接线将串行模块的`TXO`和`RXI`引脚连接在一起。
 
-Now enter some text into minicom/PuTTY and observe. What happens?
+现在在minicom/PuTTY中输入一些文本并观察。发生了什么？
 
-You should see three things:
+你应该看到三件事：
 
-- As before, the TX (red) LED blinks on each key press.
-- But now the RX (green) LED blinks on each key press as well! This indicates that the serial module
-  is receiving some data; the one it just sent.
-- Finally, on the minicom/PuTTY console, you should see that what you type echoes back to the
-  console.
+- 与之前一样，每次按键时，TX（红色）LED都会闪烁。
+- 但现在，RX（绿色）LED也会在每次按键时闪烁！这表示串行模块正在接收一些数据；它刚刚发送的那个。
+- 最后，在minicom/PuTTY控制台上，您应该看到您键入的内容会返回到控制台。
 
-## Newer board revision
+## 更新的电路板版本
 
-If you have a newer revision of the board you can set up a loopback by shorting
-the PC4 and PC5 pins using a female to female jumper wire, like [you did for the
-SWO pin](../06-hello-world/index.html).
+如果您有较新版本的电路板，您可以通过使用母对母跳线短接PC4和PC5引脚来设置环回，就像[您对SWO引脚所做的那样](../06-hello-world/index.html)。
 
-You should now be able to send data to yourself.
+您现在应该可以向自己发送数据了。
 
-Now try to enter some text into minicom/PuTTY and observe.
+现在尝试在minicom/PuTTY中输入一些文本并观察。
 
-> **NOTE**: To rule out the possibility of the existing firmware doing weird
-> things to the serial pins (PC4 and PC5) we recommend *holding* the reset
-> button while you enter text into minicom/PuTTY.
+> **注意**：为了排除现有固件对串行引脚（PC4和PC5）进行奇怪操作的可能性，我们建议您在
+> minicom/PuTTY 中输入文本时*按住*重置按钮。
 
-If all is working you should see what you type echoed back to minicom/PuTTY
-console.
+如果一切正常，您应该会看到您输入的内容返回到minicom/PuTTY控制台。
 
 ---
 
-Now that you are familiar with sending and receiving data over serial port using minicom/PuTTY,
-let's make your microcontroller and your computer talk!
+现在您已经熟悉了使用minicom/PuTTY通过串行端口发送和接收数据，让我们让您的微控制器和您的计算机对话吧！
