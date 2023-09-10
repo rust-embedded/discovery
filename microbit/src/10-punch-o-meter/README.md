@@ -1,12 +1,9 @@
-# Punch-o-meter
+# 冲压式流量计
 
-In this section we'll be playing with the accelerometer that's in the board.
+在本节中，我们将使用板上的加速度计。
 
-What are we building this time? A punch-o-meter! We'll be measuring the power of your jabs. Well,
-actually the maximum acceleration that you can reach because acceleration is what accelerometers
-measure. Strength and acceleration are proportional though so it's a good approximation.
+这次我们在建什么？冲压式流量计！我们将测量你出拳的力量。实际上，你能达到的最大加速度，因为加速度是
+加速度计测量的。强度和加速度是成比例的，所以这是一个很好的近似值。
 
-As we already know from previous chapters the accelerometer is built inside the LSM303AGR package.
-And just like the magnetometer, it is accessible using the I2C bus. It also has the same coordinate
-system as the magnetometer.
-
+正如我们在前几章中已经知道的，加速度计内置于LSM303AGR封装中。
+就像磁强计一样，它可以通过I2C总线访问。它也具有与磁强计相同的坐标系。
