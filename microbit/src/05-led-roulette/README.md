@@ -1,59 +1,48 @@
-# LED roulette
+# LED轮盘
 
-Alright, let's start by building the following application:
+好的，让我们从构建以下应用程序开始：
 
 <p align="center">
 <video src="../assets/roulette_fast.mp4" loop autoplay>
 </p>
 
-I'm going to give you a high level API to implement this app but don't worry we'll do low level
-stuff later on. The main goal of this chapter is to get familiar with the *flashing* and debugging
-process.
+我将为您提供一个高级API来实现这个应用程序，但不要担心我们稍后会做一些低级的事情。本章的主要目标是熟悉*闪烁*和调试过程。
 
-The starter code is in the `src` directory of the book repository. Inside that directory there are more
-directories named after each chapter of this book. Most of those directories are starter Cargo
-projects.
+入门代码位于directory存储库`src`的目录中。在该目录中，还有更多以本书每一章命名的目录。这些目录中的大多数都是启动Cargo项目。
 
-Now, jump into the `src/05-led-roulette` directory. Check the `src/main.rs` file:
+现在，跳转到`src/05-led-roulette`目录。检查`src/main.rs`文件：
 
 ``` rust
 {{#include src/main.rs}}
 ```
 
-Microcontroller programs are different from standard programs in two aspects: `#![no_std]` and
-`#![no_main]`.
+微控制器程序在两个方面不同于标准程序：`#![no_std]`和`#![no_main]`。
 
-The `no_std` attribute says that this program won't use the `std` crate, which assumes an underlying
-OS; the program will instead use the `core` crate, a subset of `std` that can run on bare metal
-systems (i.e., systems without OS abstractions like files and sockets).
+该`no_std`属性表示该程序不会使用`std`假定底层操作系统的crate；该程序将改为使用`core` crate，它
+的一个子集`std`可以在裸机系统上运行（即，没有OS抽象的系统，如文件和套接字）。
 
-The `no_main` attribute says that this program won't use the standard `main` interface, which is
-tailored for command line applications that receive arguments. Instead of the standard `main` we'll
-use the `entry` attribute from the [`cortex-m-rt`] crate to define a custom entry point. In this
-program we have named the entry point "main", but any other name could have been used. The entry
-point function must have signature `fn() -> !`; this type indicates that the function can't return
--- this means that the program never terminates.
+该`no_main`属性表示该程序不会使用标准`main`接口，该接口是为接收参数的命令行应用程序量身定制的。
+`main`我们将使用crate中的`entry`属性[`cortex-m-rt`]crate来定义自定义入口点，而不是标准。在这个程
+序中，我们将入口点命名为"main"，但也可以使用任何其他名称。入口点函数必须有签名`fn() -> !`；这种类型表示
+函数不能返回--这意味着程序永远不会终止。
 
 [`cortex-m-rt`]: https://crates.io/crates/cortex-m-rt
 
-If you are a careful observer, you'll also notice there is a `.cargo` directory in the Cargo project
-as well. This directory contains a Cargo configuration file (`.cargo/config`) that tweaks the
-linking process to tailor the memory layout of the program to the requirements of the target device.
-This modified linking process is a requirement of the `cortex-m-rt` crate.
+如果你是一个细心的观察者，你也会注意到Cargo项目中有一个`.cargo`目录。该目录包含一个Cargo配置文件
+(`.cargo/config`)，它调整链接过程以根据目标设备的要求调整程序的内存布局。这个修改后的链接过
+程是`cortex-m-rt`crate的要求。
 
-Furthermore, there is also an `Embed.toml` file
+此外，还有一个`Embed.toml`文件
 
 ```toml
 {{#include Embed.toml}}
 ```
 
-This file tells `cargo-embed` that:
+该文件提供`cargo-embed`：
 
-* we are working with either a nrf52833 or nrf51822, you will again have to remove the comments from the
-  chip you are using, just like you did in chapter 3.
-* we want to halt the chip after we flashed it so our program does not instantly jump to the loop
-* we want to disable RTT, RTT being a protocol that allows the chip to send text to a debugger.
-  You have in fact already seen RTT in action, it was the protocol that sent "Hello World" in chapter 3.
-* we want to enable GDB, this will be required for the debugging procedure
+* 我们正在使用nrf52833或nrf51822，您将再次必须从正在使用的芯片中删除注释，就像您在第3章中所做的那样。
+* 我们希望在闪存之后停止芯片，这样我们的程序就不会立即跳转到循环
+* 我们想禁用RTT，RTT是一种允许芯片向调试器发送文本的协议。您实际上已经看到了RTT的实际应用，它是在第3章中发送"Hello World"的协议。
+* 我们要启用GDB，这将是调试过程所必需的
 
-Alright, let's start by building this program.
+好的，让我们从构建这个程序开始。
