@@ -1,63 +1,52 @@
 # Hello, world!
 
-> **HEADS UP** The "solder bridge" SB10 (see back of the board) on the STM32F3DISCOVERY, which is
-> required to use the ITM and the `iprint!` macros shown below, is **not** soldered by default
-> (see page 21 of the [User Manual][]).
-> (To be more accurate: this actually depends on the board revision. If you have an old version of
-> the board as the [old User Manual][User Manual v3] said, the SB10 was soldered. Check your board
-> to decide whether you need to fix it.)
+> **注意**：STM32F3DISCOVERY上的"桥接"SB10 (见电路板背面)需要使用ITM和`iprint!`下面显示的宏
+> 在默认情况下**不**会焊接((参见[用户手册]第21页)。(更准确地说：这实际上取决于电路板的版本。
+> 如果您有旧版的电路板，如[旧用户手册][User Manual v3]所述，SB10是焊接的。请检查您的电路板以决定是否需要修复它。)
 
-> **TL;DR** You have two options to fix this: Either **solder** the solder bridge SB10 or connect a
-> female to female jumper wire between SWO and PB3 as shown in the picture below.
+> **TL;DR** 您有两个选项可以解决此问题：**焊接**焊料桥SB10或在SWO和PB3之间连接一条母对母跳线，如下图所示。
 
-[User Manual]: http://www.st.com/resource/en/user_manual/dm00063382.pdf
+[用户手册]: http://www.st.com/resource/en/user_manual/dm00063382.pdf
 [User Manual v3]: https://docs.rs-online.com/5192/0900766b814876f9.pdf
 
-<p align="center">
+<p>
 <img height=640 title="Manual SWD connection" src="../assets/f3-swd.png">
 </p>
 
 ---
 
-Just a little more of helpful magic before we start doing low level stuff.
+在我们开始做低水平的事情之前，再多一些有用的魔法。
 
-Blinking an LED is like the "Hello, world" of the embedded world.
+LED闪烁就像嵌入式世界的"Hello, world"。
 
-But in this section, we'll run a proper "Hello, world" program that prints stuff to your computer
-console.
+但在本节中，我们将运行一个适当的"Hello, world"程序，将内容打印到计算机控制台。
 
-Go to the `06-hello-world` directory. There's some starter code in it:
+转到`06-hello-world`目录。里面有一些启动代码：
 
 ``` rust
 {{#include src/main.rs}}
 ```
 
-The `iprintln` macro will format messages and output them to the microcontroller's *ITM*. ITM stands
-for Instrumentation Trace Macrocell and it's a communication protocol on top of SWD (Serial Wire
-Debug) which can be used to send messages from the microcontroller to the debugging host. This
-communication is only *one way*: the debugging host can't send data to the microcontroller.
+`iprintln`宏将格式化消息并将其输出到微控制器的*ITM*。ITM代表Instrumentation Trace Macrocell
+它是SWD（串行线调试）之上的一种通信协议，可用于从微控制器向调试主机发送消息。
+这种通信只有*一种方式*：调试主机无法向微控制器发送数据。
 
-OpenOCD, which is managing the debug session, can receive data sent through this ITM *channel* and
-redirect it to a file.
+管理调试会话的OpenOCD可以接收通过ITM*通道*发送的数据并将其重定向到文件。
 
-The ITM protocol works with *frames* (you can think of them as Ethernet frames). Each frame has a
-header and a variable length payload. OpenOCD will receive these frames and write them directly to a
-file without parsing them. So, if the microntroller sends the string "Hello, world!" using the
-`iprintln` macro, OpenOCD's output file won't exactly contain that string.
+ITM协议与*帧*一起工作 (您可以将它们视为以太网帧)。每个帧都有一个报头和一个可变长度的有效载荷。
+OpenOCD将接收这些帧，并将它们直接写入文件，而无需解析它们。
+所以，如果微控制器发送字符串"Hello, world!" 使用`iprintln`宏，OpenOCD的输出文件不会完全包含该字符串。
 
-To retrieve the original string, OpenOCD's output file will have to be parsed. We'll use the
-`itmdump` program to perform the parsing as new data arrives.
+要检索原始字符串，必须解析OpenOCD的输出文件。我们将使用`itmdump`程序在新数据到达时执行解析。
 
-You should have already installed the `itmdump` program during the [installation chapter].
+在[安装章节]中，您应该已经安装了`itmdump`程序。
 
-[installation chapter]: ../03-setup/index.html#itmdump
+[安装章节]: ../03-setup/index.html#itmdump
 
-In a new terminal, run this command inside the `/tmp` directory, if you are using a \*nix OS, or from
-within the `%TEMP%` directory, if you are running Windows. This should be the same directory from
-where you are running OpenOCD.
+在新终端中，如果您使用的是\*nix OS，请在`/tmp`目录中运行此命令；如果您运行的是Windows，请在`%TEMP%`目录中运行该命令。
+这应该是运行OpenOCD的同一目录。
 
-> **NOTE** It's very important that both `itmdump` and `openocd` are running
-from the same directory!
+> **注意**：`itmdump`和`openocd`都在同一目录下运行，这一点非常重要！
 
 ``` console
 $ # itmdump terminal
@@ -72,20 +61,17 @@ $ # both
 $ itmdump -F -f itm.txt
 ```
 
-This command will block as `itmdump` is now watching the `itm.txt` file. Leave this terminal open.
+当`itmdump`正在监视itm时，该命令将被阻止。`itm.txt`文件保持此终端打开。
 
-Make sure that the STM32F3DISCOVERY board is connected to your computer. Open another terminal
-from `/tmp` directory (on Windows `%TEMP%`) to launch OpenOCD similar as described in [chapter 3].
+确保STM32F3DISCOVER板已连接到计算机。从`/tmp`目录 (在Windows`%TEMP%`) 打开另一个终端，启动OpenOCD，如[第3章]所述。
 
-[chapter 3]: ../03-setup/verify.html#first-openocd-connection
+[第3章]: ../03-setup/verify.html#first-openocd-connection
 
-Alright. Now, let's build the starter code and flash it into the microcontroller.
+好吧现在，让我们构建启动代码并将其闪存到微控制器中。
 
-We will now build and run the application, `cargo run`. And step through it using `next`.
-Since `openocd.gdb` contains the `monitor` commands in `openocd.gdb` OpenOCD will redirect
-the ITM output to itm.txt and `itmdump` will write it to its terminal window. Also, it setup
-break points and stepped through the trampoline we are at the first executable
-statement in `fn main()`:
+我们现在将构建并运行应用程序，`cargo run`。然后使用`next`逐步完成。自`openocd.gdb`以来。
+`openocd.gdb`包含`monitor`命令，OpenOCD将ITM输出重定向到itm.txt和`itmdump`将其写入其终端窗口。
+此外，它还设置了断点并逐步通过trampoline，我们看到`fn main()`中的第一个可执行语句：
 
 ``` console
 ~/embedded-discovery/src/06-hello-world
@@ -113,25 +99,21 @@ hello_world::__cortex_m_rt_main () at ~/embedded-discovery/src/06-hello-world/sr
 (gdb)
 ```
 
-Now issue a `next` command which will execute `aux6::init()` and
-stop at the next executable statement in `main.rs`, which
-positions us at line 12:
+现在发出`next`命令，该命令将执行`aux6::init()`，并在`main.rs`的下一个可执行语句处停止，将我们定位在第12行：
 
 ``` text
 (gdb) next
 12	    iprintln!(&mut itm.stim[0], "Hello, world!");
 ```
 
-Then issue another `next` command which will execute
-line 12, executing the `iprintln` and stop at line 14:
+然后发出另一个`next`命令执行第12行，执行`iprintln`在第14行停止：
 
 ``` text
 (gdb) next
 14	    loop {}
 ```
 
-Now since `iprintln` has been executed the output on the `itmdump`
-terminal window should be the `Hello, world!` string:
+现在，由于`iprintln`已经执行，`itmdump`终端窗口上的输出应该是`Hello, world!`字符串：
 
 ``` console
 $ itmdump -F -f itm.txt
@@ -139,6 +121,6 @@ $ itmdump -F -f itm.txt
 Hello, world!
 ```
 
-Awesome, right? Feel free to use `iprintln` as a logging tool in the coming sections.
+太棒了，对吧？在接下来的章节中，可以使用`iprintln`作为测试工具。
 
-Next: That's not all! The `iprint!` macros are not the only thing that uses the ITM. `:-)`
+下一篇：这还不是全部！`iprint!`宏不是唯一使用ITM的东西。`:-)`
