@@ -1,7 +1,7 @@
-# Receive a single byte
+# 接收单个字节
 
-So far we can send data from the microcontroller to your computer. It's time to try the opposite: receiving
-data from your computer. Luckily `embedded-hal` has again got us covered with this one:
+到目前为止，我们可以将数据从微控制器发送到您的计算机。是时候尝试相反的方法了：从计算机接收数据。
+幸运的是，`embedded-hal`再次让我们了解了这一点：
 
 ``` rust
 #![no_main]
@@ -63,13 +63,9 @@ fn main() -> ! {
 }
 ```
 
-The only part that changed, compared to our send byte program, is the loop
-at the end of `main()`. Here we use the `read()` function, provided by `embedded-hal`,
-in order to wait until a byte is available and read it. Then we print that byte
-into our RTT debugging console to see whether stuff is actually arriving.
+与发送字节程序相比，唯一改变的部分是`main()`末尾的循环。在这里，我们使用`embedded-hal`提供的`read()`函数，
+以等待一个字节可用并读取它。然后，我们将该字节打印到RTT调试控制台中，以查看这些东西是否实际到达。
 
-Note that if you flash this program and start typing characters inside `minicom` to
-send them to your microcontroller you'll only be able to see numbers inside your
-RTT console since we are not converting the `u8` we received into an actual `char`.
-Since the conversion from `u8` to `char` is quite simple, I'll leave this task to
-you if you really do want to see the characters inside the RTT console.
+请注意，如果您刷新此程序并开始在`minicom`中键入字符以将其发送给微控制器，您将只能在RTT控制台
+中看到数字，因为我们没有将收到的`u8`转换为实际`char`。由于从`u8`到`char`的转换非常简单，如果您真
+的想看到RTT控制台中的字符，我将把这个任务留给您。
