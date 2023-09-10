@@ -1,11 +1,9 @@
-# Clocks and timers
+# 时钟和计时器
 
-In this section, we'll re-implement the LED roulette application. I'm going to give you back the
-`Led` abstraction but this time I'm going to take away the `Delay` abstraction `:-)`.
+在本节中，我们将重新实现LED轮盘应用程序。我会把`Led`抽象还给你，但这次我要去掉`Delay`抽象 `:-)`。
 
-Here's the starter code. The `delay` function is unimplemented so if you run this program the LEDs
-will blink so fast that they'll appear to always be on.
+这是启动代码。`delay`函数未实现，因此如果您运行此程序，LED将闪烁得如此之快，以至于看起来始终亮着。
 
-``` rust
+```toml
 {{#include src/main.rs}}
 ```
