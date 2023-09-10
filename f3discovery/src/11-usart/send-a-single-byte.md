@@ -1,20 +1,15 @@
-# Send a single byte
+# 发送单个字节
 
-Our first task will be to send a single byte from the microcontroller to the computer over the serial
-connection.
+我们的第一个任务是通过串行连接将单个字节从微控制器发送到计算机。
 
-This time, I'm going to provide you with an already initialized USART peripheral. You'll only have
-to work with the registers that are in charge of sending and receiving data.
+这次，我将为您提供一个已经初始化的USART外围设备。您只需要使用负责发送和接收数据的寄存器。
 
-Go into the `11-usart` directory and let's run the starter code therein. Make sure that you have
-minicom/PuTTY open.
+进入`11-usart`目录，让我们在其中运行启动程序代码。确保打开了minicom/PuTTY。
 
 ``` rust
 {{#include src/main.rs}}
 ```
 
-This program writes to the `TDR` register. This causes the `USART` peripheral to send one byte of
-information through the serial interface.
+该程序写入`TDR`寄存器。这导致`USART`外围设备通过串行接口发送一个字节的信息。
 
-On the receiving end, your computer, you should see show the character `X` appear on minicom/PuTTY's
-terminal.
+在接收端，您的计算机上，您应该看到字符`X`出现在minicom/PuTTY的终端上。
