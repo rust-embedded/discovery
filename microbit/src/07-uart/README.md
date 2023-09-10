@@ -1,19 +1,14 @@
 # UART
 
-The microcontroller has a peripheral called UART, which stands for Universal
-Asynchronous Receiver/Transmitter. This peripheral can be configured to work with
-several communication protocols like the serial communication protocol.
+微控制器有一个称为UART的外围设备，它代表通用异步接收器/发送器。该外设可以配置为使用多种通信协议，如串行通信协议。
 
+在本章中，我们将使用串行通信在微控制器和您的计算机之间交换信息。
 
-Throughout this chapter, we'll use serial communication to exchange information between the
-microcontroller and your computer.
+> **注意**：在micro:bit v2上，我们将使用所谓的UARTE外设，它的行为就像一个普通的UART，
+> 除了HAL必须以不同的方式与之交谈。但是，这当然不是我们关心的问题。
 
-> **NOTE** that on the micro:bit v2 we will use the so called UARTE peripheral which behaves
-> just like a regular UART, except that the HAL has to talk to it differently.
-> However, this will of course not be our concern.
-
-## Setup
-As always from now on you will have to modify the `Embed.toml` to match your micro:bit version:
+## 安装
+与往常一样，从现在开始，您必须修改`Embed.toml`以匹配您的micro:bit版本：
 
 ```toml
 {{#include Embed.toml}}
