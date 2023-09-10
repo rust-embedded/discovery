@@ -1,20 +1,16 @@
-# It blinks
+# 闪烁
 
 ## Delaying
-Now we're going to take a brief look into delay abstractions provided by `embedded-hal`
-before combining this with the GPIO abstractions from the previous chapter in order to
-finally make an LED blink.
+现在我们将简要介绍一下delay抽象，`embedded-hal`后再将其与上一章中的GPIO抽象结合起来，以最终使LED闪烁。
 
-`embedded-hal` provides us with two abstractions to delay the execution of our program:
-[`DelayUs`] and [`DelayMs`]. Both of them essentially work the exact same way except
-that they accept different units for their delay function.
+`embedded-hal`为我们提供了两个抽象来延迟我们程序的执行：[`DelayUs`]和[`DelayMs`]。
+除了它们的延迟函数接受不同的单位外，它们基本上都以完全相同的方式工作。
 
 [`DelayUs`]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/blocking/delay/trait.DelayUs.html
 [`DelayMs`]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/blocking/delay/trait.DelayMs.html
 
-Inside our MCU, several so-called "timers" exist. They can do various things regarding time for us,
-including simply pausing the execution of our program for a fixed amount of time. A very
-simple delay-based program that prints something every second might for example look like this:
+在我们的MCU内部，存在几个所谓的"定时器"。他们可以为我们做各种关于时间的事情，包括简单地暂停
+我们程序的执行一段固定的时间。 例如，一个非常简单的基于延迟的程序每秒打印一些内容可能如下所示：
 
 ```rs
 #![deny(unsafe_code)]
@@ -42,12 +38,10 @@ fn main() -> ! {
 }
 ```
 
-Note that we changed our panic implementation from `panic_halt` to
-`panic_rtt_target` here. This will require you to uncomment the two
-RTT lines from `Cargo.toml` and comment the `panic-halt` one out,
-since Rust only allows one panic implementation at a time.
+注意，我们在这里将panic实现从`panic_halt`更改为`panic_rtt_target`。这将要求您取消注释`Cargo.toml`
+中的两个RTT行，并注释`panic-halt`，因为Rust一次只允许一个panic实现。
 
-In order to actually see the prints we have to change `Embed.toml` like this:
+为了真正看到打印，我们必须更改`Embed.toml`像这样：
 ```
 [default.general]
 # chip = "nrf52833_xxAA" # uncomment this line for micro:bit V2
@@ -63,14 +57,13 @@ enabled = true
 enabled = false
 ```
 
-And now after putting the code into `src/main.rs` and another quick `cargo embed` (again with the same flags you used before)
-you should see "`1000 ms passed`" being sent to your console every second from your MCU.
+现在，在将代码放入`src/main.rs`和另一个`cargo embed` (再次使用之前使用的相同标志)
+后您应该会看到"`1000 ms passed`"每秒从MCU发送到控制台。
 
-## Blinking
+## 闪烁
 
-Now we've arrived at the point where we can combine our new knowledge about GPIO and delay abstractions
-in order to actually make an LED on the back of the micro:bit blink. The resulting program is really just
-a mash-up of the one above and the one that turned an LED on in the last section and looks like this:
+现在我们已经到了可以结合我们关于 GPIO 和延迟抽象的新知识的地步，以便真正使micro:bit 背面的LED闪烁。
+生成的程序实际上只是上面一个程序和上一节中打开LED的程序的混搭，如下所示：
 
 ```rs
 #![deny(unsafe_code)]
@@ -105,5 +98,5 @@ fn main() -> ! {
 }
 ```
 
-And after putting the code into `src/main.rs` and a final `cargo embed` (with the proper flags)
-you should see the LED we light up before blinking as well as a print, every time the LED changes from off to on and vice versa.
+在将代码放入`src/main.rs`和最后一个`cargo embed`（带有适当的标志）后，您应该看到我们在闪烁之前点亮的LED以及打印，
+每次LED从关闭变为打开，反之亦然。
