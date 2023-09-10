@@ -1,34 +1,29 @@
 # Take 1
 
-What's the simplest way in which we can implement the LED compass? Even if it's not perfect.
+我们实现LED指南针的最简单方法是什么？即使它不完美。
 
-For starters, we'd only care about the X and Y components of the magnetic field because when you
-look at a compass you always hold it in horizontal position thus the compass is in the XY plane.
+首先，我们只关心磁场的X和Y分量，因为当你看指南针时，你总是把它保持在水平位置，因此指南针在XY平面上。
 
-For example, what LED would you turn on in the following case. EMF stands for Earth's Magnetic Field
-and green arrow has the direction of the EMF (it points north).
+例如，在以下情况下，您将打开哪个LED。EMF代表地球磁场，绿色箭头表示EMF的方向（它指向北方）。
 
-<p align="center">
+<p>
 <img title="Quadrant I" src="../assets/quadrant-i.png">
 </p>
 
-The `Southeast` LED, right?
+`Southeast` LED，对吗？
 
-What *signs* do the X and Y components of the magnetic field have in that scenario? Both are
-positive.
+在这种情况下，磁场的X和Y分量有什么*迹象*？两者都是正的。
 
-If we only looked at the signs of the X and Y components we could determine to which quadrant the
-magnetic field belongs to.
+如果我们只看X和Y分量的符号，我们就能确定磁场属于哪个象限。
 
-<p align="center">
+<p>
 <img class="white_bg" title="Quadrants" src="../assets/quadrants.png">
 </p>
 
-In the previous example, the magnetic field was in the first quadrant (x and y were positive) and it
-made sense to turn on the `SouthEast` LED. Similarly, we could turn a different LED if the magnetic
-field was in a different quadrant.
+在前面的示例中，磁场位于第一象限（x和y为正），打开`SouthEast`LED是有意义的。
+同样，如果磁场在不同的象限，我们可以打开不同的LED。
 
-Let's try that logic. Here's the starter code:
+让我们试试这个逻辑。以下是启动代码：
 
 ``` rust
 #![deny(unsafe_code)]
@@ -67,7 +62,5 @@ fn main() -> ! {
 }
 ```
 
-There's a `Direction` enum in the `led` module that has 8 variants named after the cardinal points:
-`North`, `East`, `Southwest`, etc. Each of these variants represent one of the 8 LEDs in the
-compass. The `Leds` value can be indexed using the `Direction` `enum`; the result of indexing is the
-LED that points in that `Direction`.
+`led`模块中有一个`Direction`枚举，它有8个以基点命名的变体：`North`, `East`, `Southwest`等。
+每个变体代表指南针中8个led中的一个。`Leds`值可以使用`Direction` `enum`进行索引；索引的结果是指向该`Direction`的LED。
