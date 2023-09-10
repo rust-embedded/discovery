@@ -1,17 +1,14 @@
-# Setting up a development environment
+# 搭建开发环境
 
-Dealing with microcontrollers involves several tools as we'll be dealing with an architecture
-different than your computer's and we'll have to run and debug programs on a "remote" device.
+处理微控制器涉及多种工具，因为我们将处理不同于您计算机的体系结构，我们必须在"远程"设备上运行和调试程序。
 
-## Documentation
+## 文档
 
-Tooling is not everything though. Without documentation it is pretty much impossible to work with
-microcontrollers.
+不过，工具并不是万能的。如果没有文档，使用微控制器几乎是不可能的。
 
-We'll be referring to all these documents throughout this book:
+我们将在本书中参考所有这些文件：
 
-*HEADS UP* All these links point to PDF files and some of them are hundreds of pages long and
-several MBs in size.
+*说明*：所有这些链接都指向PDF文件，其中一些文件长达数百页，大小为数MB。
 
 - [STM32F3DISCOVERY User Manual][um]
 - [STM32F303VC Datasheet][ds]
@@ -25,58 +22,51 @@ several MBs in size.
 [rm]: http://www.st.com/resource/en/reference_manual/dm00043574.pdf
 [um]: http://www.st.com/resource/en/user_manual/dm00063382.pdf
 
-\* **NOTE**: Newer (from around 2020/09) Discovery boards may have a different e-compass and gyroscope (see the user manual). 
-As such, much in chapters 14-16 will not work as is. 
-Checkout the github issues like [this][gh-issue-274]. 
+\* **注意**：较新的 (2020/09年左右) Discovery板可能具有不同的电子罗盘和陀螺仪（请参阅用户手册）。
+因此，第14-16章中的很多内容将无法正常工作。看看github[issues][gh-issue-274]的问题。
 
 [gh-issue-274]: https://github.com/rust-embedded/discovery/issues/274
 
-## Tools
+## 工具
 
-We'll use all the tools listed below. Where a minimum version is not specified, any recent version
-should work but we have listed the version we have tested.
+我们将使用下面列出的所有工具。如果未指定最低版本，则任何最新版本都应有效，但我们已列出了已测试的版本。
 
-- Rust 1.31 or a newer toolchain. Chapter [USART](../11-usart/index.html)
-  requires 1.51 or newer.
+- Rust 1.31或更新的工具链。 [USART](../11-usart/index.html)章节要求1.51或更高版本。
 
-- [`itmdump`] >=0.3.1 (`cargo install itm`). Tested versions: 0.3.1.
+- [`itmdump`] >=0.3.1 (`cargo install itm`)。测试版本：0.3.1.
 
-- OpenOCD >=0.8. Tested versions: v0.9.0 and v0.10.0
+- OpenOCD >=0.8。测试版本：v0.9.0 和 v0.10.0
 
-- `arm-none-eabi-gdb`. Version 7.12 or newer highly recommended. Tested versions: 7.10, 7.11,
-  7.12 and 8.1
+- `arm-none-eabi-gdb`。强烈建议使用7.12版或更高版本。测试版本：7.10, 7.11, 7.12 和 8.1
 
-- [`cargo-binutils`]. Version 0.1.4 or newer.
+- [`cargo-binutils`]. 版本0.1.4或更高。
 
 [`cargo-binutils`]: https://github.com/rust-embedded/cargo-binutils
 
-- `minicom` on Linux and macOS. Tested version: 2.7. Readers report that `picocom` also works but
-  we'll use `minicom` in this text.
+- Linux和macOS上的`minicom`。测试版本：2.7。 Readers报告`picocom`也可以工作，但本文将使用`minicom`
 
-- `PuTTY` on Windows.
+- Windows上的`PuTTY`。
 
 [`itmdump`]: https://crates.io/crates/itm
 
-If your computer has Bluetooth functionality and you have the Bluetooth module, you can additionally
-install these tools to play with the Bluetooth module. All these are optional:
+如果您的计算机具有蓝牙功能，并且您具有蓝牙模块，则可以额外安装这些工具来使用蓝牙模块。所有这些都是可选的：
 
-- Linux, only if you don't have a Bluetooth manager application like Blueman.
+- Linux，前提是您没有Blueman这样的蓝牙管理器应用程序。
   - `bluez`
   - `hcitool`
   - `rfcomm`
   - `rfkill`
 
-macOS / OSX / Windows users only need the default bluetooth manager that ships with their OS.
+macOS / OSX / Windows用户只需要其操作系统附带的默认蓝牙管理器。
 
-Next, follow OS-agnostic installation instructions for a few of the tools:
+接下来，按照操作系统不可知的安装说明安装一些工具：
 
 ### `rustc` & Cargo
 
-Install rustup by following the instructions at [https://rustup.rs](https://rustup.rs).
+按照说明安装rustup[https://rustup.rs](https://rustup.rs)。
 
-If you already have rustup installed double check that you are on the stable
-channel and your stable toolchain is up to date. `rustc -V` should return a date
-newer than the one shown below:
+如果您已经安装了rustup，请再次检查您是否处于stable通道中，并且您的stable工具链是最新的。
+`rustc -V`返回的日期应比下面显示的日期晚：
 
 ``` console
 $ rustc -V
@@ -90,7 +80,7 @@ rustc 1.31.0 (abe02cefd 2018-12-04)
 cargo install itm
 ```
 
-Verify the version is >=0.3.1
+验证版本是否 >=0.3.1
 ```
 $ itmdump -V
 itmdump 0.3.1
@@ -98,20 +88,20 @@ itmdump 0.3.1
 
 ### `cargo-binutils`
 
-Install `llvm-tools-preview`
+安装 `llvm-tools-preview`
 
 ``` console
 rustup component add llvm-tools-preview
 ```
 
-Install `cargo-binutils`
+安装 `cargo-binutils`
 ```
 cargo install cargo-binutils
 ```
 
-#### Verify tools are installed
+#### 验证工具是否已安装
 
-Run the following commands at your terminal
+在终端上运行以下命令
 ``` console
 cargo new test-size
 ```
@@ -125,7 +115,7 @@ cargo run
 cargo size -- --version
 ```
 
-The results should be something like:
+结果应该是：
 ```
 ~
 $ cargo new test-size
@@ -151,9 +141,9 @@ LLVM (http://llvm.org/):
   Host CPU: znver2
 ```
 
-### OS specific instructions
+### 操作系统特定指令
 
-Now follow the instructions specific to the OS you are using:
+现在，按照您使用的操作系统的特定说明进行操作：
 
 - [Linux](linux.md)
 - [Windows](windows.md)
