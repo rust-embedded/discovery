@@ -1,15 +1,57 @@
-# My solution
+# 我的解决方案
 
-What solution did you come up with?
+你想出了什么解决方案？
 
-Here's mine, it's probably one of the simplest (but of course not most
-beautiful) way to generate the required matrix:
+这是我的，这可能是生成所需矩阵的最简单（但当然不是最漂亮）方法之一：
 
 ``` rust
-{{#include examples/my-solution.rs}}
+#![deny(unsafe_code)]
+#![no_main]
+#![no_std]
+
+use cortex_m_rt::entry;
+use rtt_target::rtt_init_print;
+use panic_rtt_target as _;
+use microbit::{
+    board::Board,
+    display::blocking::Display,
+    hal::Timer,
+};
+
+const PIXELS: [(usize, usize); 16] = [
+    (0,0), (0,1), (0,2), (0,3), (0,4), (1,4), (2,4), (3,4), (4,4),
+    (4,3), (4,2), (4,1), (4,0), (3,0), (2,0), (1,0)
+];
+
+#[entry]
+fn main() -> ! {
+    rtt_init_print!();
+
+    let board = Board::take().unwrap();
+    let mut timer = Timer::new(board.TIMER0);
+    let mut display = Display::new(board.display_pins);
+    let mut leds = [
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+    ];
+
+    let mut last_led = (0,0);
+
+    loop {
+        for current_led in PIXELS.iter() {
+            leds[last_led.0][last_led.1] = 0;
+            leds[current_led.0][current_led.1] = 1;
+            display.show(&mut timer, leds, 30);
+            last_led = *current_led;
+        }
+    }
+}
 ```
 
-One more thing! Check that your solution also works when compiled in "release" mode:
+还有一件事！检查您的解决方案在"release"模式下编译时是否也有效：
 
 ``` console
 # For micro:bit v2
@@ -21,7 +63,7 @@ $ cargo embed --features v1 --target thumbv6m-none-eabi --release
   (...)
 ```
 
-If you want to debug your "release" mode binary you'll have to use a different GDB command:
+如果要调试"release"模式二进制文件，则必须使用不同的 GDB 命令：
 
 ``` console
 # For micro:bit v2
@@ -31,8 +73,7 @@ $ gdb target/thumbv7em-none-eabihf/release/led-roulette
 $ gdb target/thumbv6m-none-eabi/release/led-roulette
 ```
 
-Binary size is something we should always keep an eye on! How big is your solution? You can check
-that using the `size` command on the release binary:
+二进制大小是我们应该时刻关注的！你的解决方案有多大？您可以使用`size`发布二进制文件上的命令进行检查：
 
 ``` console
 # For micro:bit v2
@@ -136,12 +177,9 @@ Total              208617
 
 ```
 
-> **NOTE** The Cargo project is already configured to build the release binary using LTO.
+> **注意**：Cargo项目已经配置为使用LTO构建发布二进制文件。
 
-Know how to read this output? The `text` section contains the program instructions. On the other hand,
-the `data` and `bss` sections contain variables statically allocated in RAM (`static` variables).
-If you remember back in the specification of the microcontroller on your micro:bit, you should
-notice that its flash memory is actually far too small to contain this binary, so how is this possible?
-As we can see from the size statistics most of the binary is actually made up of debugging related
-sections, those are however not flashed to the microcontroller at any time, after all they aren't
-relevant for the execution.
+知道如何读取这个输出吗？该`text`部分包含程序说明。另一方面，`data`和`bss`部分包含静态分配在RAM
+中的变量（`static`变量）。如果你还记得你的micro:bit 上的微控制器规格，你应该注意到它的闪存实际上
+太小而无法包含这个二进制文件， 那么这怎么可能呢？正如我们从大小统计中看到的那样，大多数二进制
+文件实际上是由调试相关部分组成的，但是这些部分不会在任何时候刷新到微控制器， 毕竟它们与执行无关。
