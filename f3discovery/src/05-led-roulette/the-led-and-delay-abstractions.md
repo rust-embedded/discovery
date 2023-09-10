@@ -1,37 +1,33 @@
-# The `Led` and `Delay` abstractions
+# `Led` 和 `Delay` 抽象概念
 
-Now, I'm going to introduce two high level abstractions that we'll use to implement the LED roulette
-application.
+现在，我将介绍两个高级抽象，我们将使用它们来实现LED轮盘应用程序。
 
-The auxiliary crate, `aux5`, exposes an initialization function called `init`. When called this
-function returns two values packed in a tuple: a `Delay` value and a `LedArray` value.
+auxiliary crate，`aux5`，公开了一个名为`init`的初始化函数。
+调用此函数时，返回两个打包在元组中的值：`Delay`值和`LedArray`值。
 
-`Delay` can be used to block your program for a specified amount of milliseconds.
+`Delay`可以用于在指定的毫秒数内阻止程序。
 
-`LedArray` is an array of eight `Led`s. Each `Led` represents one of the LEDs on the F3 board,
-and exposes two methods: `on` and `off` which can be used to turn the LED on or off, respectively.
+`LedArray`是由八个`Led`组成的数组。每个`Led`代表F3板上的一个Led，并显示两种方法：
+`on`和`off`分别用于打开或关闭Led。
 
-Let's try out these two abstractions by modifying the starter code to look like this:
+让我们通过修改起始代码来尝试这两种抽象，如下所示：
 
 ``` rust
 {{#include examples/the-led-and-delay-abstractions.rs}}
 ```
 
-Now build it:
+现在构建它：
 ``` console
 cargo build
 ```
 
-> **NOTE**: It's possible to forget to rebuild the program *before* starting a GDB session; this
-> omission can lead to very confusing debug sessions. To avoid this problem you can call just `cargo run`
-> instead of `cargo build`. The `cargo run` command will build *and* start a debug
-> session ensuring you never forget to recompile your program.
+> **注意**：在开始GDB会话*之前*，可能忘记重建程序；这种遗漏可能会导致非常混乱的调试会话。
+> 为了避免这个问题，你可以只调用`cargo run`而不是`cargo build`。`cargo run`命令将构建并
+> 启动调试会话，确保您永远不会忘记重新编译程序。
 
-Now we'll run and repeat the flashing procedure as we did in the previous section
-but with the new program. I'll let you type in the `cargo run`, *this will get easier shortly*. :)
+现在，我们将运行并重复上一节中的闪烁过程，但使用新程序。我会让你输入`cargo run`，*这将很快变得容易*。 :)
 
-> **NOTE**: Don't forget to start ```openocd``` (debugger) on a separate terminal. 
-> Otherwise `target remote :3333` won't work!
+> **注意**：不要忘记在单独的终端上启动```openocd``` (调试器)。否则，`target remote :3333`将无法工作！
 
 ``` console
 $ cargo run
@@ -69,8 +65,7 @@ led_roulette::__cortex_m_rt_main () at ~/embedded-discovery/src/05-led-roulette/
 (gdb)
 ```
 
-OK. Let's step through the code. This time, we'll use the `next` command instead of `step`. The
-difference is that the `next` command will step *over* function calls instead of going inside them.
+好的，让我们一步一步看代码。这次，我们将使用`next`命令而不是`step`。不同的是，`next`命令将跳过函数调用，而不是进入它们内部。
 ```
 (gdb) next
 11          let half_period = 500_u16;
@@ -85,10 +80,9 @@ difference is that the `next` command will step *over* function calls instead of
 15              delay.delay_ms(half_period);
 ```
 
-After executing the `leds[0].on().ok()` statement, you should see a red LED, the one pointing North,
-turn on.
+执行`leds[0].on().ok()` 语句后，您应该看到一个红色LED，指向北方，打开。
 
-Let's continue stepping over the program:
+让我们继续浏览该程序：
 
 ```
 (gdb) next
@@ -98,22 +92,19 @@ Let's continue stepping over the program:
 18              delay.delay_ms(half_period);
 ```
 
-The `delay_ms` call will block the program for half a second but you may not notice because the
-`next` command also takes some time to execute. However, after stepping over the `leds[0].off()`
-statement you should see the red LED turn off.
+`delay_ms`调用将阻止程序半秒，但您可能没有注意到，因为`next`时间才能执行。然而，在跨过
+`leds[0].off()`语句，您应该看到红色LED熄灭。
 
-You can already guess what this program does. Let it run uninterrupted using the `continue` command.
+你已经可以猜到这个程序的作用了。使用`continue`命令让它不间断地运行。
 
 ```
 (gdb) continue
 Continuing.
 ```
 
-Now, let's do something more interesting. We are going to modify the behavior of our program using
-GDB.
+现在，让我们做一些更有趣的事情。我们将使用GDB修改程序的行为。
 
-First, let's stop the infinite loop by hitting `Ctrl+C`. You'll probably end up somewhere inside
-`Led::on`, `Led::off` or `delay_ms`:
+首先，让我们按`Ctrl+C`停止无限循环。你很可能会在`Led::on`，`Led::off` 或`delay_ms`中的某个位置结束：
 
 ```
 ^C
@@ -122,21 +113,17 @@ Program received signal SIGINT, Interrupt.
     at ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1053
 ```
 
-In my case, the program stopped its execution inside a `read_volatile` function. GDB output shows
-some interesting information about that: `core::ptr::read_volatile (src=0xe000e010)`. This means
-that the function comes from the `core` crate and that it was called with argument `src =
-0xe000e010`.
+在我的例子中，程序在`read_volatile`函数中停止了执行。GDB输出显示了一些有趣的信息：
+`core::ptr::read_volatile (src=0xe000e010)`。这意味着该函数来自`core` crate，并且是用参数`src = 0xe000e010`调用的。
 
-Just so you know, a more explicit way to show the arguments of a function is to use the `info args`
-command:
+正如您所知，显示函数参数的更明确的方法是使用`info args`命令：
 
 ```
 (gdb) info args
 src = 0xe000e010
 ```
 
-Regardless of where your program may have stopped you can always look at the output of the
-`backtrace` command (`bt` for short) to learn how it got there:
+无论程序在何处停止，您都可以查看`backtrace`命令(简称`bt`) 的输出，了解它是如何停止的：
 
 ```
 (gdb) backtrace
@@ -156,11 +143,10 @@ Regardless of where your program may have stopped you can always look at the out
 #8  0x08000206 in led_roulette::__cortex_m_rt_main_trampoline () at src/05-led-roulette/src/main.rs:7
 ```
 
-`backtrace` will print a trace of function calls from the current function down to main.
+`backtrace`将打印从当前函数到main的函数调用跟踪。
 
-Back to our topic. To do what we are after, first, we have to return to the `main` function. We can
-do that using the `finish` command. This command resumes the program execution and stops it again
-right after the program returns from the current function. We'll have to call it several times.
+回到我们的话题。要做我们要做的事情，首先，我们必须返回`main`函数。我们可以使用`finish`命令来完成。
+该命令恢复程序执行，并在程序从当前函数返回后立即再次停止。我们得打调用几次。
 
 ```
 (gdb) finish
@@ -187,14 +173,14 @@ Run till exit from #0  0x08002f80 in stm32f3xx_hal::delay::{{impl}}::delay_ms (s
 15              delay.delay_ms(half_period);
 ```
 
-We are back in `main`. We have a local variable in here: `half_period`
+我们又回到了`main`。这里有一个局部变量：`half_period`
 
 ```
 (gdb) print half_period
 $3 = 500
 ```
 
-Now, we are going to modify this variable using the `set` command:
+现在，我们将使用`set`命令修改此变量：
 
 ```
 (gdb) set half_period = 100
@@ -203,10 +189,10 @@ Now, we are going to modify this variable using the `set` command:
 $5 = 100
 ```
 
-If you let program run free again using the `continue` command, you **might** see that the LED will
-blink at a much faster rate now, but more likely the blink rate didn't change. **What happened?**
+如果您使用`continue`命令让程序再次自由运行，您**可能**会看到LED现在将以更快的速度闪烁，
+但更可能的是闪烁速度没有改变。**发生了什么？**
 
-Let's stop the program with `Ctrl+C` and then set a break point at `main:14`.
+让我们用`Ctrl+C`停止程序，然后在`main:14`处设置断点。
 ``` console
 (gdb) continue
 Continuing.
@@ -217,7 +203,7 @@ core::cell::UnsafeCell<u32>::get<u32> (self=0x20009fa4)
 1711        pub const fn get(&self) -> *mut T {
 ```
 
-Then set a break point at `main.rs:14` and `continue`
+然后在`main.rs:14`上设置断点。并`continue`
 
 ``` console
 (gdb) break main.rs:14
@@ -229,11 +215,9 @@ Breakpoint 2, led_roulette::__cortex_m_rt_main () at src/05-led-roulette/src/mai
 14              leds[0].on().ok();
 ```
 
-Now open your terminal window so it's about 80 lines long an 170 characters wide if possible.
-> **NOTE**: If you can't open the terminal that large, no problem you'll just see
-> `--Type <RET> for more, q to quit, c to continue without paging--` so just type return
-> until you see the `(gdb)` prompt. Then scroll your terminal window to
-> see the results.
+现在打开终端窗口，其长约80行，宽约170个字符（如果可能）。
+> **注意**：如果你不能打开那么大的终端，没问题，你会看到`--Type <RET> for more, q to quit, c to continue without paging--`
+> 所以只需输入return，直到看到`(gdb)`提示符。然后滚动终端窗口以查看结果。
 
 ``` console
 (gdb) disassemble /m
@@ -296,10 +280,8 @@ Dump of assembler code for function _ZN12led_roulette18__cortex_m_rt_main17h51e7
 End of assembler dump.
 ```
 
-In the above dump the reason the delay didn't change was because the compiler
-recognized that half_period didn't change and instead in the two places where
-`delay.delay_ms(half_period);` is called we see `mov.w r1, #500`. So changing the
-value of `half_period` does nothing!
+在上面的转储中，delay没有改变的原因是编译器认识到half_period没有改变，而是在delay的两个地方。
+`delay.delay_ms(half_period);`被称为`mov.w r1, #500`。所以改变`half_period`的值没有任何作用！
 
 ``` console
    0x08000244 <+60>:    mov.w   r1, #500        ; 0x1f4
@@ -315,7 +297,7 @@ value of `half_period` does nothing!
    0x08000262 <+90>:    bl      0x8002f5c <stm32f3xx_hal::delay::{{impl}}::delay_ms>
 ```
 
-One solution to the problem is to wrap `half_period` in a `Volatile` as shown below.
+该问题的一个解决方案是将`half_period`包装为`Volatile`如下所示。
 
 ``` console
 #![deny(unsafe_code)]
@@ -343,7 +325,7 @@ fn main() -> ! {
 
 ```
 
-Edit `Cargo.toml` adding `volatile = "0.4.3"` in the `[dependencies]` section.
+编辑`Cargo.toml`文件，在`[dependencies]`地方添加`volatile = "0.4.3"`依赖。
 
 ``` console
 [dependencies]
@@ -351,9 +333,8 @@ aux5 = { path = "auxiliary" }
 volatile = "0.4.3"
 ```
 
-With the above code using `Volatile` you can now change `half_period` and
-you'll be able to experiment with different values. Here is the list of
-commands followed by an explanation; `# xxxx` to demonstrate.
+通过使用`Volatile`的上述代码，您现在可以更改`half_period`，并且可以尝试不同的值。
+以下是命令列表，后面是解释；`# xxxx`表示演示。
 
 ```
 $ cargo run --target thumbv7em-none-eabihf   # Compile and load the program into gdb
@@ -366,7 +347,7 @@ $ cargo run --target thumbv7em-none-eabihf   # Compile and load the program into
 (gdb) disassemble /m                # Disassemble main function
 (gdb) continue                      # Led blinking on for 1/2 sec then off 1/2 sec
 ^C                                  # Stop with Ctrl+C
-(gdb) enable 1                      # Enable breakpoint 1
+(gdb) enable 1                      # Enable breakpiont 1
 (gdb) continue                      # Continue, will stop at main.rs:16
 (gdb) print half_period             # Print half_period result is 500
 (gdb) set half_period = 2000        # Set half_period to 2000ms
@@ -377,10 +358,8 @@ $ cargo run --target thumbv7em-none-eabihf   # Compile and load the program into
 (gdb) quit                          # Quit gdb
 ```
 
-The critical changes are at lines 13, 17 and 20 in the source code which
-you can see in the disassembly. At 13 we create `v_half_period` and then
-`read()` its value in lines 17 and 20. This means that when we `set half_period = 2000`
-the led will now be on for 2 seconds then off for 2 seconds.
+关键的更改出现在源代码的第13、17和20行，您可以在反汇编中看到。在第13行，我们创建`v_half_period`，然后
+`read()`第17行和第20行中的值。这意味着，当我们设置`set half_period = 2000`，led现在将打开2秒，然后关闭2秒。
 
 ``` console
 $ cargo run --target thumbv7em-none-eabihf
@@ -546,7 +525,6 @@ Ending remote debugging.
 [Inferior 1 (Remote target) detached]
 ```
 
-Question! What happens if you start lowering the value of `half_period`? At what value of
-`half_period` you can no longer see the LED blink?
+问题! 如果你开始降低`half_period`的值会发生什么？在`half_period`的值是多少时，你再也看不到LED闪烁了吗？
 
-Now, it's your turn to write a program.
+现在，轮到你编写程序了。
