@@ -1,66 +1,48 @@
-# Background
+# 背景
 
-## What's a microcontroller?
+## 什么是微控制器？
 
-A microcontroller is a *system* on a chip. Whereas your computer is made up of several discrete
-components: a processor, RAM sticks, a hard drive, an ethernet port, etc.; a microcontroller
-has all those components built into a single "chip" or package. This makes it possible to
-build systems with a minimal part count.
+微控制器是芯片上的*系统*。而你的电脑是由几个分立的组件组成的：处理器、RAM、硬盘驱动器、以太网端口等。
+微控制器将所有这些组件内置在单个"芯片"或封装中。这使得可以用最少的部件数构建系统。
 
-## What can you do with a microcontroller?
+## 你能用微控制器做什么？
 
-Lots of things! Microcontrollers are the central part of systems known as *embedded* systems. 
-These systems are everywhere but you don't usually notice them. These systems control the brakes
-of your car, wash your clothes, print your documents, keep you warm, keep you cool, optimize the 
-fuel consumption of your car, etc.
+许多事！微控制器是所谓的"*嵌入式*系统"的核心部分。嵌入式系统无处不在，但您通常不会注意到它们。
+他们控制着洗衣服、打印文件和做饭的机器。 嵌入式系统使您生活和工作的建筑物保持在舒适的温度下，
+并控制使您行驶的车辆停停走走的组件。
 
-The main trait of these systems is that they operate without user intervention even if they expose a
-user interface as a washing machine does; most of their operation is done on their own.
+大多数嵌入式系统无需用户干预即可运行。即使他们像洗衣机一样暴露用户界面；他们的大部分操作都是自己完成的。
 
-The other common trait of these systems is that they *control* a process. And for that these systems
-usually have one or more sensors and one or more actuators. For example, an HVAC system has several
-sensors, thermometers, and humidity sensors spread across some areas, and several actuators as well,
-heating elements and fans connected to ducts.
+嵌入式系统通常用于*控制*物理过程。为了使这成为可能，他们有一个或多个设备来告诉他们世界的状态("传感器")，以及
+一个或多个允许他们改变事物的设备 ("执行器")。例如，建筑气候控制系统可能具有：
 
-## When should I use a microcontroller?
+## 我什么时候应该使用微控制器？
 
-All these applications I've mentioned, you can probably implement with a Raspberry Pi, a computer
-that runs Linux. Why should I bother with a microcontroller that operates without an OS? Sounds 
-like it would be harder to develop a program.
+上面列出的许多嵌入式系统都可以使用运行Linux的计算机 (例如"Raspberry Pi")来实现。 为什么要改用微控制器？听起来开发程序可能更难。
 
-The main reason is cost. A microcontroller is much cheaper than a general-purpose computer. Not only
-the microcontroller is cheaper; it also requires many fewer external electrical components to operate.
-This makes Printed Circuit Boards (PCBs) smaller and cheaper to design and manufacture.
+主要原因是成本。微控制器比通用计算机便宜得多。不仅微控制器更便宜；它还需要更少的外部电气部件来操作。
+这使得印刷电路板（PCB）更小，设计和制造成本更低。
 
-The other big reason is power consumption. A microcontroller consumes orders of magnitude less power
-than a full-blown processor. If your application will run on batteries that makes a huge difference.
+另一个主要原因是功耗。微控制器消耗的功率比成熟的处理器少几个数量级。如果您的应用程序将使用电池运行，这将产生巨大的差异。
 
-And last but not least: (hard) *real-time* constraints. Some processes require their controllers to
-respond to some events within some time interval (e.g. a quadcopter/drone hit by a wind gust). If this
-*deadline* is not met, the process could end in catastrophic failure (e.g. the drone crashes to the
-ground). A general-purpose computer running a general-purpose OS has many services running in the 
-background. This makes it hard to guarantee the execution of a program within tight time constraints.
+最后但并非最不重要的是：（硬件）*实时*限制。某些过程要求其控制器在一定时间间隔内对某些事件做出响应
+（例如四旋翼机/无人机被阵风击中）。如果没有达到这个"最后期限"，这个过程可能会以灾难性的失败告终（例如无人机坠毁在地）。
+运行通用操作系统的通用计算机在后台运行许多服务。这使得很难保证在严格的时间限制内执行程序。
 
-## When should I *not* use a microcontroller?
+## 什么时候*不*应该使用微控制器？
 
-Where heavy computations are involved. To keep their power consumption low, microcontrollers have very 
-limited computational resources available to them. For example, some microcontrollers don't even have 
-hardware support for floating-point operations. On those devices, performing a simple addition of 
-single-precision numbers can take hundreds of CPU cycles.
+涉及繁重计算的地方。为了保持低功耗，微控制器可用的计算资源非常有限。例如，一些微控制器甚至没有对浮点运算的硬件支持。
+在这些设备上，执行单精度数字的简单加法可能需要数百个CPU周期。
 
-## Why use Rust and not C?
+## 为什么使用Rust而不是C？
 
-Hopefully, I don't need to convince you here as you are probably familiar with the language 
-differences between Rust and C. One point I do want to bring up is package management. C lacks an 
-official, widely accepted package management solution whereas Rust has Cargo. This makes development 
-*much* easier. And, IMO, easy package management encourages code reuse because libraries can be 
-easily integrated into an application which is also a good thing as libraries get more "battle testing".
+希望我不需要在这里说服您，因为您可能熟悉Rust和C之间的语言差异。我确实想提出一点是包管理。
+C缺乏官方的、被广泛接受的包管理解决方案，而Rust有Cargo。这使得开发更加容易。而且，IMO，简单的包管理鼓励代码重用，因为
+库可以很容易地集成到应用程序中，这也是一件好事，因为库得到了更多的"战斗测试"。
 
-## Why should I not use Rust?
+## 为什么我不应该使用Rust？
 
-Or why should I prefer C over Rust?
+或者为什么我应该更喜欢C而不是Rust？
 
-The C ecosystem is way more mature. Off the shelf solution for several problems already exist. If you 
-need to control a time-sensitive process, you can grab one of the existing commercial Real-Time Operating 
-Systems (RTOS) out there and solve your problem. There are no commercial, production-grade RTOSes in Rust 
-yet so you would have to either create one yourself or try one of the ones that are in development.
+C生态系统更加成熟。针对几个问题的现成解决方案已经存在。如果您需要控制对时间敏感的过程，您可以使用现有的商业实时操作系统 (RTOS) 之一来解决您的问题。 
+Rust中还没有商业的生产级RTOS，因此您必须自己创建一个或尝试其中一个正在开发中的RTOS。
