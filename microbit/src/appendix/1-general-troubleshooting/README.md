@@ -1,23 +1,21 @@
-# General troubleshooting
+# 一般故障排除
 
-## `cargo-embed` problems
-Most `cargo-embed` problems are either related to not having installed the `udev`
-rules properly (on Linux) or having selected the wrong chip configuration in `Embed.toml` so
-make sure you got both of those right.
+## `cargo-embed`问题
+大多数`cargo-embed`问题要么与未正确安装`udev`规则（在Linux上）有关，要么与在嵌入中选择了错误的芯片配置有关。
+`Embed.toml`确保你两个都是对的。
 
-If the above does not work out for you, you can open an issue in the [`discovery` issue tracker].
-Alternatively you can also visit the [Rust Embedded matrix channel] or the [probe-rs matrix channel]
-and ask for help there.
+如果上述方法不适用于您，您可以在[`discovery` issue tracker]打开问题。
+或者，您也可以访问[Rust Embedded matrix channel]或者[probe-rs matrix channel]并在那里寻求帮助。
 
 [`discovery` issue tracker]: https://github.com/rust-embedded/discovery/issues
 [Rust Embedded matrix channel]: https://matrix.to/#/#rust-embedded:matrix.org
 [probe-rs matrix channel]: https://matrix.to/#/#probe-rs:matrix.org
 
-## Cargo problems
+## Cargo 问题
 
-### "can't find crate for `core`"
+### "找不到`core`crate"
 
-#### Symptoms
+#### 症状
 
 ```
    Compiling volatile-register v0.1.2
@@ -42,14 +40,13 @@ error: Could not compile `r0`.
 To learn more, run the command again with --verbose.
 ```
 
-#### Cause
+#### 原因
 
-You forgot to install the proper target for your microcontroller (`thumbv7em-none-eabihf` for v2
-and `thumbv6m-none-eabi` for v1).
+您忘记为微控制器安装正确的目标(对于v2，`thumbv7em-none-eabihf`，对于v1`thumbv6m-none-eabi`)。
 
-#### Fix
+#### 修复
 
-Install the proper target.
+安装正确的目标。
 
 ``` console
 # micro:bit v2
