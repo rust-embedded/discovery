@@ -1,20 +1,14 @@
-# LED compass
+# LED指南针
 
-In this section, we'll implement a compass using the LEDs on the micro:bit. Like proper compasses, our LED
-compass must point north somehow. It will do that by turning on one of its outer LEDs; the LED turned on
-should point towards north.
+在本节中，我们将使用micro:bit上的LED实现指南针。像正确的罗盘一样，我们的LED罗盘必须以某种方式
+指向北方。它将通过打开一个外部LED来实现这一点；打开的LED应指向北方。
 
-Magnetic fields have both a magnitude, measured in Gauss or Teslas, and a *direction*. The
-magnetometer on the micro:bit measures both the magnitude and the direction of an external magnetic field
-but it reports back the *decomposition* of said field along *its axes*.
+磁场既有大小（以高斯或特斯拉为单位）也有*方向*。micro:bit上的磁力计测量外部磁场的大小和方向，
+但它会报告所述磁场沿其*轴*的*分解*。
 
-The magnetometer has three axes associated to it. The X and Y axes basically span the plane that is the floor.
-The Z axis is pointing "out" of the floor, so upwards.
+磁力计具有与其关联的三个轴。X和Y轴基本上跨越作为地板的平面。Z轴指向地板"外"，因此向上。
 
-You should already be able to write a program that continuously prints the magnetometer
-data on the RTT console from the [I2C chapter](../08-i2c/index.md). After you wrote that
-program, locate where north is at your current location. Then line up your micro:bit with
-that direction and observe how the sensor's measurements look.
+您应该已经能够编写一个程序，在[I2C章节](../08-i2c/index.md)中的RTT控制台上连续打印磁力计数据。
+编写该程序后，找到您当前位置的北方。然后将您的micro:bit与该方向对齐，并观察传感器的测量结果如何。
 
-Now rotate the board 90 degrees while keeping it parallel to the ground. What X, Y and Z values do
-you see this time? Then rotate it 90 degrees again. What values do you see?
+现在将板旋转90度，同时保持与地面平行。这次你看到的X、Y 和Z值是多少？然后再次旋转90度。你看到了什么值？
