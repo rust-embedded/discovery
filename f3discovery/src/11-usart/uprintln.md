@@ -1,15 +1,14 @@
 # `uprintln!`
 
-For the next exercise, we'll implement the `uprint!` family of macros. Your goal is to make this
-line of code work:
+在下一个练习中，我们将实现`uprint!`系列宏。您的目标是使这行代码正常工作：
 
 ``` rust
     uprintln!(serial, "The answer is {}", 40 + 2);
 ```
 
-Which must send the string `"The answer is 42"` through the serial interface.
+它必须通过串行接口发送字符串`"The answer is 42"`。
 
-How do we go about that? It's informative to look into the `std` implementation of `println!`.
+我们该怎么做？研究`println!`的`std`实现很有帮助。
 
 ``` rust
 // src/libstd/macros.rs
@@ -18,9 +17,8 @@ macro_rules! print {
 }
 ```
 
-Looks simple so far. We need the built-in `format_args!` macro (it's implemented in the compiler so we
-can't see what it actually does). We'll have to use that macro in the exact same way. What does this
-`_print` function do?
+到目前为止看起来很简单。我们需要内置的`format_args!`宏 (它是在编译器中实现的，所以我们看不到它的实际功能)。
+我们必须以完全相同的方式使用该宏。此`_print`函数的作用是什么？
 
 ``` rust
 // src/libstd/io/stdio.rs
@@ -45,20 +43,16 @@ pub fn _print(args: fmt::Arguments) {
 }
 ```
 
-That *looks* complicated but the only part we are interested in is: `w.write_fmt(args)` and
-`stdout().write_fmt(args)`. What `print!` ultimately does is call the `fmt::Write::write_fmt` method
-with the output of `format_args!` as its argument.
+这*看起来*很复杂，但我们唯一感兴趣的部分是：`w.write_fmt(args)`和`stdout().write_fmt(args)`。
+什么`print!`最终要做的是使用`format_args!`的输出调用`fmt::Write::write_fmt`方法！
 
-Luckily we don't have to implement the `fmt::Write::write_fmt` method either because it's a default
-method. We only have to implement the `fmt::Write::write_str` method.
+幸运的是，我们也不必实现`fmt::Write::write_fmt`方法，因为它是默认方法。我们只需要实现`fmt::Write::write_str`方法。
 
-Let's do that.
+让我们这样做吧。
 
-This is what the macro side of the equation looks like. What's left to be done by you is provide the
-implementation of the `write_str` method.
+这就是相等的macro的一面。剩下的工作是提供`write_str`方法的实现。
 
-Above we saw that `Write` is in `std::fmt`. We don't have access to `std` but `Write` is also
-available in `core::fmt`.
+上面我们看到`Write`在`std::fmt`中。 我们无法访问`std`，但`Write`也可以在`core::fmt`中使用。
 
 ``` rust
 {{#include examples/the-answer.rs}}
