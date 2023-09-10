@@ -1,4 +1,4 @@
-# Solution 1
+# 解决方案 1
 
 ``` rust
 #![deny(unsafe_code)]
