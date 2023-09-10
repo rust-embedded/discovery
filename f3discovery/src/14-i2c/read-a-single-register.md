@@ -1,39 +1,35 @@
-# Read a single register
+# 读取单个寄存器
 
-Let's put all that theory into practice!
+让我们把所有这些理论付诸实践吧！
 
-Just like with the USART peripheral, I've taken care of initializing everything before you reach
-`main` so you'll only have to deal with the following registers:
+就像USART外围设备一样，我已经在你到达`main`之前完成了初始化，所以你只需要处理以下寄存器：
 
-- `CR2`. Control register 2.
-- `ISR`. Interrupt and status register.
-- `TXDR`. Transmit data register.
-- `RXDR`. Receive data register.
+- `CR2`. 控制寄存器2。
+- `ISR`. 中断和状态寄存器。
+- `TXDR`. 传输数据寄存器。
+- `RXDR`. 接收数据寄存器。
 
-These registers are documented in the following section of the Reference Manual:
+这些寄存器记录在参考手册的以下章节中：
 
-> Section 28.7 I2C registers - Page 868 - Reference Manual
+> 第28.7节I2C寄存器-第868页-参考手册
 
-We'll be using the `I2C1` peripheral in conjunction with pins `PB6` (`SCL`) and `PB7` (`SDA`).
+我们将结合引脚`PB6` (`SCL`)和`PB7` (`SDA`)使用`I2C1`外围设备。
 
-You won't have to wire anything this time because the sensor is on the board and it's already
-connected to the microcontroller. However, I would recommend that you disconnect the serial /
-Bluetooth module from the F3 to make it easier to manipulate. Later on, we'll be moving the board
-around quite a bit.
+这次你不必布线，因为传感器在板上，并且已经连接到微控制器。
+但是，我建议您断开串行/蓝牙模块与F3的连接，以便于操作。稍后，我们会把棋盘移动很多。
 
-Your task is to write a program that reads the contents of the magnetometer's `IRA_REG_M` register.
-This register is read only and always contains the value `0b01001000`.
+您的任务是编写一个程序，读取磁强计的`IRA_REG_M`寄存器的内容。
+此寄存器为只读，始终包含值`0b01001000`。
 
-The microcontroller will be taking the role of the I2C master and the magnetometer inside the
-LSM303DLHC will be the I2C slave.
+微控制器将扮演I2C主控器的角色，LSM303DLHC内的磁强计将成为I2C从控器。
 
-Here's the starter code. You'll have to implement the `TODO`s.
+这是启动码。你必须实现`TODO`。
 
 ``` rust
 {{#include src/main.rs}}
 ```
 
-To give you some extra help, these are the exact bitfields you'll be working with:
+为了给您一些额外的帮助，以下是您要使用的确切位字段：
 
 - `CR2`: `SADD1`, `RD_WRN`, `NBYTES`, `START`, `AUTOEND`
 - `ISR`: `TXIS`, `RXNE`, `TC`
