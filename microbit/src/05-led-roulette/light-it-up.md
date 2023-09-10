@@ -1,35 +1,28 @@
-# Light it up
+# 点亮
 ## embedded-hal
 
-In this chapter we are going to make one of the many LEDs on the back of the micro:bit light up since this is
-basically the "Hello World" of embedded programming. In order to get this task done we will use one of the traits
-provided by `embedded-hal`, specifically the [`OutputPin`] trait which allows us to turn a pin on or off.
+在本章中，我们将点亮micro:bit背面的众多LED中的一个，因为这基本上是嵌入式编程的"Hello World"。
+为了完成这项任务，我们将使用提供的特性之一`embedded-hal`，特别是[`OutputPin`]允许我们打开或关闭引脚的特性。
 
 [`OutputPin`]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/digital/v2/trait.OutputPin.html
 
-## The micro:bit LEDs
+## micro:bit LEDs
 
-On the back of the micro:bit you can see a 5x5 square of LEDs, usually called an LED matrix. This matrix alignment is
-used so that instead of having to use 25 separate pins to drive every single one of the LEDs, we can just use 10 (5+5) pins in
-order to control which column and which row of our matrix lights up.
+在micro:bit的背面，您可以看到一个5x5方形的LED，通常称为LED矩阵。使用这种矩阵对齐方式，我们不
+必使用25个单独的引脚来驱动每个LED， 而只需使用10(5+5)个引脚来控制矩阵的哪一列和哪一行点亮。
 
-> **NOTE** that the micro:bit v1 team implemented this a little differently. Their [schematic page] says
-> that it is actually implemented as a 3x9 matrix but a few columns simply remain unused.
+> **注意**：micro:bit v1团队的实现方式略有不同。他们的[原理图页面]说它实际上是作为3x9矩阵实现的，但有几列根本没有使用。
 
-Usually in order to determine which specific pins we have to control in
-order to light a specific LED up we would now have to read the
-[micro:bit v2 schematic] or the [micro:bit v1 schematic] respectively.
-Luckily for us though we can use the aforementioned micro:bit BSP
-which abstracts all of this nicely away from us.
+通常，为了确定我们必须控制哪些特定引脚以点亮特定 LED，我们现在必须分别读取[micro:bit v2 原理图]或[micro:bit v1 原理图]。
+幸运的是，我们可以使用前面提到的micro:bit BSP，它将所有这些都很好地抽象出来。
 
-[schematic page]: https://tech.microbit.org/hardware/schematic/
-[micro:bit v2 schematic]: https://github.com/microbit-foundation/microbit-v2-hardware/blob/main/V2.00/MicroBit_V2.0.0_S_schematic.PDF
-[micro:bit v1 schematic]: https://github.com/bbcmicrobit/hardware/blob/master/V1.5/SCH_BBC-Microbit_V1.5.PDF
+[原理图页面]: https://tech.microbit.org/hardware/schematic/
+[micro:bit v2 原理图]: https://github.com/microbit-foundation/microbit-v2-hardware/blob/main/V2.00/MicroBit_V2.0.0_S_schematic.PDF
+[micro:bit v1 原理图]: https://github.com/bbcmicrobit/hardware/blob/master/V1.5/SCH_BBC-Microbit_V1.5.PDF
 
-## Actually lighting it up!
+## 居然亮了！
 
-The code required to light up an LED in the matrix is actually quite simple but it requires a bit of setup. First take
-a look at it and then we can go through it step by step:
+点亮矩阵中的LED所需的代码实际上非常简单，但需要一些设置。首先看一下，然后我们可以一步一步地进行：
 
 ```rust
 #![deny(unsafe_code)]
@@ -52,31 +45,24 @@ fn main() -> ! {
 }
 ```
 
-The first few lines until the main function just do some basic imports and setup we already looked at before.
-However, the main function looks pretty different to what we have seen up to now.
+main函数的前几行只是做一些我们之前已经看过的基本导入和设置。但是，main函数看起来与我们现在看到的完全不同。
 
-The first line is related to how most HALs written in Rust work internally.
-As discussed before they are built on top of PAC crates which own (in the Rust sense)
-all the peripherals of a chip. `let mut board = Board::take().unwrap();` basically takes all
-these peripherals from the PAC and binds them to a variable. In this specific case we are
-not only working with a HAL but with an entire BSP, so this also takes ownership
-of the Rust representation of the other chips on the board.
+第一行与大多数用Rust编写的HAL在内部如何工作有关。如前所述，它们建立在拥有（在Rust意义上）芯片的所有外围设备的PAC Crate之上。 
+`let mut board = Board::take().unwrap();`基本上从PAC中获取所有这些外围设备并将它们绑定到一个变量。
+在这种特定情况下，我们不仅使用HAL，而且使用整个BSP，因此这也获得了板上其他芯片的 Rust 表示的所有权。
 
-> **NOTE**: If you are wondering why we have to call `unwrap()` here, in theory it is possible for `take()` to be called
-> more than once. This would lead to the peripherals being represented by two separate variables and thus lots of
-> possible confusing behaviour because two variables modify the same resource. In order to avoid this, PACs are
-> implemented in a way that it would panic if you tried to take the peripherals twice.
+> **注意**：如果您想知道为什么我们必须在这里调用`unwrap()`，理论上可以多次调用`take()`这将导致
+> 外围设备由两个单独的变量表示，因此会出现许多可能的混淆行为，因为两个变量修改相同的资源。
+> 为了避免这种情况，PAC的实现方式是， 如果您两次尝试使用外围设备，它会出现panic。
 
-Now we can light the LED connected to `row1`, `col1` up by setting the `row1` pin to high (i.e. switching it on).
-The reason we can leave `col1` set to low is because of how the LED matrix circuit works. Furthermore, `embedded-hal` is
-designed in a way that every operation on hardware can possibly return an error, even just toggling a pin on or off. Since
-that is highly unlikely in our case, we can just `unwrap()` the result.
+现在，我们可以通过将`row1`引脚设置为高（即打开）来点亮连接到`row1`，`col1`的LED。
+我们可以将`col1`设置为低的原因是因为LED矩阵电路的工作方式。此外，`embedded-hal`的设计方式是，硬件
+上的每个操作都可能返回错误，即使只是打开或关闭引脚。因为这在我们的情况下是极不可能的，所以我们可以只`unwrap()`结果。
 
-## Testing it
+## 测试
 
-Testing our little program is quite simple. First put it into `src/main.rs`. Afterwards we simply have to run the
-`cargo embed` command from the last section again, let it flash and just like before. Then open our GDB and connect
-to the GDB stub:
+测试我们的小程序非常简单。先把它放到`src/main.rs`。然后，我们只需再次运行最后一节中的
+`cargo embed`命令，让它像以前一样闪烁。然后打开我们的GDB并连接到GDB stub:
 
 ```
 $ # Your GDB debug command from the last section
@@ -87,5 +73,4 @@ cortex_m_rt::Reset () at /home/nix/.cargo/registry/src/github.com-1ecc6299db9ec8
 (gdb)
 ```
 
-If we now let the program run via the GDB `continue` command, one of the LEDs on the back of the micro:bit should light
-up.
+如果我们现在让程序通过GDB`continue`命令运行，micro:bit背面的LED之一应该会亮起。
