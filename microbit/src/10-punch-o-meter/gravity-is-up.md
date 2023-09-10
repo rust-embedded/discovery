@@ -1,28 +1,20 @@
-# Gravity is up?
+# 重力上升了?
 
-What's the first thing we'll do?
+我们要做的第一件事是什么？
 
-Perform a sanity check!
+进行健全性检查！
 
-You should already be able to write a program that continuously prints the accelerometer
-data on the RTT console from the [I2C chapter](../08-i2c/index.md). Do you observe something
-interesting even when holding the board parallel to the floor with the LED side facing down?
+您应该已经能够编写一个程序，在[I2C章节](../08-i2c/index.md)中的RTT控制台上连续打印加速度计数据。
+即使将电路板与地板平行且LED面朝下，您是否观察到一些有趣的事情？
 
-What you should see like this is that both the X and Y values are rather close to 0, while the
-Z value is at around 1000. Which is weird because the board is not moving yet its acceleration is
-non-zero. What's going on? This must be related to the gravity, right? Because the acceleration of
-gravity is `1 g` (aha, `1 g` = 1000 from the accelerometer). But the gravity pulls objects downwards
-so the acceleration along the Z axis should be negative not positive
+你应该看到这样的情况，X和Y值都非常接近于0，而Z值大约为1000。这很奇怪，因为电路板没有移动，但其加速度不是零。
+发生什么事？这一定与重力有关，对吧？ 因为重力加速度是`1 g` (加速度计上的`1 g` = 1000)。
+但是重力会向下拉动物体，因此沿Z轴的加速度应该是负的而不是正的。
 
-Did the program get the Z axis backwards? Nope, you can test rotating the board to align the gravity
-to the X or Y axis but the acceleration measured by the accelerometer is always pointing up.
+程序是否使Z轴向后？不，您可以测试旋转板以将重力与X轴或Y轴对齐，但加速度计测量的加速度始终指向上。
 
-What happens here is that the accelerometer is measuring the *proper acceleration* of the board not
-the acceleration *you* are observing. This proper acceleration is the acceleration of the board as
-seen from an observer that's in free fall. An observer that's in free fall is moving toward the
-center of the Earth with an acceleration of `1g`; from its point of view the board is actually
-moving upwards (away from the center of the Earth) with an acceleration of `1g`. And that's why the
-proper acceleration is pointing up. This also means that if the board was in free fall, the
-accelerometer would report a proper acceleration of zero. Please, don't try that at home.
+这里发生的是加速度计正在测量电路板的*适当加速度* ，而不是您正在观察的加速度。这个适当的加速度是从自由落体的观察者看到的板的加速度。
+自由落体的观察者以`1g`的加速度向地心移动；从它的角度来看，电路板实际上以`1g`的加速度向上移动（远离地球中心）。
+这就是为什么适当的加速度指向上。这也意味着，如果板处于自由下落状态，加速度计将报告正确的零加速度。请不要在家里尝试。
 
-Yes, physics is hard. Let's move on.
+是的，物理很难。让我们继续。
