@@ -1,32 +1,27 @@
-# Power
+# 功率
 
-Turns out that, to save power, most peripherals start in a powered off state -- that's their state
-right after the microcontroller boots.
+事实证明，为了节省电力，大多数外围设备都是在断电状态下启动的——这是微控制器启动后的状态。
 
-The Reset and Clock Control (`RCC`) peripheral can be used to power on or off every other
-peripheral.
+重置并时钟控制 (`RCC`) 外设可用于打开或关闭其他外设。
 
-You can find the list of registers in the `RCC` register block in:
+您可以在以下位置找到`RCC`寄存器块中的寄存器列表：
 
-> Section 9.4.14 - RCC register map - Page 166 - Reference Manual
+> 第9.4.14节-RCC寄存器图-第166页-参考手册
 
-The registers that control the power status of other peripherals are:
+控制其他外围设备电源状态的寄存器有：
 
 - `AHBENR`
 - `APB1ENR`
 - `APB2ENR`
 
-Each bit in these registers controls the power status of a single peripheral, including `GPIOE`.
+这些寄存器中的每个位控制单个外设的电源状态，包括`GPIOE`。
 
-Your task in this section is to power on the `GPIOE` peripheral. You'll have to:
+本节中的任务是打开`GPIOE`外围设备。您必须：
 
-- Figure out which of the three registers I mentioned before has the bit that controls the power
-  status.
-- Figure out what value that bit must be set to,`0` or `1`, to power on the `GPIOE` peripheral.
-- Finally, you'll have to change the starter code to *modify* the right register to turn on the
-  `GPIOE` peripheral.
+- 找出我之前提到的三个寄存器中哪一个具有控制电源状态的位。
+- 找出该位必须设置为`0`或`1`的值，以便为`GPIOE`外围设备供电。
+- 最后，您必须*更改*启动程序代码以修改正确的寄存器以打开`GPIOE`外围设备。
 
-If you are successful, you'll see that the `gpioe.odr.write` statement will now be able to modify
-the value of the `ODR` register.
+如果成功，您将看到`gpioe.odr.write`语句现在可以修改`ODR`寄存器的值。
 
-Note that this won't be enough to actually turn on the LEDs.
+请注意，这不足以实际打开LED。
