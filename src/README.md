@@ -1,36 +1,27 @@
 # `Discovery`
 
-Discover the world of microcontrollers through [Rust](https://www.rust-lang.org/)!
+通过[Rust](https://www.rust-lang.org/)了解单片机的世界!
 
-There are currently two versions of this book. The first is older and uses an
-F3 Discovery circuit board to introduce you to microcontrollers and Rust, while
-the second is newer and uses a micro:bit circuit board instead.
+这本书目前有两个版本。它们都提供了单片机介绍以及如何使用Rust。第一个版本较旧，使用F3发现电路板，而第二种是较新的，使用micro:bit电路板。
 
-- [Read the newer book, using a micro:bit](https://docs.rust-embedded.org/discovery/microbit)
-- [Read the older book, using an F3 discovery board](https://docs.rust-embedded.org/discovery/f3discovery)
-- Start working on the examples from this repository
-- You've got questions?
-    - Have a look at our [discussions section on
-      GitHub](https://github.com/rust-embedded/discovery/discussions)
-    - Maybe it has already been answered
-    - If not, start a new discussion
-- You've found an issue?
-    - Have a look at our [issues on
-      GitHub](https://github.com/rust-embedded/discovery/issues)
-    - Maybe there is already a workaround
-    - If not, please open a new one - or even better - a [pull
-      request](https://github.com/rust-embedded/discovery/pulls) for solving
-      it
-- Have fun and enjoy!
+- [使用micro:bit，阅读较新版本的书](https://jzow.github.io/discovery/microbit)
+- [使用F3电路板阅读旧版本的书](https://jzow.github.io/discovery/f3discovery)
+- 开始处理此存储库中的示例
+- 你有问题吗？
+    - 看看我们的[discussions section on GitHub](https://github.com/rust-embedded/discovery/discussions)
+    - 也许它已经被回答了
+    - 如果没有，开始新的讨论
+- 你发现了问题？
+    - 看看我们的[issues on GitHub](https://github.com/rust-embedded/discovery/issues)
+    - 也许已经有了一个解决办法
+    - 如果没有，请打开一个新的或者更好[pull request](https://github.com/rust-embedded/discovery/pulls)来解决它
+- 玩得开心!
 
-## Translations
+## 翻译
 
-This book has been translated by generous volunteers. If you would like your
-translation listed here, please open a PR to add it.
+这本书是由志愿者翻译的。如果你愿意翻译此书，请打开PR添加。
 
 * [Japanese](https://tomoyuki-nakabayashi.github.io/discovery/)
   ([repository](https://github.com/tomoyuki-nakabayashi/discovery))
 * [Chinese](https://jzow.github.io/discovery/)
   ([repository](https://github.com/jzow/discovery))
-* [Portuguese (Brazilian)](https://allynaell.github.io/discovery/)
-  ([repository](https://github.com/allynaell/discovery))
