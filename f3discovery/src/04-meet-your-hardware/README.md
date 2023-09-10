@@ -1,111 +1,83 @@
-# Meet your hardware
+# 满足您的硬件
 
-Let's get familiar with the hardware we'll be working with.
+让我们熟悉一下将要使用的硬件。
 
 ## STM32F3DISCOVERY (the "F3")
 
-<p align="center">
+<p>
 <img title="F3" src="../assets/f3.jpg">
 </p>
 
-We'll refer to this board as "F3" throughout this book. Here are some of the
-many components on the board:
+在本书中，我们将此板称为"F3"。以下是电路板上的一些组件：
 
-- A [microcontroller].
-- A number of LEDs, including the eight aligned in a "compass" formation.
-- Two buttons.
-- Two USB ports.
-- An [accelerometer].
-- A [magnetometer].
-- A [gyroscope].
+- 一个[微控制器]。
+- 许多LED，包括排列成"指南针"的八个LED。
+- 两个按钮。
+- 两个USB端口。
+- 一个[加速计]。
+- 一个[磁力计]。
+- 一个[陀螺仪]。
 
-[microcontroller]: https://en.wikipedia.org/wiki/Microcontroller
-[accelerometer]: https://en.wikipedia.org/wiki/Accelerometer
-[magnetometer]: https://en.wikipedia.org/wiki/Magnetometer
-[gyroscope]: https://en.wikipedia.org/wiki/Gyroscope
+[微控制器]: https://en.wikipedia.org/wiki/Microcontroller
+[加速计]: https://en.wikipedia.org/wiki/Accelerometer
+[磁力计]: https://en.wikipedia.org/wiki/Magnetometer
+[陀螺仪]: https://en.wikipedia.org/wiki/Gyroscope
 
-Of these components, the most important is the microcontroller (sometimes
-shortened to "MCU" for "microcontroller unit"), which is the large black square
-sitting in the center of your board. The MCU is what runs your code. You might
-sometimes read about "programming a board", when in reality what we are doing
-is programming the MCU that is installed on the board.
+在这些组件中，最重要的是微控制器(有时简称为"MCU" 或 "microcontroller unit")，它是位于板中央的黑色大正方形。
+MCU是运行代码的工具。有时你可能会读到"编程开发板"，而实际上我们所做的是对安装在板上的MCU进行编程。
 
-## STM32F303VCT6 (the "STM32F3")
+## STM32F303VCT6 ("STM32F3")
 
-Since the MCU is so important, let's take a closer look at the one sitting on our board.
+既然MCU如此重要，让我们仔细看看我们开发板上的那个。
 
-Our MCU is surrounded by 100 tiny metal **pins**. These pins are connected to
-**traces**, the little "roads" that act as the wires connecting components
-together on the board. The MCU can dynamically alter the electrical properties
-of the pins. This works similar to a light switch altering how electrical
-current flows through a circuit. By enabling or disabling electrical current to
-flow through a specific pin, an LED attached to that pin (via the traces) can
-be turned on and off.
+我们的MCU周围有100个微型金属**引脚**。这些引脚连接到**迹线**上，这些迹线是将"电路"板上的组件连接在
+一起的电线。MCU可以动态地改变引脚的电特性。这类似于光开关改变电流流过电路的方式。 通过启用或
+禁用流经特定引脚的电流，连接到该引脚的LED（通过迹线）可以打开和关闭。
 
-Each manufacturer uses a different part numbering scheme, but many will allow
-you to determine information about a component simply by looking at the part
-number. Looking at our MCU's part number (`STM32F303VCT6`), the `ST` at the
-front hints to us that this is a part manufactured by [ST Microelectronics].
-Searching through [ST's marketing materials] we can also learn the following:
+每个制造商使用不同的零件编号方案，但许多制造商允许您通过查看零件编号来确定有关零部件的信息。
+查看MCU的部件号(`STM32F303VCT6`)，前面的`ST`提示我们这是[ST Microelectronics]制造的部件。
+通过搜索[ST's 营销材料]，我们还可以了解以下内容：
 
 [ST Microelectronics]: https://st.com/
-[ST's marketing materials]: https://www.st.com/en/microcontrollers-microprocessors/stm32-mainstream-mcus.html
+[ST's 营销材料]: https://www.st.com/en/microcontrollers-microprocessors/stm32-mainstream-mcus.html
 
-- The `M32` represents that this is an Arm®-based 32-bit microcontroller.
-- The `F3` represents that the MCU is from ST's "STM32F3" series. This is a
-  series of MCUs based on the Cortex®-M4 processor design.
-- The remainder of the part number goes into more details about things like
-  extra features and RAM size, which at this point we're less concerned about.
+- `M32`代表这是一个基于 Arm®-based 32位微控制器。
+- `F3`表示MCU来自ST's "STM32F3"系列。这是一系列基于Cortex®-M4 处理器设计的MCU。
+- 零件号的其余部分将涉及更多细节，如额外功能和RAM大小，而这一点我们不太关心。
 
 > ### Arm? Cortex-M4?
 >
-> If our chip is manufactured by ST, then who is Arm? And if our chip is the
-> STM32F3, what is the Cortex-M4?
+> 如果我们的芯片由ST制造，那么Arm是谁？如果我们的芯片是STM32F3，什么是Cortex-M4？
 >
-> You might be surprised to hear that while "Arm-based" chips are quite
-> popular, the company behind the "Arm" trademark ([Arm Holdings][]) doesn't
-> actually manufacture chips for purchase. Instead, their primary business
-> model is to just *design* parts of chips. They will then license those designs to
-> manufacturers, who will in turn implement the designs (perhaps with some of
-> their own tweaks) in the form of physical hardware that can then be sold.
-> Arm's strategy here is different from companies like Intel, which both
-> designs *and* manufactures their chips.
+> Y你可能会惊讶地听到，虽然"基于Arm"的芯片非常流行，但"Arm"商标背后的公司([Arm Holdings])实际上并没有生产用于购买的芯片。
+> 相反，他们的主要商业模式只是*设计*芯片的一部分。然后，他们会将这些设计许可给制造商，然后制造商会以物理硬件的
+> 形式实施这些设计（可能会有一些自己的调整），然后可以销售。Arm's在这方面的策略不同于Intel这样的公司，后者同时设计
+> *并*制造自己的芯片。
 >
-> Arm licenses a bunch of different designs. Their "Cortex-M" family of designs
-> are mainly used as the core in microcontrollers. For example, the Cortex-M0
-> is designed for low cost and low power usage. The Cortex-M7 is higher cost,
-> but with more features and performance. The core of our STM32F3 is based on
-> the Cortex-M4, which is in the middle: more features and performance than the
-> Cortex-M0, but less expensive than the Cortex-M7.
+> Arm许可了一系列不同的设计。他们的"Cortex-M"系列设计主要用作微控制器的核心。例如，Cortex-M0设计用于低成本和低功耗。
+> Cortex-M7的成本更高，但具有更多功能和性能。我们STM32F3的核心是基于Cortex-M4，它位于中间：
+> 比Cortex-M0具有更多的功能和性能，但比Cortex-M7便宜。
 >
-> Luckily, you don't need to know too much about different types of processors
-> or Cortex designs for the sake of this book. However, you are hopefully now a
-> bit more knowledgeable about the terminology of your device. While you are
-> working specifically with an STM32F3, you might find yourself reading
-> documentation and using tools for Cortex-M-based chips, as the STM32F3 is
-> based on a Cortex-M design.
+> 幸运的是，为了这本书，你不需要太了解不同类型的处理器或Cortex设计。然而，希望您现在对设备的术语有更多的了解。
+> 当您专门使用STM32F3时，您可能会发现自己正在阅读文档并使用基于Cortex-M的芯片的工具，因为STM32F3基于Cortex-M设计。
 
 [Arm Holdings]: https://www.arm.com/
 
-## The Serial module
+## 串行模块
 
-<p align="center">
+<p>
 <img title="Serial module" src="../assets/serial.jpg">
 </p>
 
-If you have an older revision of the discovery board, you can use this module to
-exchange data between the microcontroller in the F3 and your computer. This module
-will be connected to your computer using an USB cable. I won't say more at this
-point.
+如果您有较旧版本的发现板，您可以使用此模块在F3中的微控制器与计算机之间交换数据。此模块将使用USB电缆连接到您的计算机。
+在这一点上，我不再多说了。
 
-If you have a newer release of the board then you don't need this module. The
-ST-LINK will double as a USB<->serial converter connected to the microcontroller USART1 at pins PC4 and PC5.
+如果您有较新版本的主板，则不需要此模块。ST-LINK将作为USB<->串行转换器，在引脚PC4和PC5处连接到微控制器USART1。
 
-## The Bluetooth module
+## 蓝牙模块
 
-<p align="center">
+<p>
 <img title="The HC-05 Bluetooth module" src="../assets/bluetooth.jpg">
 </p>
 
-This module has the exact same purpose as the serial module but it sends the data over Bluetooth
-instead of over USB.
+该模块的用途与串行模块完全相同，但它通过蓝牙发送数据而不是通过USB。
