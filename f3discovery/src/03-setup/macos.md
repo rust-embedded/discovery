@@ -10,7 +10,7 @@ brew tap ArmMbed/homebrew-formulae
 ```
 安装 ARM GCC 工具链
 ``` console
-brew install arm-none-eabi-gcc
+brew install arm-none-eabi-gdb
 ```
 安装 minicom 和 OpenOCD
 ``` console
