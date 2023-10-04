@@ -5,9 +5,8 @@
 [Homebrew]: http://brew.sh/
 
 ``` console
-$ # Arm GCC toolchain
-$ brew tap ArmMbed/homebrew-formulae
-$ brew install arm-none-eabi-gcc
+$ # ARM GCC debugger
+$ brew install arm-none-eabi-gdb
 
 $ # Minicom
 $ brew install minicom
