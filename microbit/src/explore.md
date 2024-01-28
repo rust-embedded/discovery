@@ -21,14 +21,15 @@ strategies, and when they make sense (or don't make sense) to use.
 
 ### Multitasking
 
-All our programs executed a single task. How could we achieve multitasking in a
-system with no OS, and thus no threads. There are two main approaches to
+Most of our programs executed a single task. How could we achieve multitasking in a
+system with no OS, and thus no threads? There are two main approaches to
 multitasking: preemptive multitasking and cooperative multitasking.
 
 In preemptive multitasking a task that's currently being executed can, at any point in time, be
 *preempted* (interrupted) by another task. On preemption, the first task will be suspended and the
 processor will instead execute the second task. At some point the first task will be resumed.
-Microcontrollers provide hardware support for preemption in the form of *interrupts*.
+Microcontrollers provide hardware support for preemption in the form of *interrupts*. We were introduced
+to interrupts when we built our snake game in chapter 11.
 
 In cooperative multitasking a task that's being executed will run until it reaches a *suspension
 point*. When the processor reaches that suspension point it will stop executing the current task and
@@ -115,10 +116,10 @@ again find implementations of this in the [`nrf52-hal`].
 
 ### Digital inputs
 
-We have used the microcontroller pins as digital outputs, to drive LEDs. But
-these pins can also be configured as digital inputs. As digital inputs, these
-pins can read the binary state of switches (on/off) or buttons (pressed/not
-pressed).
+We have used the microcontroller pins as digital outputs, to drive LEDs. When
+building our snake game, we also caught a glimpse of how these pins can be
+configured as digital inputs. As digital inputs, these pins can read the binary
+state of switches (on/off) or buttons (pressed/not pressed).
 
 Again digital inputs are abstracted within the [`embedded-hal` `InputPin` trait]
 and of course the [`nrf52-hal`] does have an implementation for them.

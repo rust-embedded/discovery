@@ -47,6 +47,10 @@
     - [Gravity is up?](10-punch-o-meter/gravity-is-up.md)
     - [The challenge](10-punch-o-meter/the-challenge.md)
     - [My solution](10-punch-o-meter/my-solution.md)
+- [Snake game](11-snake-game/README.md)
+    - [Game logic](11-snake-game/game-logic.md)
+    - [Controls](11-snake-game/controls.md)
+    - [Non-blocking display](11-snake-game/nonblocking-display.md)
 - [What's left for you to explore](explore.md)
 
 ---
