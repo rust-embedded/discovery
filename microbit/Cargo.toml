@@ -6,6 +6,7 @@ members = [
   "src/08-i2c",
   "src/09-led-compass",
   "src/10-punch-o-meter",
+  "src/11-snake-game",
 ]
 
 [profile.release]

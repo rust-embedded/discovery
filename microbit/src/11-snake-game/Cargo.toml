@@ -1,0 +1,30 @@
+[package]
+name = "snake-game"
+version = "0.1.0"
+authors = ["Alan Bunbury <dev@bunburya.eu>"]
+edition = "2018"
+
+[dependencies.microbit-v2]
+version = "0.13.0"
+optional = true
+
+# NOTE: We define a dependency for v1 here so that CI checks pass, and to facilitate future porting of the snake game
+# to the micro:bit v1. However, the code has not been written for, or tested on, the v1 and may not work.
+[dependencies.microbit]
+version = "0.13.0"
+optional = true
+
+[dependencies]
+cortex-m = "0.7.3"
+cortex-m-rt = "0.7.0"
+rtt-target = { version = "0.3.1", features = ["cortex-m"] }
+panic-rtt-target = { version = "0.1.2", features = ["cortex-m"] }
+lsm303agr = "0.2.2"
+nb = "1.0.0"
+libm = "0.2.1"
+heapless = "0.8.0"
+tiny-led-matrix = "1.0.1"
+
+[features]
+v2 = ["microbit-v2"]
+v1 = ["microbit"]
