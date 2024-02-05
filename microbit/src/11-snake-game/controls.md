@@ -25,7 +25,9 @@ static GPIO: Mutex<RefCell<Option<Gpiote>>> = Mutex::new(RefCell::new(None));
 static TURN: Mutex<RefCell<Turn>> = Mutex::new(RefCell::new(Turn::None));
 ```
 
-The data is wrapped in a `RefCell` to permit interior mutability and a `cortex_m::interrupt::Mutex` to allow safe access.
+The data is wrapped in a `RefCell` to permit interior mutability. You can learn more about `RefCell` by reading
+[its documentation](https://doc.rust-lang.org/std/cell/struct.RefCell.html) and the relevant chapter of [the Rust Book](https://doc.rust-lang.org/book/ch15-05-interior-mutability.html).
+The `RefCell` is, in turn, wrapped in a `cortex_m::interrupt::Mutex` to allow safe access.
 The Mutex provided by the `cortex_m` crate uses the concept of a [critical section](https://en.wikipedia.org/wiki/Critical_section).
 Data in a Mutex can only be accessed from within a function or closure passed to `cortex_m::interrupt:free`, which
 ensures that the code in the function or closure cannot itself be interrupted.
