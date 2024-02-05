@@ -176,8 +176,8 @@ fn main() -> ! {
     loop {  // Main loop
         loop {  // Game loop
             let image = game.game_matrix(9, 9, 9);
-            // The brightness values are meaningless at the moment as we haven't yet implemented a display capable of
-            // displaying different brightnesses
+            // The brightness values are meaningless at the moment as we haven't yet
+            // implemented a display capable of displaying different brightnesses
             display.show(&mut timer, image, game.step_len_ms());
             match game.status {
                 GameStatus::Ongoing => game.step(get_turn(true)),

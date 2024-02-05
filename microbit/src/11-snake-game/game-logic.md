@@ -18,15 +18,15 @@ use heapless::FnvIndexSet;
 /// A single point on the grid.
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
 struct Coords {
-   // Signed ints to allow negative values (handy when checking if we have gone off the top or left
-   // of the grid)
+   // Signed ints to allow negative values (handy when checking if we have gone
+   // off the top or left of the grid)
    row: i8,
    col: i8
 }
 
 impl Coords {
-   /// Get random coordinates within a grid. `exclude` is an optional set of coordinates which
-   /// should be excluded from the output.
+   /// Get random coordinates within a grid. `exclude` is an optional set of
+   /// coordinates which should be excluded from the output.
    fn random(
       rng: &mut Prng,  // We define the Prng struct below
       exclude: Option<&FnvIndexSet<Coords, 32>>
@@ -144,10 +144,11 @@ use heapless::spsc::Queue;
 struct Snake {
     /// Coordinates of the snake's head.
     head: Coords,
-    /// Queue of coordinates of the rest of the snake's body. The end of the tail is at the front.
+    /// Queue of coordinates of the rest of the snake's body. The end of the tail is
+    /// at the front.
     tail: Queue<Coords, 32>,
-    /// A set containing all coordinates currently occupied by the snake (for fast collision
-    /// checking).
+    /// A set containing all coordinates currently occupied by the snake (for fast
+    /// collision checking).
     coord_set: FnvIndexSet<Coords, 32>,
     /// The direction the snake is currently moving in.
     direction: Direction
@@ -170,8 +171,8 @@ impl Snake {
         }
     }
 
-    /// Move the snake onto the tile at the given coordinates. If `extend` is false, the snake's tail vacates
-    /// the rearmost tile.
+    /// Move the snake onto the tile at the given coordinates. If `extend` is false,
+    /// the snake's tail vacates the rearmost tile.
     fn move_snake(&mut self, coords: Coords, extend: bool) {
         // Location of head becomes front of tail
         self.tail.enqueue(self.head).unwrap();
@@ -264,9 +265,9 @@ impl Game {
         coords
     }
 
-    /// "Wrap around" out of bounds coordinates (eg, coordinates that are off to the left of the
-    /// grid will appear in the rightmost column). Assumes that coordinates are out of bounds in one
-    /// dimension only.
+    /// "Wrap around" out of bounds coordinates (eg, coordinates that are off to the
+    /// left of the grid will appear in the rightmost column). Assumes that
+    /// coordinates are out of bounds in one dimension only.
     fn wraparound(&self, coords: Coords) -> Coords {
         if coords.row < 0 {
             Coords { row: 4, ..coords }
@@ -279,7 +280,8 @@ impl Game {
         }
     }
 
-    /// Determine the next tile that the snake will move on to (without actually moving the snake).
+    /// Determine the next tile that the snake will move on to (without actually
+    /// moving the snake).
     fn get_next_move(&self) -> Coords {
         let head = &self.snake.head;
         let next_move = match self.snake.direction {
@@ -295,13 +297,14 @@ impl Game {
         }
     }
 
-    /// Assess the snake's next move and return the outcome. Doesn't actually update the game state.
+    /// Assess the snake's next move and return the outcome. Doesn't actually update
+    /// the game state.
     fn get_step_outcome(&self) -> StepOutcome {
         let next_move = self.get_next_move();
         if self.snake.coord_set.contains(&next_move) {
-            // We haven't moved the snake yet, so if the next move is at the end of the tail, there
-            // won't actually be any collision (as the tail will have moved by the time the head
-            // moves onto the tile)
+            // We haven't moved the snake yet, so if the next move is at the end of
+            // the tail, there won't actually be any collision (as the tail will have
+            // moved by the time the head moves onto the tile)
             if next_move != *self.snake.tail.peek().unwrap() {
                 StepOutcome::Collision(next_move)
             } else {
@@ -345,9 +348,9 @@ impl Game {
         self.handle_step_outcome(outcome);
     }
 
-    /// Calculate the length of time to wait between game steps, in milliseconds. Generally this
-    /// will get lower as the player's score increases, but need to be careful it cannot result in a
-    /// value below zero.
+    /// Calculate the length of time to wait between game steps, in milliseconds.
+    /// Generally this will get lower as the player's score increases, but need to
+    /// be careful it cannot result in a value below zero.
     pub(crate) fn step_len_ms(&self) -> u32 {
         let result = 1000 - (200 * ((self.speed as i32) - 1));
         if result < 200 {
@@ -357,8 +360,9 @@ impl Game {
         }
     }
 
-    /// Return an array representing the game state, which can be used to display the state on the
-    /// microbit's LED matrix. Each `_brightness` parameter should be a value between 0 and 9.
+    /// Return an array representing the game state, which can be used to display the
+    /// state on the microbit's LED matrix. Each `_brightness` parameter should be a
+    /// value between 0 and 9.
     pub(crate) fn game_matrix(
         &self,
         head_brightness: u8,
@@ -374,9 +378,9 @@ impl Game {
         values
     }
 
-    /// Return an array representing the game score, which can be used to display the score on the
-    /// microbit's LED matrix (by illuminating the equivalent number of LEDs, going left->right and
-    /// top->bottom).
+    /// Return an array representing the game score, which can be used to display the
+    /// score on the microbit's LED matrix (by illuminating the equivalent number of
+    /// LEDs, going left->right and top->bottom).
     pub(crate) fn score_matrix(&self) -> [[u8; 5]; 5] {
         let mut values = [[0u8; 5]; 5];
         let full_rows = (self.score as usize) / 5;
@@ -423,11 +427,13 @@ fn main() -> ! {
    loop {
       loop {  // Game loop
          let image = game.game_matrix(9, 9, 9);
-         // The brightness values are meaningless at the moment as we haven't yet implemented a display capable of
-         // displaying different brightnesses
+         // The brightness values are meaningless at the moment as we haven't yet
+         // implemented a display capable of displaying different brightnesses
          display.show(&mut timer, image, game.step_len_ms());
          match game.status {
-            GameStatus::Ongoing => game.step(Turn::None), // Placeholder as we haven't implemented controls yet
+            GameStatus::Ongoing => game.step(Turn::None), // Placeholder as we
+                                                          // haven't implemented
+                                                          // controls yet
             _ => {
                for _ in 0..3 {
                   display.clear();
