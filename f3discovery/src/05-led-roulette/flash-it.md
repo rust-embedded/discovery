@@ -89,20 +89,20 @@ First, we need to determine what version of `gdb` you have that is capable of de
 
 This could be any one of the commands below, try each one:
 ``` console
-arm-none-eabi-gdb -q -ex "target remote :3333" target/thumbv7em-none-eabihf/debug/led-roulette
+arm-none-eabi-gdb -q -ex "target remote :3333" target/thumbv7em-none-eabi/debug/led-roulette
 ```
 ``` console
-gdb-multiarch -q -ex "target remote :3333" target/thumbv7em-none-eabihf/debug/led-roulette
+gdb-multiarch -q -ex "target remote :3333" target/thumbv7em-none-eabi/debug/led-roulette
 ```
 ``` console
-gdb -q -ex "target remote :3333" target/thumbv7em-none-eabihf/debug/led-roulette
+gdb -q -ex "target remote :3333" target/thumbv7em-none-eabi/debug/led-roulette
 ```
 
-> **NOTE**: If you are getting `target/thumbv7em-none-eabihf/debug/led-roulette: No such file or directory`
+> **NOTE**: If you are getting `target/thumbv7em-none-eabi/debug/led-roulette: No such file or directory`
 > error, try adding `../../` to the file path, for example:
 >
 > ```shell
-> $ gdb -q -ex "target remote :3333" ../../target/thumbv7em-none-eabihf/debug/led-roulette
+> $ gdb -q -ex "target remote :3333" ../../target/thumbv7em-none-eabi/debug/led-roulette
 > ```
 >
 > This is caused by each example project being in a `workspace` that contains the entire book, and workspaces have
@@ -112,8 +112,8 @@ gdb -q -ex "target remote :3333" target/thumbv7em-none-eabihf/debug/led-roulette
 
 You can detect a failing case if there is a `warning` or `error` after the `Remote debugging using :3333` line:
 ```
-$ gdb -q -ex "target remote :3333" target/thumbv7em-none-eabihf/debug/led-roulette
-Reading symbols from target/thumbv7em-none-eabihf/debug/led-roulette...
+$ gdb -q -ex "target remote :3333" target/thumbv7em-none-eabi/debug/led-roulette
+Reading symbols from target/thumbv7em-none-eabi/debug/led-roulette...
 Remote debugging using :3333
 warning: Architecture rejected target-supplied description
 Truncated register 16 in remote 'g' packet
@@ -122,8 +122,8 @@ Truncated register 16 in remote 'g' packet
 ### **Successful case**
 Successful case 1:
 ```
-$ arm-none-eabi-gdb -q -ex "target remote :3333" target/thumbv7em-none-eabihf/debug/led-roulette
-Reading symbols from target/thumbv7em-none-eabihf/debug/led-roulette...
+$ arm-none-eabi-gdb -q -ex "target remote :3333" target/thumbv7em-none-eabi/debug/led-roulette
+Reading symbols from target/thumbv7em-none-eabi/debug/led-roulette...
 Remote debugging using :3333
 cortex_m_rt::Reset () at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-rt-0.6.13/src/lib.rs:497
 497     pub unsafe extern "C" fn Reset() -> ! {
@@ -132,8 +132,8 @@ cortex_m_rt::Reset () at ~/.cargo/registry/src/github.com-1ecc6299db9ec823/corte
 Successful case 2:
 ```
 ~/embedded-discovery/src/05-led-roulette (master)
-$ arm-none-eabi-gdb -q -ex "target remote :3333" target/thumbv7em-none-eabihf/debug/led-roulette
-Reading symbols from target/thumbv7em-none-eabihf/debug/led-roulette...
+$ arm-none-eabi-gdb -q -ex "target remote :3333" target/thumbv7em-none-eabi/debug/led-roulette
+Reading symbols from target/thumbv7em-none-eabi/debug/led-roulette...
 Remote debugging using :3333
 0x00000000 in ?? ()
 (gdb)
@@ -167,7 +167,7 @@ $ cat ../.cargo/config.toml
 # running, e.g.,
 ## openocd -f interface/stlink.cfg -f target/stm32f3x.cfg
 # depending on your local GDB, pick one of the following
-[target.thumbv7em-none-eabihf]
+[target.thumbv7em-none-eabi]
 runner = "arm-none-eabi-gdb -q -x ../openocd.gdb"
 # runner = "gdb-multiarch -q -x ../openocd.gdb"
 # runner = "gdb -q -x ../openocd.gdb"
@@ -176,7 +176,7 @@ rustflags = [
 ]
 
 [build]
-target = "thumbv7em-none-eabihf"
+target = "thumbv7em-none-eabi"
 
 ```
 Use your favorite editor to edit `../.cargo/config.toml` so that the
@@ -195,7 +195,7 @@ index 2f38f6b..95860a0 100644
 @@ -3,8 +3,8 @@
  ## openocd -f interface/stlink.cfg -f target/stm32f3x.cfg
  # depending on your local GDB, pick one of the following
- [target.thumbv7em-none-eabihf]
+ [target.thumbv7em-none-eabi]
 -runner = "arm-none-eabi-gdb -q -x ../openocd.gdb"
 -# runner = "gdb-multiarch -q -x ../openocd.gdb"
 +# runner = "arm-none-eabi-gdb -q -x ../openocd.gdb"
@@ -208,22 +208,22 @@ index 2f38f6b..95860a0 100644
 Now that you have `../.cargo/config.toml` setup let's test it using `cargo run` to
 start the debug session.
 
-> **NOTE** The `--target thumbv7em-none-eabihf` defines which architecture
+> **NOTE** The `--target thumbv7em-none-eabi` defines which architecture
 > to build and run. In our `../.cargo/config.toml` file we have
-> `target = "thumbv7em-none-eabihf"` so it is actually not necessary
+> `target = "thumbv7em-none-eabi"` so it is actually not necessary
 > to specify `--target` we do it here just so you know that parameters on
 > the command line can be used and they override those in `config.toml` files.
 
 ```
-cargo run --target thumbv7em-none-eabihf
+cargo run --target thumbv7em-none-eabi
 ```
 Results in:
 ```
 ~/embedded-discovery/src/05-led-roulette
-$ cargo run --target thumbv7em-none-eabihf
+$ cargo run --target thumbv7em-none-eabi
     Finished dev [unoptimized + debuginfo] target(s) in 0.14s
-     Running `gdb-multiarch -q -x ../openocd.gdb /home/adam/vc/rust-training/discovery/f3discovery/target/thumbv7em-none-eabihf/debug/led-roulette`
-Reading symbols from /home/adam/vc/rust-training/discovery/f3discovery/target/thumbv7em-none-eabihf/debug/led-roulette...
+     Running `gdb-multiarch -q -x ../openocd.gdb /home/adam/vc/rust-training/discovery/f3discovery/target/thumbv7em-none-eabi/debug/led-roulette`
+Reading symbols from /home/adam/vc/rust-training/discovery/f3discovery/target/thumbv7em-none-eabi/debug/led-roulette...
 0x08000230 in core::fmt::Arguments::new_v1 (pieces=..., args=...)
     at /rustc/d5a82bbd26e1ad8b7401f6a718a9c57c96905483/library/core/src/fmt/mod.rs:394
 394	/rustc/d5a82bbd26e1ad8b7401f6a718a9c57c96905483/library/core/src/fmt/mod.rs: No such file or directory.

@@ -14,12 +14,12 @@ families within that architecture:
 - `thumbv7em-none-eabi`, for the Cortex-M4 and Cortex-M7 processors
 - `thumbv7em-none-eabihf`, for the Cortex-M4**F** and Cortex-M7**F** processors
 
-For the F3, we'll use the `thumbv7em-none-eabihf` target. Before cross compiling you have to
+For the F3, we'll use the `thumbv7em-none-eabi` target. Before cross compiling you have to
 download a pre-compiled version of the standard library (a reduced version of it actually) for your
 target. That's done using `rustup`:
 
 ``` console
-rustup target add thumbv7em-none-eabihf
+rustup target add thumbv7em-none-eabi
 ```
 
 You only need to do the above step once; `rustup` will re-install a new standard library
@@ -30,11 +30,11 @@ With the `rust-std` component in place you can now cross compile the program usi
 > **NOTE** Make sure you are in the `src/05-led-roulette` directory
 > and run `cargo build` command below to create the executable:
 ``` console
-cargo build --target thumbv7em-none-eabihf
+cargo build --target thumbv7em-none-eabi
 ```
 On your console you should see something like:
 ``` console
-$ cargo build --target thumbv7em-none-eabihf
+$ cargo build --target thumbv7em-none-eabi
    Compiling typenum v1.12.0
    Compiling semver-parser v0.7.0
    Compiling version_check v0.9.2
@@ -93,13 +93,13 @@ $ cargo build --target thumbv7em-none-eabihf
 OK, now we have produced an executable. This executable won't blink any LEDs, it's just a simplified version that we will build upon later in the chapter. As a sanity check, let's verify that the produced executable is actually an ARM binary:
 
 ``` console
-cargo readobj --target thumbv7em-none-eabihf --bin led-roulette -- --file-header
+cargo readobj --target thumbv7em-none-eabi --bin led-roulette -- --file-header
 ```
 The `cargo readobj ..` above is equivalent to
-`readelf -h target/thumbv7em-none-eabihf/debug/led-roulette`
+`readelf -h target/thumbv7em-none-eabi/debug/led-roulette`
 and should produce something similar to:
 ``` console
-$ cargo readobj --target thumbv7em-none-eabihf --bin led-roulette -- --file-header
+$ cargo readobj --target thumbv7em-none-eabi --bin led-roulette -- --file-header
     Finished dev [unoptimized + debuginfo] target(s) in 0.02s
 ELF Header:
   Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00
