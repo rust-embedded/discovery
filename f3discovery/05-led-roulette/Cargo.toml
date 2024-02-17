@@ -1,0 +1,12 @@
+[package]
+authors = [
+    "Jorge Aparicio <jorge@japaric.io>",
+    "Christopher J. McClellan <chris.mcclellan203@gmail.com>",
+    "Wink Saville <wink@saville.com",
+]
+edition = "2018"
+name = "led-roulette"
+version = "0.2.0"
+
+[dependencies]
+aux5 = { path = "auxiliary" }

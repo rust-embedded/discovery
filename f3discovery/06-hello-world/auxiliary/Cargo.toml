@@ -1,0 +1,14 @@
+[package]
+authors = [
+    "Jorge Aparicio <jorge@japaric.io>",
+    "Wink Saville <wink@saville.com",
+]
+edition = "2018"
+name = "aux6"
+version = "0.2.0"
+
+[dependencies]
+cortex-m = "0.6.4"
+cortex-m-rt = "0.6.13"
+stm32f3-discovery = "0.5.0"
+panic-itm = "0.4.2"
