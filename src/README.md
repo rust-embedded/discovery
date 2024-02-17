@@ -32,5 +32,5 @@ translation listed here, please open a PR to add it.
   ([repository](https://github.com/tomoyuki-nakabayashi/discovery))
 * [Chinese](https://jzow.github.io/discovery/)
   ([repository](https://github.com/jzow/discovery))
-* [Portuguese (Brazilian)](https://allynaell.github.io/discovery/)
-  ([repository](https://github.com/allynaell/discovery))
+* [Portuguese (Brazilian)](https://allyssan.github.io/discovery/)
+  ([repository](https://github.com/allyssan/discovery))
