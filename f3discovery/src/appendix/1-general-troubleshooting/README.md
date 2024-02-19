@@ -31,7 +31,7 @@ Linux:
   If that works, you can use [these instructions] to make OpenOCD work without
   root privilege.
 - You might be using the wrong interface configuration for your ST-LINK.
-  Try `interface/stlink-v2.cfg` instead of `interface/stlink-v2-1.cfg`.
+  Try `interface/stlink-v2.cfg` or `interface/stlink-v2-1.cfg` instead of `interface/stlink.cfg`.
 
 [these instructions]: ../../03-setup/linux.md#udev-rules
 
@@ -169,7 +169,7 @@ Solution B
 
 All:
 - Send configuration details to OpenOCD when starting it up so that it uses a different port from the default for any of the processes.
-- For example, to do its telnet features on 4441 instead of the default 4444, you would run `openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg -c "telnet_port 4441"`
+- For example, to do its telnet features on 4441 instead of the default 4444, you would run `openocd -f interface/stlink.cfg -f target/stm32f3x.cfg -c "telnet_port 4441"`
 - More details on OpenOCD's Configuration Stage can be found in their [official docs online](http://openocd.org/doc/html/Server-Configuration.html).
 
 

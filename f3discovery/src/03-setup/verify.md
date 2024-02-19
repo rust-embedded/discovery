@@ -79,22 +79,21 @@ Two *red* LEDs should turn on right after connecting the USB cable to the board.
 > somewhere else use the `-s /path/to/scripts/` option to specify your install directory.
 
 ``` console
-openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
+openocd -f interface/stlink.cfg -f target/stm32f3x.cfg
 ```
 
 or
 
 ``` console
-openocd -f interface/stlink.cfg -f target/stm32f3x.cfg
+openocd -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
 ```
-
 
 ### Windows
 
 Below the references to `C:\OpenOCD` is the directory where OpenOCD is installed.
 
 ``` console
-openocd -s C:\OpenOCD\share\scripts -f interface/stlink-v2-1.cfg -f target/stm32f3x.cfg
+openocd -s C:\OpenOCD\share\scripts -f interface/stlink.cfg -f target/stm32f3x.cfg
 ```
 
 > **NOTE** cygwin users have reported problems with the -s flag. If you run into
@@ -102,7 +101,7 @@ openocd -s C:\OpenOCD\share\scripts -f interface/stlink-v2-1.cfg -f target/stm32
 
 cygwin users:
 ``` console
-openocd -f C:\OpenOCD\share\scripts\interface\stlink-v2-1.cfg -f C:\OpenOCD\share\scripts\target\stm32f3x.cfg
+openocd -f C:\OpenOCD\share\scripts\interface\stlink.cfg -f C:\OpenOCD\share\scripts\target\stm32f3x.cfg
 ```
 
 ### All
