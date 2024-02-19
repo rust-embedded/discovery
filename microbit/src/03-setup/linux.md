@@ -60,12 +60,12 @@ These rules let you use USB devices like the micro:bit without root privilege, i
 Create this file in `/etc/udev/rules.d` with the content shown below.
 
 ``` console
-$ cat /etc/udev/rules.d/99-microbit.rules
+$ cat /etc/udev/rules.d/70-microbit.rules
 ```
 
 ``` text
 # CMSIS-DAP for microbit
-SUBSYSTEM=="usb", ATTR{idVendor}=="0d28", ATTR{idProduct}=="0204", MODE:="666"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0d28", ATTRS{idProduct}=="0204", MODE="0660", TAG+="uaccess"
 ```
 
 Then reload the udev rules with:
