@@ -34,3 +34,12 @@ translation listed here, please open a PR to add it.
   ([repository](https://github.com/jzow/discovery))
 * [Portuguese (Brazilian)](https://allyssan.github.io/discovery/)
   ([repository](https://github.com/allyssan/discovery))
+
+## Rust on Espressif discovery journey
+
+If you want to get started with Rust on Espressif devices:
+- Learn the basics: Read [The Rust on ESP Book](https://esp-rs.github.io/book/), which is a comprehensive guide that covers everything from setting up your development environment to using available tools.
+- Get hands-on experience:
+  - [Embedded Rust (`std`) on Espressif](https://esp-rs.github.io/std-training/)
+  - [Embedded Rust (`no_std`) on Espressif](https://esp-rs.github.io/no_std-training/)
+- Join the community: Have questions or need help? Join the [Matrix community channel](https://matrix.to/#/#esp-rs:matrix.org)!
