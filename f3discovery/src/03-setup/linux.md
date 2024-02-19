@@ -142,7 +142,7 @@ sudo vi /etc/udev/rules.d/99-openocd.rules
 With the contents:
 ``` text
 # STM32F3DISCOVERY - ST-LINK/V2.1
-ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE:="0666"
+ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE:="0664"
 ```
 #### For older devices with OPTIONAL USB <-> FT232 based Serial Module
 
@@ -153,7 +153,7 @@ sudo vi /etc/udev/rules.d/99-openocd.rules
 With the contents:
 ``` text
 # FT232 - USB <-> Serial Converter
-ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", MODE:="0666"
+ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", MODE:="0664"
 ```
 
 ### Reload the udev rules with:
