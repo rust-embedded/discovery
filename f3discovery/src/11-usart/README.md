@@ -18,6 +18,9 @@ If you have a newer revision of the board and are using the on-board USB <->
 Serial functionality then the `auxiliary` crate will set pin `PC4` as the TX
 line and pin `PC5` as the RX line.
 
+If you had previously connected the PC4 and PC4 pins in order to test the [loopback functionality](../10-serial-communication/loopbacks.md) in the previous section,
+make sure to remove that wire, or the upcoming serial communication will fail silently.
+
 Everything is already wired on the board so you don't need to wire anything yourself.
 You can move on to the [next section](send-a-single-byte.html).
 
