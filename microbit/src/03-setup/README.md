@@ -56,7 +56,7 @@ rustc 1.53.0 (53cb7b09b 2021-06-17)
 ### `cargo-binutils`
 
 ``` console
-$ rustup component add llvm-tools-preview
+$ rustup component add llvm-tools
 
 $ cargo install cargo-binutils --vers 0.3.3
 
