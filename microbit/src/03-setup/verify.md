@@ -18,20 +18,36 @@ $ # ^^^        ^^^
 ```
 
 In my case, the micro:bit got connected to the bus #1 and got enumerated as the device #65. This means the
-file `/dev/bus/usb/001/065` *is* the micro:bit. Let's check its permissions:
+file `/dev/bus/usb/001/065` *is* the micro:bit. Let's check the file permissions:
 
 ``` console
 $ ls -l /dev/bus/usb/001/065
-crw-rw-rw-. 1 root root 189, 64 Sep  5 14:27 /dev/bus/usb/001/065
+crw-rw-r--+ 1 nobody nobody 189, 64 Sep  5 14:27 /dev/bus/usb/001/065
 ```
 
-The permissions should be `crw-rw-rw-`. If it's not ... then check your [udev
+The permissions should be `crw-rw-r--+`, note the `+` at the end, then see your access rights by running the following command.
+
+``` console
+$ getfacl /dev/bus/usb/001/065
+getfacl: Removing leadin '/' from absolute path names
+# file: dev/bus/usb/001/065
+# owner: nobody
+# group: nobody
+user::rw-
+user:<YOUR-USER-NAME>:rw-
+group::rw-
+mask::rw-
+other::r-
+```
+
+You should see your username in the list above with the `rw-` permissions, if not ... then check your [udev
 rules] and try re-loading them with:
 
 [udev rules]: linux.md#udev-rules
 
 ``` console
-$ sudo udevadm control --reload-rules
+$ sudo udevadm control --reload
+$ sudo udevadm trigger
 ```
 
 # All
