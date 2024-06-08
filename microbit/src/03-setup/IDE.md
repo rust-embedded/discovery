@@ -13,7 +13,7 @@ Some IDEs fail to understand the code, because they fail to determine whether a 
 is defined in the microbit or microbit-v2 codebase. If you fail to get auto-completion to work,
 you may want to try to edit the `Cargo.toml` files you encounter through this book, and remove
 all references to the version of microbit you are not using. That is:
- in the `Cargo.toml` file you must remove the dependency and features you do not use (the part guarded by `#[cfg(feature = "vI")]` and the guard itself)
+ in the `Cargo.toml` file you must remove the dependency and features you do not use (the part guarded by `#[cfg(feature = "v1")]` and the guard itself)
 
 # IDE configuration
 
