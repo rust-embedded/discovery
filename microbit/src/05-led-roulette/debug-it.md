@@ -116,11 +116,15 @@ is initialized but `_y` is not. Let's inspect those stack/local variables using 
 $1 = 42
 (gdb) print &x
 $2 = (*mut i32) 0x20003fe8
-(gdb)
+(gdb) print &_y
+$3 = (*mut i32) 0x20003ff0
 ```
 
-As expected, `x` contains the value `42`. The command `print &x` prints the address of the variable `x`.
-The interesting bit here is that GDB output shows the type of the reference: `i32*`, a pointer to an `i32` value.
+As expected, `x` contains the value `42`. The command `print &x` and `print &_y` prints the address of the variable `x`
+and `_y`. The address of `_y` is already known even if the value variable is not initialized. 
+The interesting bit here is that GDB output shows the type of the reference: `i32*`, a pointer to an `i32` value. 
+You could also run `print _y`, and you'll get the last value saved at this place in memory. If you ran this program twice,
+it may well be `42`, thanks to the assignment of the last run.
 
 If we want to continue the program execution line by line we can do that using the `next` command
 so let's proceed to the `loop {}` statement:
