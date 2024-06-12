@@ -44,6 +44,47 @@ Furthermore, if you have never flashed another program on to your micro:bit, the
 program the micro:bit ships with should start blinking the red LEDs on its back, you
 can ignore them.
 
+Now let's see if probe-rs, and by extensions cargo-embed can see your micro:bit, you can do this by running the following command.
+
+``` console
+$ probe-rs list
+The following debug probes were found:
+[0]: BBC micro:bit CMSIS-DAP -- 0d28:0204:990636020005282030f57fa14252d446000000006e052820 (CMSIS-DAP)
+```
+
+Or if you want more information about the micro:bits debug capabilities then you can run:
+
+``` console
+$ probe-rs info
+Probing target via JTAG
+
+Error identifying target using protocol JTAG: The probe does not support the JTAG protocol.
+
+Probing target via SWD
+
+ARM Chip with debug port Default:
+Debug Port: DPv1, DP Designer: ARM Ltd
+├── 0 MemoryAP
+│   └── ROM Table (Class 1), Designer: Nordic VLSI ASA
+│       ├── Cortex-M4 SCS   (Generic IP component)
+│       │   └── CPUID
+│       │       ├── IMPLEMENTER: ARM Ltd
+│       │       ├── VARIANT: 0
+│       │       ├── PARTNO: Cortex-M4
+│       │       └── REVISION: 1
+│       ├── Cortex-M3 DWT   (Generic IP component)
+│       ├── Cortex-M3 FBP   (Generic IP component)
+│       ├── Cortex-M3 ITM   (Generic IP component)
+│       ├── Cortex-M4 TPIU  (Coresight Component)
+│       └── Cortex-M4 ETM   (Coresight Component)
+└── 1 Unknown AP (Designer: Nordic VLSI ASA, Class: Undefined, Type: 0x0, Variant: 0x0, Revision: 0x0)
+
+
+Debugging RISC-V targets over SWD is not supported. For these targets, JTAG is the only supported protocol. RISC-V specific information cannot be printed.
+Debugging Xtensa targets over SWD is not supported. For these targets, JTAG is the only supported protocol. Xtensa specific information cannot be printed.
+
+```
+
 Next up you will have to modify `Embed.toml` in the `src/03-setup` directory of the
 book's source code. In the `default.general` section you will find two commented out
 chip variants:
