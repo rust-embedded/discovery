@@ -15,6 +15,7 @@ optional = true
 [dependencies]
 cortex-m = { version = "0.7.7", features = ["critical-section-single-core"] }
 cortex-m-rt = "0.7.3"
+embedded-hal = "1.0.0"
 panic-halt = "0.2.0"
 # rtt-target = "0.5.0"
 # panic-rtt-target = "0.1.3"

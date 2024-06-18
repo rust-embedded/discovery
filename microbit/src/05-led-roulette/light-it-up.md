@@ -5,7 +5,7 @@ In this chapter we are going to make one of the many LEDs on the back of the mic
 basically the "Hello World" of embedded programming. In order to get this task done we will use one of the traits
 provided by `embedded-hal`, specifically the [`OutputPin`] trait which allows us to turn a pin on or off.
 
-[`OutputPin`]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/digital/v2/trait.OutputPin.html
+[`OutputPin`]: https://docs.rs/embedded-hal/1.0.0/embedded_hal/digital/trait.OutputPin.html
 
 ## The micro:bit LEDs
 
@@ -37,18 +37,16 @@ a look at it and then we can go through it step by step:
 #![no_std]
 
 use cortex_m_rt::entry;
+use embedded_hal::digital::OutputPin;
 use panic_halt as _;
-use microbit::{
-    board::Board,
-    hal::gpio::Level,
-};
+use microbit::board::Board,
 
 #[entry]
 fn main() -> ! {
-    let board = Board::take().unwrap();
+    let mut board = Board::take().unwrap();
 
-    board.display_pins.col1.into_push_pull_output(Level::Low);
-    board.display_pins.row1.into_push_pull_output(Level::High);
+    board.display_pins.col1.set_low().unwrap();
+    board.display_pins.row1.set_high().unwrap();
 
     loop {}
 }
@@ -59,7 +57,7 @@ However, the main function looks pretty different to what we have seen up to now
 
 The first line is related to how most HALs written in Rust work internally.
 As discussed before they are built on top of PAC crates which own (in the Rust sense)
-all the peripherals of a chip. `let board = Board::take().unwrap();` basically takes all
+all the peripherals of a chip. `let mut board = Board::take().unwrap();` basically takes all
 these peripherals from the PAC and binds them to a variable. In this specific case we are
 not only working with a HAL but with an entire BSP, so this also takes ownership
 of the Rust representation of the other chips on the board.
