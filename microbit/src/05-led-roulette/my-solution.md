@@ -21,7 +21,7 @@ $ cargo embed --features v1 --target thumbv6m-none-eabi --release
   (...)
 ```
 
-If you want to debug your "release" mode binary you'll have to use a different GDB command:
+If you want to debug your "release" mode binary you'll have to use a different GDB command to load the other binary:
 
 ``` console
 # For micro:bit v2
@@ -41,24 +41,25 @@ $ cargo size --features v2 --target thumbv7em-none-eabihf -- -A
 led-roulette  :
 section               size        addr
 .vector_table          256         0x0
-.text                26984       0x100
-.rodata               2732      0x6a68
+.text                33564       0x100
+.rodata               4824      0x6a68
 .data                    0  0x20000000
+.gnu.sgstubs             0      ox9700
 .bss                  1092  0x20000000
 .uninit                  0  0x20000444
-.debug_abbrev        33941         0x0
-.debug_info         494113         0x0
-.debug_aranges       23528         0x0
-.debug_ranges       130824         0x0
-.debug_str          498781         0x0
-.debug_pubnames     143351         0x0
-.debug_pubtypes     124464         0x0
+.debug_loc            5446         0x0
+.debug_abbrev        22709         0x0
+.debug_info         630006         0x0
+.debug_aranges       22488         0x0
+.debug_ranges       186616         0x0
+.debug_str          726748         0x0
+.comment                64         0x0
 .ARM.attributes         58         0x0
-.debug_frame         69128         0x0
-.debug_line         290580         0x0
-.debug_loc            1449         0x0
-.comment               109         0x0
-Total              1841390
+.debug_frame         71712         0x0
+.debug_line         320979         0x0
+.debug_pubnames        702         0x0
+.debug_pubtypes         71         0x0
+Total              2027335
 
 
 $ cargo size --features v2 --target thumbv7em-none-eabihf --release -- -A
@@ -66,24 +67,25 @@ $ cargo size --features v2 --target thumbv7em-none-eabihf --release -- -A
 led-roulette  :
 section              size        addr
 .vector_table         256         0x0
-.text                6332       0x100
-.rodata               648      0x19bc
+.text                6516       0x100
+.rodata               612      0x19bc
 .data                   0  0x20000000
+.gnu.sgstubs            0      0x1ce0
 .bss                 1076  0x20000000
 .uninit                 0  0x20000434
-.debug_loc           9036         0x0
-.debug_abbrev        2754         0x0
-.debug_info         96460         0x0
-.debug_aranges       1120         0x0
-.debug_ranges       11520         0x0
-.debug_str          71325         0x0
-.debug_pubnames     32316         0x0
-.debug_pubtypes     29294         0x0
+.debug_loc          10784         0x0
+.debug_abbrev        3159         0x0
+.debug_info         63612         0x0
+.debug_aranges       1040         0x0
+.debug_ranges       11576         0x0
+.debug_str          69813         0x0
+.comment               64         0x0
 .ARM.attributes        58         0x0
-.debug_frame         2108         0x0
-.debug_line         19303         0x0
-.comment              109         0x0
-Total              283715
+.debug_frame         2084         0x0
+.debug_line         18180         0x0
+.debug_pubnames       702         0x0
+.debug_pubtypes        71         0x0
+Total              189603
 
 # micro:bit v1
 $ cargo size --features v1 --target thumbv6m-none-eabi -- -A

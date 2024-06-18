@@ -21,8 +21,13 @@ fn main() -> ! {
     rtt_init_print!();
 
     let board = Board::take().unwrap();
+
     let mut timer = Timer::new(board.TIMER0);
     let mut display = Display::new(board.display_pins);
+
+    // Setup the display delay so the math works as expected later.
+    display.set_delay_ms(1);
+
     let mut leds = [
         [0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0],
@@ -37,7 +42,9 @@ fn main() -> ! {
         for current_led in PIXELS.iter() {
             leds[last_led.0][last_led.1] = 0;
             leds[current_led.0][current_led.1] = 1;
+
             display.show(&mut timer, leds, 30);
+
             last_led = *current_led;
         }
     }
