@@ -38,15 +38,17 @@ a look at it and then we can go through it step by step:
 
 use cortex_m_rt::entry;
 use panic_halt as _;
-use microbit::board::Board;
-use microbit::hal::prelude::*;
+use microbit::{
+    board::Board,
+    hal::gpio::Level,
+};
 
 #[entry]
 fn main() -> ! {
-    let mut board = Board::take().unwrap();
+    let board = Board::take().unwrap();
 
-    board.display_pins.col1.set_low().unwrap();
-    board.display_pins.row1.set_high().unwrap();
+    board.display_pins.col1.into_push_pull_output(Level::Low);
+    board.display_pins.row1.into_push_pull_output(Level::High);
 
     loop {}
 }
@@ -57,7 +59,7 @@ However, the main function looks pretty different to what we have seen up to now
 
 The first line is related to how most HALs written in Rust work internally.
 As discussed before they are built on top of PAC crates which own (in the Rust sense)
-all the peripherals of a chip. `let mut board = Board::take().unwrap();` basically takes all
+all the peripherals of a chip. `let board = Board::take().unwrap();` basically takes all
 these peripherals from the PAC and binds them to a variable. In this specific case we are
 not only working with a HAL but with an entire BSP, so this also takes ownership
 of the Rust representation of the other chips on the board.
@@ -82,8 +84,8 @@ to the GDB stub:
 $ # Your GDB debug command from the last section
 (gdb) target remote :1337
 Remote debugging using :1337
-cortex_m_rt::Reset () at /home/nix/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-rt-0.6.12/src/lib.rs:489
-489     pub unsafe extern "C" fn Reset() -> ! {
+(...)
+0x00000100 in microbit_common::display::nonblocking::control::{impl#0}::initialise_for_display (self=0xaf0a8041)
 (gdb)
 ```
 
