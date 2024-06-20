@@ -5,11 +5,11 @@ authors = ["Henrik Böving <hargonix@gmail.com>"]
 edition = "2021"
 
 [dependencies.microbit-v2]
-version = "0.14.0"
+version = "0.15.0"
 optional = true
 
 [dependencies.microbit]
-version = "0.14.0"
+version = "0.15.0"
 optional = true
 
 [dependencies]
