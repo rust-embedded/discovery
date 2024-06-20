@@ -32,24 +32,7 @@ The code required to light up an LED in the matrix is actually quite simple but 
 a look at it and then we can go through it step by step:
 
 ```rust
-#![deny(unsafe_code)]
-#![no_main]
-#![no_std]
-
-use cortex_m_rt::entry;
-use embedded_hal::digital::OutputPin;
-use panic_halt as _;
-use microbit::board::Board,
-
-#[entry]
-fn main() -> ! {
-    let mut board = Board::take().unwrap();
-
-    board.display_pins.col1.set_low().unwrap();
-    board.display_pins.row1.set_high().unwrap();
-
-    loop {}
-}
+{{#include examples/light-it-up.rs}}
 ```
 
 The first few lines until the main function just do some basic imports and setup we already looked at before.
