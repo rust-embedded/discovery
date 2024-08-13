@@ -74,7 +74,7 @@ $ cargo install probe-rs-tools --vers '^0.24'
 
 **NOTE** This may fail due to frequent changes in `probe-rs`. If so, go to <https://probe.rs> and follow the current installation instructions there.
 
-Finally, verify that you have successfully installed `cargo-embed`.
+Finally, verify that you have successfully installed `cargo-embed` by running:
 
 ```console
 $ cargo embed --version
