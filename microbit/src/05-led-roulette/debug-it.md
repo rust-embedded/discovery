@@ -109,14 +109,13 @@ At any point you can leave the TUI mode using the following command:
 ```
 
 We are now "on" the `_y = x` statement; that statement hasn't been executed yet. This means that `x`
-is initialized but `_y` is not. Let's inspect those stack/local variables using the `print` command:
+is initialized. Let's inspect the stack/local variable `x` using the `print` command:
 
 ```
 (gdb) print x
 $1 = 42
 (gdb) print &x
 $2 = (*mut i32) 0x20003fe8
-(gdb)
 ```
 
 As expected, `x` contains the value `42`. The command `print &x` prints the address of the variable `x`.
