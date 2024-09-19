@@ -69,8 +69,14 @@ cargo-size 0.3.3
 In order to install cargo-embed, first install its [prerequisites](https://probe.rs/docs/getting-started/installation/) (note: these instructions are part of the more general [`probe-rs`](https://probe.rs/) embedded debugging toolkit). Then install it with cargo:
 
 ```console
-$ cargo install probe-rs-tools --vers 0.24.0
+$ cargo install --locked probe-rs-tools --vers '^0.24'
+```
 
+**NOTE** This may fail due to frequent changes in `probe-rs`. If so, go to <https://probe.rs> and follow the current installation instructions there.
+
+Finally, verify that you have successfully installed `cargo-embed` by running:
+
+```console
 $ cargo embed --version
 cargo-embed 0.24.0 (git commit: crates.io)
 ```
