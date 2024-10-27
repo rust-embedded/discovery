@@ -37,6 +37,7 @@ fn main() -> ! {
 
     #[cfg(feature = "v1")]
     let mut serial = {
+        // Set up UART for microbit v1
         let serial = uart::Uart::new(
             board.UART0,
             board.uart.into(),
@@ -48,6 +49,7 @@ fn main() -> ! {
 
     #[cfg(feature = "v2")]
     let mut serial = {
+        // Set up UARTE for microbit v2 using UartePort wrapper
         let serial = uarte::Uarte::new(
             board.UARTE0,
             board.uart.into(),
@@ -57,12 +59,15 @@ fn main() -> ! {
         UartePort::new(serial)
     };
 
-    // Write a byte and flush for `v1`
+    // Write a byte and flush
     #[cfg(feature = "v1")]
-    nb::block!(serial.write(&[b'X'])).unwrap();
+    serial.write(&[b'X']).unwrap(); // Adjusted for UART on v1, no need for nb::block!
 
     #[cfg(feature = "v2")]
-    nb::block!(serial.flush()).unwrap();
+    {
+        nb::block!(serial.write(b'X')).unwrap();
+        nb::block!(serial.flush()).unwrap();
+    }
 
     loop {}
 }
