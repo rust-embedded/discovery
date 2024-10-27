@@ -57,8 +57,11 @@ fn main() -> ! {
         UartePort::new(serial)
     };
 
-    // Writing bytes (make sure to use write_all if needed)
-    nb::block!(serial.write(b'X')).unwrap();
+    // Write a byte and flush for `v1`
+    #[cfg(feature = "v1")]
+    nb::block!(serial.write(&[b'X'])).unwrap();
+
+    #[cfg(feature = "v2")]
     nb::block!(serial.flush()).unwrap();
 
     loop {}
