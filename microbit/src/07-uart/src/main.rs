@@ -21,6 +21,7 @@ use microbit::{
 
 #[cfg(feature = "v2")]
 use embedded_hal_nb::serial::Write;
+
 #[cfg(feature = "v2")]
 mod serial_setup;
 #[cfg(feature = "v2")]
@@ -33,17 +34,19 @@ fn main() -> ! {
 
     #[cfg(feature = "v1")]
     let mut serial = {
-        let serial = uarte::Uarte::new(
-            board.UARTE0,
+        // For `v1`, use `uart` and `UART0`.
+        let serial = uart::Uart::new(
+            board.UART0,
             board.uart.into(),
             Parity::EXCLUDED,
             Baudrate::BAUD115200,
         );
-        UartePort::new(serial)
+        serial
     };
 
     #[cfg(feature = "v2")]
     let mut serial = {
+        // For `v2`, use `uarte` and `UARTE0`, as well as `UartePort`.
         let serial = uarte::Uarte::new(
             board.UARTE0,
             board.uart.into(),
@@ -53,6 +56,7 @@ fn main() -> ! {
         UartePort::new(serial)
     };
 
+    // Writing bytes
     nb::block!(serial.write(b'X')).unwrap();
     nb::block!(serial.flush()).unwrap();
 
