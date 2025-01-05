@@ -7,7 +7,7 @@ should see a new TTY device appear in `/dev`.
 
 ``` console
 $ # Linux
-$ dmesg | tail | grep -i tty
+$ dmesg | grep -i tty
 [63712.446286] cdc_acm 1-1.7:1.1: ttyACM0: USB ACM device
 ```
 
