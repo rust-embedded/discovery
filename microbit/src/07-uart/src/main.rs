@@ -2,8 +2,8 @@
 #![no_std]
 
 use cortex_m_rt::entry;
-use rtt_target::rtt_init_print;
 use panic_rtt_target as _;
+use rtt_target::rtt_init_print;
 
 #[cfg(feature = "v1")]
 use microbit::{
@@ -19,6 +19,12 @@ use microbit::{
     hal::uarte::{Baudrate, Parity},
 };
 
+#[cfg(feature = "v1")]
+use embedded_io::Write;
+
+#[cfg(feature = "v2")]
+use embedded_hal_nb::serial::Write;
+
 #[cfg(feature = "v2")]
 mod serial_setup;
 #[cfg(feature = "v2")]
@@ -31,16 +37,19 @@ fn main() -> ! {
 
     #[cfg(feature = "v1")]
     let mut serial = {
-        uart::Uart::new(
+        // Set up UART for microbit v1
+        let serial = uart::Uart::new(
             board.UART0,
             board.uart.into(),
             Parity::EXCLUDED,
             Baudrate::BAUD115200,
-        )
+        );
+        serial
     };
 
     #[cfg(feature = "v2")]
     let mut serial = {
+        // Set up UARTE for microbit v2 using UartePort wrapper
         let serial = uarte::Uarte::new(
             board.UARTE0,
             board.uart.into(),
@@ -50,8 +59,15 @@ fn main() -> ! {
         UartePort::new(serial)
     };
 
-    nb::block!(serial.write(b'X')).unwrap();
-    nb::block!(serial.flush()).unwrap();
+    // Write a byte and flush
+    #[cfg(feature = "v1")]
+    serial.write(&[b'X']).unwrap(); // Adjusted for UART on v1, no need for nb::block!
+
+    #[cfg(feature = "v2")]
+    {
+        nb::block!(serial.write(b'X')).unwrap();
+        nb::block!(serial.flush()).unwrap();
+    }
 
     loop {}
 }
