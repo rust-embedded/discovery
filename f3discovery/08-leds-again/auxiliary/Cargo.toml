@@ -1,0 +1,14 @@
+[package]
+authors = ["Jorge Aparicio <jorge@japaric.io>"]
+edition = "2018"
+name = "aux8"
+version = "0.1.0"
+
+[dependencies]
+cortex-m = "0.6.3"
+cortex-m-rt = "0.6.3"
+panic-itm = "0.4.0"
+
+[dependencies.f3]
+features = ["rt"]
+version = "0.6.1"

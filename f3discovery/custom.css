@@ -1,0 +1,6 @@
+/* Add this style to the image if it's unreadable
+when the dark theme is applied */
+img.white_bg {
+	background-color: white;
+	padding: 1em;
+}
