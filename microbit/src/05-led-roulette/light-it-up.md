@@ -5,7 +5,7 @@ In this chapter we are going to make one of the many LEDs on the back of the mic
 basically the "Hello World" of embedded programming. In order to get this task done we will use one of the traits
 provided by `embedded-hal`, specifically the [`OutputPin`] trait which allows us to turn a pin on or off.
 
-[`OutputPin`]: https://docs.rs/embedded-hal/0.2.6/embedded_hal/digital/v2/trait.OutputPin.html
+[`OutputPin`]: https://docs.rs/embedded-hal/1.0.0/embedded_hal/digital/trait.OutputPin.html
 
 ## The micro:bit LEDs
 
@@ -32,24 +32,7 @@ The code required to light up an LED in the matrix is actually quite simple but 
 a look at it and then we can go through it step by step:
 
 ```rust
-#![deny(unsafe_code)]
-#![no_main]
-#![no_std]
-
-use cortex_m_rt::entry;
-use panic_halt as _;
-use microbit::board::Board;
-use microbit::hal::prelude::*;
-
-#[entry]
-fn main() -> ! {
-    let mut board = Board::take().unwrap();
-
-    board.display_pins.col1.set_low().unwrap();
-    board.display_pins.row1.set_high().unwrap();
-
-    loop {}
-}
+{{#include examples/light-it-up.rs}}
 ```
 
 The first few lines until the main function just do some basic imports and setup we already looked at before.
@@ -82,8 +65,8 @@ to the GDB stub:
 $ # Your GDB debug command from the last section
 (gdb) target remote :1337
 Remote debugging using :1337
-cortex_m_rt::Reset () at /home/nix/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-rt-0.6.12/src/lib.rs:489
-489     pub unsafe extern "C" fn Reset() -> ! {
+(...)
+0x00000100 in microbit_common::display::nonblocking::control::{impl#0}::initialise_for_display (self=0xaf0a8041)
 (gdb)
 ```
 
