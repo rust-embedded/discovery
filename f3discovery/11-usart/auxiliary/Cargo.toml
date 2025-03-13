@@ -1,0 +1,14 @@
+[package]
+authors = ["Jorge Aparicio <jorge@japaric.io>"]
+edition = "2018"
+name = "aux11"
+version = "0.1.0"
+
+[dependencies]
+cortex-m = "0.7.2"
+cortex-m-rt = "0.6.14"
+panic-itm = "0.4.2"
+stm32f3-discovery = "0.7.0"
+
+[features]
+adapter = []
