@@ -2,10 +2,10 @@
 name = "rtt-check"
 version = "0.1.0"
 authors = ["Henrik Böving <hargonix@gmail.com>"]
-edition = "2018"
+edition = "2021"
 
 [dependencies]
-cortex-m = "0.7.3"
-cortex-m-rt = "0.7.0"
-rtt-target = { version =  "0.3.1", features = ["cortex-m"] }
-panic-rtt-target = { version =  "0.1.2", features = ["cortex-m"] }
+cortex-m = { version = "0.7.7", features = ["critical-section-single-core"] }
+cortex-m-rt = "0.7.3"
+rtt-target = "0.5.0"
+panic-rtt-target = "0.1.3"
