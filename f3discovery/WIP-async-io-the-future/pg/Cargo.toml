@@ -1,0 +1,14 @@
+[package]
+authors = ["Jorge Aparicio <jorge@japaric.io>"]
+edition = "2018"
+name = "pg"
+version = "0.1.0"
+
+[dependencies.f3]
+default-features = false
+features = [
+    "default-exception-handler",
+    "default-panic-fmt",
+    "static-ram",
+]
+version = "0.3.0"
