@@ -1,0 +1,15 @@
+[package]
+authors = ["Jorge Aparicio <jorge@japaric.io>"]
+edition = "2018"
+name = "aux9"
+version = "0.1.0"
+
+[dependencies]
+cortex-m = "0.6.3"
+cortex-m-rt = "0.6.3"
+panic-itm = "0.4.0"
+stm32f3-discovery = "0.6.0"
+
+[dependencies.stm32f3]
+version = "0.12.1"
+features = ["stm32f303", "rt"]
