@@ -88,9 +88,9 @@ pub enum GameStatus {
 /// The outcome of a single move/step.
 enum StepOutcome {
     /// Grid full (player wins)
-    Full(Coords),
+    Full,
     /// Snake has collided with itself (player loses)
-    Collision(Coords),
+    Collision,
     /// Snake has eaten some food
     Eat(Coords),
     /// Snake has moved (and nothing else has happened)
@@ -248,13 +248,13 @@ impl Game {
             // won't actually be any collision (as the tail will have moved by the time the head
             // moves onto the tile)
             if next_move != *self.snake.tail.peek().unwrap() {
-                StepOutcome::Collision(next_move)
+                StepOutcome::Collision
             } else {
                 StepOutcome::Move(next_move)
             }
         } else if next_move == self.food_coords {
             if self.snake.tail.len() == 23 {
-                StepOutcome::Full(next_move)
+                StepOutcome::Full
             } else {
                 StepOutcome::Eat(next_move)
             }
@@ -266,8 +266,8 @@ impl Game {
     /// Handle the outcome of a step, updating the game's internal state.
     fn handle_step_outcome(&mut self, outcome: StepOutcome) {
         self.status = match outcome {
-            StepOutcome::Collision(_) => GameStatus::Lost,
-            StepOutcome::Full(_) => GameStatus::Won,
+            StepOutcome::Collision => GameStatus::Lost,
+            StepOutcome::Full => GameStatus::Won,
             StepOutcome::Eat(c) => {
                 self.snake.move_snake(c, true);
                 self.place_food();
