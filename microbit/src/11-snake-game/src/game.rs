@@ -181,8 +181,6 @@ impl Game {
 
     pub(crate) fn new(rng_seed: u32) -> Self {
         let mut rng = Prng::new(rng_seed);
-        let mut tail: FnvIndexSet<Coords, 32> = FnvIndexSet::new();
-        tail.insert(Coords { row: 2, col: 1 }).unwrap();
         let snake = Snake::new();
         let food_coords = Coords::random(&mut rng, Some(&snake.coord_set));
         Self {
