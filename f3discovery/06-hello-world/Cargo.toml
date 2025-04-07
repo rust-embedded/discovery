@@ -1,0 +1,11 @@
+[package]
+authors = [
+    "Jorge Aparicio <jorge@japaric.io>",
+    "Wink Saville <wink@saville.com",
+]
+edition = "2018"
+name = "hello-world"
+version = "0.2.0"
+
+[dependencies]
+aux6 = { path = "auxiliary" }
