@@ -22,7 +22,7 @@ use crate::game::{Game, GameStatus};
 #[entry]
 fn main() -> ! {
     rtt_init_print!();
-    let mut board = Board::take().unwrap();
+    let board = Board::take().unwrap();
     let mut timer = Timer::new(board.TIMER0).into_periodic();
     let mut rng = Rng::new(board.RNG);
     let mut game = Game::new(rng.random_u32());
