@@ -1,0 +1,28 @@
+[package]
+name = "uart"
+version = "0.1.0"
+authors = ["Henrik Böving <hargonix@gmail.com>"]
+edition = "2018"
+
+[dependencies.microbit-v2]
+version = "0.15.1"
+optional = true
+
+[dependencies.microbit]
+version = "0.15.1"
+optional = true
+
+[dependencies]
+cortex-m = { version = "0.7.7", features = ["critical-section-single-core"] }
+cortex-m-rt = "0.7.0"
+rtt-target = "0.5.0"
+panic-rtt-target = { version = "0.1.2", features = ["cortex-m"] }
+nb = "1.0.0"
+heapless = "0.8.0"
+embedded-hal = "1.0.0"
+embedded-hal-nb = "1.0.0"
+embedded-io = "0.6.1"
+
+[features]
+v2 = ["microbit-v2"]
+v1 = ["microbit"]

@@ -1,0 +1,9 @@
+[package]
+authors = ["Jorge Aparicio <jorge@japaric.io>"]
+edition = "2018"
+name = "clocks-and-timers"
+version = "0.1.0"
+
+[dependencies]
+aux9 = { path = "auxiliary" }
+cortex-m-rt = "0.6.3"

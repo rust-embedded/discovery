@@ -1,0 +1,15 @@
+# default runner starts a GDB sesssion, which requires OpenOCD to be
+# running, e.g.,
+## openocd -f interface/stlink.cfg -f target/stm32f3x.cfg
+# depending on your local GDB, pick one of the following
+[target.thumbv7em-none-eabihf]
+runner = "arm-none-eabi-gdb -q -x ../openocd.gdb"
+# runner = "gdb-multiarch -q -x ../openocd.gdb"
+# runner = "gdb -q -x ../openocd.gdb"
+rustflags = [
+  "-C", "link-arg=-Tlink.x",
+]
+
+[build]
+target = "thumbv7em-none-eabihf"
+

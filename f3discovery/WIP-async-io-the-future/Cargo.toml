@@ -1,0 +1,16 @@
+[package]
+authors = ["Jorge Aparicio <jorge@japaric.io>"]
+edition = "2018"
+name = "async"
+version = "0.1.0"
+
+[dependencies]
+fixedvec = "0.2.3"
+pg = { path = "pg" }
+
+[profile.dev]
+codegen-units = 1
+
+[profile.release]
+debug = true
+lto = true
