@@ -10,7 +10,7 @@ on:
 jobs:
   # Check build succeeds for each f3discovery chapter containing example code.
   build-f3discovery-chapter:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         chapter:
@@ -39,7 +39,7 @@ jobs:
 
   # Check build succeeds for f3discovery docs.
   build-f3discovery-doc:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions-rs/toolchain@v1
@@ -53,7 +53,7 @@ jobs:
 
   # Check a build succeeds for each microbit chapter that contains example code.
   build-microbit-chapter:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         chapter:
@@ -79,7 +79,7 @@ jobs:
 
   # Check build succeeds for microbit docs.
   build-microbit-doc:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions-rs/toolchain@v1
@@ -97,7 +97,7 @@ jobs:
 
   # Build the book HTML itself and optionally publish it.
   build-book:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions-rs/toolchain@v1
