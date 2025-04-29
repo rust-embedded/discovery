@@ -22,6 +22,7 @@
 - [Serial communication](06-serial-communication/README.md)
     - [\*nix tooling](06-serial-communication/nix-tooling.md)
     - [Windows tooling](06-serial-communication/windows-tooling.md)
+    - [Minicom on macOS](06-serial-communication/minicom-on-macos.md)
 - [UART](07-uart/README.md)
     - [Send a single byte](07-uart/send-a-single-byte.md)
     - [Send a string](07-uart/send-a-string.md)

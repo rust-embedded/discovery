@@ -91,3 +91,5 @@ Mac, the shortcuts start with the `Meta` key. Some useful commands below:
 - `Ctrl+A` + `Q`. Quit with no reset
 
 > **NOTE** Mac users: In the above commands, replace `Ctrl+A` with `Meta`.
+
+[Can't find the Meta key?](minicom-on-macos.md)
