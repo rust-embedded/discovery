@@ -216,3 +216,40 @@ $ rustup update nightly
 
 $ rustup target add thumbv7em-none-eabihf
 ```
+
+## Kernel problems
+
+### lsusb don't show STM32F after STM32F got stuck, even reconnect
+
+#### Symptoms
+
+Sometime you might make STM32 freeze, and it lost connect even if you reconnect the USB
+
+and got something like these in `dmesg`:
+
+```
+[  700.256746] xhci_hcd 0000:06:00.4: xHCI host not responding to stop endpoint command
+[  700.260711] xhci_hcd 0000:06:00.4: xHCI host controller not responding, assume dead
+[  700.260711] xhci_hcd 0000:06:00.4: HC died; cleaning up
+```
+
+#### Cause
+
+STM32 got freezed, kernel can not get the response from it, so remove it.
+Reconnect USB port won't make kernet to try connect it again.
+
+#### Fix
+
+Linux:
+
+- Get the ID from `dmesg`, the id is "0000:06:00.4" for below example:
+
+```
+[  700.256746] xhci_hcd 0000:06:00.4: xHCI host not responding to stop endpoint command
+[  700.260711] xhci_hcd 0000:06:00.4: xHCI host controller not responding, assume dead
+[  700.260711] xhci_hcd 0000:06:00.4: HC died; cleaning up
+```
+
+- go to `/sys/bus/pci/drivers/xhci_hcd/`
+- unbind it with ID, `echo -n "0000:06:00.4" > unbind`
+- rebind it, `echo -n "0000:06:00.4" > bind`
