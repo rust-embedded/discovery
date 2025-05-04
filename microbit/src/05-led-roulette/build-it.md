@@ -42,20 +42,20 @@ With the `rust-std` component in place you can now cross compile the program usi
 # For micro:bit v2
 $ cargo build --features v2 --target thumbv7em-none-eabihf
    Compiling semver-parser v0.7.0
-   Compiling typenum v1.12.0
    Compiling cortex-m v0.6.3
+   Compiling proc-macro2 v1.0.85
    (...)
-   Compiling microbit-v2 v0.10.1
-    Finished dev [unoptimized + debuginfo] target(s) in 33.67s
+   Compiling microbit-v2 v0.14.0
+    Finished dev [unoptimized + debuginfo] target(s) in 4.33s
 
 # For micro:bit v1
 $ cargo build --features v1 --target thumbv6m-none-eabi
-   Compiling fixed v1.2.0
-   Compiling syn v1.0.39
-   Compiling cortex-m v0.6.3
+   Compiling semver-parser v0.7.0
+   Compiling proc-macro2 v1.0.85
+   Compiling cortex-m v0.7.7
    (...)
-   Compiling microbit v0.10.1
-	Finished dev [unoptimized + debuginfo] target(s) in 22.73s
+   Compiling microbit v0.14.0
+	Finished dev [unoptimized + debuginfo] target(s) in 2.79s
 ```
 
 > **NOTE** Be sure to compile this crate *without* optimizations. The provided Cargo.toml
@@ -80,16 +80,16 @@ ELF Header:
   Type:                              EXEC (Executable file)
   Machine:                           ARM
   Version:                           0x1
-  Entry point address:               0x117
+  Entry point address:               0x101
   Start of program headers:          52 (bytes into file)
-  Start of section headers:          793112 (bytes into file)
+  Start of section headers:          777140 (bytes into file)
   Flags:                             0x5000400
   Size of this header:               52 (bytes)
   Size of program headers:           32 (bytes)
   Number of program headers:         4
   Size of section headers:           40 (bytes)
-  Number of section headers:         21
-  Section header string table index: 19
+  Number of section headers:         23
+  Section header string table index: 21
 
 # For micro:bit v1
 # equivalent to `readelf -h target/thumbv6m-none-eabi/debug/led-roulette`
@@ -105,16 +105,16 @@ ELF Header:
   Type:                              EXEC (Executable file)
   Machine:                           ARM
   Version:                           0x1
-  Entry point address:               0xC1
+  Entry point address:               0xA9
   Start of program headers:          52 (bytes into file)
-  Start of section headers:          693196 (bytes into file)
+  Start of section headers:          776152 (bytes into file)
   Flags:                             0x5000200
   Size of this header:               52 (bytes)
   Size of program headers:           32 (bytes)
   Number of program headers:         4
   Size of section headers:           40 (bytes)
-  Number of section headers:         22
-  Section header string table index: 20
+  Number of section headers:         23
+  Section header string table index: 21
 ```
 
 Next, we'll flash the program into our microcontroller.
