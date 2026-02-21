@@ -45,22 +45,23 @@ $ gdb target/thumbv6m-none-eabi/debug/led-roulette
 > as long as it does not crash, you are fine.
 
 Next we will have to connect to the GDB stub. It runs on `localhost:1337` per default so in order to
-connect to it run the following:
+connect to it run the following on the gdb commandline (`(gdb)`):
 
 ```shell
 (gdb) target remote :1337
 Remote debugging using :1337
-0x00000116 in nrf52833_pac::{{impl}}::fmt (self=0xd472e165, f=0x3c195ff7) at /home/nix/.cargo/registry/src/github.com-1ecc6299db9ec823/nrf52833-pac-0.9.0/src/lib.rs:157
-157     #[derive(Copy, Clone, Debug)]
+(...)
+0x00000100 in cortex_m::delay::Delay::delay_us (self=0xedbeff37, us=439704628) at src/delay.rs:56
+56                  self.syst.set_reload(ticks - 1);
 ```
 
 Next what we want to do is get to the main function of our program.
-We will do this by first setting a breakpoint there and the continuing
+We will do this by first setting a breakpoint there and then continuing
 program execution until we hit the breakpoint:
 
 ```
 (gdb) break main
-Breakpoint 1 at 0x104: file src/05-led-roulette/src/main.rs, line 9.
+Breakpoint 1 at 0x15c: file src/05-led-roulette/src/main.rs, line 9.
 Note: automatically using hardware breakpoints for read-only addresses.
 (gdb) continue
 Continuing.
