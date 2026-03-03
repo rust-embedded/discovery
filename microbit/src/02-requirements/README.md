@@ -52,7 +52,7 @@ whether a high level crate already exists, like the [`nrf52-hal`], for your deve
 somewhere. You can look through the [Awesome Embedded Rust HAL list] for your microcontroller,
 if you intend to use a different one.
 
-[`nrf52-hal`]: https://docs.rs/nrf52-hal
+[`nrf52-hal`]: https://github.com/nrf-rs/nrf-hal
 [Awesome Embedded Rust HAL list]: https://github.com/rust-embedded/awesome-embedded-rust#hal-implementation-crates
 
 With a different development board, this text would lose most if not all its beginner friendliness
