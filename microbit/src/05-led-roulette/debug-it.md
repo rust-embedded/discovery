@@ -55,7 +55,7 @@ Remote debugging using :1337
 ```
 
 Next what we want to do is get to the main function of our program.
-We will do this by first setting a breakpoint there and the continuing
+We will do this by first setting a breakpoint there and then continuing
 program execution until we hit the breakpoint:
 
 ```
