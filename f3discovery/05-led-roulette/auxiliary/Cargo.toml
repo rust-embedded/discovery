@@ -1,0 +1,15 @@
+[package]
+authors = [
+    "Jorge Aparicio <jorge@japaric.io>",
+    "Christopher J. McClellan <chris.mcclellan203@gmail.com>",
+    "Wink Saville <wink@saville.com",
+]
+edition = "2018"
+name = "aux5"
+version = "0.2.0"
+
+[dependencies]
+cortex-m = "0.7.2"
+cortex-m-rt = "0.6.14"
+stm32f3-discovery = "0.7.0"
+panic-itm = "0.4.2"

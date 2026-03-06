@@ -1,0 +1,14 @@
+[package]
+authors = ["Jorge Aparicio <jorge@japaric.io>"]
+edition = "2018"
+name = "usart"
+version = "0.1.0"
+
+[dependencies.aux11]
+path = "auxiliary"
+# enable this if you are going to use an external serial adapter
+# features = ["adapter"]
+
+[dependencies.heapless]
+default-features = false
+version = "0.7.1"
