@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+title: The Embedded Rust Discovery Book
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: >-
+      Rust on Embedded Devices Working Group and
+      contributors
+repository-code: 'https://github.com/rust-embedded/discovery'
+url: 'https://docs.rust-embedded.org/discovery'
+abstract: Discover the world of microcontrollers through Rust!
+keywords:
+  - book
+  - embedded
+  - rust
+  - microcontrollers
+license: CC-BY-4.0 / MIT / Apache 2.0
