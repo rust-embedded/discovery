@@ -2,7 +2,7 @@
 
 <a href="https://en.wikipedia.org/wiki/File:Serial_port.jpg">
 <p align="center">
-<img height="240" title="Standard serial port connector DE-9" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Serial_port.jpg/800px-Serial_port.jpg">
+<img height="240" title="Standard serial port connector DE-9" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Serial_port.jpg/960px-Serial_port.jpg">
 </p>
 </a>
 
