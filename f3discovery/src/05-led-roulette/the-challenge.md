@@ -6,7 +6,7 @@ you at the beginning of this chapter.
 Here's the GIF again:
 
 <p align="center">
-<img src="https://i.imgur.com/0k1r2Lc.gif">
+<img src="../assets/f3-led-roulette.gif">
 </p>
 
 Also, this may help:

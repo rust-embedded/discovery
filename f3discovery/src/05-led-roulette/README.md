@@ -3,7 +3,7 @@
 Alright, let's start by building the following application:
 
 <p align="center">
-<img src="https://i.imgur.com/0k1r2Lc.gif">
+<img src="../assets/f3-led-roulette.gif">
 </p>
 
 I'm going to give you a high level API to implement this app but don't worry we'll do low level
