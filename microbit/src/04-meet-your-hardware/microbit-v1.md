@@ -24,7 +24,7 @@ dedicated to explaining the weird chip naming. Here we learn that:
 [QFN48]: https://en.wikipedia.org/wiki/Flat_no-leads_package
 [Nordic Semiconductor]: https://www.nordicsemi.com/
 [product page]: https://www.nordicsemi.com/products/nrf51822
-[product specification]: https://infocenter.nordicsemi.com/pdf/nRF51822_PS_v3.3.pdf
+[product specification]: https://docs.nordicsemi.com/bundle/nRF51822_PS/resource/nRF51822_PS_v3.3.pdf
 
 - The `N51` is the MCU's series, indicating that there are other `nRF51` MCUs
 - The `822` is the part code
