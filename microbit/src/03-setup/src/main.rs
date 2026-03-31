@@ -4,6 +4,7 @@
 use panic_rtt_target as _;
 use rtt_target::{rtt_init_print, rprintln};
 
+use cortex_m as _;
 use cortex_m_rt::entry;
 
 #[entry]
